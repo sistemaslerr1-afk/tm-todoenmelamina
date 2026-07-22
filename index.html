@@ -19,7 +19,7 @@
 
     <header class="header">
         <div class="logo-container">
-            <img src="LOGO.png" alt="TM Todo en Melamina" class="brand-logo">
+            <img src="LOGO TM.jpeg" alt="TM Todo en Melamina" class="brand-logo">
             <div class="brand-text">
                 <span class="logo-text">TM</span>
                 <span class="sub-text">TODO EN MELAMINA</span>
@@ -47,11 +47,14 @@
             <p class="description">Creamos mobiliario de autor en melamina de alta gama. Funcionalidad, lujo y precisión milimétrica para tu hogar en Querétaro.</p>
             <div class="hero-buttons">
                 <a href="https://wa.me/524423979275?text=Hola,%20quiero%20informaci%C3%B3n%20para%20un%20proyecto." target="_blank" class="cta-button">
-                    Hablar con un Asesor
+                    Cotizar Proyecto
                 </a>
                 <button onclick="openCatalog()" class="cta-button-outline">
-                    Ver Diseños de Melamina
+                    Ver Melaminas
                 </button>
+                <a href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button-photos">
+                    📸 Trabajos Realizados
+                </a>
             </div>
         </div>
     </section>
@@ -136,6 +139,9 @@
                 <div class="gallery-overlay"><span>Ver Detalles</span></div>
             </div>
         </div>
+        <div class="gallery-footer">
+            <a href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button">Ver Álbum Completo de Proyectos en Google Photos</a>
+        </div>
     </section>
 
     <section class="cta-banner">
@@ -174,7 +180,6 @@
             floatWin.style.display = 'block';
             floatBody.style.display = 'block';
             
-            // Posicionar abajo a la derecha en PC, centrado abajo en móvil
             if(window.innerWidth > 768) {
                 floatWin.style.top = (window.innerHeight - floatWin.offsetHeight - 40) + 'px';
                 floatWin.style.left = (window.innerWidth - floatWin.offsetWidth - 40) + 'px';
@@ -233,6 +238,22 @@
         }, {passive: true});
 
         document.addEventListener('touchend', () => { isDragging = false; });
+
+        // CÓDIGO NUEVO: Cerrar catálogo al hacer clic o tocar fuera de él
+        document.addEventListener('mousedown', function(event) {
+            if (floatWin.style.display === 'block' && !floatWin.contains(event.target)) {
+                if (!event.target.classList.contains('btn-catalogo-nav') && !event.target.classList.contains('cta-button-outline')) {
+                    closeCatalog();
+                }
+            }
+        });
+        document.addEventListener('touchstart', function(event) {
+            if (floatWin.style.display === 'block' && !floatWin.contains(event.target)) {
+                if (!event.target.classList.contains('btn-catalogo-nav') && !event.target.classList.contains('cta-button-outline')) {
+                    closeCatalog();
+                }
+            }
+        });
     </script>
 </body>
 </html>
