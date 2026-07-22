@@ -19,7 +19,7 @@
 
     <header class="header">
         <div class="logo-container">
-            <img src="LOGO1.png" alt="TM Todo en Melamina" class="brand-logo">
+            <img src="LOGO TM.jpeg" alt="TM Todo en Melamina" class="brand-logo">
             <div class="brand-text">
                 <span class="logo-text">TM</span>
                 <span class="sub-text">TODO EN MELAMINA</span>
@@ -38,7 +38,7 @@
     </header>
 
     <section id="portada" class="hero-portada">
-        <img src="FOND.jpeg" alt="Mobiliario de Melamina Premium" class="hero-bg-img">
+        <img src="FOND.jpg" alt="Mobiliario de Melamina Premium" class="hero-bg-img">
         <div class="hero-overlay-gradient"></div>
         
         <div class="hero-content-glass">
@@ -179,17 +179,21 @@
         function openCatalog() {
             floatWin.style.display = 'block';
             floatBody.style.display = 'block';
+            floatWin.style.height = 'auto'; // Asegura que se expanda al abrir
             
             if(window.innerWidth > 768) {
                 floatWin.style.top = (window.innerHeight - floatWin.offsetHeight - 40) + 'px';
                 floatWin.style.left = (window.innerWidth - floatWin.offsetWidth - 40) + 'px';
             } else {
-                floatWin.style.top = (window.innerHeight - floatWin.offsetHeight - 20) + 'px';
+                // En celular aparece centrado en la parte inferior
+                floatWin.style.top = (window.innerHeight - floatWin.offsetHeight - 10) + 'px';
                 floatWin.style.left = '5%';
             }
         }
 
-        function closeCatalog() { floatWin.style.display = 'none'; }
+        function closeCatalog() { 
+            floatWin.style.display = 'none'; 
+        }
 
         function toggleMinimizeCatalog() {
             if (floatBody.style.display === 'none') {
@@ -197,7 +201,7 @@
                 floatWin.style.height = 'auto';
             } else {
                 floatBody.style.display = 'none';
-                floatWin.style.height = floatHeader.offsetHeight + 'px';
+                floatWin.style.height = floatHeader.offsetHeight + 'px'; // Se encoge al tamaño del título
             }
         }
 
@@ -223,7 +227,7 @@
 
         // Arrastrar Táctil (Móvil)
         floatHeader.addEventListener('touchstart', (e) => {
-            if (e.target.tagName === 'BUTTON') return;
+            if (e.target.tagName === 'BUTTON') return; // Evita que se mueva si tocas un botón
             isDragging = true;
             const touch = e.touches[0];
             offsetX = touch.clientX - floatWin.getBoundingClientRect().left;
@@ -239,7 +243,7 @@
 
         document.addEventListener('touchend', () => { isDragging = false; });
 
-        // CÓDIGO NUEVO: Cerrar catálogo al hacer clic o tocar fuera de él
+        // Cerrar al tocar fuera
         document.addEventListener('mousedown', function(event) {
             if (floatWin.style.display === 'block' && !floatWin.contains(event.target)) {
                 if (!event.target.classList.contains('btn-catalogo-nav') && !event.target.classList.contains('cta-button-outline')) {
