@@ -1,24 +1,13 @@
 /* =========================================
-   1. VARIABLES DE COLOR (Elegantes y claros)
+   1. VARIABLES DE COLOR (Elegantes y limpios)
    ========================================= */
 :root {
-    /* FONDO CLARO PRINCIPAL (Un tono gris perla muy sutil y elegante) */
     --bg-main: #f8f9fa; 
-    
-    /* FONDO DE LAS TARJETAS Y VENTANAS (Blanco puro) */
     --surface: #ffffff; 
-    
-    /* COLOR CAFÉ MELAMINA (Botones y acentos) */
     --accent-wood: #8c6d48; 
-    
-    /* COLOR DORADO */
     --accent-gold: #c2a373; 
-    
-    /* COLOR OSCURO (Textos principales) */
-    --accent-dark: #1a1d20; 
-    
-    /* COLOR TEXTO SECUNDARIO (Textos grises) */
-    --text-muted: #5a6268;
+    --accent-dark: #2c3036; 
+    --text-muted: #6c757d;
 }
 
 * { 
@@ -36,7 +25,7 @@ body {
     line-height: 1.6; 
 }
 
-/* --- EFECTOS DE ANIMACIÓN --- */
+/* --- ANIMACIONES --- */
 .scroll-anim {
     opacity: 0;
     transform: translateY(30px);
@@ -76,7 +65,7 @@ body {
     justify-content: space-between; 
     align-items: center; 
     padding: 15px 40px; 
-    background: rgba(255, 255, 255, 0.92); 
+    background: rgba(255, 255, 255, 0.95); 
     backdrop-filter: blur(12px); 
     -webkit-backdrop-filter: blur(12px);
     position: sticky; 
@@ -86,7 +75,8 @@ body {
     border-bottom: 1px solid rgba(0,0,0,0.03); 
 }
 .logo-container { display: flex; align-items: center; gap: 12px; }
-.logo-text { font-size: 1.8rem; font-weight: 700; color: var(--accent-wood); line-height: 1; letter-spacing: -0.5px;}
+.brand-logo { height: 45px; width: auto; border-radius: 4px; }
+.logo-text { font-size: 1.5rem; font-weight: 700; color: var(--accent-wood); line-height: 1; letter-spacing: -0.5px;}
 .sub-text { font-size: 0.75rem; color: var(--text-muted); display: block; letter-spacing: 2px; font-weight: 600; }
 
 .nav { display: flex; align-items: center; gap: 25px; }
@@ -111,20 +101,20 @@ body {
     box-shadow: 0 6px 20px rgba(140, 109, 72, 0.4);
 }
 
-/* --- HERO PORTADA CON VIDEO --- */
+/* --- HERO PORTADA --- */
 .hero-portada { 
     position: relative;
     width: 100%;
     height: 90vh; 
     min-height: 600px;
-    background-color: #d1d5db; /* Color de fallback mientras carga el video */
+    background-color: #d1d5db; 
     display: flex;
-    align-items: flex-end; 
+    align-items: center; /* Centramos la tarjeta verticalmente */
+    justify-content: center; /* Centramos la tarjeta horizontalmente */
     padding: 60px;
     overflow: hidden;
 }
 
-/* Estilos específicos para tu video de fondo */
 .hero-bg-video { 
     position: absolute; 
     top: 0; 
@@ -134,10 +124,9 @@ body {
     object-fit: cover; 
     object-position: center center; 
     z-index: 0; 
-    pointer-events: none; /* Evita que el usuario interactúe con el video */
+    pointer-events: none; 
 }
 
-/* Degradado elegante para que el texto resalte sobre cualquier video */
 .hero-overlay-gradient { 
     position: absolute; 
     bottom: 0; left: 0; 
@@ -146,45 +135,107 @@ body {
     z-index: 1; 
 }
 
-/* Tarjeta Glassmorphism */
+/* --- TARJETA FLOTANTE (ESTILO IMAGEN DE REFERENCIA) --- */
 .hero-content-glass { 
-    position: relative; z-index: 10;
-    background: rgba(255, 255, 255, 0.85); 
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    padding: 50px; 
-    border-radius: 16px; 
-    max-width: 650px;
-    border: 1px solid rgba(255, 255, 255, 0.8); 
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    position: relative; 
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.98); 
+    padding: 40px 50px; 
+    border-radius: 12px; 
+    max-width: 620px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    touch-action: none; /* Previene scroll en móvil al arrastrar */
+}
+
+/* Controles de la Tarjeta */
+.card-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    cursor: grab; 
+}
+.card-controls:active {
+    cursor: grabbing; 
+}
+.drag-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    user-select: none;
+    font-weight: 500;
+}
+.close-card-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.3s, transform 0.2s;
+}
+.close-card-btn:hover {
+    color: var(--accent-dark);
+    transform: scale(1.1);
 }
 
 .hero-badge { 
     display: inline-block; 
-    background-color: rgba(140, 109, 72, 0.1); 
+    background-color: #f3ede4; 
     color: var(--accent-wood); 
     padding: 6px 14px; 
     font-size: 0.75rem; 
     font-weight: 700; 
     letter-spacing: 2px; 
-    border-radius: 6px; 
+    border-radius: 4px; 
     margin-bottom: 20px; 
 }
-.title-main { font-size: 3rem; font-weight: 700; color: var(--accent-dark); line-height: 1.15; margin-bottom: 15px; letter-spacing: -1px;}
-.hero-content-glass .description { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 35px; }
+
+.title-main { 
+    font-size: 2.8rem; 
+    font-weight: 700; 
+    color: var(--accent-dark); 
+    line-height: 1.15; 
+    margin-bottom: 20px; 
+    letter-spacing: -1px;
+}
+
+.hero-content-glass .description { 
+    font-size: 1.05rem; 
+    color: var(--text-muted); 
+    margin-bottom: 35px; 
+}
 
 .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
 .cta-button { 
-    background-color: var(--accent-dark); color: #ffffff; padding: 14px 28px; 
-    text-decoration: none; font-weight: 600; font-size: 0.95rem; border-radius: 6px; 
+    background-color: var(--accent-dark); 
+    color: #ffffff; 
+    padding: 14px 28px; 
+    text-decoration: none; 
+    font-weight: 600; 
+    font-size: 0.95rem; 
+    border-radius: 4px; 
     transition: all 0.3s; 
 }
-.cta-button:hover { background-color: var(--accent-wood); transform: translateY(-2px);}
-.cta-button-outline { 
-    background-color: transparent; color: var(--accent-dark); padding: 14px 28px; 
-    font-weight: 600; font-size: 0.95rem; border-radius: 6px; border: 2px solid var(--accent-dark); 
-    text-decoration: none; transition: all 0.3s; 
+.cta-button:hover { 
+    background-color: #1a1d20; 
 }
-.cta-button-outline:hover { background-color: var(--accent-dark); color: #ffffff; transform: translateY(-2px);}
+
+.cta-button-outline { 
+    background-color: transparent; 
+    color: var(--accent-dark); 
+    padding: 14px 28px; 
+    font-weight: 600; 
+    font-size: 0.95rem; 
+    border-radius: 4px; 
+    border: 1px solid var(--accent-wood); 
+    text-decoration: none; 
+    transition: all 0.3s; 
+}
+.cta-button-outline:hover { 
+    background-color: var(--bg-main); 
+}
 
 /* --- SECCIONES GENERALES --- */
 .section-header { text-align: center; margin-bottom: 60px; }
@@ -206,19 +257,19 @@ body {
     border: 1px solid rgba(0,0,0,0.04); 
     font-weight: 500; 
     color: var(--accent-dark);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
 }
 
 /* --- TARJETAS DE SERVICIOS --- */
 .services { padding: 120px 40px; background-color: var(--bg-main); }
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
 .card { 
-    background: var(--surface); padding: 50px 40px; border-radius: 16px; 
-    position: relative; overflow: hidden; transition: all 0.4s ease; 
+    background: var(--surface); padding: 50px 40px; border-radius: 12px; 
+    position: relative; overflow: hidden; transition: transform 0.4s ease; 
     box-shadow: 0 10px 30px rgba(0,0,0,0.03); 
+    border: 1px solid #e9ecef;
 }
-.card-line { position: absolute; top: 0; left: 0; width: 100%; height: 6px; background-color: #e9ecef; transition: all 0.4s ease;}
-.card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+.card-line { position: absolute; top: 0; left: 0; width: 100%; height: 5px; background-color: #e9ecef; transition: background 0.4s ease;}
+.card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.06); }
 .card:hover .card-line { background-color: var(--accent-wood); }
 .card h3 { margin-bottom: 15px; font-size: 1.5rem; margin-top: 10px; font-weight: 600; color: var(--accent-dark);}
 .card p { color: var(--text-muted); font-size: 1rem; line-height: 1.7;}
@@ -227,21 +278,21 @@ body {
 .gallery-section { padding: 120px 40px; background-color: var(--surface); }
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
 .gallery-item { 
-    position: relative; border-radius: 16px; overflow: hidden; height: 400px; cursor: pointer; 
+    position: relative; border-radius: 12px; overflow: hidden; height: 400px; cursor: pointer; 
     box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
 }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
 .gallery-overlay { 
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-    background: rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; 
-    opacity: 0; transition: opacity 0.4s ease; backdrop-filter: blur(5px); 
+    background: rgba(255,255,255,0.75); display: flex; align-items: center; justify-content: center; 
+    opacity: 0; transition: opacity 0.4s ease; backdrop-filter: blur(4px); 
 }
 .gallery-overlay span { 
     background-color: var(--accent-dark); color: #fff; padding: 12px 28px; 
-    font-weight: 600; border-radius: 6px; font-size: 0.9rem; letter-spacing: 1px; 
-    transform: translateY(20px); transition: all 0.4s ease;
+    font-weight: 600; border-radius: 4px; font-size: 0.9rem; letter-spacing: 1px; 
+    transform: translateY(15px); transition: transform 0.4s ease;
 }
-.gallery-item:hover img { transform: scale(1.08); }
+.gallery-item:hover img { transform: scale(1.05); }
 .gallery-item:hover .gallery-overlay { opacity: 1; }
 .gallery-item:hover .gallery-overlay span { transform: translateY(0); }
 
@@ -251,16 +302,16 @@ body {
 .cta-banner p { color: #adb5bd; margin-bottom: 40px; font-size: 1.15rem; max-width: 600px; margin-left: auto; margin-right: auto;}
 .cta-button-light { 
     background-color: #fff; color: var(--accent-dark); padding: 16px 40px; 
-    text-decoration: none; font-weight: 600; border-radius: 6px; display: inline-block; 
-    transition: all 0.3s; font-size: 1.05rem;
+    text-decoration: none; font-weight: 600; border-radius: 4px; display: inline-block; 
+    transition: background 0.3s; font-size: 1.05rem;
 }
-.cta-button-light:hover { background-color: var(--accent-gold); color: #fff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(194, 163, 115, 0.3);}
+.cta-button-light:hover { background-color: var(--accent-gold); color: #fff; }
 
 /* --- FOOTER --- */
-.footer { background-color: #121416; color: #868e96; padding: 80px 40px 30px; border-top: 1px solid #1a1d20; }
+.footer { background-color: #121416; color: #868e96; padding: 80px 40px 30px; }
 .footer-container { display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; gap: 50px; }
 .footer-column { flex: 1; min-width: 250px; }
-.footer-logo { font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 20px; letter-spacing: -0.5px;}
+.footer-logo { font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 20px; letter-spacing: -0.5px;}
 .footer-logo span { color: var(--accent-wood); }
 .footer-column h3 { color: #fff; margin-bottom: 20px; font-size: 1.1rem; }
 .footer-column p { margin-bottom: 12px; font-size: 0.95rem; }
@@ -268,23 +319,21 @@ body {
 
 /* --- RESPONSIVE MOBILE --- */
 @media (max-width: 768px) {
-    .top-bar { display: none; } /* Ocultar barra superior en móvil para ahorrar espacio */
+    .top-bar { display: none; }
     .header { flex-direction: column; padding: 20px; gap: 20px; }
     .nav { flex-wrap: wrap; justify-content: center; gap: 15px; }
     
-    /* Adaptación del video en celular: Altura completa de la pantalla */
     .hero-portada { 
-        height: 100vh; /* Pantalla completa en móvil */
-        padding: 30px 20px; 
-        align-items: flex-end; 
+        height: 100vh; 
+        padding: 20px; 
+        align-items: center; 
     }
     
     .hero-content-glass { 
-        padding: 40px 25px; 
+        padding: 30px 25px; 
         width: 100%; 
-        box-shadow: 0 15px 30px rgba(0,0,0,0.1); 
-        margin-bottom: 20px;
     }
+    
     .title-main { font-size: 2.2rem; }
     .hero-buttons { flex-direction: column; gap: 15px; }
     .cta-button, .cta-button-outline { width: 100%; text-align: center; }
