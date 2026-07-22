@@ -13,7 +13,7 @@
         <div class="top-bar-content">
             <span>📍 Querétaro, Qro.</span>
             <span>🕘 Lunes a Sábado: 9:00 AM - 6:00 PM</span>
-            <span>📞 Atención Directa: 442 397 9275</span>
+            <span>📞 Atención: 442 397 9275</span>
         </div>
     </div>
 
@@ -29,70 +29,51 @@
             <a href="#portada">Inicio</a>
             <a href="#nosotros">Nosotros</a>
             <a href="#servicios">Servicios</a>
-            <a href="#" onclick="openCatalog(event)">Catálogo de Melaminas</a>
             <a href="#galeria">Proyectos</a>
+            <a href="javascript:void(0)" onclick="openCatalog()" class="btn-outline-gold">Catálogo</a>
             <a href="https://wa.me/524423979275?text=Hola,%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto." target="_blank" class="btn-contacto-destacado">
                 COTIZAR AHORA
             </a>
         </nav>
     </header>
 
-    <section id="portada" class="hero-section">
-        <div class="hero-container-main">
-            <div class="hero-image-wrapper">
-                <img src="VISTA.jpg" alt="TM Todo en Melamina - Clóset de Lujo" class="hero-real-img">
-                <div class="image-badge">PROYECTO EXCLUSIVO TM</div>
-            </div>
-            <div class="hero-text-content">
-                <span class="hero-subtitle-tag">DISEÑO Y FABRICACIÓN PREMIER</span>
-                <h1 class="main-heading">Elevamos la estética de tus espacios.</h1>
-                <p class="main-description">Creamos mobiliario de autor en melamina de alta gama. Funcionalidad, lujo y precisión milimétrica para transformar tu hogar en Querétaro.</p>
-                <div class="hero-action-buttons">
-                    <a href="https://wa.me/524423979275?text=Hola,%20quiero%20informaci%C3%B3n%20para%20un%20proyecto." target="_blank" class="primary-btn">
-                        Hablar con un Asesor
-                    </a>
-                    <button onclick="openCatalog(event)" class="secondary-btn">
-                        Ver Diseños de Melamina
-                    </button>
-                </div>
+    <section id="portada" class="hero-portada">
+        <div class="hero-overlay-gradient"></div>
+        
+        <div class="hero-content-glass">
+            <span class="hero-badge">DISEÑO Y FABRICACIÓN PREMIER</span>
+            <h1 class="title-main">Elevamos la estética de tus espacios.</h1>
+            <p class="description">Creamos mobiliario de autor en melamina de alta gama. Funcionalidad, lujo y precisión milimétrica para tu hogar en Querétaro.</p>
+            <div class="hero-buttons">
+                <a href="https://wa.me/524423979275?text=Hola,%20quiero%20informaci%C3%B3n%20para%20un%20proyecto." target="_blank" class="cta-button">
+                    Hablar con un Asesor
+                </a>
+                <button onclick="openCatalog()" class="cta-button-outline">
+                    Ver Diseños de Melamina
+                </button>
             </div>
         </div>
     </section>
 
-    <div id="catalogModal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeCatalog()">&times;</button>
-            <div class="modal-header">
-                <h2>Catálogo de Acabados y Melaminas</h2>
-                <p>Seleccionamos tableros de máxima durabilidad con texturas reales tipo madera, concreto y mármol.</p>
+    <div id="floatingCatalog" class="floating-window">
+        <div class="floating-header" id="floatingHeader">
+            <span class="floating-title">Catálogo de Acabados</span>
+            <div class="floating-controls">
+                <button onclick="toggleMinimizeCatalog()" title="Minimizar">_</button>
+                <button onclick="closeCatalog()" title="Cerrar">X</button>
             </div>
-            <div class="catalog-grid">
-                <div class="catalog-item">
-                    <div class="color-box wood-noche"></div>
-                    <h3>Nogal Cálido</h3>
-                    <p>Ideal para cocinas y clósets con un toque clásico y sofisticado.</p>
-                </div>
-                <div class="catalog-item">
-                    <div class="color-box concrete-gray"></div>
-                    <h3>Gris Concreto</h3>
-                    <p>Estilo industrial moderno, perfecto para centros de TV minimalistas.</p>
-                </div>
-                <div class="catalog-item">
-                    <div class="color-box wood-oak"></div>
-                    <h3>Roble Claro</h3>
-                    <p>Aporta gran iluminación y amplitud visual a cualquier espacio.</p>
-                </div>
-                <div class="catalog-item">
-                    <div class="color-box marble-white"></div>
-                    <h3>Mármol / Sólido</h3>
-                    <p>Acabados limpios de alta gama para muebles de baño y cubiertas.</p>
-                </div>
+        </div>
+        <div class="floating-body" id="floatingBody">
+            <p class="floating-desc">Acabados reales de máxima durabilidad.</p>
+            <div class="floating-grid">
+                <div class="f-item"><div class="c-box wood-noche"></div><span>Nogal Cálido</span></div>
+                <div class="f-item"><div class="c-box concrete-gray"></div><span>Gris Concreto</span></div>
+                <div class="f-item"><div class="c-box wood-oak"></div><span>Roble Claro</span></div>
+                <div class="f-item"><div class="c-box marble-white"></div><span>Mármol Sólido</span></div>
             </div>
-            <div class="modal-footer">
-                <a href="https://wa.me/524423979275?text=Hola,%20vi%20el%20cat%C3%A1logo%20de%20melaminas%20y%20quiero%20cotizar." target="_blank" class="primary-btn">
-                    Cotizar mi Acabado por WhatsApp
-                </a>
-            </div>
+            <a href="https://wa.me/524423979275?text=Hola,%20vi%20el%20cat%C3%A1logo%20de%20melaminas%20y%20quiero%20cotizar." target="_blank" class="floating-btn">
+                Cotizar por WhatsApp
+            </a>
         </div>
     </div>
 
@@ -100,11 +81,11 @@
         <div class="about-container">
             <div class="about-text">
                 <h2>Más que muebles, <span>soluciones reales.</span></h2>
-                <p>En TM Todo en Melamina combinamos diseño arquitectónico con acabados en tonos grises tipo concreto y maderas finas. Cada clóset, cocina y centro de TV es fabricado a medida bajo estrictos estándares de calidad.</p>
+                <p>En TM Todo en Melamina combinamos diseño arquitectónico con acabados de vanguardia. Cada clóset, cocina y centro de TV es fabricado a medida bajo estrictos estándares de calidad.</p>
                 <ul class="benefits-list">
-                    <li>✔️ <strong>Diseño y Medición:</strong> Adaptado milimétricamente a tu espacio.</li>
-                    <li>✔️ <strong>Tonos en Tendencia:</strong> Acabados estilo concreto, madera y mate.</li>
-                    <li>✔️ <strong>Instalación Limpia:</strong> Cuidado absoluto en los detalles de tu hogar.</li>
+                    <li>✔️ <strong>Diseño y Medición:</strong> Adaptado milimétricamente.</li>
+                    <li>✔️ <strong>Tonos en Tendencia:</strong> Madera, concreto y mate.</li>
+                    <li>✔️ <strong>Instalación Limpia:</strong> Cuidado absoluto de tu hogar.</li>
                 </ul>
             </div>
         </div>
@@ -119,20 +100,22 @@
             <div class="card">
                 <div class="card-line"></div>
                 <h3>Cocinas Integrales</h3>
-                <p>Optimizamos cada rincón con diseños modernos, cubiertas resistentes y herrajes de cierre suave.</p>
+                <p>Diseños modernos, cubiertas resistentes y herrajes de cierre suave.</p>
             </div>
             <div class="card">
                 <div class="card-line"></div>
                 <h3>Clósets y Vestidores</h3>
-                <p>Sistemas de almacenamiento inteligente, iluminación LED integrada y distribución a la medida.</p>
+                <p>Sistemas de almacenamiento inteligente e iluminación LED integrada.</p>
             </div>
             <div class="card">
+                <div class="card-line"></div>
                 <h3>Centros de TV</h3>
-                <p>Estructuras flotantes minimalistas que ocultan el cableado, integrando tecnología y diseño.</p>
+                <p>Estructuras flotantes minimalistas que ocultan el cableado.</p>
             </div>
             <div class="card">
+                <div class="card-line"></div>
                 <h3>Muebles de Baño</h3>
-                <p>Mobiliario fabricado con núcleos resistentes a la humedad y diseño contemporáneo.</p>
+                <p>Núcleos resistentes a la humedad y diseño contemporáneo.</p>
             </div>
         </div>
     </section>
@@ -140,44 +123,22 @@
     <section id="galeria" class="gallery-section">
         <div class="section-header">
             <h2>Nuestro Trabajo Habla por Nosotros</h2>
-            <p>Proyectos recientemente entregados e instalados en Querétaro.</p>
+            <p>Proyectos recientemente entregados e instalados.</p>
         </div>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="1000311986.jpg" alt="Instalación de Melamina TM">
-                <div class="gallery-overlay">
-                    <span>Ver Acabados</span>
-                </div>
+                <img src="1000311986.jpg" alt="Instalación TM">
+                <div class="gallery-overlay"><span>Ver Acabados</span></div>
             </div>
             <div class="gallery-item">
-                <img src="1000311988.jpg" alt="Instalación de Melamina TM">
-                <div class="gallery-overlay">
-                    <span>Ver Detalles</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="videos" class="videos-section">
-        <div class="section-header">
-            <h2>Proyectos en Movimiento</h2>
-            <p>Aprecia la funcionalidad y calidad de nuestros herrajes.</p>
-        </div>
-        <div class="videos-grid">
-            <div class="video-tile">
-                <img src="1000311988.jpg" alt="Video Promocional TM">
-                <div class="video-play-icon">▶</div>
-            </div>
-            <div class="video-tile">
-                <img src="1000311986.jpg" alt="Video Cocinas TM">
-                <div class="video-play-icon">▶</div>
+                <img src="1000311988.jpg" alt="Instalación TM">
+                <div class="gallery-overlay"><span>Ver Detalles</span></div>
             </div>
         </div>
     </section>
 
     <section class="cta-banner">
         <h2>¿Listo para transformar tu hogar?</h2>
-        <p>Escríbenos directamente por WhatsApp y comencemos a diseñar el espacio de tus sueños.</p>
         <a href="https://wa.me/524423979275?text=Hola,%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto." target="_blank" class="cta-button-light">
             Contactar por WhatsApp (442 397 9275)
         </a>
@@ -186,45 +147,93 @@
     <footer id="contacto" class="footer">
         <div class="footer-container">
             <div class="footer-column">
-                <div class="footer-logo">
-                    <span class="logo-text">TM</span> TODO EN MELAMINA
-                </div>
-                <p>Especialistas en diseño, fabricación e instalación de mobiliario en melamina de alta calidad en Querétaro.</p>
-            </div>
-            <div class="footer-column">
-                <h3>Enlaces Rápidos</h3>
-                <a href="#portada">Inicio</a>
-                <a href="#nosotros">Nosotros</a>
-                <a href="#servicios">Servicios</a>
-                <a href="#" onclick="openCatalog(event)">Catálogo de Melaminas</a>
+                <div class="footer-logo"><span class="logo-text">TM</span> TODO EN MELAMINA</div>
+                <p>Especialistas en mobiliario de alta calidad en Querétaro.</p>
             </div>
             <div class="footer-column">
                 <h3>Contacto Directo</h3>
                 <p>📞 442 397 9275</p>
                 <p>📍 Querétaro, México</p>
-                <p>✉️ Cotizaciones directas por WhatsApp</p>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 TM Todo en Melamina. Todos los derechos reservados.</p>
         </div>
     </footer>
 
     <script>
-        function openCatalog(e) {
-            e.preventDefault();
-            document.getElementById('catalogModal').style.display = 'flex';
-        }
-        function closeCatalog() {
-            document.getElementById('catalogModal').style.display = 'none';
-        }
-        window.onclick = function(event) {
-            var modal = document.getElementById('catalogModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
+        const floatWin = document.getElementById('floatingCatalog');
+        const floatHeader = document.getElementById('floatingHeader');
+        const floatBody = document.getElementById('floatingBody');
+        let isDragging = false;
+        let offsetX, offsetY;
+
+        // Abrir ventana
+        function openCatalog() {
+            floatWin.style.display = 'block';
+            floatBody.style.display = 'block';
+            
+            // Posición inicial abajo a la derecha
+            if(window.innerWidth > 768) {
+                floatWin.style.top = (window.innerHeight - floatWin.offsetHeight - 20) + 'px';
+                floatWin.style.left = (window.innerWidth - floatWin.offsetWidth - 20) + 'px';
+            } else {
+                floatWin.style.top = (window.innerHeight - floatWin.offsetHeight - 10) + 'px';
+                floatWin.style.left = '5%';
             }
         }
-    </script>
 
+        // Cerrar ventana
+        function closeCatalog() { floatWin.style.display = 'none'; }
+
+        // Minimizar ventana
+        function toggleMinimizeCatalog() {
+            if (floatBody.style.display === 'none') {
+                floatBody.style.display = 'block';
+            } else {
+                floatBody.style.display = 'none';
+            }
+        }
+
+        // Lógica para Arrastrar (Mouse - PC)
+        floatHeader.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            offsetX = e.clientX - floatWin.getBoundingClientRect().left;
+            offsetY = e.clientY - floatWin.getBoundingClientRect().top;
+            floatHeader.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            floatWin.style.left = (e.clientX - offsetX) + 'px';
+            floatWin.style.top = (e.clientY - offsetY) + 'px';
+            floatWin.style.bottom = 'auto'; 
+            floatWin.style.right = 'auto';
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            floatHeader.style.cursor = 'grab';
+        });
+
+        // Lógica para Arrastrar (Táctil - Celular)
+        floatHeader.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            const touch = e.touches[0];
+            offsetX = touch.clientX - floatWin.getBoundingClientRect().left;
+            offsetY = touch.clientY - floatWin.getBoundingClientRect().top;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const touch = e.touches[0];
+            // Evitar que se salga de la pantalla en celular
+            let newX = touch.clientX - offsetX;
+            let newY = touch.clientY - offsetY;
+            floatWin.style.left = newX + 'px';
+            floatWin.style.top = newY + 'px';
+            floatWin.style.bottom = 'auto';
+            floatWin.style.right = 'auto';
+        }, {passive: true});
+
+        document.addEventListener('touchend', () => { isDragging = false; });
+    </script>
 </body>
 </html>
