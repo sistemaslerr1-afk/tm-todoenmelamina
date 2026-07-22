@@ -1,184 +1,200 @@
-/* --- VARIABLES Y COLORES PROFESIONALES --- */
+/* --- VARIABLES Y COLORES LIMPIOS PROFESIONALES --- */
 :root {
-    --bg-main: #eef0f3; /* Gris concreto súper elegante */
+    --bg-main: #f4f5f8; /* Gris perla/concreto claro de nivel arquitectónico */
     --surface: #ffffff; 
-    --accent-wood: #8c6d48; /* Café melamina */
+    --accent-wood: #8c6d48; /* Café elegante melamina */
     --accent-gold: #c2a373; 
-    --accent-dark: #2c3036; 
+    --accent-dark: #2c3036; /* Carbón para textos legibles */
     --text-muted: #6c757d;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
 body { background-color: var(--bg-main); color: var(--accent-dark); overflow-x: hidden; line-height: 1.6; }
 
-/* --- HEADER --- */
-.top-bar { background-color: #e2e5e9; padding: 8px 30px; border-bottom: 1px solid #d0d4dc; }
+/* --- BARRA SUPERIOR --- */
+.top-bar { background-color: #e5e8ed; padding: 8px 30px; border-bottom: 1px solid #dfe3eb; }
 .top-bar-content { display: flex; justify-content: flex-end; gap: 30px; max-width: 1300px; margin: 0 auto; font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
 
-.header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 2000; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
+/* --- ENCABEZADO --- */
+.header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 2000; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); border-bottom: 1px solid #dfe3eb; }
 .logo-container { display: flex; align-items: center; gap: 12px; }
-.brand-logo { height: 45px; border-radius: 4px; border: 1px solid var(--accent-gold); }
+.brand-logo { height: 45px; width: auto; border-radius: 4px; border: 1px solid var(--accent-gold); }
 .logo-text { font-size: 1.8rem; font-weight: 700; color: var(--accent-wood); line-height: 1; }
-.sub-text { font-size: 0.75rem; color: var(--text-muted); display: block; letter-spacing: 2px; }
+.sub-text { font-size: 0.75rem; color: var(--text-muted); display: block; letter-spacing: 2px; font-weight: 600; }
 
 .nav { display: flex; align-items: center; gap: 20px; }
 .nav a { color: var(--accent-dark); text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: color 0.3s ease; }
 .nav a:hover { color: var(--accent-wood); }
 
-.btn-outline-gold { border: 1px solid var(--accent-wood); padding: 5px 15px; border-radius: 4px; color: var(--accent-wood) !important; }
-.btn-contacto-destacado { background-color: var(--accent-wood); color: #ffffff !important; padding: 8px 20px; border-radius: 4px; font-weight: 600; }
-.btn-contacto-destacado:hover { background-color: #6d5435; }
+.btn-catalogo-nav { border: 1px solid var(--accent-wood); padding: 6px 16px; border-radius: 4px; color: var(--accent-wood) !important; font-weight: 600 !important; }
+.btn-catalogo-nav:hover { background-color: var(--accent-wood); color: #ffffff !important; }
 
-/* --- PORTADA GIGANTE (FULL SCREEN) IMPRESIONANTE --- */
+.btn-contacto-destacado { background-color: var(--accent-wood); color: #ffffff !important; padding: 9px 22px; border-radius: 4px; font-weight: 600; box-shadow: 0 4px 15px rgba(140, 109, 72, 0.2); }
+.btn-contacto-destacado:hover { background-color: #725636; transform: translateY(-1px); }
+
+/* --- HERO PORTADA ULTRA FAILPROOF (IMAGEN 100% VISIBLE) --- */
 .hero-portada { 
     position: relative;
     width: 100%;
-    height: 88vh; /* Muy alto en PC */
-    min-height: 550px;
-    background-color: var(--accent-dark); 
-    background-image: url('VISTA.jpg'); 
-    background-size: cover; 
-    /* El center center asegura que no se pierda el closet sin importar si es PC o celular */
-    background-position: center center; 
-    background-repeat: no-repeat;
+    height: 88vh; /* Altura perfecta e imponente en PC */
+    min-height: 600px;
+    background-color: #e5e8ed;
     display: flex;
-    align-items: flex-end; /* Manda la caja de cristal al fondo */
-    padding: 50px;
+    align-items: flex-end; 
+    padding: 60px;
+    overflow: hidden;
 }
 
-/* Sombra oscura ligera abajo para resaltar la caja blanca */
+.hero-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center; /* Mantiene el clóset centrado siempre */
+    z-index: 0;
+}
+
 .hero-overlay-gradient {
     position: absolute;
-    bottom: 0; left: 0; width: 100%; height: 60%;
-    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    bottom: 0; left: 0; width: 100%; height: 50%;
+    background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
     z-index: 1;
 }
 
+/* Caja de Texto Premium Estilo Cristal Fino */
 .hero-content-glass { 
     position: relative;
     z-index: 10;
-    background: rgba(255, 255, 255, 0.92); 
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding: 40px;
+    background: rgba(255, 255, 255, 0.94); 
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 45px;
     border-radius: 12px;
-    max-width: 600px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    max-width: 620px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
-.hero-badge { display: inline-block; background-color: #f0ebdf; color: var(--accent-wood); padding: 5px 12px; font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; border-radius: 4px; margin-bottom: 15px; }
-.title-main { font-size: 2.6rem; font-weight: 700; color: var(--accent-dark); line-height: 1.1; margin-bottom: 15px; }
-.hero-content-glass .description { font-size: 1rem; color: var(--text-muted); margin-bottom: 25px; }
+.hero-badge { display: inline-block; background-color: #f2ede4; color: var(--accent-wood); padding: 5px 12px; font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; border-radius: 4px; margin-bottom: 15px; }
+.title-main { font-size: 2.8rem; font-weight: 700; color: var(--accent-dark); line-height: 1.15; margin-bottom: 15px; }
+.hero-content-glass .description { font-size: 1rem; color: var(--text-muted); margin-bottom: 30px; }
 
 .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
-.cta-button { background-color: var(--accent-dark); color: #ffffff; padding: 12px 25px; text-decoration: none; font-weight: 500; font-size: 0.9rem; border-radius: 4px; border: none; cursor: pointer; }
+.cta-button { background-color: var(--accent-dark); color: #ffffff; padding: 13px 28px; text-decoration: none; font-weight: 500; font-size: 0.9rem; border-radius: 4px; border: none; cursor: pointer; transition: background 0.3s; }
 .cta-button:hover { background-color: var(--accent-wood); }
-.cta-button-outline { background-color: transparent; color: var(--accent-dark); padding: 12px 25px; font-weight: 500; font-size: 0.9rem; border-radius: 4px; border: 2px solid var(--accent-wood); cursor: pointer; }
+
+.cta-button-outline { background-color: transparent; color: var(--accent-dark); padding: 13px 28px; font-weight: 500; font-size: 0.9rem; border-radius: 4px; border: 2px solid var(--accent-wood); cursor: pointer; transition: all 0.3s; }
 .cta-button-outline:hover { background-color: var(--accent-wood); color: #ffffff; }
 
-/* --- VENTANA FLOTANTE ARRASTRABLE (WIDGET PROFESIONAL) --- */
+/* --- WIDGET FLOTANTE AVANZADO DEL CATÁLOGO --- */
 .floating-window {
     position: fixed;
-    width: 340px;
+    width: 350px;
     background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
     border: 1px solid #d0d4dc;
     z-index: 9999;
-    display: none; /* Oculto por defecto */
+    display: none; 
     overflow: hidden;
 }
 
 .floating-header {
     background: var(--accent-dark);
     color: #ffffff;
-    padding: 12px 15px;
+    padding: 12px 18px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: grab;
     user-select: none;
-    touch-action: none; /* Evita scrolls raros en celular */
+    touch-action: none;
 }
 .floating-header:active { cursor: grabbing; }
+.floating-title { font-weight: 600; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
 
-.floating-title { font-weight: 600; font-size: 0.95rem; letter-spacing: 1px; }
 .floating-controls button {
-    background: none; border: none; color: #ffffff; font-size: 18px; cursor: pointer;
-    margin-left: 15px; font-weight: bold; transition: color 0.3s;
+    background: none; border: none; color: #ffffff; font-size: 20px; cursor: pointer;
+    margin-left: 12px; font-weight: bold; line-height: 1; transition: color 0.2s;
 }
 .floating-controls button:hover { color: var(--accent-gold); }
 
-.floating-body { padding: 20px; background: #fafafa; }
-.floating-desc { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 15px; text-align: center; }
+.floating-body { padding: 25px; background: #fafafa; }
+.floating-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; text-align: center; }
 .floating-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-.f-item { text-align: center; }
-.c-box { width: 100%; height: 60px; border-radius: 4px; margin-bottom: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+.f-item { text-align: center; background: #ffffff; padding: 10px; border-radius: 8px; border: 1px solid #e8ebf0; }
+.c-box { width: 100%; height: 65px; border-radius: 6px; margin-bottom: 8px; box-shadow: inset 0 0 5px rgba(0,0,0,0.05); }
 .f-item span { font-size: 0.8rem; color: var(--accent-dark); font-weight: 500; }
 
-.wood-noche { background: linear-gradient(135deg, #70422d, #523020); }
-.concrete-gray { background: linear-gradient(135deg, #95a5a6, #7f8c8d); }
-.wood-oak { background: linear-gradient(135deg, #d3b18c, #bd9771); }
-.marble-white { background: linear-gradient(135deg, #f8f9fa, #e9ecef); border: 1px solid #ced4da; }
+.wood-noche { background: linear-gradient(135deg, #603820, #402410); }
+.concrete-gray { background: linear-gradient(135deg, #a6acaf, #7f8c8d); }
+.wood-oak { background: linear-gradient(135deg, #e5c298, #c8a276); }
+.marble-white { background: linear-gradient(135deg, #f8f9fa, #e9ecef); border: 1px solid #d5dbdb; }
 
-.floating-btn { display: block; width: 100%; text-align: center; background: var(--accent-wood); color: #fff; text-decoration: none; padding: 10px; border-radius: 4px; font-weight: 600; font-size: 0.9rem; }
-.floating-btn:hover { background: #6d5435; }
-
+.floating-btn { display: block; width: 100%; text-align: center; background: var(--accent-wood); color: #fff; text-decoration: none; padding: 12px; border-radius: 6px; font-weight: 600; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(140, 109, 72, 0.2); }
+.floating-btn:hover { background: #725636; }
 
 /* --- SECCIONES GENERALES --- */
-.section-header { text-align: center; margin-bottom: 40px; }
-.section-header h2 { font-size: 2.2rem; color: var(--accent-dark); font-weight: 600; }
-.section-header p { color: var(--text-muted); font-size: 1rem; }
+.section-header { text-align: center; margin-bottom: 50px; }
+.section-header h2 { font-size: 2.4rem; color: var(--accent-dark); font-weight: 600; }
+.section-header p { color: var(--text-muted); font-size: 1.05rem; }
 
-.about-section { padding: 90px 40px; background-color: var(--surface); }
-.about-container { max-width: 900px; margin: 0 auto; text-align: center; }
-.about-text h2 { font-size: 2.4rem; color: var(--accent-dark); margin-bottom: 15px; }
+.about-section { padding: 100px 40px; background-color: var(--surface); border-bottom: 1px solid #dfe3eb; }
+.about-container { max-width: 950px; margin: 0 auto; text-align: center; }
+.about-text h2 { font-size: 2.5rem; color: var(--accent-dark); margin-bottom: 20px; }
 .about-text h2 span { color: var(--accent-wood); }
-.about-text p { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 35px; }
+.about-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 40px; }
 .benefits-list { list-style: none; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-.benefits-list li { background: var(--bg-main); padding: 12px 20px; border-radius: 6px; font-size: 0.9rem; border: 1px solid #d0d4dc; }
+.benefits-list li { background: var(--bg-main); padding: 14px 24px; border-radius: 6px; font-size: 0.95rem; border: 1px solid #dfe3eb; font-weight: 500; }
 
-.services { padding: 90px 40px; background-color: var(--bg-main); }
-.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; }
-.card { background: var(--surface); padding: 35px 25px; border-radius: 8px; border: 1px solid #d0d4dc; box-shadow: 0 5px 15px rgba(0,0,0,0.02); position: relative; overflow: hidden; transition: transform 0.3s; }
-.card-line { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background-color: var(--text-muted); }
-.card:hover { transform: translateY(-5px); }
+.services { padding: 100px 40px; background-color: var(--bg-main); }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+.card { background: var(--surface); padding: 40px 30px; border-radius: 12px; border: 1px solid #dfe3eb; position: relative; overflow: hidden; transition: transform 0.3s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.01); }
+.card-line { position: absolute; top: 0; left: 0; width: 100%; height: 5px; background-color: #d5d8dc; }
+.card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.04); }
 .card:hover .card-line { background-color: var(--accent-wood); }
-.card h3 { margin-bottom: 12px; font-size: 1.2rem; margin-top: 10px; }
-.card p { color: var(--text-muted); font-size: 0.9rem; }
+.card h3 { margin-bottom: 12px; font-size: 1.3rem; margin-top: 10px; font-weight: 600; }
+.card p { color: var(--text-muted); font-size: 0.95rem; }
 
-.gallery-section { padding: 90px 40px; background-color: var(--surface); }
-.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; }
-.gallery-item { position: relative; border-radius: 8px; overflow: hidden; height: 350px; cursor: pointer; }
+.gallery-section { padding: 100px 40px; background-color: var(--surface); }
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+.gallery-item { position: relative; border-radius: 12px; overflow: hidden; height: 360px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
 .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-.gallery-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.8); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
-.gallery-overlay span { border: 2px solid var(--accent-wood); padding: 8px 20px; font-weight: 600; border-radius: 4px; }
-.gallery-item:hover img { transform: scale(1.05); }
+.gallery-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.85); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; backdrop-filter: blur(3px); }
+.gallery-overlay span { border: 2px solid var(--accent-wood); color: var(--accent-dark); padding: 8px 22px; font-weight: 600; border-radius: 4px; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+.gallery-item:hover img { transform: scale(1.04); }
 .gallery-item:hover .gallery-overlay { opacity: 1; }
 
-.cta-banner { background-color: var(--accent-dark); padding: 70px 20px; text-align: center; color: #fff; }
-.cta-banner h2 { font-size: 2rem; margin-bottom: 20px; }
-.cta-button-light { background-color: #fff; color: var(--accent-dark); padding: 14px 30px; text-decoration: none; font-weight: 600; border-radius: 4px; display: inline-block; }
+.cta-banner { background-color: var(--accent-dark); padding: 80px 20px; text-align: center; color: #fff; }
+.cta-banner h2 { font-size: 2.2rem; margin-bottom: 15px; font-weight: 600; }
+.cta-banner p { color: #b0b8c1; margin-bottom: 30px; font-size: 1.05rem; }
+.cta-button-light { background-color: #fff; color: var(--accent-dark); padding: 15px 35px; text-decoration: none; font-weight: 600; border-radius: 6px; display: inline-block; transition: background 0.3s; }
+.cta-button-light:hover { background-color: var(--accent-gold); color: #fff; }
 
-.footer { background-color: #1c1f24; color: #9da5b0; padding: 50px 40px 20px; }
-.footer-container { display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; gap: 30px; }
+.footer { background-color: #1c1f24; color: #9da5b0; padding: 60px 40px 20px; border-top: 1px solid #2c3036; }
+.footer-container { display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; gap: 40px; }
+.footer-column { flex: 1; min-width: 250px; }
+.footer-logo { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 15px; }
+.footer-logo span { color: var(--accent-wood); }
+.footer-column h3 { color: #fff; margin-bottom: 15px; font-size: 1.05rem; }
+.footer-column p { margin-bottom: 8px; font-size: 0.95rem; }
+.footer-bottom { border-top: 1px solid #2c3036; padding-top: 20px; text-align: center; margin-top: 40px; font-size: 0.85rem; }
 
-/* --- RESPONSIVE MOBILE --- */
+/* --- RESPONSIVE ADAPTABLE --- */
 @media (max-width: 768px) {
-    .header { flex-direction: column; padding: 12px; gap: 15px; }
-    .nav { flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .header { flex-direction: column; padding: 15px; gap: 15px; }
+    .nav { flex-wrap: wrap; justify-content: center; gap: 12px; }
     
-    .hero-portada {
-        height: 85vh; /* Se adapta a la altura del celular */
-        padding: 20px;
-        align-items: flex-end; /* La caja cristalina baja */
-    }
-    .hero-content-glass { padding: 25px 20px; width: 100%; }
-    .title-main { font-size: 1.8rem; }
-    .hero-buttons { flex-direction: column; }
+    .hero-portada { height: 82vh; padding: 20px; align-items: flex-end; }
+    .hero-content-glass { padding: 30px 20px; width: 100%; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+    .title-main { font-size: 2rem; }
+    .hero-buttons { flex-direction: column; gap: 10px; }
     .cta-button, .cta-button-outline { width: 100%; text-align: center; }
 
-    /* Ajuste para que la ventana flotante no se desborde en móviles */
-    .floating-window { width: 90%; right: 5%; }
+    .floating-window { width: 90%; left: 5% !important; right: 5% !important; }
+    .about-section, .services, .gallery-section { padding: 60px 20px; }
+    .benefits-list { flex-direction: column; gap: 10px; }
+    .footer-container { flex-direction: column; text-align: center; }
 }
