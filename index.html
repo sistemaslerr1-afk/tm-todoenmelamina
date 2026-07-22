@@ -29,8 +29,9 @@
             <a href="#portada">Inicio</a>
             <a href="#nosotros">Nosotros</a>
             <a href="#servicios">Servicios</a>
+            <a href="#" onclick="openCatalog(event)">Catálogo Melaminas</a>
             <a href="#galeria">Proyectos</a>
-            <a href="https://wa.me/524421979275?text=Hola,%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto." target="_blank" class="btn-contacto-destacado">
+            <a href="https://wa.me/524423979275?text=Hola,%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto." target="_blank" class="btn-contacto-destacado">
                 COTIZAR AHORA
             </a>
         </nav>
@@ -40,22 +41,64 @@
         <div class="hero-content-glass">
             <span class="hero-badge">DISEÑO Y FABRICACIÓN PREMIUM</span>
             <h1 class="title-main">Elevamos la estética de tus espacios.</h1>
-            <p class="description">Creamos mobiliario de autor en melamina de alta gama. Funcionalidad, lujo y precisión milimétrica para tu hogar.</p>
-            <a href="https://wa.me/524421979275?text=Hola,%20quiero%20informaci%C3%B3n%20para%20un%20proyecto." target="_blank" class="cta-button">
-                Hablar con un Asesor
-            </a>
+            <p class="description">Creamos mobiliario de autor en melamina de alta gama. Funcionalidad, lujo y precisión milimétrica para tu hogar en Querétaro.</p>
+            <div class="hero-buttons">
+                <a href="https://wa.me/524423979275?text=Hola,%20quiero%20informaci%C3%B3n%20para%20un%20proyecto." target="_blank" class="cta-button">
+                    Hablar con un Asesor
+                </a>
+                <button onclick="openCatalog(event)" class="cta-button-outline">
+                    Ver Diseños de Melamina
+                </button>
+            </div>
         </div>
     </section>
+
+    <div id="catalogModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeCatalog()">&times;</button>
+            <div class="modal-header">
+                <h2>Catálogo de Acabados y Melaminas</h2>
+                <p>Seleccionamos tableros de máxima durabilidad con texturas reales tipo madera, concreto y mármol.</p>
+            </div>
+            <div class="catalog-grid">
+                <div class="catalog-item">
+                    <div class="color-box wood-noche"></div>
+                    <h3>Nogal Cálido</h3>
+                    <p>Ideal para cocinas y clósets con un toque clásico y sofisticado.</p>
+                </div>
+                <div class="catalog-item">
+                    <div class="color-box concrete-gray"></div>
+                    <h3>Gris Concreto</h3>
+                    <p>Estilo industrial moderno, perfecto para centros de TV minimalistas.</p>
+                </div>
+                <div class="catalog-item">
+                    <div class="color-box wood-oak"></div>
+                    <h3>Roble Claro</h3>
+                    <p>Aporta gran iluminación y amplitud visual a cualquier espacio.</p>
+                </div>
+                <div class="catalog-item">
+                    <div class="color-box marble-white"></div>
+                    <h3>Mármol / Sólido</h3>
+                    <p>Acabados limpios de alta gama para muebles de baño y cubiertas.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="https://wa.me/524423979275?text=Hola,%20vi%20el%20cat%C3%A1logo%20de%20melaminas%20y%20quiero%20cotizar." target="_blank" class="cta-button">
+                    Cotizar mi Acabado por WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
 
     <section id="nosotros" class="about-section">
         <div class="about-container">
             <div class="about-text">
                 <h2>Más que muebles, <span>soluciones reales.</span></h2>
-                <p>En TM Todo en Melamina, no solo armamos cajas; diseñamos experiencias. Cada clóset, cocina y centro de TV es fabricado a medida utilizando herrajes europeos, tableros resistentes y un equipo de instalación detallista que respeta tu hogar.</p>
+                <p>En TM Todo en Melamina combinamos diseño arquitectónico con acabados en tonos grises tipo concreto y maderas finas. Cada clóset, cocina y centro de TV es fabricado a medida bajo estrictos estándares de calidad.</p>
                 <ul class="benefits-list">
-                    <li>✔️ <strong>Diseños Personalizados 3D:</strong> Visualiza tu proyecto antes de fabricarlo.</li>
-                    <li>✔️ <strong>Materiales de Primera Calidad:</strong> Resistentes a la humedad y rayaduras.</li>
-                    <li>✔️ <strong>Instalación Limpia y Puntual:</strong> Entregamos en tiempo y forma.</li>
+                    <li>✔️ <strong>Diseño y Medición:</strong> Adaptado milimétricamente a tu espacio.</li>
+                    <li>✔️ <strong>Tonos en Tendencia:</strong> Acabados estilo concreto, madera y mate.</li>
+                    <li>✔️ <strong>Instalación Limpia:</strong> Cuidado absoluto en los detalles de tu hogar.</li>
                 </ul>
             </div>
         </div>
@@ -70,22 +113,20 @@
             <div class="card">
                 <div class="card-line"></div>
                 <h3>Cocinas Integrales</h3>
-                <p>Optimizamos cada rincón con diseños modernos, cubiertas elegantes y herrajes de cierre suave para el corazón de tu hogar.</p>
+                <p>Optimizamos cada rincón con diseños modernos, cubiertas resistentes y herrajes de cierre suave.</p>
             </div>
             <div class="card">
                 <div class="card-line"></div>
                 <h3>Clósets y Vestidores</h3>
-                <p>Sistemas de almacenamiento inteligente, iluminación LED integrada y distribución a la medida de tu guardarropa.</p>
+                <p>Sistemas de almacenamiento inteligente, iluminación LED integrada y distribución a la medida.</p>
             </div>
             <div class="card">
-                <div class="card-line"></div>
                 <h3>Centros de TV</h3>
-                <p>Estructuras flotantes minimalistas que ocultan el cableado, integrando tecnología y diseño en tu sala de estar.</p>
+                <p>Estructuras flotantes minimalistas que ocultan el cableado, integrando tecnología y diseño.</p>
             </div>
             <div class="card">
-                <div class="card-line"></div>
                 <h3>Muebles de Baño</h3>
-                <p>Mobiliario fabricado con núcleos resistentes a la humedad, lavabos integrados y diseño contemporáneo.</p>
+                <p>Mobiliario fabricado con núcleos resistentes a la humedad y diseño contemporáneo.</p>
             </div>
         </div>
     </section>
@@ -93,7 +134,7 @@
     <section id="galeria" class="gallery-section">
         <div class="section-header">
             <h2>Nuestro Trabajo Habla por Nosotros</h2>
-            <p>Proyectos recientemente entregados e instalados.</p>
+            <p>Proyectos recientemente entregados e instalados en Querétaro.</p>
         </div>
         <div class="gallery-grid">
             <div class="gallery-item">
@@ -105,7 +146,7 @@
             <div class="gallery-item">
                 <img src="1000311988.jpg" alt="Instalación de Melamina TM">
                 <div class="gallery-overlay">
-                    <span>Ver Detalles de Instalación</span>
+                    <span>Ver Detalles</span>
                 </div>
             </div>
         </div>
@@ -130,9 +171,9 @@
 
     <section class="cta-banner">
         <h2>¿Listo para transformar tu hogar?</h2>
-        <p>Agenda una visita técnica sin compromiso y comencemos a diseñar el espacio de tus sueños.</p>
-        <a href="https://wa.me/524421979275?text=Hola,%20me%20gustar%C3%ADa%20agendar%20una%20visita%20para%20cotizar." target="_blank" class="cta-button-light">
-            Contactar por WhatsApp
+        <p>Escríbenos directamente por WhatsApp y comencemos a diseñar el espacio de tus sueños.</p>
+        <a href="https://wa.me/524423979275?text=Hola,%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto." target="_blank" class="cta-button-light">
+            Contactar por WhatsApp (442 397 9275)
         </a>
     </section>
 
@@ -142,26 +183,42 @@
                 <div class="footer-logo">
                     <span class="logo-text">TM</span> TODO EN MELAMINA
                 </div>
-                <p>Más que muebles, ofrecemos soluciones integrales de diseño e interiorismo para hogares exigentes.</p>
+                <p>Especialistas en diseño, fabricación e instalación de mobiliario en melamina de alta calidad en Querétaro.</p>
             </div>
             <div class="footer-column">
                 <h3>Enlaces Rápidos</h3>
                 <a href="#portada">Inicio</a>
                 <a href="#nosotros">Nosotros</a>
                 <a href="#servicios">Servicios</a>
-                <a href="#galeria">Proyectos</a>
+                <a href="#" onclick="openCatalog(event)">Catálogo de Melaminas</a>
             </div>
             <div class="footer-column">
                 <h3>Contacto Directo</h3>
                 <p>📞 442 397 9275</p>
                 <p>📍 Querétaro, México</p>
-                <p>✉️ Cotizaciones vía WhatsApp</p>
+                <p>✉️ Cotizaciones directas por WhatsApp</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 TM Todo en Melamina. Todos los derechos reservados. | Diseñado con la mejor calidad.</p>
+            <p>&copy; 2026 TM Todo en Melamina. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <script>
+        function openCatalog(e) {
+            e.preventDefault();
+            document.getElementById('catalogModal').style.display = 'flex';
+        }
+        function closeCatalog() {
+            document.getElementById('catalogModal').style.display = 'none';
+        }
+        window.onclick = function(event) {
+            var modal = document.getElementById('catalogModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
 
 </body>
 </html>
