@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudio de Diseño | Elegancia en Madera</title>
+    <title>Todo en Melamina | Diseño y Fabricación</title>
     <!-- Fuente Poppins para un look moderno y limpio -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -14,7 +14,7 @@
     <div class="top-bar">
         <div class="top-bar-content">
             <span>📍 CDMX, México</span>
-            <span>✉️ contacto@tumarca.com</span>
+            <span>✉️ contacto@todoenmelamina.com</span>
             <span>📞 +52 55 1234 5678</span>
         </div>
     </div>
@@ -22,10 +22,10 @@
     <!-- ENCABEZADO -->
     <header class="header">
         <div class="logo-container">
-            <!-- Puedes poner tu logo aquí. Si no tienes, usa este texto estilizado -->
+            <img src="FOND.jpg" alt="Logo Todo en Melamina" class="brand-logo" onerror="this.style.display='none'">
             <div>
-                <div class="logo-text">LUMEN</div>
-                <span class="sub-text">DISEÑO & MELAMINA</span>
+                <div class="logo-text">TODO EN MELAMINA</div>
+                <span class="sub-text">DISEÑO & FABRICACIÓN</span>
             </div>
         </div>
         <nav class="nav">
@@ -37,19 +37,29 @@
         </nav>
     </header>
 
-    <!-- HERO PORTADA CON VIDEO -->
+    <!-- HERO PORTADA CON VIDEO Y TARJETA MOVIBLE -->
     <section id="inicio" class="hero-portada">
-        <!-- Reemplaza "video-fondo.mp4" por el nombre exacto de tu video -->
+        
+        <!-- Video de fondo (Asegúrate de tener video-fondo.mp4 en la raíz) -->
         <video autoplay loop muted playsinline class="hero-bg-video">
             <source src="video-fondo.mp4" type="video/mp4">
         </video>
         
         <div class="hero-overlay-gradient"></div>
         
-        <div class="hero-content-glass fade-in-up">
+        <!-- TARJETA FLOTANTE MOVIBLE -->
+        <div class="hero-content-glass fade-in-up" id="draggable-card">
+            
+            <!-- Controles de la tarjeta (Arrastrar y Cerrar) -->
+            <div class="card-controls" id="card-drag-handle">
+                <span class="drag-hint">⣿ Arrastrar</span>
+                <button class="close-card-btn" onclick="document.getElementById('draggable-card').style.display='none'" title="Cerrar ventana">✖</button>
+            </div>
+
             <span class="hero-badge">COLECCIÓN 2026</span>
             <h1 class="title-main">Transformamos tu espacio en una obra de arte.</h1>
             <p class="description">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura.</p>
+            
             <div class="hero-buttons">
                 <a href="#contacto" class="cta-button">Agendar Asesoría</a>
                 <a href="#galeria" class="cta-button-outline">Ver Proyectos</a>
@@ -105,7 +115,6 @@
             <p>Explora la calidad de nuestros acabados.</p>
         </div>
         <div class="gallery-grid">
-            <!-- Sube tus imágenes a GitHub y cambia "img-1.jpg" por sus nombres -->
             <div class="gallery-item">
                 <img src="img-1.jpg" alt="Cocina moderna" onerror="this.src='https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
                 <div class="gallery-overlay"><span>Ver Proyecto</span></div>
@@ -132,13 +141,13 @@
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-column">
-                <div class="footer-logo">LUMEN <span>DISEÑO</span></div>
-                <p>Transformando espacios con elegancia y precisión desde 2015.</p>
+                <div class="footer-logo">TODO EN <span>MELAMINA</span></div>
+                <p>Transformando espacios con elegancia y precisión.</p>
             </div>
             <div class="footer-column">
                 <h3>Contacto</h3>
                 <p>📍 CDMX, México</p>
-                <p>✉️ contacto@tumarca.com</p>
+                <p>✉️ contacto@todoenmelamina.com</p>
                 <p>📞 +52 55 1234 5678</p>
             </div>
             <div class="footer-column">
@@ -148,12 +157,13 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Lumen Diseño. Todos los derechos reservados.</p>
+            <p>&copy; 2026 Todo en Melamina. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <!-- SCRIPT PARA EFECTOS DE APARICIÓN AL HACER SCROLL -->
+    <!-- SCRIPTS -->
     <script>
+        // Animaciones de scroll
         document.addEventListener("DOMContentLoaded", function() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -167,6 +177,59 @@
                 observer.observe(el);
             });
         });
+
+        // Lógica para arrastrar la tarjeta principal
+        const card = document.getElementById("draggable-card");
+        const dragHandle = document.getElementById("card-drag-handle");
+        const portadaContainer = document.querySelector(".hero-portada");
+
+        let isDragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        const startDrag = (clientX, clientY) => {
+            isDragging = true;
+            card.style.position = "absolute";
+            card.style.margin = "0"; 
+            card.style.bottom = "auto"; 
+            card.style.zIndex = "2000";
+            
+            const rect = card.getBoundingClientRect();
+            offsetX = clientX - rect.left;
+            offsetY = clientY - rect.top;
+        };
+
+        const onDrag = (clientX, clientY) => {
+            if (!isDragging) return;
+            const containerRect = portadaContainer.getBoundingClientRect();
+            let newLeft = clientX - containerRect.left - offsetX;
+            let newTop = clientY - containerRect.top - offsetY;
+
+            // Evitar que la tarjeta se salga demasiado de la pantalla (Opcional, pero recomendado)
+            card.style.left = `${newLeft}px`;
+            card.style.top = `${newTop}px`;
+        };
+
+        const stopDrag = () => {
+            isDragging = false;
+        };
+
+        // Eventos Mouse
+        dragHandle.addEventListener("mousedown", (e) => startDrag(e.clientX, e.clientY));
+        document.addEventListener("mousemove", (e) => onDrag(e.clientX, e.clientY));
+        document.addEventListener("mouseup", stopDrag);
+
+        // Eventos Touch
+        dragHandle.addEventListener("touchstart", (e) => {
+            const touch = e.touches[0];
+            startDrag(touch.clientX, touch.clientY);
+        });
+        document.addEventListener("touchmove", (e) => {
+            if (!isDragging) return;
+            const touch = e.touches[0];
+            onDrag(touch.clientX, touch.clientY);
+        });
+        document.addEventListener("touchend", stopDrag);
     </script>
 </body>
 </html>
