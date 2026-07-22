@@ -170,7 +170,7 @@ body { background-color: var(--bg-main); color: var(--accent-dark); overflow-x: 
        2. AQUÍ CAMBIAS EL TAMAÑO DE FOND.jpg EN CELULAR
        ========================================= */
     .hero-portada { 
-        height: 85vh; /* <-- Cámbialo a 100vh si lo quieres completo, o 70vh si lo quieres más corto */
+        height: 25vh; /* <-- Cámbialo a 100vh si lo quieres completo, o 70vh si lo quieres más corto */
         padding: 20px; 
         align-items: flex-end; 
     }
