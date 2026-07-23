@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo en Melamina | Diseño y Fabricación</title>
-    <!-- Fuente Poppins para un look moderno y limpio -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -15,14 +14,13 @@
         <div class="top-bar-content">
             <span>📍 CDMX, México</span>
             <span>✉️ contacto@todoenmelamina.com</span>
-            <span>📞 +52 44 2397 9275</span>
+            <span>📞 +52 55 1234 5678</span>
         </div>
     </div>
 
-    <!-- ENCABEZADO -->
+    <!-- ENCABEZADO LIMPIO (Sin imagen ni logo) -->
     <header class="header">
         <div class="logo-container">
-            <img src="FOND.jpeg" alt="Logo Todo en Melamina" class="brand-logo" onerror="this.style.display='none'">
             <div>
                 <div class="logo-text">TODO EN MELAMINA</div>
                 <span class="sub-text">DISEÑO & FABRICACIÓN</span>
@@ -40,7 +38,7 @@
     <!-- HERO PORTADA CON VIDEO Y TARJETA MOVIBLE -->
     <section id="inicio" class="hero-portada">
         
-        <!-- Video de fondo (Asegúrate de tener video-fondo.mp4 en la raíz) -->
+        <!-- Video de fondo -->
         <video autoplay loop muted playsinline class="hero-bg-video">
             <source src="video-fondo.mp4" type="video/mp4">
         </video>
@@ -148,7 +146,7 @@
                 <h3>Contacto</h3>
                 <p>📍 CDMX, México</p>
                 <p>✉️ contacto@todoenmelamina.com</p>
-                <p>📞 +52 44 2397 9275</p>
+                <p>📞 +52 55 1234 5678</p>
             </div>
             <div class="footer-column">
                 <h3>Horario</h3>
@@ -205,7 +203,6 @@
             let newLeft = clientX - containerRect.left - offsetX;
             let newTop = clientY - containerRect.top - offsetY;
 
-            // Evitar que la tarjeta se salga demasiado de la pantalla (Opcional, pero recomendado)
             card.style.left = `${newLeft}px`;
             card.style.top = `${newTop}px`;
         };
