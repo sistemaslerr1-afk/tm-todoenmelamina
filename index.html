@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo en Melamina | Diseño y Fabricación</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fuentes premium -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,13 +13,13 @@
     <!-- BARRA SUPERIOR -->
     <div class="top-bar">
         <div class="top-bar-content">
-            <span>📍 CDMX, México</span>
+            <span>📍 Querétaro, Querétaro</span>
             <span>✉️ contacto@todoenmelamina.com</span>
-            <span>📞 +52 44 2397 9275</span>
+            <span>📞 +52 442 397 9275</span>
         </div>
     </div>
 
-    <!-- ENCABEZADO LIMPIO (Sin imagen ni logo) -->
+    <!-- ENCABEZADO -->
     <header class="header">
         <div class="logo-container">
             <div>
@@ -29,34 +30,31 @@
         <nav class="nav">
             <a href="#inicio">Inicio</a>
             <a href="#servicios">Servicios</a>
+            <a href="#carrusel">Inspiración</a>
             <a href="#galeria">Proyectos</a>
-            <a href="#catalogo" class="btn-catalogo-nav">Ver Catálogo</a>
             <a href="#contacto" class="btn-contacto-destacado">Cotizar ahora</a>
         </nav>
     </header>
 
-    <!-- HERO PORTADA CON VIDEO Y TARJETA MOVIBLE -->
+    <!-- HERO PORTADA CON FOND.JPEG Y TARJETA MOVIBLE -->
     <section id="inicio" class="hero-portada">
         
-        <!-- Video de fondo -->
-        <video autoplay loop muted playsinline class="hero-bg-video">
-            <source src="video-fondo.mp4" type="video/mp4">
-        </video>
+        <!-- TU IMAGEN PRINCIPAL FOND.jpeg (Ocupa toda la pantalla) -->
+        <img src="FOND.jpeg" alt="Fondo Todo en Melamina" class="hero-bg-img" onerror="this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'">
         
         <div class="hero-overlay-gradient"></div>
         
         <!-- TARJETA FLOTANTE MOVIBLE -->
         <div class="hero-content-glass fade-in-up" id="draggable-card">
             
-            <!-- Controles de la tarjeta (Arrastrar y Cerrar) -->
             <div class="card-controls" id="card-drag-handle">
-                <span class="drag-hint">⣿ Arrastrar</span>
+                <span class="drag-hint">⣿ Arrastrar ventana</span>
                 <button class="close-card-btn" onclick="document.getElementById('draggable-card').style.display='none'" title="Cerrar ventana">✖</button>
             </div>
 
-            <span class="hero-badge">COLECCIÓN 2026</span>
+            <span class="hero-badge">DISEÑO PREMIUM</span>
             <h1 class="title-main">Transformamos tu espacio en una obra de arte.</h1>
-            <p class="description">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura.</p>
+            <p class="description">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</p>
             
             <div class="hero-buttons">
                 <a href="#contacto" class="cta-button">Agendar Asesoría</a>
@@ -69,15 +67,46 @@
     <section class="about-section scroll-anim">
         <div class="about-container">
             <div class="about-text">
-                <h2>Diseño <span>funcional</span> e inteligente</h2>
-                <p>Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza del entorno.</p>
+                <h2>Diseño <span class="text-italic">funcional</span> e inteligente</h2>
+                <p>Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza de tu entorno.</p>
             </div>
             <ul class="benefits-list">
-                <li>✔️ Materiales Premium</li>
-                <li>✔️ Diseño Increible</li>
-                <li>✔️ Instalación Limpia</li>
-                <li>✔️ Trabajos a tu medida</li>
+                <li><span class="icon">✨</span> Materiales Premium</li>
+                <li><span class="icon">📐</span> Diseño Increíble</li>
+                <li><span class="icon">🧹</span> Instalación Limpia</li>
+                <li><span class="icon">🛠️</span> Trabajos a tu medida</li>
             </ul>
+        </div>
+    </section>
+
+    <!-- NUEVO: CARRUSEL DE INSPIRACIÓN -->
+    <section id="carrusel" class="carousel-section scroll-anim">
+        <div class="section-header">
+            <h2>Inspiración en Melamina</h2>
+            <p>Desliza para ver la versatilidad de nuestros diseños.</p>
+        </div>
+        
+        <div class="carousel-container">
+            <!-- Slide 1 -->
+            <div class="carousel-slide">
+                <img src="img-slide1.jpg" alt="Idea 1" onerror="this.src='https://images.unsplash.com/photo-1556909211-36987daf7b4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <div class="slide-caption">Texturas Cálidas</div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="carousel-slide">
+                <img src="img-slide2.jpg" alt="Idea 2" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <div class="slide-caption">Acabados Mate</div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="carousel-slide">
+                <img src="img-slide3.jpg" alt="Idea 3" onerror="this.src='https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <div class="slide-caption">Optimización de Espacio</div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="carousel-slide">
+                <img src="img-slide4.jpg" alt="Idea 4" onerror="this.src='https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <div class="slide-caption">Diseño Minimalista</div>
+            </div>
         </div>
     </section>
 
@@ -88,18 +117,18 @@
             <p>Soluciones a medida para cada área de tu vida.</p>
         </div>
         <div class="cards-grid">
-            <div class="card">
-                <div class="card-line"></div>
+            <div class="card glass-card">
+                <div class="card-icon">🍳</div>
                 <h3>Cocinas Integrales</h3>
-                <p>Diseños ergonómicos, cubiertas de cuarzo, granito y acabados en melamina.</p>
+                <p>Diseños ergonómicos, cubiertas de cuarzo, granito y acabados en melamina de alto brillo o mate.</p>
             </div>
-            <div class="card">
-                <div class="card-line"></div>
+            <div class="card glass-card">
+                <div class="card-icon">👗</div>
                 <h3>Closets y Vestidores</h3>
-                <p>Optimización total del espacio con sistemas de cierre suave.</p>
+                <p>Optimización total del espacio con sistemas de cierre suave y distribución inteligente.</p>
             </div>
-            <div class="card">
-                <div class="card-line"></div>
+            <div class="card glass-card">
+                <div class="card-icon">💻</div>
                 <h3>Mobiliario de Oficina</h3>
                 <p>Escritorios y libreros minimalistas diseñados para aumentar tu productividad y confort.</p>
             </div>
@@ -110,7 +139,7 @@
     <section id="galeria" class="gallery-section scroll-anim">
         <div class="section-header">
             <h2>Proyectos Destacados</h2>
-            <p>Explora la calidad de nuestros acabados.</p>
+            <p>Explora la calidad y detalle de nuestras instalaciones.</p>
         </div>
         <div class="gallery-grid">
             <div class="gallery-item">
@@ -118,7 +147,7 @@
                 <div class="gallery-overlay"><span>Ver Proyecto</span></div>
             </div>
             <div class="gallery-item">
-                <img src="img-2.jpg" alt="Vestidor elegante" onerror="this.src='https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <img src="img-2.jpg" alt="Vestidor elegante" onerror="this.src='https://images.unsplash.com/photo-1595514535311-662f59fa0f77?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
                 <div class="gallery-overlay"><span>Ver Proyecto</span></div>
             </div>
             <div class="gallery-item">
@@ -130,9 +159,11 @@
 
     <!-- BANNER LLAMADO A LA ACCIÓN -->
     <section id="contacto" class="cta-banner scroll-anim">
-        <h2>¿Listo para renovar tu espacio?</h2>
-        <p>Contáctanos hoy mismo y recibe un presupuesto sin compromiso.</p>
-        <a href="https://wa.me/524423979275" class="cta-button-light">Contactar por WhatsApp</a>
+        <div class="cta-content">
+            <h2>¿Listo para renovar tu espacio?</h2>
+            <p>Contáctanos hoy mismo y recibe un presupuesto sin compromiso. Estamos en Querétaro.</p>
+            <a href="https://wa.me/524423979275" class="cta-button-light">Contactar por WhatsApp</a>
+        </div>
     </section>
 
     <!-- FOOTER -->
@@ -140,13 +171,13 @@
         <div class="footer-container">
             <div class="footer-column">
                 <div class="footer-logo">TODO EN <span>MELAMINA</span></div>
-                <p>Transformando espacios con elegancia y precisión.</p>
+                <p>Transformando espacios con elegancia y precisión, diseñando muebles que cuentan historias.</p>
             </div>
             <div class="footer-column">
                 <h3>Contacto</h3>
-                <p>📍 CDMX, México</p>
+                <p>📍 Querétaro, Querétaro</p>
                 <p>✉️ contacto@todoenmelamina.com</p>
-                <p>📞 +52 44 2397 9275</p>
+                <p>📞 +52 442 397 9275</p>
             </div>
             <div class="footer-column">
                 <h3>Horario</h3>
@@ -161,7 +192,7 @@
 
     <!-- SCRIPTS -->
     <script>
-        // Animaciones de scroll
+        // Animaciones de scroll suaves
         document.addEventListener("DOMContentLoaded", function() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -182,8 +213,7 @@
         const portadaContainer = document.querySelector(".hero-portada");
 
         let isDragging = false;
-        let offsetX = 0;
-        let offsetY = 0;
+        let offsetX = 0; let offsetY = 0;
 
         const startDrag = (clientX, clientY) => {
             isDragging = true;
@@ -207,16 +237,14 @@
             card.style.top = `${newTop}px`;
         };
 
-        const stopDrag = () => {
-            isDragging = false;
-        };
+        const stopDrag = () => { isDragging = false; };
 
         // Eventos Mouse
         dragHandle.addEventListener("mousedown", (e) => startDrag(e.clientX, e.clientY));
         document.addEventListener("mousemove", (e) => onDrag(e.clientX, e.clientY));
         document.addEventListener("mouseup", stopDrag);
 
-        // Eventos Touch
+        // Eventos Touch (Para Celulares)
         dragHandle.addEventListener("touchstart", (e) => {
             const touch = e.touches[0];
             startDrag(touch.clientX, touch.clientY);
