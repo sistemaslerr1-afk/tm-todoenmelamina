@@ -249,5 +249,16 @@
         });
         document.addEventListener("touchend", stopDrag);
     </script>
+    // Lógica del Carrusel 3D
+const carousel3d = document.getElementById('carousel-3d');
+const slider = document.getElementById('carousel-slider');
+
+slider.addEventListener('input', (e) => {
+    // Al mover la barra, rotamos el contenedor en base al valor (0 a 360 grados)
+    const angle = e.target.value;
+    carousel3d.style.transform = `translateZ(-350px) rotateY(${-angle}deg)`;
+});
+// Inicializar posición
+carousel3d.style.transform = `translateZ(-350px) rotateY(0deg)`;
 </body>
 </html>
