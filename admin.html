@@ -2,84 +2,130 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Admin Dashboard | Todo en Melamina</title>
     <link rel="icon" type="image/png" href="LOGO1.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --admin-bg: #f4f6f9; --admin-sidebar: #2c3036; --admin-card: #ffffff; --accent: #B39B82; --text-dark: #333; --text-light: #888; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: var(--admin-bg); color: var(--text-dark); min-height: 100vh; overflow: hidden; } 
+        :root { 
+            --admin-bg: #f4f6f9; 
+            --admin-sidebar: #1e2227; 
+            --admin-card: #ffffff; 
+            --accent: #B39B82; 
+            --accent-dark: #8c755e;
+            --text-dark: #2c3036; 
+            --text-muted: #788291; 
+        }
         
-        #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(44, 48, 54, 0.95); backdrop-filter: blur(10px); z-index: 9999; display: flex; align-items: center; justify-content: center; }
-        .login-box { background: white; padding: 40px; border-radius: 12px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
-        .login-box h2 { color: var(--accent-sidebar); margin-bottom: 20px; font-weight: 700; }
-        .login-box input { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
-        .login-box button { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .login-box button:hover { background: #9A836B; }
-        #login-error { color: #dc3545; font-size: 0.9rem; margin-bottom: 15px; display: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--admin-bg); color: var(--text-dark); min-height: 100vh; overflow-x: hidden; } 
+        
+        /* LOGIN OVERLAY */
+        #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(30, 34, 39, 0.96); backdrop-filter: blur(10px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .login-box { background: white; padding: 35px 25px; border-radius: 16px; width: 100%; max-width: 380px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .login-box h2 { color: var(--text-dark); margin-bottom: 8px; font-weight: 700; font-size: 1.4rem; }
+        .login-box p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 25px; }
+        .login-box input { width: 100%; padding: 14px; margin-bottom: 15px; border: 1.5px solid #e1e5eb; border-radius: 10px; font-size: 1rem; text-align: center; outline: none; transition: 0.3s; }
+        .login-box input:focus { border-color: var(--accent); }
+        .login-box button { width: 100%; padding: 14px; background: var(--accent); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 12px rgba(179, 155, 130, 0.4); }
+        .login-box button:hover { background: var(--accent-dark); }
+        #login-error { color: #dc3545; font-size: 0.85rem; margin-bottom: 15px; display: none; font-weight: 500; }
 
-        #admin-wrapper { display: none; height: 100vh; }
-        .sidebar { width: 260px; background: var(--admin-sidebar); color: #fff; display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto; transition: 0.3s; z-index: 1000;}
-        .sidebar-header { padding: 25px; font-size: 1.2rem; font-weight: 700; border-bottom: 1px solid #3d424a; color: var(--accent); display: flex; justify-content: space-between; align-items: center;}
-        .close-sidebar-btn { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;}
-        .nav-links { list-style: none; padding: 20px 0; }
-        .nav-links li { padding: 15px 25px; cursor: pointer; transition: 0.3s; color: #b0b5be; }
-        .nav-links li:hover, .nav-links li.active { background: #3d424a; color: #fff; border-left: 4px solid var(--accent); }
+        /* WRAPPER PRINCIPAL */
+        #admin-wrapper { display: none; height: 100vh; width: 100vw; overflow: hidden; position: relative; }
         
-        .main-content { flex: 1; padding: 40px; overflow-y: auto; position: relative;}
+        /* SIDEBAR (DESKTOP & MOBILE) */
+        .sidebar { width: 260px; background: var(--admin-sidebar); color: #fff; display: flex; flex-direction: column; flex-shrink: 0; transition: transform 0.3s ease; z-index: 9000; }
+        .sidebar-header { padding: 25px 20px; font-size: 1.1rem; font-weight: 700; border-bottom: 1px solid #2d333b; color: var(--accent); display: flex; justify-content: space-between; align-items: center; letter-spacing: 1px; }
+        .close-sidebar-btn { display: none; background: rgba(255,255,255,0.1); border: none; color: white; width: 32px; height: 32px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; }
+        .nav-links { list-style: none; padding: 15px 0; overflow-y: auto; flex: 1; }
+        .nav-links li { padding: 14px 22px; cursor: pointer; transition: all 0.25s; color: #a0a7b5; font-size: 0.92rem; font-weight: 500; display: flex; align-items: center; gap: 12px; }
+        .nav-links li:hover, .nav-links li.active { background: #2a2f38; color: #fff; border-left: 4px solid var(--accent); }
         
-        .mobile-header { display: none; background: var(--admin-card); padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); align-items: center; justify-content: space-between; }
-        .menu-btn { background: var(--accent); color: white; border: none; padding: 8px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        /* CONTENIDO PRINCIPAL */
+        .main-content { flex: 1; padding: 30px; overflow-y: auto; height: 100vh; background: var(--admin-bg); }
         
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .header h1 { font-size: 1.8rem; }
-        .btn-preview { background: var(--accent); color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: 600; box-shadow: 0 4px 10px rgba(179, 155, 130, 0.3); transition: 0.3s;}
-        .btn-preview:hover { background: #9A836B; }
+        /* HEADER BAR */
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; gap: 15px; flex-wrap: wrap; }
+        .header-title-box { display: flex; align-items: center; gap: 12px; }
+        .mobile-toggle-btn { display: none; background: var(--admin-card); border: 1px solid #e1e5eb; padding: 10px 14px; border-radius: 10px; font-size: 1.2rem; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .header h1 { font-size: 1.6rem; font-weight: 700; color: var(--text-dark); }
+        .header-actions { display: flex; gap: 10px; }
+        .btn-preview { background: var(--accent); color: white; padding: 10px 18px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(179, 155, 130, 0.3); transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-preview:hover { background: var(--accent-dark); }
+        .btn-analytics-external { background: #4285F4; color: white; padding: 10px 18px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3); transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-analytics-external:hover { background: #3367d6; }
 
+        /* ALERTAS */
+        #success-alert { display: none; background-color: #28a745; color: white; padding: 14px 20px; border-radius: 10px; margin-bottom: 20px; text-align: center; font-weight: 600; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2); }
+
+        /* CARDS RESUMEN METRICAS */
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .metric-card { background: var(--admin-card); padding: 20px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.03); }
+        .metric-card .title { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+        .metric-card .number { font-size: 1.6rem; font-weight: 700; color: var(--text-dark); margin-top: 5px; }
+        .metric-card .badge { display: inline-block; font-size: 0.72rem; font-weight: 600; color: #28a745; background: #e6f4ea; padding: 3px 8px; border-radius: 20px; margin-top: 6px; }
+
+        /* SECCIONES Y TABULADORES */
         .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.4s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        .editor-section { background: var(--admin-card); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); max-width: 900px; margin-bottom: 30px;}
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .form-group { margin-bottom: 20px; }
+        .editor-section { background: var(--admin-card); padding: 25px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); max-width: 1000px; margin-bottom: 25px; border: 1px solid rgba(0,0,0,0.02); }
+        .section-title { border-bottom: 2px solid #f4f6f9; padding-bottom: 12px; margin-bottom: 20px; color: var(--accent); font-size: 1.1rem; font-weight: 600; }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        .form-group { margin-bottom: 15px; }
         .form-group.full { grid-column: span 2; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95rem; }
-        .form-group textarea { resize: vertical; height: 90px; }
-        .btn-save { background: var(--text-dark); color: white; border: none; padding: 15px 30px; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%; max-width: 900px; font-size: 1.1rem; transition: 0.3s; margin-bottom: 50px;}
+        .form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.85rem; color: #4a5568; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px 14px; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 0.9rem; transition: 0.2s; outline: none; background: #fdfdfd; }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(179, 155, 130, 0.15); }
+        .form-group textarea { resize: vertical; height: 95px; }
+        
+        .btn-save { background: var(--text-dark); color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-weight: 600; width: 100%; max-width: 1000px; font-size: 1rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 40px; }
         .btn-save:hover { background: var(--accent); }
 
-        #success-alert { display: none; background-color: #28a745; color: white; padding: 15px; border-radius: 6px; margin-bottom: 20px; text-align: center; font-weight: bold; position: sticky; top: 20px; z-index: 100;}
-        .section-title { border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-bottom: 20px; color: var(--accent);}
-
-        /* CONTENEDOR PARA LAS GRÁFICAS DE GOOGLE */
-        .iframe-container { width: 100%; height: 600px; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        /* IFRAME CONTAINER LOOKER */
+        .iframe-container { width: 100%; height: 650px; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; }
         .iframe-container iframe { width: 100%; height: 100%; border: none; }
 
-        @media (max-width: 768px) {
-            .sidebar { position: fixed; left: -260px; height: 100vh; }
-            .sidebar.open { left: 0; }
+        /* OVERLAY PARA MOVIL */
+        .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); backdrop-filter: blur(3px); z-index: 8500; }
+
+        /* ADAPTATIVO MOVIL */
+        @media (max-width: 900px) {
+            .sidebar { position: fixed; left: 0; top: 0; height: 100vh; transform: translateX(-100%); }
+            .sidebar.open { transform: translateX(0); }
             .close-sidebar-btn { display: block; }
-            .main-content { padding: 20px; }
-            .mobile-header { display: flex; }
-            .header h1 { font-size: 1.3rem; }
+            .mobile-toggle-btn { display: flex; align-items: center; justify-content: center; }
+            .main-content { padding: 18px 15px; }
+            .header h1 { font-size: 1.25rem; }
+            .btn-preview, .btn-analytics-external { padding: 8px 12px; font-size: 0.78rem; }
             .form-grid { grid-template-columns: 1fr; }
             .form-group.full { grid-column: span 1; }
+            .editor-section { padding: 18px 15px; }
+            .iframe-container { height: 500px; }
+            .sidebar-overlay.active { display: block; }
         }
     </style>
 </head>
 <body>
+
+    <!-- PANTALLA LOGIN -->
     <div id="login-overlay">
         <div class="login-box">
-            <h2>Acceso Restringido</h2>
-            <div id="login-error">Contraseña incorrecta.</div>
+            <h2>Panel de Control</h2>
+            <p>Todo en Melamina - Administración</p>
+            <div id="login-error">Contraseña incorrecta. Inténtalo de nuevo.</div>
             <input type="password" id="admin-pass" placeholder="Ingresa tu contraseña" onkeydown="if(event.key === 'Enter') checkLogin()">
-            <button onclick="checkLogin()">Entrar</button>
+            <button onclick="checkLogin()">Ingresar</button>
         </div>
     </div>
 
+    <!-- OVERLAY SOMBRA EN MOVIL -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <!-- WRAPPER DASHBOARD -->
     <div id="admin-wrapper">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -87,7 +133,7 @@
                 <button class="close-sidebar-btn" onclick="toggleSidebar()">✖</button>
             </div>
             <ul class="nav-links">
-                <li class="tab-link active" onclick="switchTab('dashboard', this)">📊 Dashboard Real</li>
+                <li class="tab-link active" onclick="switchTab('dashboard', this)">📊 Analytics Real</li>
                 <li class="tab-link" onclick="switchTab('ajustes', this)">⚙️ Generales & Redes</li>
                 <li class="tab-link" onclick="switchTab('portada', this)">🏠 Portada</li>
                 <li class="tab-link" onclick="switchTab('nosotros', this)">📖 Nosotros</li>
@@ -99,22 +145,42 @@
         </aside>
 
         <main class="main-content">
-            <div class="mobile-header">
-                <button class="menu-btn" onclick="toggleSidebar()">☰ Menú Administrador</button>
+            <div class="header">
+                <div class="header-title-box">
+                    <button class="mobile-toggle-btn" onclick="toggleSidebar()">☰</button>
+                    <h1 id="page-title">Analytics Real</h1>
+                </div>
+                <div class="header-actions">
+                    <a href="https://analytics.google.com" target="_blank" class="btn-analytics-external">📈 Abrir App Google</a>
+                    <a href="index.html" target="_blank" class="btn-preview">👁️ Ver Web</a>
+                </div>
             </div>
 
-            <div class="header">
-                <h1 id="page-title">Dashboard Analítico</h1>
-                <a href="index.html" target="_blank" class="btn-preview">👁️ Modo Ver (Preview)</a>
-            </div>
             <div id="success-alert">¡Cambios guardados con éxito!</div>
 
-            <!-- DASHBOARD REAL CON LOOKER STUDIO -->
+            <!-- TAB DASHBOARD ANALYTICS -->
             <div id="dashboard" class="tab-content active">
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="title">Estado Tracker</div>
+                        <div class="number" style="font-size:1.1rem; color:#28a745;">G-QFL8N8EDV2</div>
+                        <span class="badge">Activo & Enlazado</span>
+                    </div>
+                    <div class="metric-card">
+                        <div class="title">Seguridad</div>
+                        <div class="number" style="font-size:1.1rem;">HTTPS / SSL</div>
+                        <span class="badge">Protegido</span>
+                    </div>
+                    <div class="metric-card">
+                        <div class="title">Plataforma</div>
+                        <div class="number" style="font-size:1.1rem;">Looker Studio</div>
+                        <span class="badge">Google Cloud</span>
+                    </div>
+                </div>
+
                 <div class="editor-section" style="max-width: 100%;">
-                    <h3 class="section-title">Métricas de Visitas (Google Analytics)</h3>
+                    <h3 class="section-title">Reporte Interactivo de Tráfico</h3>
                     <div class="iframe-container">
-                        <!-- TU IFRAME REAL AHORA LISTO Y AJUSTADO -->
                         <iframe src="https://datastudio.google.com/embed/reporting/87e9bd59-c77e-4504-b014-7ea53544636d/page/kPw4F" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
                     </div>
                 </div>
@@ -123,16 +189,16 @@
             <!-- AJUSTES GENERALES -->
             <div id="ajustes" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Barra Superior</h3>
+                    <h3 class="section-title">Barra Superior de Contacto</h3>
                     <div class="form-grid">
                         <div class="form-group"><label>Ubicación</label><input type="text" id="in-top-loc" value="📍 Querétaro, Querétaro"></div>
-                        <div class="form-group"><label>Correo</label><input type="text" id="in-top-email" value="✉️ todoenmelaminatm@gmail.com"></div>
-                        <div class="form-group"><label>Teléfono</label><input type="text" id="in-top-phone" value="📞 +52 442 397 9275"></div>
+                        <div class="form-group"><label>Correo Electrónico</label><input type="text" id="in-top-email" value="✉️ todoenmelaminatm@gmail.com"></div>
+                        <div class="form-group"><label>Teléfono de Contacto</label><input type="text" id="in-top-phone" value="📞 +52 442 397 9275"></div>
                     </div>
                 </div>
                 <div class="editor-section">
                     <h3 class="section-title">Redes Sociales y WhatsApp</h3>
-                    <div class="form-group full"><label>Link del Botón de WhatsApp</label><input type="text" id="in-wa-link" value="https://wa.me/524423979275?text=Hola,%20me%20gustaría%20cotizar%20un%20proyecto."></div>
+                    <div class="form-group full"><label>Enlace Directo de WhatsApp</label><input type="text" id="in-wa-link" value="https://wa.me/524423979275?text=Hola,%20me%20gustaría%20cotizar%20un%20proyecto."></div>
                     <div class="form-grid">
                         <div class="form-group"><label>Link Facebook</label><input type="text" id="in-soc-fb" value="#"></div>
                         <div class="form-group"><label>Link Instagram</label><input type="text" id="in-soc-ig" value="#"></div>
@@ -140,8 +206,8 @@
                     </div>
                 </div>
                 <div class="editor-section">
-                    <h3 class="section-title">Footer y CTA</h3>
-                    <div class="form-group full"><label>Título CTA</label><input type="text" id="in-cta-title" value="¿Listo para renovar tu espacio?"></div>
+                    <h3 class="section-title">Textos de Pie de Página (Footer)</h3>
+                    <div class="form-group full"><label>Título del Banner CTA</label><input type="text" id="in-cta-title" value="¿Listo para renovar tu espacio?"></div>
                     <div class="form-group full"><label>Descripción CTA</label><textarea id="in-cta-desc">Contáctanos hoy mismo y recibe un presupuesto sin compromiso. Estamos en Querétaro.</textarea></div>
                     <div class="form-group full"><label>Eslogan Footer</label><input type="text" id="in-foot-desc" value="Transformando espacios con elegancia y precisión, diseñando muebles que cuentan historias."></div>
                 </div>
@@ -151,10 +217,10 @@
             <!-- PORTADA -->
             <div id="portada" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Textos Principales</h3>
-                    <div class="form-group full"><label>URL Imagen Hero</label><input type="text" id="in-hero-img" value="FOND.jpeg"></div>
-                    <div class="form-group full"><label>Título</label><input type="text" id="in-hero-title" value="Transformamos tu espacio en una obra de arte."></div>
-                    <div class="form-group full"><label>Descripción</label><textarea id="in-hero-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</textarea></div>
+                    <h3 class="section-title">Encabezado Principal (Hero)</h3>
+                    <div class="form-group full"><label>Nombre o Ruta de Imagen de Fondo</label><input type="text" id="in-hero-img" value="FOND.jpeg"></div>
+                    <div class="form-group full"><label>Título Principal</label><input type="text" id="in-hero-title" value="Transformamos tu espacio en una obra de arte."></div>
+                    <div class="form-group full"><label>Descripción Secundaria</label><textarea id="in-hero-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</textarea></div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
@@ -162,9 +228,9 @@
             <!-- NOSOTROS -->
             <div id="nosotros" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Diseño Inteligente</h3>
-                    <div class="form-group full"><label>Título</label><input type="text" id="in-about-title" value='Diseño <span class="text-italic">funcional</span> e inteligente'></div>
-                    <div class="form-group full"><label>Descripción</label><textarea id="in-about-desc">Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza de tu entorno.</textarea></div>
+                    <h3 class="section-title">Sección Sobre Nosotros</h3>
+                    <div class="form-group full"><label>Título de la Sección</label><input type="text" id="in-about-title" value='Diseño <span class="text-italic">funcional</span> e inteligente'></div>
+                    <div class="form-group full"><label>Descripción Corta</label><textarea id="in-about-desc">Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza de tu entorno.</textarea></div>
                     <div class="form-grid">
                         <div class="form-group"><label>Beneficio 1</label><input type="text" id="in-about-b1" value="Materiales Premium"></div>
                         <div class="form-group"><label>Beneficio 2</label><input type="text" id="in-about-b2" value="Diseño Increíble"></div>
@@ -178,17 +244,17 @@
             <!-- CARRUSEL -->
             <div id="carrusel" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Las 5 Imágenes</h3>
+                    <h3 class="section-title">Carrusel 3D (5 Fotos)</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Img 1 (URL)</label><input type="text" id="in-car-img1" value="VISTA.jpg"></div>
+                        <div class="form-group"><label>Img 1 (Archivo)</label><input type="text" id="in-car-img1" value="VISTA.jpg"></div>
                         <div class="form-group"><label>Texto 1</label><input type="text" id="in-car-txt1" value="Texturas Cálidas"></div>
-                        <div class="form-group"><label>Img 2 (URL)</label><input type="text" id="in-car-img2" value="DET.jpg"></div>
+                        <div class="form-group"><label>Img 2 (Archivo)</label><input type="text" id="in-car-img2" value="DET.jpg"></div>
                         <div class="form-group"><label>Texto 2</label><input type="text" id="in-car-txt2" value="Acabados Mate"></div>
-                        <div class="form-group"><label>Img 3 (URL)</label><input type="text" id="in-car-img3" value="FOND.jpeg"></div>
+                        <div class="form-group"><label>Img 3 (Archivo)</label><input type="text" id="in-car-img3" value="FOND.jpeg"></div>
                         <div class="form-group"><label>Texto 3</label><input type="text" id="in-car-txt3" value="Optimización"></div>
-                        <div class="form-group"><label>Img 4 (URL)</label><input type="text" id="in-car-img4" value="VISTA.jpg"></div>
+                        <div class="form-group"><label>Img 4 (Archivo)</label><input type="text" id="in-car-img4" value="VISTA.jpg"></div>
                         <div class="form-group"><label>Texto 4</label><input type="text" id="in-car-txt4" value="Minimalismo"></div>
-                        <div class="form-group"><label>Img 5 (URL)</label><input type="text" id="in-car-img5" value="DET.jpg"></div>
+                        <div class="form-group"><label>Img 5 (Archivo)</label><input type="text" id="in-car-img5" value="DET.jpg"></div>
                         <div class="form-group"><label>Texto 5</label><input type="text" id="in-car-txt5" value="Diseño Premium"></div>
                     </div>
                 </div>
@@ -198,17 +264,17 @@
             <!-- SERVICIOS -->
             <div id="servicios" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Servicios</h3>
+                    <h3 class="section-title">Tarjetas de Servicios</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Icono 1</label><input type="text" id="in-srv-ico1" value="🍳"></div>
+                        <div class="form-group"><label>Icono 1 (Emoji)</label><input type="text" id="in-srv-ico1" value="🍳"></div>
                         <div class="form-group"><label>Título 1</label><input type="text" id="in-srv-tit1" value="Cocinas Integrales"></div>
-                        <div class="form-group full"><label>Desc 1</label><textarea id="in-srv-desc1">Diseños ergonómicos, cubiertas de cuarzo, granito y acabados en melamina de alto brillo o mate.</textarea></div>
-                        <div class="form-group"><label>Icono 2</label><input type="text" id="in-srv-ico2" value="👗"></div>
+                        <div class="form-group full"><label>Descripción 1</label><textarea id="in-srv-desc1">Diseños ergonómicos, cubiertas de cuarzo, granito y acabados en melamina de alto brillo o mate.</textarea></div>
+                        <div class="form-group"><label>Icono 2 (Emoji)</label><input type="text" id="in-srv-ico2" value="👗"></div>
                         <div class="form-group"><label>Título 2</label><input type="text" id="in-srv-tit2" value="Closets y Vestidores"></div>
-                        <div class="form-group full"><label>Desc 2</label><textarea id="in-srv-desc2">Optimización total del espacio con sistemas de cierre suave y distribución inteligente.</textarea></div>
-                        <div class="form-group"><label>Icono 3</label><input type="text" id="in-srv-ico3" value="💻"></div>
+                        <div class="form-group full"><label>Descripción 2</label><textarea id="in-srv-desc2">Optimización total del espacio con sistemas de cierre suave y distribución inteligente.</textarea></div>
+                        <div class="form-group"><label>Icono 3 (Emoji)</label><input type="text" id="in-srv-ico3" value="💻"></div>
                         <div class="form-group"><label>Título 3</label><input type="text" id="in-srv-tit3" value="Mobiliario de Oficina"></div>
-                        <div class="form-group full"><label>Desc 3</label><textarea id="in-srv-desc3">Escritorios y libreros minimalistas diseñados para aumentar tu productividad y confort.</textarea></div>
+                        <div class="form-group full"><label>Descripción 3</label><textarea id="in-srv-desc3">Escritorios y libreros minimalistas diseñados para aumentar tu productividad y confort.</textarea></div>
                     </div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
@@ -217,14 +283,14 @@
             <!-- TESTIMONIOS Y FAQ -->
             <div id="testimonios" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">3 Reseñas de Clientes</h3>
+                    <h3 class="section-title">Reseñas de Clientes</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Nombre 1</label><input type="text" id="in-test-name1" value="- Laura M."></div>
-                        <div class="form-group"><label>Opinión 1</label><input type="text" id="in-test-txt1" value="Me encantó el vestidor que hicieron. Excelente calidad de melamina y entregaron justo en la fecha acordada."></div>
-                        <div class="form-group"><label>Nombre 2</label><input type="text" id="in-test-name2" value="- Roberto C."></div>
-                        <div class="form-group"><label>Opinión 2</label><input type="text" id="in-test-txt2" value="La cocina quedó espectacular. El diseño 3D previo me ayudó mucho a visualizarlo. Súper recomendados."></div>
-                        <div class="form-group"><label>Nombre 3</label><input type="text" id="in-test-name3" value="- Familia Sánchez"></div>
-                        <div class="form-group"><label>Opinión 3</label><input type="text" id="in-test-txt3" value="Muy profesionales desde la cotización hasta la instalación limpia y sin dejar escombros. Excelente trabajo."></div>
+                        <div class="form-group"><label>Cliente 1</label><input type="text" id="in-test-name1" value="- Laura M."></div>
+                        <div class="form-group"><label>Comentario 1</label><input type="text" id="in-test-txt1" value="Me encantó el vestidor que hicieron. Excelente calidad de melamina y entregaron justo en la fecha acordada."></div>
+                        <div class="form-group"><label>Cliente 2</label><input type="text" id="in-test-name2" value="- Roberto C."></div>
+                        <div class="form-group"><label>Comentario 2</label><input type="text" id="in-test-txt2" value="La cocina quedó espectacular. El diseño 3D previo me ayudó mucho a visualizarlo. Súper recomendados."></div>
+                        <div class="form-group"><label>Cliente 3</label><input type="text" id="in-test-name3" value="- Familia Sánchez"></div>
+                        <div class="form-group"><label>Comentario 3</label><input type="text" id="in-test-txt3" value="Muy profesionales desde la cotización hasta la instalación limpia y sin dejar escombros. Excelente trabajo."></div>
                     </div>
                 </div>
                 <div class="editor-section">
@@ -242,17 +308,17 @@
             <!-- PROYECTOS -->
             <div id="proyectos" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Álbum Externo</h3>
+                    <h3 class="section-title">Galería Externa de Trabajos</h3>
                     <div class="form-group full">
-                        <label>Enlace de Google Photos (Botón)</label>
+                        <label>Enlace de Google Photos (Álbum Completo)</label>
                         <input type="text" id="in-gal-link" value="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA">
                     </div>
                 </div>
                 <div class="editor-section">
-                    <h3 class="section-title">3 Imágenes Destacadas</h3>
-                    <div class="form-group full"><label>Imagen 1 (URL)</label><input type="text" id="in-gal-img1" value="VISTA.jpg"></div>
-                    <div class="form-group full"><label>Imagen 2 (URL)</label><input type="text" id="in-gal-img2" value="DET.jpg"></div>
-                    <div class="form-group full"><label>Imagen 3 (URL)</label><input type="text" id="in-gal-img3" value="FOND.jpeg"></div>
+                    <h3 class="section-title">3 Imágenes Destacadas en la Web</h3>
+                    <div class="form-group full"><label>Imagen 1 (Ruta o URL)</label><input type="text" id="in-gal-img1" value="VISTA.jpg"></div>
+                    <div class="form-group full"><label>Imagen 2 (Ruta o URL)</label><input type="text" id="in-gal-img2" value="DET.jpg"></div>
+                    <div class="form-group full"><label>Imagen 3 (Ruta o URL)</label><input type="text" id="in-gal-img3" value="FOND.jpeg"></div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
@@ -264,22 +330,37 @@
             if (document.getElementById("admin-pass").value.trim() === "admin2026") {
                 document.getElementById("login-overlay").style.display = "none";
                 document.getElementById("admin-wrapper").style.display = "flex";
-                document.body.style.overflow = "auto";
                 cargarDatos();
-            } else { document.getElementById("login-error").style.display = "block"; }
+            } else { 
+                document.getElementById("login-error").style.display = "block"; 
+            }
         }
 
         function toggleSidebar() {
-            document.getElementById("sidebar").classList.toggle('open');
+            const sidebar = document.getElementById("sidebar");
+            const overlay = document.getElementById("sidebar-overlay");
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
         }
 
         function switchTab(tabId, element) {
             document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            element.classList.add('active'); document.getElementById(tabId).classList.add('active');
-            const titles = { 'dashboard':'Dashboard Real', 'ajustes':'Datos Generales', 'portada':'Edición de Portada', 'nosotros':'Sección Nosotros', 'carrusel':'Editor de Carrusel', 'servicios':'Edición de Servicios', 'testimonios': 'Reseñas y FAQ', 'proyectos':'Galería de Proyectos' };
+            element.classList.add('active'); 
+            document.getElementById(tabId).classList.add('active');
+            
+            const titles = { 
+                'dashboard':'Analytics Real', 
+                'ajustes':'Generales & Redes', 
+                'portada':'Edición de Portada', 
+                'nosotros':'Sección Nosotros', 
+                'carrusel':'Editor de Carrusel', 
+                'servicios':'Edición de Servicios', 
+                'testimonios': 'Reseñas y FAQ', 
+                'proyectos':'Galería de Proyectos' 
+            };
             document.getElementById('page-title').innerText = titles[tabId];
-            if(window.innerWidth <= 768) { toggleSidebar(); }
+            if(window.innerWidth <= 900) { toggleSidebar(); }
         }
 
         function cargarDatos() {
