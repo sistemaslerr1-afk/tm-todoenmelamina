@@ -3,13 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo en Melamina | Diseño y Fabricación</title>
+    
+    <!-- Etiquetas SEO (Para aparecer en Google y redes sociales) -->
+    <title>Todo en Melamina | Diseño y Fabricación en Querétaro</title>
+    <meta name="description" content="Diseño y fabricación de mobiliario a medida en melamina y maderas finas. Cocinas, closets y oficinas en Querétaro.">
+    <meta name="keywords" content="melamina, muebles a medida, cocinas integrales, closets, Querétaro, carpintería moderna">
+    
     <link rel="icon" type="image/png" href="LOGO1.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <!-- AQUI PEGARÁS TU CÓDIGO DE GOOGLE ANALYTICS (Ejemplo abajo) -->
+    <!-- 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
 </head>
 <body>
 
+    <!-- BARRA SUPERIOR -->
     <div class="top-bar">
         <div class="top-bar-content">
             <span>📍 Querétaro, Querétaro</span>
@@ -18,6 +35,7 @@
         </div>
     </div>
 
+    <!-- ENCABEZADO -->
     <header class="header">
         <div class="logo-container">
             <div>
@@ -30,7 +48,8 @@
             <a href="#servicios">Servicios</a>
             <a href="#carrusel">Inspiración</a>
             <a href="#galeria">Proyectos</a>
-            <a href="#contacto" class="btn-contacto-destacado">Cotizar ahora</a>
+            <!-- Botón de WhatsApp optimizado con mensaje pre-escrito -->
+            <a href="https://wa.me/524423979275?text=Hola,%20visité%20su%20página%20web%20y%20me%20interesa%20agendar%20una%20asesoría." target="_blank" class="btn-contacto-destacado">Cotizar ahora</a>
         </nav>
     </header>
 
@@ -137,11 +156,12 @@
         </div>
     </section>
 
+    <!-- CONTACTO -->
     <section id="contacto" class="cta-banner scroll-anim">
         <div class="cta-content">
             <h2>¿Listo para renovar tu espacio?</h2>
             <p>Contáctanos hoy mismo y recibe un presupuesto sin compromiso. Estamos en Querétaro.</p>
-            <a href="https://wa.me/524423979275" class="cta-button-light">Contactar por WhatsApp</a>
+            <a href="https://wa.me/524423979275?text=Hola,%20visité%20su%20página%20web%20y%20me%20interesa%20agendar%20una%20asesoría." target="_blank" class="cta-button-light">Contactar por WhatsApp</a>
         </div>
     </section>
 
@@ -167,16 +187,14 @@
     </footer>
 
     <script>
-        // RECUPERAR DATOS DEL ADMINISTRADOR (LOCALSTORAGE)
+        // RECUPERAR DATOS DEL ADMINISTRADOR
         document.addEventListener("DOMContentLoaded", function() {
             const data = JSON.parse(localStorage.getItem("tm_website_data"));
             if (data) {
-                // Portada
                 if(data.heroImg) document.getElementById("view-hero-img").src = data.heroImg;
                 if(data.heroTitle) document.getElementById("view-hero-title").innerHTML = data.heroTitle;
                 if(data.heroDesc) document.getElementById("view-hero-desc").innerText = data.heroDesc;
                 
-                // Nosotros
                 if(data.aboutTitle) document.getElementById("view-about-title").innerHTML = data.aboutTitle;
                 if(data.aboutDesc) document.getElementById("view-about-desc").innerText = data.aboutDesc;
                 if(data.aboutB1) document.getElementById("view-about-b1").innerText = data.aboutB1;
@@ -184,20 +202,17 @@
                 if(data.aboutB3) document.getElementById("view-about-b3").innerText = data.aboutB3;
                 if(data.aboutB4) document.getElementById("view-about-b4").innerText = data.aboutB4;
 
-                // Carrusel
                 for(let i=1; i<=5; i++) {
                     if(data[`carImg${i}`]) document.getElementById(`view-car-img${i}`).src = data[`carImg${i}`];
                     if(data[`carTxt${i}`]) document.getElementById(`view-car-txt${i}`).innerText = data[`carTxt${i}`];
                 }
 
-                // Servicios
                 for(let i=1; i<=3; i++) {
                     if(data[`srvIco${i}`]) document.getElementById(`view-srv-ico${i}`).innerText = data[`srvIco${i}`];
                     if(data[`srvTit${i}`]) document.getElementById(`view-srv-tit${i}`).innerText = data[`srvTit${i}`];
                     if(data[`srvDesc${i}`]) document.getElementById(`view-srv-desc${i}`).innerText = data[`srvDesc${i}`];
                 }
 
-                // Galería
                 for(let i=1; i<=3; i++) {
                     if(data[`galImg${i}`]) document.getElementById(`view-gal-img${i}`).src = data[`galImg${i}`];
                 }
