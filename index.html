@@ -80,34 +80,26 @@
         </div>
     </section>
 
-    <!-- NUEVO: CARRUSEL DE INSPIRACIÓN -->
+   <!-- NUEVO: CARRUSEL 3D GIRATORIO -->
     <section id="carrusel" class="carousel-section scroll-anim">
         <div class="section-header">
             <h2>Inspiración en Melamina</h2>
-            <p>Desliza para ver la versatilidad de nuestros diseños.</p>
+            <p>Usa la barra inferior para girar y explorar nuestros diseños.</p>
         </div>
         
-        <div class="carousel-container">
-            <!-- Slide 1 -->
-            <div class="carousel-slide">
-                <img src="img-slide1.jpg" alt="Idea 1" onerror="this.src='https://images.unsplash.com/photo-1556909211-36987daf7b4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                <div class="slide-caption">Texturas Cálidas</div>
+        <div class="scene">
+            <div class="carousel-3d" id="carousel-3d">
+                <div class="carousel-cell"><img src="img-slide1.jpg" alt="Idea 1" onerror="this.src='https://images.unsplash.com/photo-1556909211-36987daf7b4d?ixlib=rb-4.0.3&w=800&q=80'"><div class="caption">Texturas Cálidas</div></div>
+                <div class="carousel-cell"><img src="img-slide2.jpg" alt="Idea 2" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&w=800&q=80'"><div class="caption">Acabados Mate</div></div>
+                <div class="carousel-cell"><img src="img-slide3.jpg" alt="Idea 3" onerror="this.src='https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&w=800&q=80'"><div class="caption">Optimización</div></div>
+                <div class="carousel-cell"><img src="img-slide4.jpg" alt="Idea 4" onerror="this.src='https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&w=800&q=80'"><div class="caption">Minimalismo</div></div>
+                <div class="carousel-cell"><img src="FOND.jpeg" alt="Idea 5" onerror="this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&w=800&q=80'"><div class="caption">Diseño Premium</div></div>
             </div>
-            <!-- Slide 2 -->
-            <div class="carousel-slide">
-                <img src="img-slide2.jpg" alt="Idea 2" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                <div class="slide-caption">Acabados Mate</div>
-            </div>
-            <!-- Slide 3 -->
-            <div class="carousel-slide">
-                <img src="img-slide3.jpg" alt="Idea 3" onerror="this.src='https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                <div class="slide-caption">Optimización de Espacio</div>
-            </div>
-            <!-- Slide 4 -->
-            <div class="carousel-slide">
-                <img src="img-slide4.jpg" alt="Idea 4" onerror="this.src='https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                <div class="slide-caption">Diseño Minimalista</div>
-            </div>
+        </div>
+        
+        <!-- Barra de control (Slider) -->
+        <div class="slider-container">
+            <input type="range" min="0" max="360" value="0" class="carousel-slider" id="carousel-slider">
         </div>
     </section>
 
