@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo en Melamina | Diseño y Fabricación</title>
+    
+    <!-- ÍCONO DE LA PESTAÑA -->
+    <link rel="icon" type="image/png" href="LOGO1.png">
+    
     <!-- Fuentes premium -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -36,25 +40,22 @@
         </nav>
     </header>
 
-    <!-- HERO PORTADA CON FOND.JPEG Y TARJETA MOVIBLE -->
+    <!-- HERO PORTADA -->
     <section id="inicio" class="hero-portada">
-        
-        <!-- TU IMAGEN PRINCIPAL FOND.jpeg (Ocupa toda la pantalla) -->
         <img src="FOND.jpeg" alt="Fondo Todo en Melamina" class="hero-bg-img" onerror="this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'">
-        
         <div class="hero-overlay-gradient"></div>
         
-        <!-- TARJETA FLOTANTE MOVIBLE -->
         <div class="hero-content-glass fade-in-up" id="draggable-card">
-            
             <div class="card-controls" id="card-drag-handle">
                 <span class="drag-hint">⣿ Arrastrar ventana</span>
                 <button class="close-card-btn" onclick="document.getElementById('draggable-card').style.display='none'" title="Cerrar ventana">✖</button>
             </div>
 
             <span class="hero-badge">DISEÑO PREMIUM</span>
-            <h1 class="title-main">Transformamos tu espacio en una obra de arte.</h1>
-            <p class="description">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</p>
+            
+            <!-- Estos textos cambiarán si los editas en el admin -->
+            <h1 class="title-main" id="portada-titulo">Transformamos tu espacio en una obra de arte.</h1>
+            <p class="description" id="portada-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</p>
             
             <div class="hero-buttons">
                 <a href="#contacto" class="cta-button">Agendar Asesoría</a>
@@ -79,47 +80,28 @@
         </div>
     </section>
 
-    <!-- NUEVO: CARRUSEL 3D GIRATORIO CORREGIDO -->
+    <!-- CARRUSEL 3D -->
     <section id="carrusel" class="carousel-section scroll-anim">
         <div class="section-header">
             <h2>Inspiración en Melamina</h2>
             <p>Usa la barra inferior para girar y explorar nuestros diseños.</p>
         </div>
         
-        <!-- Contenedor 3D con más espacio -->
         <div class="scene">
             <div class="carousel-3d" id="carousel-3d">
-                <div class="carousel-cell">
-                    <img src="img-slide1.jpg" alt="Idea 1" onerror="this.src='https://images.unsplash.com/photo-1556909211-36987daf7b4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                    <div class="caption">Texturas Cálidas</div>
-                </div>
-                <div class="carousel-cell">
-                    <img src="img-slide2.jpg" alt="Idea 2" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                    <div class="caption">Acabados Mate</div>
-                </div>
-                <div class="carousel-cell">
-                    <img src="img-slide3.jpg" alt="Idea 3" onerror="this.src='https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                    <div class="caption">Optimización</div>
-                </div>
-                <div class="carousel-cell">
-                    <img src="img-slide4.jpg" alt="Idea 4" onerror="this.src='https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                    <div class="caption">Minimalismo</div>
-                </div>
-                <div class="carousel-cell">
-                    <!-- Agrega aquí la imagen que desees -->
-                    <img src="img-slide5.jpg" alt="Idea 5" onerror="this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                    <div class="caption">Diseño Premium</div>
-                </div>
+                <div class="carousel-cell"><img src="img-slide1.jpg" alt="Idea 1" onerror="this.src='https://images.unsplash.com/photo-1556909211-36987daf7b4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"><div class="caption">Texturas Cálidas</div></div>
+                <div class="carousel-cell"><img src="img-slide2.jpg" alt="Idea 2" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"><div class="caption">Acabados Mate</div></div>
+                <div class="carousel-cell"><img src="img-slide3.jpg" alt="Idea 3" onerror="this.src='https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"><div class="caption">Optimización</div></div>
+                <div class="carousel-cell"><img src="img-slide4.jpg" alt="Idea 4" onerror="this.src='https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"><div class="caption">Minimalismo</div></div>
+                <div class="carousel-cell"><img src="img-slide5.jpg" alt="Idea 5" onerror="this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"><div class="caption">Diseño Premium</div></div>
             </div>
         </div>
-        
-        <!-- Barra de control (Slider) movida hacia abajo y con clic forzado -->
         <div class="slider-container">
             <input type="range" min="0" max="360" value="0" class="carousel-slider" id="carousel-slider">
         </div>
     </section>
 
-    <!-- SECCIÓN SERVICIOS -->
+    <!-- SERVICIOS -->
     <section id="servicios" class="services scroll-anim">
         <div class="section-header">
             <h2>Nuestros Servicios</h2>
@@ -144,7 +126,7 @@
         </div>
     </section>
 
-    <!-- SECCIÓN GALERÍA -->
+    <!-- GALERÍA -->
     <section id="galeria" class="gallery-section scroll-anim">
         <div class="section-header">
             <h2>Proyectos Destacados</h2>
@@ -152,26 +134,17 @@
         </div>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="img-1.jpg" alt="Cocina moderna" onerror="this.src='https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <img src="img-1.jpg" alt="Cocina" onerror="this.src='https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
                 <div class="gallery-overlay"><span>Ver Proyecto</span></div>
             </div>
             <div class="gallery-item">
-                <img src="img-2.jpg" alt="Vestidor elegante" onerror="this.src='https://images.unsplash.com/photo-1595514535311-662f59fa0f77?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <img src="img-2.jpg" alt="Vestidor" onerror="this.src='https://images.unsplash.com/photo-1595514535311-662f59fa0f77?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
                 <div class="gallery-overlay"><span>Ver Proyecto</span></div>
             </div>
             <div class="gallery-item">
-                <img src="img-3.jpg" alt="Mueble de baño" onerror="this.src='https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <img src="img-3.jpg" alt="Baño" onerror="this.src='https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
                 <div class="gallery-overlay"><span>Ver Proyecto</span></div>
             </div>
-        </div>
-    </section>
-
-    <!-- BANNER LLAMADO A LA ACCIÓN -->
-    <section id="contacto" class="cta-banner scroll-anim">
-        <div class="cta-content">
-            <h2>¿Listo para renovar tu espacio?</h2>
-            <p>Contáctanos hoy mismo y recibe un presupuesto sin compromiso. Estamos en Querétaro.</p>
-            <a href="https://wa.me/524423979275" class="cta-button-light">Contactar por WhatsApp</a>
         </div>
     </section>
 
@@ -201,32 +174,33 @@
 
     <!-- SCRIPTS -->
     <script>
+        // SCRIPT PARA CONECTAR EL ADMIN CON LA PÁGINA PRINCIPAL
+        document.addEventListener("DOMContentLoaded", function() {
+            // Lee los datos guardados en la memoria del navegador
+            const savedTitle = localStorage.getItem("tm_title");
+            const savedDesc = localStorage.getItem("tm_desc");
+
+            // Si hay datos guardados, los aplica a la página
+            if(savedTitle) document.getElementById("portada-titulo").innerText = savedTitle;
+            if(savedDesc) document.getElementById("portada-desc").innerText = savedDesc;
+        });
+
         // Animaciones de scroll suaves
         document.addEventListener("DOMContentLoaded", function() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
                 });
             }, { threshold: 0.1 });
-
-            document.querySelectorAll('.scroll-anim').forEach((el) => {
-                observer.observe(el);
-            });
+            document.querySelectorAll('.scroll-anim').forEach((el) => observer.observe(el));
         });
 
         // Lógica del Carrusel 3D Giratorio
         const carousel3d = document.getElementById('carousel-3d');
         const slider = document.getElementById('carousel-slider');
-        
-        // Inicializar el carrusel en su posición 0
         carousel3d.style.transform = `translateZ(-350px) rotateY(0deg)`;
-
-        // Detectar el movimiento de la barra (slider)
         slider.addEventListener('input', (e) => {
             const angle = e.target.value;
-            // Se resta el ángulo para que gire al ritmo correcto
             carousel3d.style.transform = `translateZ(-350px) rotateY(${-angle}deg)`;
         });
 
@@ -234,48 +208,30 @@
         const card = document.getElementById("draggable-card");
         const dragHandle = document.getElementById("card-drag-handle");
         const portadaContainer = document.querySelector(".hero-portada");
-
         let isDragging = false;
         let offsetX = 0; let offsetY = 0;
-
         const startDrag = (clientX, clientY) => {
             isDragging = true;
-            card.style.position = "absolute";
-            card.style.margin = "0"; 
-            card.style.bottom = "auto"; 
-            card.style.zIndex = "2000";
-            
+            card.style.position = "absolute"; card.style.margin = "0"; card.style.bottom = "auto"; card.style.zIndex = "2000";
             const rect = card.getBoundingClientRect();
-            offsetX = clientX - rect.left;
-            offsetY = clientY - rect.top;
+            offsetX = clientX - rect.left; offsetY = clientY - rect.top;
         };
-
         const onDrag = (clientX, clientY) => {
             if (!isDragging) return;
             const containerRect = portadaContainer.getBoundingClientRect();
             let newLeft = clientX - containerRect.left - offsetX;
             let newTop = clientY - containerRect.top - offsetY;
-
-            card.style.left = `${newLeft}px`;
-            card.style.top = `${newTop}px`;
+            card.style.left = `${newLeft}px`; card.style.top = `${newTop}px`;
         };
-
         const stopDrag = () => { isDragging = false; };
-
-        // Eventos Mouse
         dragHandle.addEventListener("mousedown", (e) => startDrag(e.clientX, e.clientY));
         document.addEventListener("mousemove", (e) => onDrag(e.clientX, e.clientY));
         document.addEventListener("mouseup", stopDrag);
-
-        // Eventos Touch (Para Celulares)
         dragHandle.addEventListener("touchstart", (e) => {
-            const touch = e.touches[0];
-            startDrag(touch.clientX, touch.clientY);
+            const touch = e.touches[0]; startDrag(touch.clientX, touch.clientY);
         });
         document.addEventListener("touchmove", (e) => {
-            if (!isDragging) return;
-            const touch = e.touches[0];
-            onDrag(touch.clientX, touch.clientY);
+            if (!isDragging) return; const touch = e.touches[0]; onDrag(touch.clientX, touch.clientY);
         });
         document.addEventListener("touchend", stopDrag);
     </script>
