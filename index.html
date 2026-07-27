@@ -11,6 +11,11 @@
 </head>
 <body>
 
+    <!-- BOTÓN FLOTANTE WHATSAPP -->
+    <a href="https://wa.me/524423979275?text=Hola,%20me%20gustaría%20cotizar%20un%20proyecto." target="_blank" class="whatsapp-float" title="Cotiza por WhatsApp">
+        <svg viewBox="0 0 32 32" width="32" height="32" fill="white"><path d="M16 2a13 13 0 0 0-11 20l-2 6 6-2a13 13 0 1 0 7-24zm0 2a11 11 0 1 1-9 17l-4 1 1-4a11 11 0 0 1 12-14zm-4 5a1 1 0 0 0-1 1c0 1 1 3 3 5s4 4 5 4a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1l-2-1a1 1 0 0 0-1 0l-1 1a2 2 0 0 1-2-2l1-1a1 1 0 0 0 0-1l-1-2a1 1 0 0 0-1-1z"/></svg>
+    </a>
+
     <!-- BARRA SUPERIOR -->
     <div class="top-bar">
         <div class="top-bar-content">
@@ -23,7 +28,6 @@
     <!-- ENCABEZADO -->
     <header class="header">
         <div class="logo-container">
-            <!-- Puedes usar LOGO.png aquí si lo deseas -->
             <img src="LOGO.png" alt="Logo" style="height: 40px; margin-right: 10px; border-radius: 4px;" onerror="this.style.display='none'">
             <div>
                 <div class="logo-text">TODO EN MELAMINA</div>
@@ -54,7 +58,7 @@
             <p class="description" id="view-hero-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</p>
             <div class="hero-buttons">
                 <a href="#contacto" class="cta-button">Agendar Asesoría</a>
-                <a href="#galeria" class="cta-button-outline">Ver Proyectos</a>
+                <a id="view-hero-link" href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button-outline">📸 Ver Álbum de Fotos</a>
             </div>
         </div>
     </section>
@@ -75,7 +79,7 @@
         </div>
     </section>
 
-    <!-- CARRUSEL 3D (Usando tus imágenes reales) -->
+    <!-- CARRUSEL 3D -->
     <section id="carrusel" class="carousel-section scroll-anim">
         <div class="section-header">
             <h2>Inspiración en Melamina</h2>
@@ -120,7 +124,32 @@
         </div>
     </section>
 
-    <!-- GALERÍA (Usando tus imágenes reales) -->
+    <!-- NUEVO: TESTIMONIOS -->
+    <section class="testimonials scroll-anim">
+        <div class="section-header">
+            <h2>Lo que dicen nuestros clientes</h2>
+            <p>Tu satisfacción es nuestra mejor carta de presentación.</p>
+        </div>
+        <div class="test-grid">
+            <div class="test-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="test-text" id="view-test-txt1">"Me encantó el vestidor que hicieron. Excelente calidad de melamina y entregaron justo en la fecha acordada."</p>
+                <h4 class="test-name" id="view-test-name1">- Laura M.</h4>
+            </div>
+            <div class="test-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="test-text" id="view-test-txt2">"La cocina quedó espectacular. El diseño 3D previo me ayudó mucho a visualizarlo. Súper recomendados en Querétaro."</p>
+                <h4 class="test-name" id="view-test-name2">- Roberto C.</h4>
+            </div>
+            <div class="test-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="test-text" id="view-test-txt3">"Muy profesionales desde la cotización hasta la instalación limpia y sin dejar escombros. Excelente trabajo."</p>
+                <h4 class="test-name" id="view-test-name3">- Familia Sánchez</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA -->
     <section id="galeria" class="gallery-section scroll-anim">
         <div class="section-header">
             <h2>Proyectos Destacados</h2>
@@ -129,15 +158,43 @@
         <div class="gallery-grid">
             <div class="gallery-item">
                 <img id="view-gal-img1" src="VISTA.jpg">
-                <div class="gallery-overlay"><span>Ver Proyecto</span></div>
+                <div class="gallery-overlay"><span>Ver Detalles</span></div>
             </div>
             <div class="gallery-item">
                 <img id="view-gal-img2" src="DET.jpg">
-                <div class="gallery-overlay"><span>Ver Proyecto</span></div>
+                <div class="gallery-overlay"><span>Ver Detalles</span></div>
             </div>
             <div class="gallery-item">
                 <img id="view-gal-img3" src="FOND.jpeg">
-                <div class="gallery-overlay"><span>Ver Proyecto</span></div>
+                <div class="gallery-overlay"><span>Ver Detalles</span></div>
+            </div>
+        </div>
+        
+        <!-- BOTÓN GOOGLE PHOTOS CENTRAL -->
+        <div style="text-align: center; margin-top: 50px;">
+            <a id="view-gal-link" href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button-photos">
+                📸 Explorar Álbum Completo de Trabajos
+            </a>
+        </div>
+    </section>
+
+    <!-- NUEVO: PREGUNTAS FRECUENTES -->
+    <section class="faq-section scroll-anim">
+        <div class="section-header">
+            <h2>Preguntas Frecuentes</h2>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <h4 id="view-faq-q1">¿Cuánto tiempo tardan en entregar un proyecto?</h4>
+                <p id="view-faq-a1">Dependiendo del tamaño del proyecto, el tiempo de fabricación e instalación varía entre 2 y 4 semanas tras aprobar el diseño.</p>
+            </div>
+            <div class="faq-item">
+                <h4 id="view-faq-q2">¿Ofrecen garantía?</h4>
+                <p id="view-faq-a2">Sí, todos nuestros muebles cuentan con garantía contra defectos de fabricación e instalación.</p>
+            </div>
+            <div class="faq-item">
+                <h4 id="view-faq-q3">¿El presupuesto incluye instalación?</h4>
+                <p id="view-faq-a3">Totalmente. Nuestras cotizaciones son integrales: diseño, fabricación, flete (en Querétaro) e instalación en tu domicilio.</p>
             </div>
         </div>
     </section>
@@ -178,17 +235,19 @@
         document.addEventListener("DOMContentLoaded", function() {
             const data = JSON.parse(localStorage.getItem("tm_website_data"));
             if (data) {
-                // Top Bar
                 if(data.topLoc) document.getElementById("view-top-loc").innerText = data.topLoc;
                 if(data.topEmail) document.getElementById("view-top-email").innerText = data.topEmail;
                 if(data.topPhone) document.getElementById("view-top-phone").innerText = data.topPhone;
-
-                // Hero
                 if(data.heroImg) document.getElementById("view-hero-img").src = data.heroImg;
                 if(data.heroTitle) document.getElementById("view-hero-title").innerHTML = data.heroTitle;
                 if(data.heroDesc) document.getElementById("view-hero-desc").innerText = data.heroDesc;
                 
-                // Nosotros
+                // Enlaces de Google Photos
+                if(data.galLink) {
+                    document.getElementById("view-hero-link").href = data.galLink;
+                    document.getElementById("view-gal-link").href = data.galLink;
+                }
+
                 if(data.aboutTitle) document.getElementById("view-about-title").innerHTML = data.aboutTitle;
                 if(data.aboutDesc) document.getElementById("view-about-desc").innerText = data.aboutDesc;
                 if(data.aboutB1) document.getElementById("view-about-b1").innerText = data.aboutB1;
@@ -196,25 +255,26 @@
                 if(data.aboutB3) document.getElementById("view-about-b3").innerText = data.aboutB3;
                 if(data.aboutB4) document.getElementById("view-about-b4").innerText = data.aboutB4;
 
-                // Carrusel
                 for(let i=1; i<=5; i++) {
                     if(data[`carImg${i}`]) document.getElementById(`view-car-img${i}`).src = data[`carImg${i}`];
                     if(data[`carTxt${i}`]) document.getElementById(`view-car-txt${i}`).innerText = data[`carTxt${i}`];
                 }
 
-                // Servicios
                 for(let i=1; i<=3; i++) {
                     if(data[`srvIco${i}`]) document.getElementById(`view-srv-ico${i}`).innerText = data[`srvIco${i}`];
                     if(data[`srvTit${i}`]) document.getElementById(`view-srv-tit${i}`).innerText = data[`srvTit${i}`];
                     if(data[`srvDesc${i}`]) document.getElementById(`view-srv-desc${i}`).innerText = data[`srvDesc${i}`];
-                }
-
-                // Galería
-                for(let i=1; i<=3; i++) {
                     if(data[`galImg${i}`]) document.getElementById(`view-gal-img${i}`).src = data[`galImg${i}`];
+                    
+                    // Testimonios
+                    if(data[`testName${i}`]) document.getElementById(`view-test-name${i}`).innerText = data[`testName${i}`];
+                    if(data[`testTxt${i}`]) document.getElementById(`view-test-txt${i}`).innerText = `"${data[`testTxt${i}`]}"`;
+                    
+                    // FAQ
+                    if(data[`faqQ${i}`]) document.getElementById(`view-faq-q${i}`).innerText = data[`faqQ${i}`];
+                    if(data[`faqA${i}`]) document.getElementById(`view-faq-a${i}`).innerText = data[`faqA${i}`];
                 }
 
-                // CTA & Footer
                 if(data.ctaTitle) document.getElementById("view-cta-title").innerText = data.ctaTitle;
                 if(data.ctaDesc) document.getElementById("view-cta-desc").innerText = data.ctaDesc;
                 if(data.footDesc) document.getElementById("view-foot-desc").innerText = data.footDesc;
@@ -224,13 +284,11 @@
             }
         });
 
-        // ANIMACIONES SCROLL
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.scroll-anim').forEach((el) => observer.observe(el));
 
-        // CARRUSEL 3D
         const carousel3d = document.getElementById('carousel-3d');
         const slider = document.getElementById('carousel-slider');
         carousel3d.style.transform = `translateZ(-350px) rotateY(0deg)`;
@@ -238,7 +296,6 @@
             carousel3d.style.transform = `translateZ(-350px) rotateY(${-e.target.value}deg)`;
         });
 
-        // TARJETA ARRASTRABLE
         const card = document.getElementById("draggable-card");
         const dragHandle = document.getElementById("card-drag-handle");
         const portadaContainer = document.querySelector(".hero-portada");
