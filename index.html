@@ -3,336 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | Todo en Melamina</title>
+    <title>Todo en Melamina | Diseño y Fabricación en Querétaro</title>
+    <meta name="description" content="Diseño y fabricación de mobiliario a medida en melamina y maderas finas.">
+    
+    <!-- Google tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QFL8N8EDV2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-QFL8N8EDV2');
+    </script>
+
     <link rel="icon" type="image/png" href="LOGO1.png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root { --admin-bg: #f4f6f9; --admin-sidebar: #2c3036; --admin-card: #ffffff; --accent: #B39B82; --text-dark: #333; --text-light: #888; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: var(--admin-bg); color: var(--text-dark); min-height: 100vh; overflow: hidden; } 
-        
-        #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(44, 48, 54, 0.95); backdrop-filter: blur(10px); z-index: 9999; display: flex; align-items: center; justify-content: center; }
-        .login-box { background: white; padding: 40px; border-radius: 12px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
-        .login-box h2 { color: var(--accent-sidebar); margin-bottom: 20px; font-weight: 700; }
-        .login-box input { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
-        .login-box button { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .login-box button:hover { background: #9A836B; }
-        #login-error { color: #dc3545; font-size: 0.9rem; margin-bottom: 15px; display: none; }
-
-        #admin-wrapper { display: none; height: 100vh; }
-        .sidebar { width: 260px; background: var(--admin-sidebar); color: #fff; display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto; transition: 0.3s; z-index: 1000;}
-        .sidebar-header { padding: 25px; font-size: 1.2rem; font-weight: 700; border-bottom: 1px solid #3d424a; color: var(--accent); display: flex; justify-content: space-between; align-items: center;}
-        .close-sidebar-btn { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;}
-        .nav-links { list-style: none; padding: 20px 0; }
-        .nav-links li { padding: 15px 25px; cursor: pointer; transition: 0.3s; color: #b0b5be; }
-        .nav-links li:hover, .nav-links li.active { background: #3d424a; color: #fff; border-left: 4px solid var(--accent); }
-        
-        .main-content { flex: 1; padding: 40px; overflow-y: auto; position: relative;}
-        
-        .mobile-header { display: none; background: var(--admin-card); padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); align-items: center; justify-content: space-between; }
-        .menu-btn { background: var(--accent); color: white; border: none; padding: 8px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; }
-        
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .header h1 { font-size: 1.8rem; }
-        .btn-preview { background: var(--accent); color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: 600; box-shadow: 0 4px 10px rgba(179, 155, 130, 0.3); transition: 0.3s;}
-        .btn-preview:hover { background: #9A836B; }
-
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.4s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .editor-section { background: var(--admin-card); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); max-width: 900px; margin-bottom: 30px;}
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .form-group { margin-bottom: 20px; }
-        .form-group.full { grid-column: span 2; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95rem; }
-        .form-group textarea { resize: vertical; height: 90px; }
-        .btn-save { background: var(--text-dark); color: white; border: none; padding: 15px 30px; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%; max-width: 900px; font-size: 1.1rem; transition: 0.3s; margin-bottom: 50px;}
-        .btn-save:hover { background: var(--accent); }
-
-        #success-alert { display: none; background-color: #28a745; color: white; padding: 15px; border-radius: 6px; margin-bottom: 20px; text-align: center; font-weight: bold; position: sticky; top: 20px; z-index: 100;}
-        .section-title { border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-bottom: 20px; color: var(--accent);}
-
-        /* iframe de Looker Studio */
-        .iframe-container { width: 100%; height: 600px; background: #eee; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #888; overflow: hidden; }
-        .iframe-container iframe { width: 100%; height: 100%; border: none; }
-
-        @media (max-width: 768px) {
-            .sidebar { position: fixed; left: -260px; height: 100vh; }
-            .sidebar.open { left: 0; }
-            .close-sidebar-btn { display: block; }
-            .main-content { padding: 20px; }
-            .mobile-header { display: flex; }
-            .header h1 { font-size: 1.3rem; }
-            .form-grid { grid-template-columns: 1fr; }
-            .form-group.full { grid-column: span 1; }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="login-overlay">
-        <div class="login-box">
-            <h2>Acceso Restringido</h2>
-            <div id="login-error">Contraseña incorrecta.</div>
-            <input type="password" id="admin-pass" placeholder="Ingresa tu contraseña" onkeydown="if(event.key === 'Enter') checkLogin()">
-            <button onclick="checkLogin()">Entrar</button>
+
+    <!-- PANTALLA DE CARGA (PRELOADER) -->
+    <div id="preloader">
+        <div class="loader-logo">TODO EN MELAMINA</div>
+        <div class="spinner"></div>
+    </div>
+
+    <!-- BOTÓN FLOTANTE WHATSAPP -->
+    <a id="view-float-wa" href="https://wa.me/524423979275?text=Hola,%20me%20gustaría%20cotizar%20un%20proyecto." target="_blank" class="whatsapp-float" title="Cotiza por WhatsApp">
+        <svg viewBox="0 0 32 32" width="32" height="32" fill="white"><path d="M16 2a13 13 0 0 0-11 20l-2 6 6-2a13 13 0 1 0 7-24zm0 2a11 11 0 1 1-9 17l-4 1 1-4a11 11 0 0 1 12-14zm-4 5a1 1 0 0 0-1 1c0 1 1 3 3 5s4 4 5 4a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1l-2-1a1 1 0 0 0-1 0l-1 1a2 2 0 0 1-2-2l1-1a1 1 0 0 0 0-1l-1-2a1 1 0 0 0-1-1z"/></svg>
+    </a>
+
+    <!-- BARRA SUPERIOR -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <span id="view-top-loc">📍 Querétaro, Querétaro</span>
+            <span id="view-top-email">✉️ todoenmelaminatm@gmail.com</span>
+            <span id="view-top-phone">📞 +52 442 397 9275</span>
         </div>
     </div>
 
-    <div id="admin-wrapper">
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                MELAMINA ADMIN
-                <button class="close-sidebar-btn" onclick="toggleSidebar()">✖</button>
+    <!-- ENCABEZADO -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="LOGO.png" alt="Logo" style="height: 40px; margin-right: 10px; border-radius: 4px;" onerror="this.style.display='none'">
+            <div>
+                <div class="logo-text">TODO EN MELAMINA</div>
+                <span class="sub-text">DISEÑO & FABRICACIÓN</span>
             </div>
-            <ul class="nav-links">
-                <li class="tab-link active" onclick="switchTab('dashboard', this)">📊 Dashboard Real</li>
-                <li class="tab-link" onclick="switchTab('ajustes', this)">⚙️ Generales & Redes</li>
-                <li class="tab-link" onclick="switchTab('portada', this)">🏠 Portada</li>
-                <li class="tab-link" onclick="switchTab('nosotros', this)">📖 Nosotros</li>
-                <li class="tab-link" onclick="switchTab('carrusel', this)">🎡 Carrusel</li>
-                <li class="tab-link" onclick="switchTab('servicios', this)">🛠️ Servicios</li>
-                <li class="tab-link" onclick="switchTab('testimonios', this)">💬 Reseñas & FAQ</li>
-                <li class="tab-link" onclick="switchTab('proyectos', this)">🖼️ Proyectos</li>
+        </div>
+        <nav class="nav">
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#carrusel">Inspiración</a>
+            <a href="#galeria">Proyectos</a>
+            <a id="view-nav-wa" href="https://wa.me/524423979275" target="_blank" class="btn-contacto-destacado">Cotizar ahora</a>
+        </nav>
+    </header>
+
+    <!-- PORTADA -->
+    <section id="inicio" class="hero-portada">
+        <img id="view-hero-img" src="FOND.jpeg" alt="Fondo Todo en Melamina" class="hero-bg-img">
+        <div class="hero-overlay-gradient"></div>
+        
+        <div class="hero-content-glass fade-in-up" id="draggable-card">
+            <div class="card-controls" id="card-drag-handle">
+                <span class="drag-hint">⣿ Arrastrar ventana</span>
+                <button class="close-card-btn" onclick="document.getElementById('draggable-card').style.display='none'" title="Cerrar ventana">✖</button>
+            </div>
+            <span class="hero-badge">DISEÑO PREMIUM</span>
+            <h1 class="title-main" id="view-hero-title">Transformamos tu espacio en una obra de arte.</h1>
+            <p class="description" id="view-hero-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</p>
+            <div class="hero-buttons">
+                <a href="#contacto" class="cta-button">Agendar Asesoría</a>
+                <a id="view-hero-link" href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button-outline">📸 Ver Álbum de Fotos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOSOTROS -->
+    <section class="about-section scroll-anim">
+        <div class="about-container">
+            <div class="about-text">
+                <h2 id="view-about-title">Diseño <span class="text-italic">funcional</span> e inteligente</h2>
+                <p id="view-about-desc">Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza de tu entorno.</p>
+            </div>
+            <ul class="benefits-list">
+                <li><span class="icon">✨</span> <span id="view-about-b1">Materiales Premium</span></li>
+                <li><span class="icon">📐</span> <span id="view-about-b2">Diseño Increíble</span></li>
+                <li><span class="icon">🧹</span> <span id="view-about-b3">Instalación Limpia</span></li>
+                <li><span class="icon">🛠️</span> <span id="view-about-b4">Trabajos a tu medida</span></li>
             </ul>
-        </aside>
+        </div>
+    </section>
 
-        <main class="main-content">
-            <div class="mobile-header">
-                <button class="menu-btn" onclick="toggleSidebar()">☰ Menú Administrador</button>
+    <!-- CARRUSEL 3D -->
+    <section id="carrusel" class="carousel-section scroll-anim">
+        <div class="section-header">
+            <h2>Inspiración en Melamina</h2>
+            <p>Usa la barra inferior para girar y explorar nuestros diseños.</p>
+        </div>
+        <div class="scene">
+            <div class="carousel-3d" id="carousel-3d">
+                <div class="carousel-cell"><img id="view-car-img1" src="VISTA.jpg"><div class="caption" id="view-car-txt1">Texturas Cálidas</div></div>
+                <div class="carousel-cell"><img id="view-car-img2" src="DET.jpg"><div class="caption" id="view-car-txt2">Acabados Mate</div></div>
+                <div class="carousel-cell"><img id="view-car-img3" src="FOND.jpeg"><div class="caption" id="view-car-txt3">Optimización</div></div>
+                <div class="carousel-cell"><img id="view-car-img4" src="VISTA.jpg"><div class="caption" id="view-car-txt4">Minimalismo</div></div>
+                <div class="carousel-cell"><img id="view-car-img5" src="DET.jpg"><div class="caption" id="view-car-txt5">Diseño Premium</div></div>
             </div>
+        </div>
+        <div class="slider-container">
+            <input type="range" min="0" max="360" value="0" class="carousel-slider" id="carousel-slider">
+        </div>
+    </section>
 
-            <div class="header">
-                <h1 id="page-title">Dashboard Analítico</h1>
-                <a href="index.html" target="_blank" class="btn-preview">👁️ Modo Ver (Preview)</a>
+    <!-- SERVICIOS -->
+    <section id="servicios" class="services scroll-anim">
+        <div class="section-header">
+            <h2>Nuestros Servicios</h2>
+            <p>Soluciones a medida para cada área de tu vida.</p>
+        </div>
+        <div class="cards-grid">
+            <div class="card glass-card">
+                <div class="card-icon" id="view-srv-ico1">🍳</div>
+                <h3 id="view-srv-tit1">Cocinas Integrales</h3>
+                <p id="view-srv-desc1">Diseños ergonómicos, cubiertas de cuarzo, granito y acabados en melamina de alto brillo o mate.</p>
             </div>
-            <div id="success-alert">¡Cambios guardados con éxito!</div>
+            <div class="card glass-card">
+                <div class="card-icon" id="view-srv-ico2">👗</div>
+                <h3 id="view-srv-tit2">Closets y Vestidores</h3>
+                <p id="view-srv-desc2">Optimización total del espacio con sistemas de cierre suave y distribución inteligente.</p>
+            </div>
+            <div class="card glass-card">
+                <div class="card-icon" id="view-srv-ico3">💻</div>
+                <h3 id="view-srv-tit3">Mobiliario de Oficina</h3>
+                <p id="view-srv-desc3">Escritorios y libreros minimalistas diseñados para aumentar tu productividad y confort.</p>
+            </div>
+        </div>
+    </section>
 
-            <!-- DASHBOARD REAL CON LOOKER STUDIO -->
-            <div id="dashboard" class="tab-content active">
-                <div class="editor-section">
-                    <h3 class="section-title">Tráfico en Tiempo Real</h3>
-                    <p style="margin-bottom: 20px; font-size: 0.95rem; color: #555;">
-                        Aquí podrás ver tus gráficas reales. Solo ve a Google Looker Studio, crea tu informe, cópialo en "Insertar Informe" y pega el código <code>&lt;iframe&gt;</code> en el archivo <code>admin.html</code> donde dice "PEGA TU IFRAME AQUÍ".
-                    </p>
-                    <div class="iframe-container">
-                        
-                        <!-- ============================================== -->
-                        <!-- ⚠️ PEGA TU IFRAME DE LOOKER STUDIO AQUÍ ABAJO ⚠️ -->
+    <!-- TESTIMONIOS -->
+    <section class="testimonials scroll-anim">
+        <div class="section-header">
+            <h2>Lo que dicen nuestros clientes</h2>
+            <p>Tu satisfacción es nuestra mejor carta de presentación.</p>
+        </div>
+        <div class="test-grid">
+            <div class="test-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="test-text" id="view-test-txt1">"Me encantó el vestidor que hicieron. Excelente calidad de melamina y entregaron justo en la fecha acordada."</p>
+                <h4 class="test-name" id="view-test-name1">- Laura M.</h4>
+            </div>
+            <div class="test-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="test-text" id="view-test-txt2">"La cocina quedó espectacular. El diseño 3D previo me ayudó mucho a visualizarlo. Súper recomendados."</p>
+                <h4 class="test-name" id="view-test-name2">- Roberto C.</h4>
+            </div>
+            <div class="test-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="test-text" id="view-test-txt3">"Muy profesionales desde la cotización hasta la instalación limpia y sin dejar escombros. Excelente trabajo."</p>
+                <h4 class="test-name" id="view-test-name3">- Familia Sánchez</h4>
+            </div>
+        </div>
+    </section>
 
-                        <iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/87e9bd59-c77e-4504-b014-7ea53544636d/page/kPw4F" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
-                        <!-- ============================================== -->
-                        
-                        Aquí aparecerán tus gráficas reales de Google.
-                        
-                        
-                        <!-- ============================================== -->
+    <!-- GALERÍA -->
+    <section id="galeria" class="gallery-section scroll-anim">
+        <div class="section-header">
+            <h2>Proyectos Destacados</h2>
+            <p>Explora la calidad y detalle de nuestras instalaciones.</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img id="view-gal-img1" src="VISTA.jpg">
+                <div class="gallery-overlay"><span>Ver Detalles</span></div>
+            </div>
+            <div class="gallery-item">
+                <img id="view-gal-img2" src="DET.jpg">
+                <div class="gallery-overlay"><span>Ver Detalles</span></div>
+            </div>
+            <div class="gallery-item">
+                <img id="view-gal-img3" src="FOND.jpeg">
+                <div class="gallery-overlay"><span>Ver Detalles</span></div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 50px;">
+            <a id="view-gal-link" href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button-photos">
+                📸 Explorar Álbum Completo de Trabajos
+            </a>
+        </div>
+    </section>
 
-                    </div>
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="faq-section scroll-anim">
+        <div class="section-header">
+            <h2>Preguntas Frecuentes</h2>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <h4 id="view-faq-q1">¿Cuánto tiempo tardan en entregar un proyecto?</h4>
+                <p id="view-faq-a1">Dependiendo del tamaño del proyecto, el tiempo de fabricación e instalación varía entre 2 y 4 semanas tras aprobar el diseño.</p>
+            </div>
+            <div class="faq-item">
+                <h4 id="view-faq-q2">¿Ofrecen garantía?</h4>
+                <p id="view-faq-a2">Sí, todos nuestros muebles cuentan con garantía contra defectos de fabricación e instalación.</p>
+            </div>
+            <div class="faq-item">
+                <h4 id="view-faq-q3">¿El presupuesto incluye instalación?</h4>
+                <p id="view-faq-a3">Totalmente. Nuestras cotizaciones son integrales: diseño, fabricación, flete e instalación en tu domicilio.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO CTA -->
+    <section id="contacto" class="cta-banner scroll-anim">
+        <div class="cta-content">
+            <h2 id="view-cta-title">¿Listo para renovar tu espacio?</h2>
+            <p id="view-cta-desc">Contáctanos hoy mismo y recibe un presupuesto sin compromiso. Estamos en Querétaro.</p>
+            <a id="view-cta-wa" href="https://wa.me/524423979275" target="_blank" class="cta-button-light">Contactar por WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">TODO EN <span>MELAMINA</span></div>
+                <p id="view-foot-desc">Transformando espacios con elegancia y precisión, diseñando muebles que cuentan historias.</p>
+                <div class="social-links">
+                    <a id="view-soc-fb" href="#" target="_blank" title="Facebook">FB</a>
+                    <a id="view-soc-ig" href="#" target="_blank" title="Instagram">IG</a>
+                    <a id="view-soc-tk" href="#" target="_blank" title="TikTok">TK</a>
                 </div>
             </div>
-
-            <!-- AJUSTES GENERALES -->
-            <div id="ajustes" class="tab-content">
-                <div class="editor-section">
-                    <h3 class="section-title">Barra Superior</h3>
-                    <div class="form-grid">
-                        <div class="form-group"><label>Ubicación</label><input type="text" id="in-top-loc" value="📍 Querétaro, Querétaro"></div>
-                        <div class="form-group"><label>Correo</label><input type="text" id="in-top-email" value="✉️ todoenmelaminatm@gmail.com"></div>
-                        <div class="form-group"><label>Teléfono</label><input type="text" id="in-top-phone" value="📞 +52 442 397 9275"></div>
-                    </div>
-                </div>
-                <div class="editor-section">
-                    <h3 class="section-title">Redes Sociales y WhatsApp</h3>
-                    <div class="form-group full"><label>Link del Botón de WhatsApp</label><input type="text" id="in-wa-link" value="https://wa.me/524423979275?text=Hola,%20me%20gustaría%20cotizar%20un%20proyecto."></div>
-                    <div class="form-grid">
-                        <div class="form-group"><label>Link Facebook</label><input type="text" id="in-soc-fb" value="#"></div>
-                        <div class="form-group"><label>Link Instagram</label><input type="text" id="in-soc-ig" value="#"></div>
-                        <div class="form-group"><label>Link TikTok</label><input type="text" id="in-soc-tk" value="#"></div>
-                    </div>
-                </div>
-                <div class="editor-section">
-                    <h3 class="section-title">Footer y CTA</h3>
-                    <div class="form-group full"><label>Título CTA</label><input type="text" id="in-cta-title" value="¿Listo para renovar tu espacio?"></div>
-                    <div class="form-group full"><label>Descripción CTA</label><textarea id="in-cta-desc">Contáctanos hoy mismo y recibe un presupuesto sin compromiso. Estamos en Querétaro.</textarea></div>
-                    <div class="form-group full"><label>Eslogan Footer</label><input type="text" id="in-foot-desc" value="Transformando espacios con elegancia y precisión, diseñando muebles que cuentan historias."></div>
-                </div>
-                <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
+            <div class="footer-column">
+                <h3>Contacto</h3>
+                <p id="view-foot-loc">📍 Querétaro, Querétaro</p>
+                <p id="view-foot-email">✉️ todoenmelaminatm@gmail.com</p>
+                <p id="view-foot-phone">📞 +52 442 397 9275</p>
             </div>
-
-            <!-- PORTADA -->
-            <div id="portada" class="tab-content">
-                <div class="editor-section">
-                    <h3 class="section-title">Textos Principales</h3>
-                    <div class="form-group full"><label>URL Imagen Hero</label><input type="text" id="in-hero-img" value="FOND.jpeg"></div>
-                    <div class="form-group full"><label>Título</label><input type="text" id="in-hero-title" value="Transformamos tu espacio en una obra de arte."></div>
-                    <div class="form-group full"><label>Descripción</label><textarea id="in-hero-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</textarea></div>
-                </div>
-                <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
+            <div class="footer-column">
+                <h3>Horario</h3>
+                <p>Lunes a Viernes: 9:00 AM - 6:00 PM</p>
+                <p>Sábados: 10:00 AM - 2:00 PM</p>
             </div>
-
-            <!-- NOSOTROS -->
-            <div id="nosotros" class="tab-content">
-                <div class="editor-section">
-                    <h3 class="section-title">Diseño Inteligente</h3>
-                    <div class="form-group full"><label>Título</label><input type="text" id="in-about-title" value='Diseño <span class="text-italic">funcional</span> e inteligente'></div>
-                    <div class="form-group full"><label>Descripción</label><textarea id="in-about-desc">Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza de tu entorno.</textarea></div>
-                    <div class="form-grid">
-                        <div class="form-group"><label>Beneficio 1</label><input type="text" id="in-about-b1" value="Materiales Premium"></div>
-                        <div class="form-group"><label>Beneficio 2</label><input type="text" id="in-about-b2" value="Diseño Increíble"></div>
-                        <div class="form-group"><label>Beneficio 3</label><input type="text" id="in-about-b3" value="Instalación Limpia"></div>
-                        <div class="form-group"><label>Beneficio 4</label><input type="text" id="in-about-b4" value="Trabajos a tu medida"></div>
-                    </div>
-                </div>
-                <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
-            </div>
-
-            <!-- CARRUSEL -->
-            <div id="carrusel" class="tab-content">
-                <div class="editor-section">
-                    <h3 class="section-title">Las 5 Imágenes</h3>
-                    <div class="form-grid">
-                        <div class="form-group"><label>Img 1 (URL)</label><input type="text" id="in-car-img1" value="VISTA.jpg"></div>
-                        <div class="form-group"><label>Texto 1</label><input type="text" id="in-car-txt1" value="Texturas Cálidas"></div>
-                        <div class="form-group"><label>Img 2 (URL)</label><input type="text" id="in-car-img2" value="DET.jpg"></div>
-                        <div class="form-group"><label>Texto 2</label><input type="text" id="in-car-txt2" value="Acabados Mate"></div>
-                        <div class="form-group"><label>Img 3 (URL)</label><input type="text" id="in-car-img3" value="FOND.jpeg"></div>
-                        <div class="form-group"><label>Texto 3</label><input type="text" id="in-car-txt3" value="Optimización"></div>
-                        <div class="form-group"><label>Img 4 (URL)</label><input type="text" id="in-car-img4" value="VISTA.jpg"></div>
-                        <div class="form-group"><label>Texto 4</label><input type="text" id="in-car-txt4" value="Minimalismo"></div>
-                        <div class="form-group"><label>Img 5 (URL)</label><input type="text" id="in-car-img5" value="DET.jpg"></div>
-                        <div class="form-group"><label>Texto 5</label><input type="text" id="in-car-txt5" value="Diseño Premium"></div>
-                    </div>
-                </div>
-                <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
-            </div>
-
-            <!-- SERVICIOS -->
-            <div id="servicios" class="tab-content">
-                <div class="editor-section">
-                    <h3 class="section-title">Servicios</h3>
-                    <div class="form-grid">
-                        <div class="form-group"><label>Icono 1</label><input type="text" id="in-srv-ico1" value="🍳"></div>
-                        <div class="form-group"><label>Título 1</label><input type="text" id="in-srv-tit1" value="Cocinas Integrales"></div>
-                        <div class="form-group full"><label>Desc 1</label><textarea id="in-srv-desc1">Diseños ergonómicos, cubiertas de cuarzo, granito y acabados en melamina de alto brillo o mate.</textarea></div>
-                        <div class="form-group"><label>Icono 2</label><input type="text" id="in-srv-ico2" value="👗"></div>
-                        <div class="form-group"><label>Título 2</label><input type="text" id="in-srv-tit2" value="Closets y Vestidores"></div>
-                        <div class="form-group full"><label>Desc 2</label><textarea id="in-srv-desc2">Optimización total del espacio con sistemas de cierre suave y distribución inteligente.</textarea></div>
-                        <div class="form-group"><label>Icono 3</label><input type="text" id="in-srv-ico3" value="💻"></div>
-                        <div class="form-group"><label>Título 3</label><input type="text" id="in-srv-tit3" value="Mobiliario de Oficina"></div>
-                        <div class="form-group full"><label>Desc 3</label><textarea id="in-srv-desc3">Escritorios y libreros minimalistas diseñados para aumentar tu productividad y confort.</textarea></div>
-                    </div>
-                </div>
-                <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
-            </div>
-            
-            <!-- TESTIMONIOS Y FAQ -->
-            <div id="testimonios" class="tab-content">
-                <div class="editor-section">
-                    <h3 class="section-title">3 Reseñas de Clientes</h3>
-                    <div class="form-grid">
-                        <div class="form-group"><label>Nombre 1</label><input type="text" id="in-test-name1" value="- Laura M."></div>
-                        <div class="form-group"><label>Opinión 1</label><input type="text" id="in-test-txt1" value="Me encantó el vestidor que hicieron. Excelente calidad de melamina y entregaron justo en la fecha acordada."></div>
-                        <div class="form-group"><label>Nombre 2</label><input type="text" id="in-test-name2" value="- Roberto C."></div>
-                        <div class="form-group"><label>Opinión 2</label><input type="text" id="in-test-txt2" value="La cocina quedó espectacular. El diseño 3D previo me ayudó mucho a visualizarlo. Súper recomendados."></div>
-                        <div class="form-group"><label>Nombre 3</label><input type="text" id="in-test-name3" value="- Familia Sánchez"></div>
-                        <div class="form-group"><label>Opinión 3</label><input type="text" id="in-test-txt3" value="Muy profesionales desde la cotización hasta la instalación limpia y sin dejar escombros. Excelente trabajo."></div>
-                    </div>
-                </div>
-                <div class="editor-section">
-                    <h3 class="section-title">Preguntas Frecuentes</h3>
-                    <div class="form-group full"><label>Pregunta 1</label><input type="text" id="in-faq-q1" value="¿Cuánto tiempo tardan en entregar un proyecto?"></div>
-                    <div class="form-group full"><label>Respuesta 1</label><textarea id="in-faq-a1">Dependiendo del tamaño del proyecto, el tiempo de fabricación e instalación varía entre 2 y 4 semanas tras aprobar el diseño.</textarea></div>
-                    <div class="form-group full"><label>Pregunta 2</label><input type="text" id="in-faq-q2" value="¿Ofrecen garantía?"></div>
-                    <div class="form-group full"><label>Respuesta 2</label><textarea id="in-faq-a2">Sí, todos nuestros muebles cuentan con garantía contra defectos de fabricación e instalación.</textarea></div>
-                    <div class="form-group full"><label>Pregunta 3</label><input type="text" id="in-faq-q3" value="¿El presupuesto incluye instalación?"></div>
-                    <div class="form-group full"><label>Respuesta 3</label><textarea id="in-faq-a3">Totalmente. Nuestras cotizaciones son integrales: diseño, fabricación, flete e instalación en tu domicilio.</textarea></div>
-                </div>
-                <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
-            </div>
-
-            <!-- PROYECTOS -->
-            <div id="proyectos" class="tab-content">
-                <div class="editor-section">
-                    <h3 class="section-title">Álbum Externo</h3>
-                    <div class="form-group full">
-                        <label>Enlace de Google Photos (Botón)</label>
-                        <input type="text" id="in-gal-link" value="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA">
-                    </div>
-                </div>
-                <div class="editor-section">
-                    <h3 class="section-title">3 Imágenes Destacadas</h3>
-                    <div class="form-group full"><label>Imagen 1 (URL)</label><input type="text" id="in-gal-img1" value="VISTA.jpg"></div>
-                    <div class="form-group full"><label>Imagen 2 (URL)</label><input type="text" id="in-gal-img2" value="DET.jpg"></div>
-                    <div class="form-group full"><label>Imagen 3 (URL)</label><input type="text" id="in-gal-img3" value="FOND.jpeg"></div>
-                </div>
-                <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
-            </div>
-        </main>
-    </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Todo en Melamina. Todos los derechos reservados.</p></div>
+    </footer>
 
     <script>
-        function checkLogin() {
-            if (document.getElementById("admin-pass").value.trim() === "admin2026") {
-                document.getElementById("login-overlay").style.display = "none";
-                document.getElementById("admin-wrapper").style.display = "flex";
-                document.body.style.overflow = "auto";
-                cargarDatos();
-            } else { document.getElementById("login-error").style.display = "block"; }
-        }
+        // QUITAR PANTALLA DE CARGA CUANDO LISTO
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            preloader.classList.add('hide');
+            setTimeout(() => preloader.style.display = 'none', 500);
+        });
 
-        function toggleSidebar() {
-            document.getElementById("sidebar").classList.toggle('open');
-        }
-
-        function switchTab(tabId, element) {
-            document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            element.classList.add('active'); document.getElementById(tabId).classList.add('active');
-            const titles = { 'dashboard':'Dashboard Real', 'ajustes':'Datos Generales', 'portada':'Edición de Portada', 'nosotros':'Sección Nosotros', 'carrusel':'Editor de Carrusel', 'servicios':'Edición de Servicios', 'testimonios': 'Reseñas y FAQ', 'proyectos':'Galería de Proyectos' };
-            document.getElementById('page-title').innerText = titles[tabId];
-            if(window.innerWidth <= 768) { toggleSidebar(); }
-        }
-
-        function cargarDatos() {
+        // RECUPERAR DATOS DEL ADMINISTRADOR
+        document.addEventListener("DOMContentLoaded", function() {
             const data = JSON.parse(localStorage.getItem("tm_website_data"));
             if (data) {
-                const map = {
-                    'in-top-loc':'topLoc', 'in-top-email':'topEmail', 'in-top-phone':'topPhone',
-                    'in-wa-link':'waLink', 'in-soc-fb':'socFb', 'in-soc-ig':'socIg', 'in-soc-tk':'socTk',
-                    'in-hero-img':'heroImg', 'in-hero-title':'heroTitle', 'in-hero-desc':'heroDesc',
-                    'in-about-title':'aboutTitle', 'in-about-desc':'aboutDesc', 'in-about-b1':'aboutB1', 'in-about-b2':'aboutB2', 'in-about-b3':'aboutB3', 'in-about-b4':'aboutB4',
-                    'in-car-img1':'carImg1', 'in-car-txt1':'carTxt1', 'in-car-img2':'carImg2', 'in-car-txt2':'carTxt2', 'in-car-img3':'carImg3', 'in-car-txt3':'carTxt3', 'in-car-img4':'carImg4', 'in-car-txt4':'carTxt4', 'in-car-img5':'carImg5', 'in-car-txt5':'carTxt5',
-                    'in-srv-ico1':'srvIco1', 'in-srv-tit1':'srvTit1', 'in-srv-desc1':'srvDesc1', 'in-srv-ico2':'srvIco2', 'in-srv-tit2':'srvTit2', 'in-srv-desc2':'srvDesc2', 'in-srv-ico3':'srvIco3', 'in-srv-tit3':'srvTit3', 'in-srv-desc3':'srvDesc3',
-                    'in-gal-img1':'galImg1', 'in-gal-img2':'galImg2', 'in-gal-img3':'galImg3', 'in-gal-link':'galLink',
-                    'in-test-name1':'testName1', 'in-test-txt1':'testTxt1', 'in-test-name2':'testName2', 'in-test-txt2':'testTxt2', 'in-test-name3':'testName3', 'in-test-txt3':'testTxt3',
-                    'in-faq-q1':'faqQ1', 'in-faq-a1':'faqA1', 'in-faq-q2':'faqQ2', 'in-faq-a2':'faqA2', 'in-faq-q3':'faqQ3', 'in-faq-a3':'faqA3',
-                    'in-cta-title':'ctaTitle', 'in-cta-desc':'ctaDesc', 'in-foot-desc':'footDesc', 'in-foot-loc':'footLoc', 'in-foot-email':'footEmail', 'in-foot-phone':'footPhone'
-                };
-                for (const [id, key] of Object.entries(map)) {
-                    if (data[key] && document.getElementById(id)) document.getElementById(id).value = data[key];
+                // Info principal
+                if(data.topLoc) document.getElementById("view-top-loc").innerText = data.topLoc;
+                if(data.topEmail) document.getElementById("view-top-email").innerText = data.topEmail;
+                if(data.topPhone) document.getElementById("view-top-phone").innerText = data.topPhone;
+                
+                // Redes y Contacto Link
+                if(data.waLink) {
+                    document.getElementById("view-float-wa").href = data.waLink;
+                    document.getElementById("view-nav-wa").href = data.waLink;
+                    document.getElementById("view-cta-wa").href = data.waLink;
                 }
-            }
-        }
+                if(data.socFb) document.getElementById("view-soc-fb").href = data.socFb;
+                if(data.socIg) document.getElementById("view-soc-ig").href = data.socIg;
+                if(data.socTk) document.getElementById("view-soc-tk").href = data.socTk;
 
-        function guardarTodo() {
-            const data = {
-                topLoc: document.getElementById('in-top-loc').value, topEmail: document.getElementById('in-top-email').value, topPhone: document.getElementById('in-top-phone').value,
-                waLink: document.getElementById('in-wa-link').value, socFb: document.getElementById('in-soc-fb').value, socIg: document.getElementById('in-soc-ig').value, socTk: document.getElementById('in-soc-tk').value,
-                heroImg: document.getElementById('in-hero-img').value, heroTitle: document.getElementById('in-hero-title').value, heroDesc: document.getElementById('in-hero-desc').value,
-                aboutTitle: document.getElementById('in-about-title').value, aboutDesc: document.getElementById('in-about-desc').value, aboutB1: document.getElementById('in-about-b1').value, aboutB2: document.getElementById('in-about-b2').value, aboutB3: document.getElementById('in-about-b3').value, aboutB4: document.getElementById('in-about-b4').value,
-                carImg1: document.getElementById('in-car-img1').value, carTxt1: document.getElementById('in-car-txt1').value, carImg2: document.getElementById('in-car-img2').value, carTxt2: document.getElementById('in-car-txt2').value, carImg3: document.getElementById('in-car-img3').value, carTxt3: document.getElementById('in-car-txt3').value, carImg4: document.getElementById('in-car-img4').value, carTxt4: document.getElementById('in-car-txt4').value, carImg5: document.getElementById('in-car-img5').value, carTxt5: document.getElementById('in-car-txt5').value,
-                srvIco1: document.getElementById('in-srv-ico1').value, srvTit1: document.getElementById('in-srv-tit1').value, srvDesc1: document.getElementById('in-srv-desc1').value, srvIco2: document.getElementById('in-srv-ico2').value, srvTit2: document.getElementById('in-srv-tit2').value, srvDesc2: document.getElementById('in-srv-desc2').value, srvIco3: document.getElementById('in-srv-ico3').value, srvTit3: document.getElementById('in-srv-tit3').value, srvDesc3: document.getElementById('in-srv-desc3').value,
-                galImg1: document.getElementById('in-gal-img1').value, galImg2: document.getElementById('in-gal-img2').value, galImg3: document.getElementById('in-gal-img3').value, galLink: document.getElementById('in-gal-link').value,
-                testName1: document.getElementById('in-test-name1').value, testTxt1: document.getElementById('in-test-txt1').value, testName2: document.getElementById('in-test-name2').value, testTxt2: document.getElementById('in-test-txt2').value, testName3: document.getElementById('in-test-name3').value, testTxt3: document.getElementById('in-test-txt3').value,
-                faqQ1: document.getElementById('in-faq-q1').value, faqA1: document.getElementById('in-faq-a1').value, faqQ2: document.getElementById('in-faq-q2').value, faqA2: document.getElementById('in-faq-a2').value, faqQ3: document.getElementById('in-faq-q3').value, faqA3: document.getElementById('in-faq-a3').value,
-                ctaTitle: document.getElementById('in-cta-title').value, ctaDesc: document.getElementById('in-cta-desc').value, footDesc: document.getElementById('in-foot-desc').value, footLoc: document.getElementById('in-foot-loc').value, footEmail: document.getElementById('in-foot-email').value, footPhone: document.getElementById('in-foot-phone').value
-            };
-            localStorage.setItem("tm_website_data", JSON.stringify(data));
-            const alertBox = document.getElementById("success-alert");
-            alertBox.style.display = "block"; setTimeout(() => { alertBox.style.display = "none"; }, 3500);
-        }
+                if(data.heroImg) document.getElementById("view-hero-img").src = data.heroImg;
+                if(data.heroTitle) document.getElementById("view-hero-title").innerHTML = data.heroTitle;
+                if(data.heroDesc) document.getElementById("view-hero-desc").innerText = data.heroDesc;
+                
+                if(data.galLink) {
+                    document.getElementById("view-hero-link").href = data.galLink;
+                    document.getElementById("view-gal-link").href = data.galLink;
+                }
+
+                if(data.aboutTitle) document.getElementById("view-about-title").innerHTML = data.aboutTitle;
+                if(data.aboutDesc) document.getElementById("view-about-desc").innerText = data.aboutDesc;
+                if(data.aboutB1) document.getElementById("view-about-b1").innerText = data.aboutB1;
+                if(data.aboutB2) document.getElementById("view-about-b2").innerText = data.aboutB2;
+                if(data.aboutB3) document.getElementById("view-about-b3").innerText = data.aboutB3;
+                if(data.aboutB4) document.getElementById("view-about-b4").innerText = data.aboutB4;
+
+                for(let i=1; i<=5; i++) {
+                    if(data[`carImg${i}`]) document.getElementById(`view-car-img${i}`).src = data[`carImg${i}`];
+                    if(data[`carTxt${i}`]) document.getElementById(`view-car-txt${i}`).innerText = data[`carTxt${i}`];
+                }
+
+                for(let i=1; i<=3; i++) {
+                    if(data[`srvIco${i}`]) document.getElementById(`view-srv-ico${i}`).innerText = data[`srvIco${i}`];
+                    if(data[`srvTit${i}`]) document.getElementById(`view-srv-tit${i}`).innerText = data[`srvTit${i}`];
+                    if(data[`srvDesc${i}`]) document.getElementById(`view-srv-desc${i}`).innerText = data[`srvDesc${i}`];
+                    if(data[`galImg${i}`]) document.getElementById(`view-gal-img${i}`).src = data[`galImg${i}`];
+                    
+                    if(data[`testName${i}`]) document.getElementById(`view-test-name${i}`).innerText = data[`testName${i}`];
+                    if(data[`testTxt${i}`]) document.getElementById(`view-test-txt${i}`).innerText = `"${data[`testTxt${i}`]}"`;
+                    
+                    if(data[`faqQ${i}`]) document.getElementById(`view-faq-q${i}`).innerText = data[`faqQ${i}`];
+                    if(data[`faqA${i}`]) document.getElementById(`view-faq-a${i}`).innerText = data[`faqA${i}`];
+                }
+
+                if(data.ctaTitle) document.getElementById("view-cta-title").innerText = data.ctaTitle;
+                if(data.ctaDesc) document.getElementById("view-cta-desc").innerText = data.ctaDesc;
+                if(data.footDesc) document.getElementById("view-foot-desc").innerText = data.footDesc;
+                if(data.footLoc) document.getElementById("view-foot-loc").innerText = data.footLoc;
+                if(data.footEmail) document.getElementById("view-foot-email").innerText = data.footEmail;
+                if(data.footPhone) document.getElementById("view-foot-phone").innerText = data.footPhone;
+            }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.scroll-anim').forEach((el) => observer.observe(el));
+
+        const carousel3d = document.getElementById('carousel-3d');
+        const slider = document.getElementById('carousel-slider');
+        carousel3d.style.transform = `translateZ(-350px) rotateY(0deg)`;
+        slider.addEventListener('input', (e) => {
+            carousel3d.style.transform = `translateZ(-350px) rotateY(${-e.target.value}deg)`;
+        });
+
+        const card = document.getElementById("draggable-card");
+        const dragHandle = document.getElementById("card-drag-handle");
+        const portadaContainer = document.querySelector(".hero-portada");
+        let isDragging = false, offsetX = 0, offsetY = 0;
+        
+        const startDrag = (clientX, clientY) => {
+            isDragging = true;
+            card.style.position = "absolute"; card.style.margin = "0"; card.style.bottom = "auto"; card.style.zIndex = "2000";
+            const rect = card.getBoundingClientRect();
+            offsetX = clientX - rect.left; offsetY = clientY - rect.top;
+        };
+        const onDrag = (clientX, clientY) => {
+            if (!isDragging) return;
+            const containerRect = portadaContainer.getBoundingClientRect();
+            card.style.left = `${clientX - containerRect.left - offsetX}px`;
+            card.style.top = `${clientY - containerRect.top - offsetY}px`;
+        };
+        const stopDrag = () => { isDragging = false; };
+        
+        dragHandle.addEventListener("mousedown", (e) => startDrag(e.clientX, e.clientY));
+        document.addEventListener("mousemove", (e) => onDrag(e.clientX, e.clientY));
+        document.addEventListener("mouseup", stopDrag);
+        dragHandle.addEventListener("touchstart", (e) => { startDrag(e.touches[0].clientX, e.touches[0].clientY); });
+        document.addEventListener("touchmove", (e) => { if (isDragging) onDrag(e.touches[0].clientX, e.touches[0].clientY); });
+        document.addEventListener("touchend", stopDrag);
     </script>
 </body>
 </html>
