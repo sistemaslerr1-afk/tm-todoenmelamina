@@ -10,9 +10,9 @@
     <style>
         :root { --admin-bg: #f4f6f9; --admin-sidebar: #2c3036; --admin-card: #ffffff; --accent: #B39B82; --text-dark: #333; --text-light: #888; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: var(--admin-bg); color: var(--text-dark); min-height: 100vh; overflow: hidden; } /* Overflow hidden hasta el login */
+        body { background: var(--admin-bg); color: var(--text-dark); min-height: 100vh; overflow: hidden; } 
         
-        /* PANTALLA DE LOGIN DE SEGURIDAD */
+        /* PANTALLA DE LOGIN */
         #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(44, 48, 54, 0.95); backdrop-filter: blur(10px); z-index: 9999; display: flex; align-items: center; justify-content: center; }
         .login-box { background: white; padding: 40px; border-radius: 12px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
         .login-box h2 { color: var(--accent-sidebar); margin-bottom: 20px; font-weight: 700; }
@@ -21,9 +21,9 @@
         .login-box button:hover { background: #9A836B; }
         #login-error { color: #dc3545; font-size: 0.9rem; margin-bottom: 15px; display: none; }
 
-        /* ESTRUCTURA ADMIN (Oculta al inicio) */
+        /* ESTRUCTURA ADMIN */
         #admin-wrapper { display: none; height: 100vh; }
-        .sidebar { width: 260px; background: var(--admin-sidebar); color: #fff; display: flex; flex-direction: column; flex-shrink: 0;}
+        .sidebar { width: 260px; background: var(--admin-sidebar); color: #fff; display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto;}
         .sidebar-header { padding: 25px; font-size: 1.2rem; font-weight: 700; border-bottom: 1px solid #3d424a; color: var(--accent); }
         .nav-links { list-style: none; padding: 20px 0; }
         .nav-links li { padding: 15px 25px; cursor: pointer; transition: 0.3s; color: #b0b5be; }
@@ -56,12 +56,13 @@
 </head>
 <body>
 
-    <!-- PANTALLA DE SEGURIDAD (LOGIN) -->
+    <!-- PANTALLA DE SEGURIDAD (LOGIN SIMPLIFICADO PARA LOCAL) -->
     <div id="login-overlay">
         <div class="login-box">
             <h2>Acceso Restringido</h2>
             <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">Área de administración cifrada.</p>
             <div id="login-error">Contraseña incorrecta.</div>
+            <!-- Input para contraseña -->
             <input type="password" id="admin-pass" placeholder="Ingresa tu contraseña" onkeydown="if(event.key === 'Enter') checkLogin()">
             <button onclick="checkLogin()">Entrar</button>
         </div>
@@ -73,6 +74,7 @@
             <div class="sidebar-header">TODO EN MELAMINA</div>
             <ul class="nav-links">
                 <li class="tab-link active" onclick="switchTab('dashboard', this)">📊 Dashboard</li>
+                <li class="tab-link" onclick="switchTab('ajustes', this)">⚙️ Contacto y Topbar</li>
                 <li class="tab-link" onclick="switchTab('portada', this)">🏠 Portada</li>
                 <li class="tab-link" onclick="switchTab('nosotros', this)">📖 Nosotros</li>
                 <li class="tab-link" onclick="switchTab('carrusel', this)">🎡 Carrusel</li>
@@ -95,10 +97,33 @@
                     <div class="editor-section" style="margin-bottom:0;"><canvas id="trafficChart"></canvas></div>
                     <div class="editor-section" style="margin-bottom:0;"><canvas id="deviceChart"></canvas></div>
                 </div>
-                <div class="editor-section" style="margin-top: 30px;">
-                    <h3>Conectar Google Analytics (Recomendado)</h3>
-                    <p style="color: #666; font-size: 0.95rem; margin-top: 10px;">Para obtener datos reales de visitas, crea una cuenta gratuita en Google Analytics, copia tu ID (Ej: G-12345678) y pégalo en el archivo <code>index.html</code> según las instrucciones que están ocultas en el código.</p>
+            </div>
+
+            <!-- DATOS DE CONTACTO GENERAL -->
+            <div id="ajustes" class="tab-content">
+                <div class="editor-section">
+                    <h3 class="section-title">Barra Superior (Top Bar)</h3>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Ubicación</label><input type="text" id="in-top-loc" value="📍 Querétaro, Querétaro"></div>
+                        <div class="form-group"><label>Correo Electrónico</label><input type="text" id="in-top-email" value="✉️ todoenmelaminatm@gmail.com"></div>
+                        <div class="form-group"><label>Teléfono</label><input type="text" id="in-top-phone" value="📞 +52 442 397 9275"></div>
+                    </div>
                 </div>
+                <div class="editor-section">
+                    <h3 class="section-title">Llamado a la Acción (Final de página)</h3>
+                    <div class="form-group full"><label>Título Final</label><input type="text" id="in-cta-title" value="¿Listo para renovar tu espacio?"></div>
+                    <div class="form-group full"><label>Descripción Final</label><textarea id="in-cta-desc">Contáctanos hoy mismo y recibe un presupuesto sin compromiso. Estamos en Querétaro.</textarea></div>
+                </div>
+                <div class="editor-section">
+                    <h3 class="section-title">Pie de Página (Footer)</h3>
+                    <div class="form-group full"><label>Eslogan Footer</label><input type="text" id="in-foot-desc" value="Transformando espacios con elegancia y precisión, diseñando muebles que cuentan historias."></div>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Ubicación Footer</label><input type="text" id="in-foot-loc" value="📍 Querétaro, Querétaro"></div>
+                        <div class="form-group"><label>Correo Footer</label><input type="text" id="in-foot-email" value="✉️ todoenmelaminatm@gmail.com"></div>
+                        <div class="form-group"><label>Teléfono Footer</label><input type="text" id="in-foot-phone" value="📞 +52 442 397 9275"></div>
+                    </div>
+                </div>
+                <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
             <!-- PORTADA -->
@@ -129,20 +154,20 @@
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
-            <!-- CARRUSEL 3D -->
+            <!-- CARRUSEL 3D (Adaptado a tus imágenes locales) -->
             <div id="carrusel" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Las 5 Imágenes del Carrusel</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Tarjeta 1: URL</label><input type="text" id="in-car-img1" value="img-slide1.jpg"></div>
+                        <div class="form-group"><label>Tarjeta 1: URL</label><input type="text" id="in-car-img1" value="VISTA.jpg"></div>
                         <div class="form-group"><label>Tarjeta 1: Texto</label><input type="text" id="in-car-txt1" value="Texturas Cálidas"></div>
-                        <div class="form-group"><label>Tarjeta 2: URL</label><input type="text" id="in-car-img2" value="img-slide2.jpg"></div>
+                        <div class="form-group"><label>Tarjeta 2: URL</label><input type="text" id="in-car-img2" value="DET.jpg"></div>
                         <div class="form-group"><label>Tarjeta 2: Texto</label><input type="text" id="in-car-txt2" value="Acabados Mate"></div>
-                        <div class="form-group"><label>Tarjeta 3: URL</label><input type="text" id="in-car-img3" value="img-slide3.jpg"></div>
+                        <div class="form-group"><label>Tarjeta 3: URL</label><input type="text" id="in-car-img3" value="FOND.jpeg"></div>
                         <div class="form-group"><label>Tarjeta 3: Texto</label><input type="text" id="in-car-txt3" value="Optimización"></div>
-                        <div class="form-group"><label>Tarjeta 4: URL</label><input type="text" id="in-car-img4" value="img-slide4.jpg"></div>
+                        <div class="form-group"><label>Tarjeta 4: URL</label><input type="text" id="in-car-img4" value="VISTA.jpg"></div>
                         <div class="form-group"><label>Tarjeta 4: Texto</label><input type="text" id="in-car-txt4" value="Minimalismo"></div>
-                        <div class="form-group"><label>Tarjeta 5: URL</label><input type="text" id="in-car-img5" value="img-slide5.jpg"></div>
+                        <div class="form-group"><label>Tarjeta 5: URL</label><input type="text" id="in-car-img5" value="DET.jpg"></div>
                         <div class="form-group"><label>Tarjeta 5: Texto</label><input type="text" id="in-car-txt5" value="Diseño Premium"></div>
                     </div>
                 </div>
@@ -175,13 +200,13 @@
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
-            <!-- PROYECTOS -->
+            <!-- PROYECTOS (Adaptado a tus imágenes locales) -->
             <div id="proyectos" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Proyectos Destacados</h3>
-                    <div class="form-group"><label>Imagen 1 (URL)</label><input type="text" id="in-gal-img1" value="img-1.jpg"></div>
-                    <div class="form-group"><label>Imagen 2 (URL)</label><input type="text" id="in-gal-img2" value="img-2.jpg"></div>
-                    <div class="form-group"><label>Imagen 3 (URL)</label><input type="text" id="in-gal-img3" value="img-3.jpg"></div>
+                    <div class="form-group"><label>Imagen 1 (URL)</label><input type="text" id="in-gal-img1" value="VISTA.jpg"></div>
+                    <div class="form-group"><label>Imagen 2 (URL)</label><input type="text" id="in-gal-img2" value="DET.jpg"></div>
+                    <div class="form-group"><label>Imagen 3 (URL)</label><input type="text" id="in-gal-img3" value="FOND.jpeg"></div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
@@ -189,30 +214,15 @@
     </div>
 
     <script>
-        // --- 1. SISTEMA DE LOGIN CON CIFRADO (SHA-256) ---
-        // La contraseña es: admin2026
-        // Este hash es el resultado de cifrar "admin2026". Es imposible leer la contraseña real desde aquí.
-        const hashCorrecto = "4345d3c8c2269aab5be7be2ce585ad3d3f96f137eb142b7dd82a0d0a21d8b67b";
-
-        async function cifrarSHA256(mensaje) {
-            const buffer = new TextEncoder().encode(mensaje);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        async function checkLogin() {
-            const input = document.getElementById("admin-pass").value;
-            const hashGenerado = await cifrarSHA256(input);
-            
-            if (hashGenerado === hashCorrecto) {
-                // Contraseña correcta
+        // --- 1. SISTEMA DE LOGIN (ARREGLADO PARA USO LOCAL) ---
+        function checkLogin() {
+            const input = document.getElementById("admin-pass").value.trim(); // .trim() quita espacios accidentales al copiar/pegar
+            if (input === "admin2026") {
                 document.getElementById("login-overlay").style.display = "none";
                 document.getElementById("admin-wrapper").style.display = "flex";
                 document.body.style.overflow = "auto";
-                cargarDatosEnFormulario(); // Carga los datos guardados previamente
+                cargarDatosEnFormulario();
             } else {
-                // Contraseña incorrecta
                 document.getElementById("login-error").style.display = "block";
             }
         }
@@ -223,7 +233,7 @@
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             element.classList.add('active');
             document.getElementById(tabId).classList.add('active');
-            const titles = { 'dashboard':'Dashboard Analítico', 'portada':'Edición de Portada', 'nosotros':'Sección Nosotros', 'carrusel':'Editor de Carrusel', 'servicios':'Edición de Servicios', 'proyectos':'Galería de Proyectos' };
+            const titles = { 'dashboard':'Dashboard Analítico', 'ajustes':'Contacto y Datos Generales', 'portada':'Edición de Portada', 'nosotros':'Sección Nosotros', 'carrusel':'Editor de Carrusel', 'servicios':'Edición de Servicios', 'proyectos':'Galería de Proyectos' };
             document.getElementById('page-title').innerText = titles[tabId];
         }
 
@@ -232,11 +242,13 @@
             const data = JSON.parse(localStorage.getItem("tm_website_data"));
             if (data) {
                 const map = {
+                    'in-top-loc':'topLoc', 'in-top-email':'topEmail', 'in-top-phone':'topPhone',
                     'in-hero-img':'heroImg', 'in-hero-title':'heroTitle', 'in-hero-desc':'heroDesc',
                     'in-about-title':'aboutTitle', 'in-about-desc':'aboutDesc', 'in-about-b1':'aboutB1', 'in-about-b2':'aboutB2', 'in-about-b3':'aboutB3', 'in-about-b4':'aboutB4',
                     'in-car-img1':'carImg1', 'in-car-txt1':'carTxt1', 'in-car-img2':'carImg2', 'in-car-txt2':'carTxt2', 'in-car-img3':'carImg3', 'in-car-txt3':'carTxt3', 'in-car-img4':'carImg4', 'in-car-txt4':'carTxt4', 'in-car-img5':'carImg5', 'in-car-txt5':'carTxt5',
                     'in-srv-ico1':'srvIco1', 'in-srv-tit1':'srvTit1', 'in-srv-desc1':'srvDesc1', 'in-srv-ico2':'srvIco2', 'in-srv-tit2':'srvTit2', 'in-srv-desc2':'srvDesc2', 'in-srv-ico3':'srvIco3', 'in-srv-tit3':'srvTit3', 'in-srv-desc3':'srvDesc3',
-                    'in-gal-img1':'galImg1', 'in-gal-img2':'galImg2', 'in-gal-img3':'galImg3'
+                    'in-gal-img1':'galImg1', 'in-gal-img2':'galImg2', 'in-gal-img3':'galImg3',
+                    'in-cta-title':'ctaTitle', 'in-cta-desc':'ctaDesc', 'in-foot-desc':'footDesc', 'in-foot-loc':'footLoc', 'in-foot-email':'footEmail', 'in-foot-phone':'footPhone'
                 };
                 for (const [id, key] of Object.entries(map)) {
                     if (data[key] && document.getElementById(id)) {
@@ -249,11 +261,13 @@
         // --- 4. GUARDAR TODO ---
         function guardarTodo() {
             const data = {
+                topLoc: document.getElementById('in-top-loc').value, topEmail: document.getElementById('in-top-email').value, topPhone: document.getElementById('in-top-phone').value,
                 heroImg: document.getElementById('in-hero-img').value, heroTitle: document.getElementById('in-hero-title').value, heroDesc: document.getElementById('in-hero-desc').value,
                 aboutTitle: document.getElementById('in-about-title').value, aboutDesc: document.getElementById('in-about-desc').value, aboutB1: document.getElementById('in-about-b1').value, aboutB2: document.getElementById('in-about-b2').value, aboutB3: document.getElementById('in-about-b3').value, aboutB4: document.getElementById('in-about-b4').value,
                 carImg1: document.getElementById('in-car-img1').value, carTxt1: document.getElementById('in-car-txt1').value, carImg2: document.getElementById('in-car-img2').value, carTxt2: document.getElementById('in-car-txt2').value, carImg3: document.getElementById('in-car-img3').value, carTxt3: document.getElementById('in-car-txt3').value, carImg4: document.getElementById('in-car-img4').value, carTxt4: document.getElementById('in-car-txt4').value, carImg5: document.getElementById('in-car-img5').value, carTxt5: document.getElementById('in-car-txt5').value,
                 srvIco1: document.getElementById('in-srv-ico1').value, srvTit1: document.getElementById('in-srv-tit1').value, srvDesc1: document.getElementById('in-srv-desc1').value, srvIco2: document.getElementById('in-srv-ico2').value, srvTit2: document.getElementById('in-srv-tit2').value, srvDesc2: document.getElementById('in-srv-desc2').value, srvIco3: document.getElementById('in-srv-ico3').value, srvTit3: document.getElementById('in-srv-tit3').value, srvDesc3: document.getElementById('in-srv-desc3').value,
-                galImg1: document.getElementById('in-gal-img1').value, galImg2: document.getElementById('in-gal-img2').value, galImg3: document.getElementById('in-gal-img3').value
+                galImg1: document.getElementById('in-gal-img1').value, galImg2: document.getElementById('in-gal-img2').value, galImg3: document.getElementById('in-gal-img3').value,
+                ctaTitle: document.getElementById('in-cta-title').value, ctaDesc: document.getElementById('in-cta-desc').value, footDesc: document.getElementById('in-foot-desc').value, footLoc: document.getElementById('in-foot-loc').value, footEmail: document.getElementById('in-foot-email').value, footPhone: document.getElementById('in-foot-phone').value
             };
             localStorage.setItem("tm_website_data", JSON.stringify(data));
             const alertBox = document.getElementById("success-alert");
@@ -261,7 +275,7 @@
             setTimeout(() => { alertBox.style.display = "none"; }, 3500);
         }
 
-        // --- 5. GRÁFICOS (Simulados) ---
+        // --- 5. GRÁFICOS ---
         new Chart(document.getElementById('trafficChart').getContext('2d'), { type: 'line', data: { labels: ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'], datasets: [{ label: 'Visitas', data: [120, 190, 150, 220, 300, 450, 410], borderColor: '#B39B82', backgroundColor: 'rgba(179, 155, 130, 0.2)', fill: true, tension: 0.4 }] }, options: { responsive: true } });
         new Chart(document.getElementById('deviceChart').getContext('2d'), { type: 'doughnut', data: { labels: ['Móvil', 'PC', 'Tablet'], datasets: [{ data: [65, 30, 5], backgroundColor: ['#2c3036', '#B39B82', '#e9ecef'] }] }, options: { responsive: true, cutout: '70%' } });
     </script>
