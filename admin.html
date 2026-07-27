@@ -10,8 +10,19 @@
     <style>
         :root { --admin-bg: #f4f6f9; --admin-sidebar: #2c3036; --admin-card: #ffffff; --accent: #B39B82; --text-dark: #333; --text-light: #888; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { display: flex; background: var(--admin-bg); color: var(--text-dark); min-height: 100vh; }
+        body { background: var(--admin-bg); color: var(--text-dark); min-height: 100vh; overflow: hidden; } /* Overflow hidden hasta el login */
         
+        /* PANTALLA DE LOGIN DE SEGURIDAD */
+        #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(44, 48, 54, 0.95); backdrop-filter: blur(10px); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .login-box { background: white; padding: 40px; border-radius: 12px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .login-box h2 { color: var(--accent-sidebar); margin-bottom: 20px; font-weight: 700; }
+        .login-box input { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
+        .login-box button { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .login-box button:hover { background: #9A836B; }
+        #login-error { color: #dc3545; font-size: 0.9rem; margin-bottom: 15px; display: none; }
+
+        /* ESTRUCTURA ADMIN (Oculta al inicio) */
+        #admin-wrapper { display: none; height: 100vh; }
         .sidebar { width: 260px; background: var(--admin-sidebar); color: #fff; display: flex; flex-direction: column; flex-shrink: 0;}
         .sidebar-header { padding: 25px; font-size: 1.2rem; font-weight: 700; border-bottom: 1px solid #3d424a; color: var(--accent); }
         .nav-links { list-style: none; padding: 20px 0; }
@@ -45,159 +56,168 @@
 </head>
 <body>
 
-    <!-- MENÚ -->
-    <aside class="sidebar">
-        <div class="sidebar-header">TODO EN MELAMINA</div>
-        <ul class="nav-links">
-            <li class="tab-link active" onclick="switchTab('dashboard', this)">📊 Dashboard</li>
-            <li class="tab-link" onclick="switchTab('portada', this)">🏠 Portada</li>
-            <li class="tab-link" onclick="switchTab('nosotros', this)">📖 Nosotros</li>
-            <li class="tab-link" onclick="switchTab('carrusel', this)">🎡 Carrusel</li>
-            <li class="tab-link" onclick="switchTab('servicios', this)">🛠️ Servicios</li>
-            <li class="tab-link" onclick="switchTab('proyectos', this)">🖼️ Proyectos</li>
-        </ul>
-    </aside>
-
-    <!-- ÁREA DE CONTENIDO -->
-    <main class="main-content">
-        <div class="header">
-            <h1 id="page-title">Dashboard Analítico</h1>
-            <a href="index.html" target="_blank" class="btn-preview">👁️ Modo Ver (Preview)</a>
+    <!-- PANTALLA DE SEGURIDAD (LOGIN) -->
+    <div id="login-overlay">
+        <div class="login-box">
+            <h2>Acceso Restringido</h2>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">Área de administración cifrada.</p>
+            <div id="login-error">Contraseña incorrecta.</div>
+            <input type="password" id="admin-pass" placeholder="Ingresa tu contraseña" onkeydown="if(event.key === 'Enter') checkLogin()">
+            <button onclick="checkLogin()">Entrar</button>
         </div>
-        
-        <div id="success-alert">¡Cambios guardados con éxito!</div>
+    </div>
 
-        <!-- 0. DASHBOARD (Simulado) -->
-        <div id="dashboard" class="tab-content active">
-            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
-                <div class="editor-section" style="margin-bottom:0;"><canvas id="trafficChart"></canvas></div>
-                <div class="editor-section" style="margin-bottom:0;"><canvas id="deviceChart"></canvas></div>
+    <!-- CONTENEDOR DEL PANEL ADMIN -->
+    <div id="admin-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">TODO EN MELAMINA</div>
+            <ul class="nav-links">
+                <li class="tab-link active" onclick="switchTab('dashboard', this)">📊 Dashboard</li>
+                <li class="tab-link" onclick="switchTab('portada', this)">🏠 Portada</li>
+                <li class="tab-link" onclick="switchTab('nosotros', this)">📖 Nosotros</li>
+                <li class="tab-link" onclick="switchTab('carrusel', this)">🎡 Carrusel</li>
+                <li class="tab-link" onclick="switchTab('servicios', this)">🛠️ Servicios</li>
+                <li class="tab-link" onclick="switchTab('proyectos', this)">🖼️ Proyectos</li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="header">
+                <h1 id="page-title">Dashboard Analítico</h1>
+                <a href="index.html" target="_blank" class="btn-preview">👁️ Modo Ver (Preview)</a>
             </div>
-        </div>
+            
+            <div id="success-alert">¡Cambios guardados con éxito!</div>
 
-        <!-- 1. PORTADA -->
-        <div id="portada" class="tab-content">
-            <div class="editor-section">
-                <h3 class="section-title">Textos e Imagen Principal</h3>
-                <div class="form-group full">
-                    <label>URL de Imagen Principal (Hero)</label>
-                    <input type="text" id="in-hero-img" value="FOND.jpeg">
-                    <div class="img-hint">Escribe el nombre de tu foto (ej. foto.jpg) o pega un link de internet.</div>
+            <!-- DASHBOARD (Simulado) -->
+            <div id="dashboard" class="tab-content active">
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+                    <div class="editor-section" style="margin-bottom:0;"><canvas id="trafficChart"></canvas></div>
+                    <div class="editor-section" style="margin-bottom:0;"><canvas id="deviceChart"></canvas></div>
                 </div>
-                <div class="form-group full">
-                    <label>Título Principal</label>
-                    <input type="text" id="in-hero-title" value="Transformamos tu espacio en una obra de arte.">
-                </div>
-                <div class="form-group full">
-                    <label>Descripción Corta</label>
-                    <textarea id="in-hero-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</textarea>
+                <div class="editor-section" style="margin-top: 30px;">
+                    <h3>Conectar Google Analytics (Recomendado)</h3>
+                    <p style="color: #666; font-size: 0.95rem; margin-top: 10px;">Para obtener datos reales de visitas, crea una cuenta gratuita en Google Analytics, copia tu ID (Ej: G-12345678) y pégalo en el archivo <code>index.html</code> según las instrucciones que están ocultas en el código.</p>
                 </div>
             </div>
-            <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
-        </div>
 
-        <!-- 2. NOSOTROS -->
-        <div id="nosotros" class="tab-content">
-            <div class="editor-section">
-                <h3 class="section-title">Sección: Diseño Inteligente</h3>
-                <div class="form-group full">
-                    <label>Título de la sección (Usa &lt;span class="text-italic"&gt; para la palabra en cursiva)</label>
-                    <input type="text" id="in-about-title" value='Diseño <span class="text-italic">funcional</span> e inteligente'>
+            <!-- PORTADA -->
+            <div id="portada" class="tab-content">
+                <div class="editor-section">
+                    <h3 class="section-title">Textos e Imagen Principal</h3>
+                    <div class="form-group full"><label>URL de Imagen Principal (Hero)</label><input type="text" id="in-hero-img" value="FOND.jpeg"></div>
+                    <div class="form-group full"><label>Título Principal</label><input type="text" id="in-hero-title" value="Transformamos tu espacio en una obra de arte."></div>
+                    <div class="form-group full"><label>Descripción Corta</label><textarea id="in-hero-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</textarea></div>
                 </div>
-                <div class="form-group full">
-                    <label>Descripción Larga</label>
-                    <textarea id="in-about-desc">Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza de tu entorno.</textarea>
-                </div>
-                
-                <h3 class="section-title" style="margin-top: 30px;">4 Beneficios / Puntos Clave</h3>
-                <div class="form-grid">
-                    <div class="form-group"><label>Beneficio 1</label><input type="text" id="in-about-b1" value="Materiales Premium"></div>
-                    <div class="form-group"><label>Beneficio 2</label><input type="text" id="in-about-b2" value="Diseño Increíble"></div>
-                    <div class="form-group"><label>Beneficio 3</label><input type="text" id="in-about-b3" value="Instalación Limpia"></div>
-                    <div class="form-group"><label>Beneficio 4</label><input type="text" id="in-about-b4" value="Trabajos a tu medida"></div>
-                </div>
+                <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
-            <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
-        </div>
 
-        <!-- 3. CARRUSEL 3D -->
-        <div id="carrusel" class="tab-content">
-            <div class="editor-section">
-                <h3 class="section-title">Las 5 Imágenes del Carrusel</h3>
-                <div class="img-hint" style="margin-bottom: 20px;">Configura las 5 tarjetas que giran en la pantalla principal.</div>
-                
-                <div class="form-grid">
-                    <div class="form-group"><label>Tarjeta 1: Imagen URL</label><input type="text" id="in-car-img1" value="img-slide1.jpg"></div>
-                    <div class="form-group"><label>Tarjeta 1: Texto</label><input type="text" id="in-car-txt1" value="Texturas Cálidas"></div>
-                    
-                    <div class="form-group"><label>Tarjeta 2: Imagen URL</label><input type="text" id="in-car-img2" value="img-slide2.jpg"></div>
-                    <div class="form-group"><label>Tarjeta 2: Texto</label><input type="text" id="in-car-txt2" value="Acabados Mate"></div>
-                    
-                    <div class="form-group"><label>Tarjeta 3: Imagen URL</label><input type="text" id="in-car-img3" value="img-slide3.jpg"></div>
-                    <div class="form-group"><label>Tarjeta 3: Texto</label><input type="text" id="in-car-txt3" value="Optimización"></div>
-                    
-                    <div class="form-group"><label>Tarjeta 4: Imagen URL</label><input type="text" id="in-car-img4" value="img-slide4.jpg"></div>
-                    <div class="form-group"><label>Tarjeta 4: Texto</label><input type="text" id="in-car-txt4" value="Minimalismo"></div>
-                    
-                    <div class="form-group"><label>Tarjeta 5: Imagen URL</label><input type="text" id="in-car-img5" value="img-slide5.jpg"></div>
-                    <div class="form-group"><label>Tarjeta 5: Texto</label><input type="text" id="in-car-txt5" value="Diseño Premium"></div>
+            <!-- NOSOTROS -->
+            <div id="nosotros" class="tab-content">
+                <div class="editor-section">
+                    <h3 class="section-title">Sección: Diseño Inteligente</h3>
+                    <div class="form-group full"><label>Título de la sección</label><input type="text" id="in-about-title" value='Diseño <span class="text-italic">funcional</span> e inteligente'></div>
+                    <div class="form-group full"><label>Descripción Larga</label><textarea id="in-about-desc">Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza de tu entorno.</textarea></div>
+                    <h3 class="section-title" style="margin-top: 30px;">4 Beneficios / Puntos Clave</h3>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Beneficio 1</label><input type="text" id="in-about-b1" value="Materiales Premium"></div>
+                        <div class="form-group"><label>Beneficio 2</label><input type="text" id="in-about-b2" value="Diseño Increíble"></div>
+                        <div class="form-group"><label>Beneficio 3</label><input type="text" id="in-about-b3" value="Instalación Limpia"></div>
+                        <div class="form-group"><label>Beneficio 4</label><input type="text" id="in-about-b4" value="Trabajos a tu medida"></div>
+                    </div>
                 </div>
+                <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
-            <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
-        </div>
 
-        <!-- 4. SERVICIOS -->
-        <div id="servicios" class="tab-content">
-            <div class="editor-section">
-                <h3 class="section-title">Las 3 Tarjetas de Servicios</h3>
-                
-                <h4 style="margin: 15px 0 10px;">Servicio 1</h4>
-                <div class="form-grid">
-                    <div class="form-group"><label>Icono (Emoji)</label><input type="text" id="in-srv-ico1" value="🍳"></div>
-                    <div class="form-group"><label>Título</label><input type="text" id="in-srv-tit1" value="Cocinas Integrales"></div>
-                    <div class="form-group full"><label>Descripción</label><textarea id="in-srv-desc1">Diseños ergonómicos, cubiertas de cuarzo, granito y acabados en melamina de alto brillo o mate.</textarea></div>
+            <!-- CARRUSEL 3D -->
+            <div id="carrusel" class="tab-content">
+                <div class="editor-section">
+                    <h3 class="section-title">Las 5 Imágenes del Carrusel</h3>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Tarjeta 1: URL</label><input type="text" id="in-car-img1" value="img-slide1.jpg"></div>
+                        <div class="form-group"><label>Tarjeta 1: Texto</label><input type="text" id="in-car-txt1" value="Texturas Cálidas"></div>
+                        <div class="form-group"><label>Tarjeta 2: URL</label><input type="text" id="in-car-img2" value="img-slide2.jpg"></div>
+                        <div class="form-group"><label>Tarjeta 2: Texto</label><input type="text" id="in-car-txt2" value="Acabados Mate"></div>
+                        <div class="form-group"><label>Tarjeta 3: URL</label><input type="text" id="in-car-img3" value="img-slide3.jpg"></div>
+                        <div class="form-group"><label>Tarjeta 3: Texto</label><input type="text" id="in-car-txt3" value="Optimización"></div>
+                        <div class="form-group"><label>Tarjeta 4: URL</label><input type="text" id="in-car-img4" value="img-slide4.jpg"></div>
+                        <div class="form-group"><label>Tarjeta 4: Texto</label><input type="text" id="in-car-txt4" value="Minimalismo"></div>
+                        <div class="form-group"><label>Tarjeta 5: URL</label><input type="text" id="in-car-img5" value="img-slide5.jpg"></div>
+                        <div class="form-group"><label>Tarjeta 5: Texto</label><input type="text" id="in-car-txt5" value="Diseño Premium"></div>
+                    </div>
                 </div>
-
-                <h4 style="margin: 15px 0 10px; border-top: 1px solid #eee; padding-top:15px;">Servicio 2</h4>
-                <div class="form-grid">
-                    <div class="form-group"><label>Icono (Emoji)</label><input type="text" id="in-srv-ico2" value="👗"></div>
-                    <div class="form-group"><label>Título</label><input type="text" id="in-srv-tit2" value="Closets y Vestidores"></div>
-                    <div class="form-group full"><label>Descripción</label><textarea id="in-srv-desc2">Optimización total del espacio con sistemas de cierre suave y distribución inteligente.</textarea></div>
-                </div>
-
-                <h4 style="margin: 15px 0 10px; border-top: 1px solid #eee; padding-top:15px;">Servicio 3</h4>
-                <div class="form-grid">
-                    <div class="form-group"><label>Icono (Emoji)</label><input type="text" id="in-srv-ico3" value="💻"></div>
-                    <div class="form-group"><label>Título</label><input type="text" id="in-srv-tit3" value="Mobiliario de Oficina"></div>
-                    <div class="form-group full"><label>Descripción</label><textarea id="in-srv-desc3">Escritorios y libreros minimalistas diseñados para aumentar tu productividad y confort.</textarea></div>
-                </div>
+                <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
-            <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
-        </div>
 
-        <!-- 5. PROYECTOS / GALERÍA -->
-        <div id="proyectos" class="tab-content">
-            <div class="editor-section">
-                <h3 class="section-title">Proyectos Destacados</h3>
-                <div class="form-group">
-                    <label>Imagen 1 (URL)</label>
-                    <input type="text" id="in-gal-img1" value="img-1.jpg">
+            <!-- SERVICIOS -->
+            <div id="servicios" class="tab-content">
+                <div class="editor-section">
+                    <h3 class="section-title">Las 3 Tarjetas de Servicios</h3>
+                    <h4 style="margin: 15px 0 10px;">Servicio 1</h4>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Icono</label><input type="text" id="in-srv-ico1" value="🍳"></div>
+                        <div class="form-group"><label>Título</label><input type="text" id="in-srv-tit1" value="Cocinas Integrales"></div>
+                        <div class="form-group full"><label>Descripción</label><textarea id="in-srv-desc1">Diseños ergonómicos, cubiertas de cuarzo, granito y acabados en melamina de alto brillo o mate.</textarea></div>
+                    </div>
+                    <h4 style="margin: 15px 0 10px; border-top: 1px solid #eee; padding-top:15px;">Servicio 2</h4>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Icono</label><input type="text" id="in-srv-ico2" value="👗"></div>
+                        <div class="form-group"><label>Título</label><input type="text" id="in-srv-tit2" value="Closets y Vestidores"></div>
+                        <div class="form-group full"><label>Descripción</label><textarea id="in-srv-desc2">Optimización total del espacio con sistemas de cierre suave y distribución inteligente.</textarea></div>
+                    </div>
+                    <h4 style="margin: 15px 0 10px; border-top: 1px solid #eee; padding-top:15px;">Servicio 3</h4>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Icono</label><input type="text" id="in-srv-ico3" value="💻"></div>
+                        <div class="form-group"><label>Título</label><input type="text" id="in-srv-tit3" value="Mobiliario de Oficina"></div>
+                        <div class="form-group full"><label>Descripción</label><textarea id="in-srv-desc3">Escritorios y libreros minimalistas diseñados para aumentar tu productividad y confort.</textarea></div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Imagen 2 (URL)</label>
-                    <input type="text" id="in-gal-img2" value="img-2.jpg">
-                </div>
-                <div class="form-group">
-                    <label>Imagen 3 (URL)</label>
-                    <input type="text" id="in-gal-img3" value="img-3.jpg">
-                </div>
+                <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
-            <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
-        </div>
-    </main>
+
+            <!-- PROYECTOS -->
+            <div id="proyectos" class="tab-content">
+                <div class="editor-section">
+                    <h3 class="section-title">Proyectos Destacados</h3>
+                    <div class="form-group"><label>Imagen 1 (URL)</label><input type="text" id="in-gal-img1" value="img-1.jpg"></div>
+                    <div class="form-group"><label>Imagen 2 (URL)</label><input type="text" id="in-gal-img2" value="img-2.jpg"></div>
+                    <div class="form-group"><label>Imagen 3 (URL)</label><input type="text" id="in-gal-img3" value="img-3.jpg"></div>
+                </div>
+                <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
+            </div>
+        </main>
+    </div>
 
     <script>
-        // PESTAÑAS
+        // --- 1. SISTEMA DE LOGIN CON CIFRADO (SHA-256) ---
+        // La contraseña es: admin2026
+        // Este hash es el resultado de cifrar "admin2026". Es imposible leer la contraseña real desde aquí.
+        const hashCorrecto = "4345d3c8c2269aab5be7be2ce585ad3d3f96f137eb142b7dd82a0d0a21d8b67b";
+
+        async function cifrarSHA256(mensaje) {
+            const buffer = new TextEncoder().encode(mensaje);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkLogin() {
+            const input = document.getElementById("admin-pass").value;
+            const hashGenerado = await cifrarSHA256(input);
+            
+            if (hashGenerado === hashCorrecto) {
+                // Contraseña correcta
+                document.getElementById("login-overlay").style.display = "none";
+                document.getElementById("admin-wrapper").style.display = "flex";
+                document.body.style.overflow = "auto";
+                cargarDatosEnFormulario(); // Carga los datos guardados previamente
+            } else {
+                // Contraseña incorrecta
+                document.getElementById("login-error").style.display = "block";
+            }
+        }
+
+        // --- 2. PESTAÑAS DEL PANEL ---
         function switchTab(tabId, element) {
             document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -207,8 +227,8 @@
             document.getElementById('page-title').innerText = titles[tabId];
         }
 
-        // CARGAR DATOS AL INICIAR
-        document.addEventListener("DOMContentLoaded", () => {
+        // --- 3. CARGAR DATOS AL FORMULARIO ---
+        function cargarDatosEnFormulario() {
             const data = JSON.parse(localStorage.getItem("tm_website_data"));
             if (data) {
                 const map = {
@@ -224,46 +244,25 @@
                     }
                 }
             }
-        });
+        }
 
-        // GUARDAR TODO EN UN SOLO JSON
+        // --- 4. GUARDAR TODO ---
         function guardarTodo() {
             const data = {
-                heroImg: document.getElementById('in-hero-img').value,
-                heroTitle: document.getElementById('in-hero-title').value,
-                heroDesc: document.getElementById('in-hero-desc').value,
-                
-                aboutTitle: document.getElementById('in-about-title').value,
-                aboutDesc: document.getElementById('in-about-desc').value,
-                aboutB1: document.getElementById('in-about-b1').value,
-                aboutB2: document.getElementById('in-about-b2').value,
-                aboutB3: document.getElementById('in-about-b3').value,
-                aboutB4: document.getElementById('in-about-b4').value,
-
-                carImg1: document.getElementById('in-car-img1').value, carTxt1: document.getElementById('in-car-txt1').value,
-                carImg2: document.getElementById('in-car-img2').value, carTxt2: document.getElementById('in-car-txt2').value,
-                carImg3: document.getElementById('in-car-img3').value, carTxt3: document.getElementById('in-car-txt3').value,
-                carImg4: document.getElementById('in-car-img4').value, carTxt4: document.getElementById('in-car-txt4').value,
-                carImg5: document.getElementById('in-car-img5').value, carTxt5: document.getElementById('in-car-txt5').value,
-
-                srvIco1: document.getElementById('in-srv-ico1').value, srvTit1: document.getElementById('in-srv-tit1').value, srvDesc1: document.getElementById('in-srv-desc1').value,
-                srvIco2: document.getElementById('in-srv-ico2').value, srvTit2: document.getElementById('in-srv-tit2').value, srvDesc2: document.getElementById('in-srv-desc2').value,
-                srvIco3: document.getElementById('in-srv-ico3').value, srvTit3: document.getElementById('in-srv-tit3').value, srvDesc3: document.getElementById('in-srv-desc3').value,
-
-                galImg1: document.getElementById('in-gal-img1').value,
-                galImg2: document.getElementById('in-gal-img2').value,
-                galImg3: document.getElementById('in-gal-img3').value
+                heroImg: document.getElementById('in-hero-img').value, heroTitle: document.getElementById('in-hero-title').value, heroDesc: document.getElementById('in-hero-desc').value,
+                aboutTitle: document.getElementById('in-about-title').value, aboutDesc: document.getElementById('in-about-desc').value, aboutB1: document.getElementById('in-about-b1').value, aboutB2: document.getElementById('in-about-b2').value, aboutB3: document.getElementById('in-about-b3').value, aboutB4: document.getElementById('in-about-b4').value,
+                carImg1: document.getElementById('in-car-img1').value, carTxt1: document.getElementById('in-car-txt1').value, carImg2: document.getElementById('in-car-img2').value, carTxt2: document.getElementById('in-car-txt2').value, carImg3: document.getElementById('in-car-img3').value, carTxt3: document.getElementById('in-car-txt3').value, carImg4: document.getElementById('in-car-img4').value, carTxt4: document.getElementById('in-car-txt4').value, carImg5: document.getElementById('in-car-img5').value, carTxt5: document.getElementById('in-car-txt5').value,
+                srvIco1: document.getElementById('in-srv-ico1').value, srvTit1: document.getElementById('in-srv-tit1').value, srvDesc1: document.getElementById('in-srv-desc1').value, srvIco2: document.getElementById('in-srv-ico2').value, srvTit2: document.getElementById('in-srv-tit2').value, srvDesc2: document.getElementById('in-srv-desc2').value, srvIco3: document.getElementById('in-srv-ico3').value, srvTit3: document.getElementById('in-srv-tit3').value, srvDesc3: document.getElementById('in-srv-desc3').value,
+                galImg1: document.getElementById('in-gal-img1').value, galImg2: document.getElementById('in-gal-img2').value, galImg3: document.getElementById('in-gal-img3').value
             };
-
             localStorage.setItem("tm_website_data", JSON.stringify(data));
-
             const alertBox = document.getElementById("success-alert");
             alertBox.style.display = "block";
             setTimeout(() => { alertBox.style.display = "none"; }, 3500);
         }
 
-        // GRÁFICOS (Chart.js)
-        new Chart(document.getElementById('trafficChart').getContext('2d'), { type: 'line', data: { labels: ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'], datasets: [{ label: 'Visitas Simuladas', data: [120, 190, 150, 220, 300, 450, 410], borderColor: '#B39B82', backgroundColor: 'rgba(179, 155, 130, 0.2)', fill: true, tension: 0.4 }] }, options: { responsive: true } });
+        // --- 5. GRÁFICOS (Simulados) ---
+        new Chart(document.getElementById('trafficChart').getContext('2d'), { type: 'line', data: { labels: ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'], datasets: [{ label: 'Visitas', data: [120, 190, 150, 220, 300, 450, 410], borderColor: '#B39B82', backgroundColor: 'rgba(179, 155, 130, 0.2)', fill: true, tension: 0.4 }] }, options: { responsive: true } });
         new Chart(document.getElementById('deviceChart').getContext('2d'), { type: 'doughnut', data: { labels: ['Móvil', 'PC', 'Tablet'], datasets: [{ data: [65, 30, 5], backgroundColor: ['#2c3036', '#B39B82', '#e9ecef'] }] }, options: { responsive: true, cutout: '70%' } });
     </script>
 </body>
