@@ -4,188 +4,267 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | Todo en Melamina</title>
-    <!-- ÍCONO DE LA PESTAÑA -->
     <link rel="icon" type="image/png" href="LOGO1.png">
-    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root {
-            --admin-bg: #f4f6f9; --admin-sidebar: #2c3036; --admin-card: #ffffff;
-            --accent: #B39B82; --text-dark: #333; --text-light: #888;
-        }
+        :root { --admin-bg: #f4f6f9; --admin-sidebar: #2c3036; --admin-card: #ffffff; --accent: #B39B82; --text-dark: #333; --text-light: #888; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { display: flex; background: var(--admin-bg); color: var(--text-dark); min-height: 100vh; }
         
-        /* Sidebar */
-        .sidebar { width: 260px; background: var(--admin-sidebar); color: #fff; display: flex; flex-direction: column; }
+        .sidebar { width: 260px; background: var(--admin-sidebar); color: #fff; display: flex; flex-direction: column; flex-shrink: 0;}
         .sidebar-header { padding: 25px; font-size: 1.2rem; font-weight: 700; border-bottom: 1px solid #3d424a; color: var(--accent); }
         .nav-links { list-style: none; padding: 20px 0; }
-        .nav-links li { padding: 15px 25px; cursor: pointer; transition: 0.3s; color: #b0b5be; display: flex; justify-content: space-between;}
+        .nav-links li { padding: 15px 25px; cursor: pointer; transition: 0.3s; color: #b0b5be; }
         .nav-links li:hover, .nav-links li.active { background: #3d424a; color: #fff; border-left: 4px solid var(--accent); }
         
-        /* Contenido Principal */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; }
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
         .header h1 { font-size: 1.8rem; }
         .btn-preview { background: var(--accent); color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: 600; box-shadow: 0 4px 10px rgba(179, 155, 130, 0.3); transition: 0.3s;}
         .btn-preview:hover { background: #9A836B; }
 
-        /* Pestañas de contenido (Ocultar las inactivas) */
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.4s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Tarjetas de Analíticas */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 40px; }
-        .stat-card { background: var(--admin-card); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
-        .stat-card h3 { color: var(--text-light); font-size: 0.9rem; margin-bottom: 10px; font-weight: 500;}
-        .stat-card .value { font-size: 2rem; font-weight: 700; color: var(--text-dark); }
-        .stat-card .trend { font-size: 0.8rem; color: #28a745; margin-top: 5px; font-weight: 500;}
-
-        /* Sección de Gráficas */
-        .charts-container { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 40px; }
-        .chart-card { background: var(--admin-card); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
-        .chart-card h3 { margin-bottom: 20px; font-size: 1.1rem; }
-
-        /* Editor de Contenido */
-        .editor-section { background: var(--admin-card); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); max-width: 800px;}
+        .editor-section { background: var(--admin-card); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); max-width: 900px; margin-bottom: 30px;}
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .form-group { margin-bottom: 20px; }
+        .form-group.full { grid-column: span 2; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; }
         .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95rem; }
-        .form-group textarea { resize: vertical; height: 100px; }
-        .btn-save { background: var(--text-dark); color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.3s;}
+        .form-group textarea { resize: vertical; height: 90px; }
+        .btn-save { background: var(--text-dark); color: white; border: none; padding: 15px 30px; border-radius: 6px; cursor: pointer; font-weight: 600; width: 100%; max-width: 900px; font-size: 1.1rem; transition: 0.3s; margin-bottom: 50px;}
         .btn-save:hover { background: var(--accent); }
+        .img-hint { font-size: 0.8rem; color: #888; margin-top: 5px; }
 
-        /* Alerta de guardado */
-        #success-alert { display: none; background-color: #28a745; color: white; padding: 15px; border-radius: 6px; margin-bottom: 20px; text-align: center; font-weight: bold; }
+        #success-alert { display: none; background-color: #28a745; color: white; padding: 15px; border-radius: 6px; margin-bottom: 20px; text-align: center; font-weight: bold; position: sticky; top: 20px; z-index: 100;}
+        .section-title { border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-bottom: 20px; color: var(--accent);}
     </style>
 </head>
 <body>
 
-    <!-- Menú Lateral -->
+    <!-- MENÚ -->
     <aside class="sidebar">
         <div class="sidebar-header">TODO EN MELAMINA</div>
         <ul class="nav-links">
             <li class="tab-link active" onclick="switchTab('dashboard', this)">📊 Dashboard</li>
-            <li class="tab-link" onclick="switchTab('editor', this)">📝 Editar Textos</li>
-            <li class="tab-link" onclick="switchTab('ajustes', this)">⚙️ Ajustes (Demo)</li>
+            <li class="tab-link" onclick="switchTab('portada', this)">🏠 Portada</li>
+            <li class="tab-link" onclick="switchTab('nosotros', this)">📖 Nosotros</li>
+            <li class="tab-link" onclick="switchTab('carrusel', this)">🎡 Carrusel</li>
+            <li class="tab-link" onclick="switchTab('servicios', this)">🛠️ Servicios</li>
+            <li class="tab-link" onclick="switchTab('proyectos', this)">🖼️ Proyectos</li>
         </ul>
     </aside>
 
-    <!-- Panel Principal -->
+    <!-- ÁREA DE CONTENIDO -->
     <main class="main-content">
         <div class="header">
-            <h1 id="page-title">Panel de Control</h1>
-            <!-- Botón de preview -->
+            <h1 id="page-title">Dashboard Analítico</h1>
             <a href="index.html" target="_blank" class="btn-preview">👁️ Modo Ver (Preview)</a>
         </div>
+        
+        <div id="success-alert">¡Cambios guardados con éxito!</div>
 
-        <!-- PESTAÑA 1: DASHBOARD (Analíticas Simuladas) -->
+        <!-- 0. DASHBOARD (Simulado) -->
         <div id="dashboard" class="tab-content active">
-            <div class="stats-grid">
-                <div class="stat-card"><h3>Visitas del Mes (Ejemplo)</h3><div class="value">2,450</div><div class="trend">↑ +15% vs mes anterior</div></div>
-                <div class="stat-card"><h3>Clics en WhatsApp (Ejemplo)</h3><div class="value">184</div><div class="trend">↑ +5% vs mes anterior</div></div>
-            </div>
-            <div class="charts-container">
-                <div class="chart-card">
-                    <h3>Tráfico de los últimos 7 días</h3>
-                    <canvas id="trafficChart" height="100"></canvas>
-                </div>
-                <div class="chart-card">
-                    <h3>Dispositivos</h3>
-                    <canvas id="deviceChart" height="200"></canvas>
-                </div>
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+                <div class="editor-section" style="margin-bottom:0;"><canvas id="trafficChart"></canvas></div>
+                <div class="editor-section" style="margin-bottom:0;"><canvas id="deviceChart"></canvas></div>
             </div>
         </div>
 
-        <!-- PESTAÑA 2: EDITOR (Funcional con LocalStorage) -->
-        <div id="editor" class="tab-content">
-            <div id="success-alert">¡Cambios guardados! Ve al "Modo Ver" para notar la diferencia.</div>
+        <!-- 1. PORTADA -->
+        <div id="portada" class="tab-content">
             <div class="editor-section">
-                <h3 style="margin-bottom: 20px;">Edición de Portada Principal</h3>
-                <div class="form-group">
+                <h3 class="section-title">Textos e Imagen Principal</h3>
+                <div class="form-group full">
+                    <label>URL de Imagen Principal (Hero)</label>
+                    <input type="text" id="in-hero-img" value="FOND.jpeg">
+                    <div class="img-hint">Escribe el nombre de tu foto (ej. foto.jpg) o pega un link de internet.</div>
+                </div>
+                <div class="form-group full">
                     <label>Título Principal</label>
-                    <input type="text" id="input-title" value="Transformamos tu espacio en una obra de arte.">
+                    <input type="text" id="in-hero-title" value="Transformamos tu espacio en una obra de arte.">
                 </div>
-                <div class="form-group">
-                    <label>Descripción</label>
-                    <textarea id="input-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</textarea>
+                <div class="form-group full">
+                    <label>Descripción Corta</label>
+                    <textarea id="in-hero-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</textarea>
                 </div>
-                <button class="btn-save" onclick="guardarDatos()">Guardar Cambios</button>
             </div>
+            <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
         </div>
 
-        <!-- PESTAÑA 3: AJUSTES (Demo) -->
-        <div id="ajustes" class="tab-content">
+        <!-- 2. NOSOTROS -->
+        <div id="nosotros" class="tab-content">
             <div class="editor-section">
-                <h3 style="margin-bottom: 20px;">Integraciones</h3>
-                <p style="color: var(--text-light); margin-bottom: 20px;">
-                    Aquí es donde en el futuro conectaremos <strong>Google Analytics</strong> para obtener los datos reales de tu página web.
-                </p>
-                <div class="form-group">
-                    <label>ID de Google Analytics (Próximamente)</label>
-                    <input type="text" disabled placeholder="G-XXXXXXXXXX">
+                <h3 class="section-title">Sección: Diseño Inteligente</h3>
+                <div class="form-group full">
+                    <label>Título de la sección (Usa &lt;span class="text-italic"&gt; para la palabra en cursiva)</label>
+                    <input type="text" id="in-about-title" value='Diseño <span class="text-italic">funcional</span> e inteligente'>
+                </div>
+                <div class="form-group full">
+                    <label>Descripción Larga</label>
+                    <textarea id="in-about-desc">Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza de tu entorno.</textarea>
+                </div>
+                
+                <h3 class="section-title" style="margin-top: 30px;">4 Beneficios / Puntos Clave</h3>
+                <div class="form-grid">
+                    <div class="form-group"><label>Beneficio 1</label><input type="text" id="in-about-b1" value="Materiales Premium"></div>
+                    <div class="form-group"><label>Beneficio 2</label><input type="text" id="in-about-b2" value="Diseño Increíble"></div>
+                    <div class="form-group"><label>Beneficio 3</label><input type="text" id="in-about-b3" value="Instalación Limpia"></div>
+                    <div class="form-group"><label>Beneficio 4</label><input type="text" id="in-about-b4" value="Trabajos a tu medida"></div>
                 </div>
             </div>
+            <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
+        </div>
+
+        <!-- 3. CARRUSEL 3D -->
+        <div id="carrusel" class="tab-content">
+            <div class="editor-section">
+                <h3 class="section-title">Las 5 Imágenes del Carrusel</h3>
+                <div class="img-hint" style="margin-bottom: 20px;">Configura las 5 tarjetas que giran en la pantalla principal.</div>
+                
+                <div class="form-grid">
+                    <div class="form-group"><label>Tarjeta 1: Imagen URL</label><input type="text" id="in-car-img1" value="img-slide1.jpg"></div>
+                    <div class="form-group"><label>Tarjeta 1: Texto</label><input type="text" id="in-car-txt1" value="Texturas Cálidas"></div>
+                    
+                    <div class="form-group"><label>Tarjeta 2: Imagen URL</label><input type="text" id="in-car-img2" value="img-slide2.jpg"></div>
+                    <div class="form-group"><label>Tarjeta 2: Texto</label><input type="text" id="in-car-txt2" value="Acabados Mate"></div>
+                    
+                    <div class="form-group"><label>Tarjeta 3: Imagen URL</label><input type="text" id="in-car-img3" value="img-slide3.jpg"></div>
+                    <div class="form-group"><label>Tarjeta 3: Texto</label><input type="text" id="in-car-txt3" value="Optimización"></div>
+                    
+                    <div class="form-group"><label>Tarjeta 4: Imagen URL</label><input type="text" id="in-car-img4" value="img-slide4.jpg"></div>
+                    <div class="form-group"><label>Tarjeta 4: Texto</label><input type="text" id="in-car-txt4" value="Minimalismo"></div>
+                    
+                    <div class="form-group"><label>Tarjeta 5: Imagen URL</label><input type="text" id="in-car-img5" value="img-slide5.jpg"></div>
+                    <div class="form-group"><label>Tarjeta 5: Texto</label><input type="text" id="in-car-txt5" value="Diseño Premium"></div>
+                </div>
+            </div>
+            <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
+        </div>
+
+        <!-- 4. SERVICIOS -->
+        <div id="servicios" class="tab-content">
+            <div class="editor-section">
+                <h3 class="section-title">Las 3 Tarjetas de Servicios</h3>
+                
+                <h4 style="margin: 15px 0 10px;">Servicio 1</h4>
+                <div class="form-grid">
+                    <div class="form-group"><label>Icono (Emoji)</label><input type="text" id="in-srv-ico1" value="🍳"></div>
+                    <div class="form-group"><label>Título</label><input type="text" id="in-srv-tit1" value="Cocinas Integrales"></div>
+                    <div class="form-group full"><label>Descripción</label><textarea id="in-srv-desc1">Diseños ergonómicos, cubiertas de cuarzo, granito y acabados en melamina de alto brillo o mate.</textarea></div>
+                </div>
+
+                <h4 style="margin: 15px 0 10px; border-top: 1px solid #eee; padding-top:15px;">Servicio 2</h4>
+                <div class="form-grid">
+                    <div class="form-group"><label>Icono (Emoji)</label><input type="text" id="in-srv-ico2" value="👗"></div>
+                    <div class="form-group"><label>Título</label><input type="text" id="in-srv-tit2" value="Closets y Vestidores"></div>
+                    <div class="form-group full"><label>Descripción</label><textarea id="in-srv-desc2">Optimización total del espacio con sistemas de cierre suave y distribución inteligente.</textarea></div>
+                </div>
+
+                <h4 style="margin: 15px 0 10px; border-top: 1px solid #eee; padding-top:15px;">Servicio 3</h4>
+                <div class="form-grid">
+                    <div class="form-group"><label>Icono (Emoji)</label><input type="text" id="in-srv-ico3" value="💻"></div>
+                    <div class="form-group"><label>Título</label><input type="text" id="in-srv-tit3" value="Mobiliario de Oficina"></div>
+                    <div class="form-group full"><label>Descripción</label><textarea id="in-srv-desc3">Escritorios y libreros minimalistas diseñados para aumentar tu productividad y confort.</textarea></div>
+                </div>
+            </div>
+            <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
+        </div>
+
+        <!-- 5. PROYECTOS / GALERÍA -->
+        <div id="proyectos" class="tab-content">
+            <div class="editor-section">
+                <h3 class="section-title">Proyectos Destacados</h3>
+                <div class="form-group">
+                    <label>Imagen 1 (URL)</label>
+                    <input type="text" id="in-gal-img1" value="img-1.jpg">
+                </div>
+                <div class="form-group">
+                    <label>Imagen 2 (URL)</label>
+                    <input type="text" id="in-gal-img2" value="img-2.jpg">
+                </div>
+                <div class="form-group">
+                    <label>Imagen 3 (URL)</label>
+                    <input type="text" id="in-gal-img3" value="img-3.jpg">
+                </div>
+            </div>
+            <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
         </div>
     </main>
 
     <script>
-        // --- 1. LÓGICA DE LAS PESTAÑAS (TABS) ---
+        // PESTAÑAS
         function switchTab(tabId, element) {
-            // Quitar clase active de todos los links
             document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
-            // Ocultar todas las pantallas
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            
-            // Activar el seleccionado
             element.classList.add('active');
             document.getElementById(tabId).classList.add('active');
-
-            // Cambiar el título
-            const titles = { 'dashboard': 'Dashboard', 'editor': 'Editor de Contenido', 'ajustes': 'Ajustes del Sistema' };
+            const titles = { 'dashboard':'Dashboard Analítico', 'portada':'Edición de Portada', 'nosotros':'Sección Nosotros', 'carrusel':'Editor de Carrusel', 'servicios':'Edición de Servicios', 'proyectos':'Galería de Proyectos' };
             document.getElementById('page-title').innerText = titles[tabId];
         }
 
-        // --- 2. LÓGICA DE GUARDADO (LOCALSTORAGE) ---
-        // Al cargar la página de admin, buscamos si ya guardaste algo antes
+        // CARGAR DATOS AL INICIAR
         document.addEventListener("DOMContentLoaded", () => {
-            if(localStorage.getItem("tm_title")) document.getElementById("input-title").value = localStorage.getItem("tm_title");
-            if(localStorage.getItem("tm_desc")) document.getElementById("input-desc").value = localStorage.getItem("tm_desc");
+            const data = JSON.parse(localStorage.getItem("tm_website_data"));
+            if (data) {
+                const map = {
+                    'in-hero-img':'heroImg', 'in-hero-title':'heroTitle', 'in-hero-desc':'heroDesc',
+                    'in-about-title':'aboutTitle', 'in-about-desc':'aboutDesc', 'in-about-b1':'aboutB1', 'in-about-b2':'aboutB2', 'in-about-b3':'aboutB3', 'in-about-b4':'aboutB4',
+                    'in-car-img1':'carImg1', 'in-car-txt1':'carTxt1', 'in-car-img2':'carImg2', 'in-car-txt2':'carTxt2', 'in-car-img3':'carImg3', 'in-car-txt3':'carTxt3', 'in-car-img4':'carImg4', 'in-car-txt4':'carTxt4', 'in-car-img5':'carImg5', 'in-car-txt5':'carTxt5',
+                    'in-srv-ico1':'srvIco1', 'in-srv-tit1':'srvTit1', 'in-srv-desc1':'srvDesc1', 'in-srv-ico2':'srvIco2', 'in-srv-tit2':'srvTit2', 'in-srv-desc2':'srvDesc2', 'in-srv-ico3':'srvIco3', 'in-srv-tit3':'srvTit3', 'in-srv-desc3':'srvDesc3',
+                    'in-gal-img1':'galImg1', 'in-gal-img2':'galImg2', 'in-gal-img3':'galImg3'
+                };
+                for (const [id, key] of Object.entries(map)) {
+                    if (data[key] && document.getElementById(id)) {
+                        document.getElementById(id).value = data[key];
+                    }
+                }
+            }
         });
 
-        // Función que se ejecuta al darle al botón "Guardar Cambios"
-        function guardarDatos() {
-            const titleValue = document.getElementById("input-title").value;
-            const descValue = document.getElementById("input-desc").value;
+        // GUARDAR TODO EN UN SOLO JSON
+        function guardarTodo() {
+            const data = {
+                heroImg: document.getElementById('in-hero-img').value,
+                heroTitle: document.getElementById('in-hero-title').value,
+                heroDesc: document.getElementById('in-hero-desc').value,
+                
+                aboutTitle: document.getElementById('in-about-title').value,
+                aboutDesc: document.getElementById('in-about-desc').value,
+                aboutB1: document.getElementById('in-about-b1').value,
+                aboutB2: document.getElementById('in-about-b2').value,
+                aboutB3: document.getElementById('in-about-b3').value,
+                aboutB4: document.getElementById('in-about-b4').value,
 
-            // Guardar en la memoria del navegador
-            localStorage.setItem("tm_title", titleValue);
-            localStorage.setItem("tm_desc", descValue);
+                carImg1: document.getElementById('in-car-img1').value, carTxt1: document.getElementById('in-car-txt1').value,
+                carImg2: document.getElementById('in-car-img2').value, carTxt2: document.getElementById('in-car-txt2').value,
+                carImg3: document.getElementById('in-car-img3').value, carTxt3: document.getElementById('in-car-txt3').value,
+                carImg4: document.getElementById('in-car-img4').value, carTxt4: document.getElementById('in-car-txt4').value,
+                carImg5: document.getElementById('in-car-img5').value, carTxt5: document.getElementById('in-car-txt5').value,
 
-            // Mostrar alerta verde
+                srvIco1: document.getElementById('in-srv-ico1').value, srvTit1: document.getElementById('in-srv-tit1').value, srvDesc1: document.getElementById('in-srv-desc1').value,
+                srvIco2: document.getElementById('in-srv-ico2').value, srvTit2: document.getElementById('in-srv-tit2').value, srvDesc2: document.getElementById('in-srv-desc2').value,
+                srvIco3: document.getElementById('in-srv-ico3').value, srvTit3: document.getElementById('in-srv-tit3').value, srvDesc3: document.getElementById('in-srv-desc3').value,
+
+                galImg1: document.getElementById('in-gal-img1').value,
+                galImg2: document.getElementById('in-gal-img2').value,
+                galImg3: document.getElementById('in-gal-img3').value
+            };
+
+            localStorage.setItem("tm_website_data", JSON.stringify(data));
+
             const alertBox = document.getElementById("success-alert");
             alertBox.style.display = "block";
-            setTimeout(() => { alertBox.style.display = "none"; }, 3000);
+            setTimeout(() => { alertBox.style.display = "none"; }, 3500);
         }
 
-        // --- 3. GRÁFICOS (Chart.js) ---
-        const ctxTraffic = document.getElementById('trafficChart').getContext('2d');
-        new Chart(ctxTraffic, {
-            type: 'line',
-            data: { labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
-                    datasets: [{ label: 'Visitas', data: [120, 190, 150, 220, 300, 450, 410],
-                    borderColor: '#B39B82', backgroundColor: 'rgba(179, 155, 130, 0.2)', fill: true, tension: 0.4 }] },
-            options: { responsive: true }
-        });
-        const ctxDevice = document.getElementById('deviceChart').getContext('2d');
-        new Chart(ctxDevice, {
-            type: 'doughnut',
-            data: { labels: ['Móvil', 'Escritorio', 'Tablet'],
-                    datasets: [{ data: [65, 30, 5], backgroundColor: ['#2c3036', '#B39B82', '#e9ecef'] }] },
-            options: { responsive: true, cutout: '70%' }
-        });
+        // GRÁFICOS (Chart.js)
+        new Chart(document.getElementById('trafficChart').getContext('2d'), { type: 'line', data: { labels: ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'], datasets: [{ label: 'Visitas Simuladas', data: [120, 190, 150, 220, 300, 450, 410], borderColor: '#B39B82', backgroundColor: 'rgba(179, 155, 130, 0.2)', fill: true, tension: 0.4 }] }, options: { responsive: true } });
+        new Chart(document.getElementById('deviceChart').getContext('2d'), { type: 'doughnut', data: { labels: ['Móvil', 'PC', 'Tablet'], datasets: [{ data: [65, 30, 5], backgroundColor: ['#2c3036', '#B39B82', '#e9ecef'] }] }, options: { responsive: true, cutout: '70%' } });
     </script>
 </body>
 </html>
