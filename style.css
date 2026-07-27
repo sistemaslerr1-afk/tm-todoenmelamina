@@ -185,24 +185,48 @@ body {
 .benefits-list li:hover { transform: translateY(-5px); }
 .benefits-list .icon { font-size: 1.3rem; }
 
-/* --- CARRUSEL DE INSPIRACIÓN (SWIPEABLE) --- */
-.carousel-section { padding: 120px 0 120px 40px; background-color: var(--bg-main); overflow: hidden; }
-.carousel-container {
-    display: flex; gap: 30px; overflow-x: auto; padding-bottom: 40px; padding-right: 40px;
-    scroll-snap-type: x mandatory; scrollbar-width: none; /* Oculta barra en Firefox */
+/* --- NUEVO CARRUSEL 3D --- */
+.carousel-section { padding: 120px 0 100px; background-color: var(--bg-main); overflow: hidden; text-align: center; }
+.scene {
+    width: 300px; height: 400px; margin: 40px auto;
+    perspective: 1000px; /* Profundidad del 3D */
 }
-.carousel-container::-webkit-scrollbar { display: none; } /* Oculta barra en Chrome/Safari */
-.carousel-slide {
-    flex: 0 0 85%; /* En celular se ve un pedacito de la siguiente imagen */
-    height: 450px; scroll-snap-align: center; position: relative;
-    border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+.carousel-3d {
+    width: 100%; height: 100%; position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease-out;
 }
-.carousel-slide img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s; }
-.carousel-slide:hover img { transform: scale(1.05); }
-.slide-caption {
-    position: absolute; bottom: 20px; left: 20px; right: 20px;
-    background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
-    padding: 15px 20px; border-radius: 12px; font-weight: 600; color: var(--accent-dark); text-align: center;
+.carousel-cell {
+    position: absolute; width: 280px; height: 380px; left: 10px; top: 10px;
+    border-radius: 16px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    /* 5 imagenes = 360/5 = 72 grados de separacion. El translateZ define el radio del círculo */
+}
+.carousel-cell:nth-child(1) { transform: rotateY(0deg) translateZ(350px); }
+.carousel-cell:nth-child(2) { transform: rotateY(72deg) translateZ(350px); }
+.carousel-cell:nth-child(3) { transform: rotateY(144deg) translateZ(350px); }
+.carousel-cell:nth-child(4) { transform: rotateY(216deg) translateZ(350px); }
+.carousel-cell:nth-child(5) { transform: rotateY(288deg) translateZ(350px); }
+
+.carousel-cell img { width: 100%; height: 100%; object-fit: cover; }
+.carousel-cell .caption {
+    position: absolute; bottom: 15px; left: 15px; right: 15px;
+    background: rgba(255,255,255,0.9); backdrop-filter: blur(5px);
+    padding: 10px; border-radius: 8px; font-weight: 600; color: var(--accent-dark);
+}
+
+/* Diseño del Slider Inferior */
+.slider-container { width: 80%; max-width: 600px; margin: 30px auto 0; }
+.carousel-slider {
+    -webkit-appearance: none; width: 100%; height: 6px; border-radius: 5px;
+    background: var(--accent-gold); outline: none; transition: opacity .2s;
+}
+.carousel-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 25px; height: 25px;
+    border-radius: 50%; background: var(--accent-wood); cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.carousel-slider::-moz-range-thumb {
+    width: 25px; height: 25px; border-radius: 50%;
+    background: var(--accent-wood); cursor: pointer;
 }
 
 /* --- TARJETAS DE SERVICIOS (MODERNAS) --- */
