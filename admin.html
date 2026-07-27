@@ -3,281 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo en Melamina | Diseño y Fabricación</title>
-    <!-- Fuentes premium -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Admin Dashboard | Todo en Melamina</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --admin-bg: #f4f6f9; --admin-sidebar: #2c3036; --admin-card: #ffffff;
+            --accent: #B39B82; --text-dark: #333; --text-light: #888;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { display: flex; background: var(--admin-bg); color: var(--text-dark); min-height: 100vh; }
+        
+        /* Sidebar */
+        .sidebar { width: 260px; background: var(--admin-sidebar); color: #fff; display: flex; flex-direction: column; }
+        .sidebar-header { padding: 25px; font-size: 1.2rem; font-weight: 700; border-bottom: 1px solid #3d424a; color: var(--accent); }
+        .nav-links { list-style: none; padding: 20px 0; }
+        .nav-links li { padding: 15px 25px; cursor: pointer; transition: 0.3s; color: #b0b5be; display: flex; justify-content: space-between;}
+        .nav-links li:hover, .nav-links li.active { background: #3d424a; color: #fff; border-left: 4px solid var(--accent); }
+        
+        /* Contenido Principal */
+        .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .header h1 { font-size: 1.8rem; }
+        .btn-preview { background: var(--accent); color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: 600; box-shadow: 0 4px 10px rgba(179, 155, 130, 0.3); transition: 0.3s;}
+        .btn-preview:hover { background: #9A836B; }
+
+        /* Tarjetas de Analíticas */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .stat-card { background: var(--admin-card); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .stat-card h3 { color: var(--text-light); font-size: 0.9rem; margin-bottom: 10px; font-weight: 500;}
+        .stat-card .value { font-size: 2rem; font-weight: 700; color: var(--text-dark); }
+        .stat-card .trend { font-size: 0.8rem; color: #28a745; margin-top: 5px; font-weight: 500;}
+
+        /* Sección de Gráficas */
+        .charts-container { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 40px; }
+        .chart-card { background: var(--admin-card); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .chart-card h3 { margin-bottom: 20px; font-size: 1.1rem; }
+
+        /* Editor de Contenido */
+        .editor-section { background: var(--admin-card); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95rem; }
+        .form-group textarea { resize: vertical; height: 100px; }
+        .btn-save { background: var(--text-dark); color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.3s;}
+        .btn-save:hover { background: var(--accent); }
+    </style>
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR -->
-    <div class="top-bar">
-        <div class="top-bar-content">
-            <span>📍 Querétaro, Querétaro</span>
-            <span>✉️ todoenmelaminatm@gmail.com</span>
-            <span>📞 +52 442 397 9275</span>
-        </div>
-    </div>
+    <!-- Menú Lateral -->
+    <aside class="sidebar">
+        <div class="sidebar-header">TODO EN MELAMINA</div>
+        <ul class="nav-links">
+            <li class="active">📊 Dashboard</li>
+            <li>📝 Editar Textos</li>
+            <li>🖼️ Carrusel & Fotos</li>
+            <li>🎨 Apariencia</li>
+            <li>⚙️ Configuraciones</li>
+        </ul>
+    </aside>
 
-    <!-- ENCABEZADO -->
-    <header class="header">
-        <div class="logo-container">
-            <div>
-                <div class="logo-text">TODO EN MELAMINA</div>
-                <span class="sub-text">DISEÑO & FABRICACIÓN</span>
-            </div>
+    <!-- Panel Principal -->
+    <main class="main-content">
+        <div class="header">
+            <h1>Panel de Control</h1>
+            <!-- Este botón te lleva a ver tu index.html -->
+            <a href="index.html" target="_blank" class="btn-preview">👁️ Modo Ver (Preview)</a>
         </div>
-        <nav class="nav">
-            <a href="#inicio">Inicio</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#carrusel">Inspiración</a>
-            <a href="#galeria">Proyectos</a>
-            <a href="#contacto" class="btn-contacto-destacado">Cotizar ahora</a>
-        </nav>
-    </header>
 
-    <!-- HERO PORTADA CON FOND.JPEG Y TARJETA MOVIBLE -->
-    <section id="inicio" class="hero-portada">
-        
-        <!-- TU IMAGEN PRINCIPAL FOND.jpeg (Ocupa toda la pantalla) -->
-        <img src="FOND.jpeg" alt="Fondo Todo en Melamina" class="hero-bg-img" onerror="this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'">
-        
-        <div class="hero-overlay-gradient"></div>
-        
-        <!-- TARJETA FLOTANTE MOVIBLE -->
-        <div class="hero-content-glass fade-in-up" id="draggable-card">
-            
-            <div class="card-controls" id="card-drag-handle">
-                <span class="drag-hint">⣿ Arrastrar ventana</span>
-                <button class="close-card-btn" onclick="document.getElementById('draggable-card').style.display='none'" title="Cerrar ventana">✖</button>
+        <!-- Tarjetas de Estadísticas -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Visitas del Mes</h3>
+                <div class="value">2,450</div>
+                <div class="trend">↑ +15% vs mes anterior</div>
             </div>
+            <div class="stat-card">
+                <h3>Clics en WhatsApp</h3>
+                <div class="value">184</div>
+                <div class="trend">↑ +5% vs mes anterior</div>
+            </div>
+            <div class="stat-card">
+                <h3>Tiempo promedio</h3>
+                <div class="value">2m 45s</div>
+                <div class="trend">Estable</div>
+            </div>
+        </div>
 
-            <span class="hero-badge">DISEÑO PREMIUM</span>
-            <h1 class="title-main">Transformamos tu espacio en una obra de arte.</h1>
-            <p class="description">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</p>
-            
-            <div class="hero-buttons">
-                <a href="#contacto" class="cta-button">Agendar Asesoría</a>
-                <a href="#galeria" class="cta-button-outline">Ver Proyectos</a>
+        <!-- Gráficos -->
+        <div class="charts-container">
+            <div class="chart-card">
+                <h3>Tráfico de los últimos 7 días</h3>
+                <canvas id="trafficChart" height="100"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Dispositivos</h3>
+                <canvas id="deviceChart" height="200"></canvas>
             </div>
         </div>
-    </section>
 
-    <!-- SECCIÓN ACERCA DE -->
-    <section class="about-section scroll-anim">
-        <div class="about-container">
-            <div class="about-text">
-                <h2>Diseño <span class="text-italic">funcional</span> e inteligente</h2>
-                <p>Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza de tu entorno.</p>
+        <!-- Formularios de Edición Rápida -->
+        <div class="editor-section">
+            <h3 style="margin-bottom: 20px;">Edición Rápida (Portada)</h3>
+            <div class="form-group">
+                <label>Título Principal</label>
+                <input type="text" value="Transformamos tu espacio en una obra de arte.">
             </div>
-            <ul class="benefits-list">
-                <li><span class="icon">✨</span> Materiales Premium</li>
-                <li><span class="icon">📐</span> Diseño Increíble</li>
-                <li><span class="icon">🧹</span> Instalación Limpia</li>
-                <li><span class="icon">🛠️</span> Trabajos a tu medida</li>
-            </ul>
+            <div class="form-group">
+                <label>Descripción</label>
+                <textarea>Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</textarea>
+            </div>
+            <button class="btn-save" onclick="alert('Esta es una vista previa del panel. Para guardar datos reales necesitas enlazar un Backend/Base de Datos.')">Guardar Cambios</button>
         </div>
-    </section>
+    </main>
 
-    <!-- NUEVO: CARRUSEL 3D GIRATORIO CORREGIDO -->
-    <section id="carrusel" class="carousel-section scroll-anim">
-        <div class="section-header">
-            <h2>Inspiración en Melamina</h2>
-            <p>Usa la barra inferior para girar y explorar nuestros diseños.</p>
-        </div>
-        
-        <!-- Contenedor 3D con más espacio -->
-        <div class="scene">
-            <div class="carousel-3d" id="carousel-3d">
-                <div class="carousel-cell">
-                    <img src="img-slide1.jpg" alt="Idea 1" onerror="this.src='https://images.unsplash.com/photo-1556909211-36987daf7b4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                    <div class="caption">Texturas Cálidas</div>
-                </div>
-                <div class="carousel-cell">
-                    <img src="img-slide2.jpg" alt="Idea 2" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                    <div class="caption">Acabados Mate</div>
-                </div>
-                <div class="carousel-cell">
-                    <img src="img-slide3.jpg" alt="Idea 3" onerror="this.src='https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                    <div class="caption">Optimización</div>
-                </div>
-                <div class="carousel-cell">
-                    <img src="img-slide4.jpg" alt="Idea 4" onerror="this.src='https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                    <div class="caption">Minimalismo</div>
-                </div>
-                <div class="carousel-cell">
-                    <!-- Agrega aquí la imagen que desees -->
-                    <img src="img-slide5.jpg" alt="Idea 5" onerror="this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                    <div class="caption">Diseño Premium</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Barra de control (Slider) movida hacia abajo y con clic forzado -->
-        <div class="slider-container">
-            <input type="range" min="0" max="360" value="0" class="carousel-slider" id="carousel-slider">
-        </div>
-    </section>
-
-    <!-- SECCIÓN SERVICIOS -->
-    <section id="servicios" class="services scroll-anim">
-        <div class="section-header">
-            <h2>Nuestros Servicios</h2>
-            <p>Soluciones a medida para cada área de tu vida.</p>
-        </div>
-        <div class="cards-grid">
-            <div class="card glass-card">
-                <div class="card-icon">🍳</div>
-                <h3>Cocinas Integrales</h3>
-                <p>Diseños ergonómicos, cubiertas de cuarzo, granito y acabados en melamina de alto brillo o mate.</p>
-            </div>
-            <div class="card glass-card">
-                <div class="card-icon">👗</div>
-                <h3>Closets y Vestidores</h3>
-                <p>Optimización total del espacio con sistemas de cierre suave y distribución inteligente.</p>
-            </div>
-            <div class="card glass-card">
-                <div class="card-icon">💻</div>
-                <h3>Mobiliario de Oficina</h3>
-                <p>Escritorios y libreros minimalistas diseñados para aumentar tu productividad y confort.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCIÓN GALERÍA -->
-    <section id="galeria" class="gallery-section scroll-anim">
-        <div class="section-header">
-            <h2>Proyectos Destacados</h2>
-            <p>Explora la calidad y detalle de nuestras instalaciones.</p>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="img-1.jpg" alt="Cocina moderna" onerror="this.src='https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                <div class="gallery-overlay"><span>Ver Proyecto</span></div>
-            </div>
-            <div class="gallery-item">
-                <img src="img-2.jpg" alt="Vestidor elegante" onerror="this.src='https://images.unsplash.com/photo-1595514535311-662f59fa0f77?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                <div class="gallery-overlay"><span>Ver Proyecto</span></div>
-            </div>
-            <div class="gallery-item">
-                <img src="img-3.jpg" alt="Mueble de baño" onerror="this.src='https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                <div class="gallery-overlay"><span>Ver Proyecto</span></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BANNER LLAMADO A LA ACCIÓN -->
-    <section id="contacto" class="cta-banner scroll-anim">
-        <div class="cta-content">
-            <h2>¿Listo para renovar tu espacio?</h2>
-            <p>Contáctanos hoy mismo y recibe un presupuesto sin compromiso. Estamos en Querétaro.</p>
-            <a href="https://wa.me/524423979275" class="cta-button-light">Contactar por WhatsApp</a>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-column">
-                <div class="footer-logo">TODO EN <span>MELAMINA</span></div>
-                <p>Transformando espacios con elegancia y precisión, diseñando muebles que cuentan historias.</p>
-            </div>
-            <div class="footer-column">
-                <h3>Contacto</h3>
-                <p>📍 Querétaro, Querétaro</p>
-                <p>✉️ todoenmelaminatm@gmail.com</p>
-                <p>📞 +52 442 397 9275</p>
-            </div>
-            <div class="footer-column">
-                <h3>Horario</h3>
-                <p>Lunes a Viernes: 9:00 AM - 6:00 PM</p>
-                <p>Sábados: 10:00 AM - 2:00 PM</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Todo en Melamina. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
-    <!-- SCRIPTS -->
+    <!-- Script para renderizar gráficas -->
     <script>
-        // Animaciones de scroll suaves
-        document.addEventListener("DOMContentLoaded", function() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.scroll-anim').forEach((el) => {
-                observer.observe(el);
-            });
+        // Gráfica de Líneas (Tráfico)
+        const ctxTraffic = document.getElementById('trafficChart').getContext('2d');
+        new Chart(ctxTraffic, {
+            type: 'line',
+            data: {
+                labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+                datasets: [{
+                    label: 'Visitas',
+                    data: [120, 190, 150, 220, 300, 450, 410],
+                    borderColor: '#B39B82',
+                    backgroundColor: 'rgba(179, 155, 130, 0.2)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: { responsive: true }
         });
 
-        // Lógica del Carrusel 3D Giratorio
-        const carousel3d = document.getElementById('carousel-3d');
-        const slider = document.getElementById('carousel-slider');
-        
-        // Inicializar el carrusel en su posición 0
-        carousel3d.style.transform = `translateZ(-350px) rotateY(0deg)`;
-
-        // Detectar el movimiento de la barra (slider)
-        slider.addEventListener('input', (e) => {
-            const angle = e.target.value;
-            // Se resta el ángulo para que gire al ritmo correcto
-            carousel3d.style.transform = `translateZ(-350px) rotateY(${-angle}deg)`;
+        // Gráfica de Anillo (Dispositivos)
+        const ctxDevice = document.getElementById('deviceChart').getContext('2d');
+        new Chart(ctxDevice, {
+            type: 'doughnut',
+            data: {
+                labels: ['Móvil', 'Escritorio', 'Tablet'],
+                datasets: [{
+                    data: [65, 30, 5],
+                    backgroundColor: ['#2c3036', '#B39B82', '#e9ecef']
+                }]
+            },
+            options: { responsive: true, cutout: '70%' }
         });
-
-        // Lógica para arrastrar la tarjeta principal
-        const card = document.getElementById("draggable-card");
-        const dragHandle = document.getElementById("card-drag-handle");
-        const portadaContainer = document.querySelector(".hero-portada");
-
-        let isDragging = false;
-        let offsetX = 0; let offsetY = 0;
-
-        const startDrag = (clientX, clientY) => {
-            isDragging = true;
-            card.style.position = "absolute";
-            card.style.margin = "0"; 
-            card.style.bottom = "auto"; 
-            card.style.zIndex = "2000";
-            
-            const rect = card.getBoundingClientRect();
-            offsetX = clientX - rect.left;
-            offsetY = clientY - rect.top;
-        };
-
-        const onDrag = (clientX, clientY) => {
-            if (!isDragging) return;
-            const containerRect = portadaContainer.getBoundingClientRect();
-            let newLeft = clientX - containerRect.left - offsetX;
-            let newTop = clientY - containerRect.top - offsetY;
-
-            card.style.left = `${newLeft}px`;
-            card.style.top = `${newTop}px`;
-        };
-
-        const stopDrag = () => { isDragging = false; };
-
-        // Eventos Mouse
-        dragHandle.addEventListener("mousedown", (e) => startDrag(e.clientX, e.clientY));
-        document.addEventListener("mousemove", (e) => onDrag(e.clientX, e.clientY));
-        document.addEventListener("mouseup", stopDrag);
-
-        // Eventos Touch (Para Celulares)
-        dragHandle.addEventListener("touchstart", (e) => {
-            const touch = e.touches[0];
-            startDrag(touch.clientX, touch.clientY);
-        });
-        document.addEventListener("touchmove", (e) => {
-            if (!isDragging) return;
-            const touch = e.touches[0];
-            onDrag(touch.clientX, touch.clientY);
-        });
-        document.addEventListener("touchend", stopDrag);
     </script>
 </body>
 </html>
