@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | Todo en Melamina</title>
+    <!-- ÍCONO DE LA PESTAÑA -->
+    <link rel="icon" type="image/png" href="LOGO1.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -28,6 +31,11 @@
         .btn-preview { background: var(--accent); color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: 600; box-shadow: 0 4px 10px rgba(179, 155, 130, 0.3); transition: 0.3s;}
         .btn-preview:hover { background: #9A836B; }
 
+        /* Pestañas de contenido (Ocultar las inactivas) */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
         /* Tarjetas de Analíticas */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 40px; }
         .stat-card { background: var(--admin-card); padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
@@ -41,13 +49,16 @@
         .chart-card h3 { margin-bottom: 20px; font-size: 1.1rem; }
 
         /* Editor de Contenido */
-        .editor-section { background: var(--admin-card); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .editor-section { background: var(--admin-card); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); max-width: 800px;}
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; }
         .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95rem; }
         .form-group textarea { resize: vertical; height: 100px; }
         .btn-save { background: var(--text-dark); color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.3s;}
         .btn-save:hover { background: var(--accent); }
+
+        /* Alerta de guardado */
+        #success-alert { display: none; background-color: #28a745; color: white; padding: 15px; border-radius: 6px; margin-bottom: 20px; text-align: center; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -56,99 +67,123 @@
     <aside class="sidebar">
         <div class="sidebar-header">TODO EN MELAMINA</div>
         <ul class="nav-links">
-            <li class="active">📊 Dashboard</li>
-            <li>📝 Editar Textos</li>
-            <li>🖼️ Carrusel & Fotos</li>
-            <li>🎨 Apariencia</li>
-            <li>⚙️ Configuraciones</li>
+            <li class="tab-link active" onclick="switchTab('dashboard', this)">📊 Dashboard</li>
+            <li class="tab-link" onclick="switchTab('editor', this)">📝 Editar Textos</li>
+            <li class="tab-link" onclick="switchTab('ajustes', this)">⚙️ Ajustes (Demo)</li>
         </ul>
     </aside>
 
     <!-- Panel Principal -->
     <main class="main-content">
         <div class="header">
-            <h1>Panel de Control</h1>
-            <!-- Este botón te lleva a ver tu index.html -->
+            <h1 id="page-title">Panel de Control</h1>
+            <!-- Botón de preview -->
             <a href="index.html" target="_blank" class="btn-preview">👁️ Modo Ver (Preview)</a>
         </div>
 
-        <!-- Tarjetas de Estadísticas -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h3>Visitas del Mes</h3>
-                <div class="value">2,450</div>
-                <div class="trend">↑ +15% vs mes anterior</div>
+        <!-- PESTAÑA 1: DASHBOARD (Analíticas Simuladas) -->
+        <div id="dashboard" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card"><h3>Visitas del Mes (Ejemplo)</h3><div class="value">2,450</div><div class="trend">↑ +15% vs mes anterior</div></div>
+                <div class="stat-card"><h3>Clics en WhatsApp (Ejemplo)</h3><div class="value">184</div><div class="trend">↑ +5% vs mes anterior</div></div>
             </div>
-            <div class="stat-card">
-                <h3>Clics en WhatsApp</h3>
-                <div class="value">184</div>
-                <div class="trend">↑ +5% vs mes anterior</div>
-            </div>
-            <div class="stat-card">
-                <h3>Tiempo promedio</h3>
-                <div class="value">2m 45s</div>
-                <div class="trend">Estable</div>
-            </div>
-        </div>
-
-        <!-- Gráficos -->
-        <div class="charts-container">
-            <div class="chart-card">
-                <h3>Tráfico de los últimos 7 días</h3>
-                <canvas id="trafficChart" height="100"></canvas>
-            </div>
-            <div class="chart-card">
-                <h3>Dispositivos</h3>
-                <canvas id="deviceChart" height="200"></canvas>
+            <div class="charts-container">
+                <div class="chart-card">
+                    <h3>Tráfico de los últimos 7 días</h3>
+                    <canvas id="trafficChart" height="100"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Dispositivos</h3>
+                    <canvas id="deviceChart" height="200"></canvas>
+                </div>
             </div>
         </div>
 
-        <!-- Formularios de Edición Rápida -->
-        <div class="editor-section">
-            <h3 style="margin-bottom: 20px;">Edición Rápida (Portada)</h3>
-            <div class="form-group">
-                <label>Título Principal</label>
-                <input type="text" value="Transformamos tu espacio en una obra de arte.">
+        <!-- PESTAÑA 2: EDITOR (Funcional con LocalStorage) -->
+        <div id="editor" class="tab-content">
+            <div id="success-alert">¡Cambios guardados! Ve al "Modo Ver" para notar la diferencia.</div>
+            <div class="editor-section">
+                <h3 style="margin-bottom: 20px;">Edición de Portada Principal</h3>
+                <div class="form-group">
+                    <label>Título Principal</label>
+                    <input type="text" id="input-title" value="Transformamos tu espacio en una obra de arte.">
+                </div>
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea id="input-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</textarea>
+                </div>
+                <button class="btn-save" onclick="guardarDatos()">Guardar Cambios</button>
             </div>
-            <div class="form-group">
-                <label>Descripción</label>
-                <textarea>Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</textarea>
+        </div>
+
+        <!-- PESTAÑA 3: AJUSTES (Demo) -->
+        <div id="ajustes" class="tab-content">
+            <div class="editor-section">
+                <h3 style="margin-bottom: 20px;">Integraciones</h3>
+                <p style="color: var(--text-light); margin-bottom: 20px;">
+                    Aquí es donde en el futuro conectaremos <strong>Google Analytics</strong> para obtener los datos reales de tu página web.
+                </p>
+                <div class="form-group">
+                    <label>ID de Google Analytics (Próximamente)</label>
+                    <input type="text" disabled placeholder="G-XXXXXXXXXX">
+                </div>
             </div>
-            <button class="btn-save" onclick="alert('Esta es una vista previa del panel. Para guardar datos reales necesitas enlazar un Backend/Base de Datos.')">Guardar Cambios</button>
         </div>
     </main>
 
-    <!-- Script para renderizar gráficas -->
     <script>
-        // Gráfica de Líneas (Tráfico)
+        // --- 1. LÓGICA DE LAS PESTAÑAS (TABS) ---
+        function switchTab(tabId, element) {
+            // Quitar clase active de todos los links
+            document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
+            // Ocultar todas las pantallas
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            
+            // Activar el seleccionado
+            element.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+
+            // Cambiar el título
+            const titles = { 'dashboard': 'Dashboard', 'editor': 'Editor de Contenido', 'ajustes': 'Ajustes del Sistema' };
+            document.getElementById('page-title').innerText = titles[tabId];
+        }
+
+        // --- 2. LÓGICA DE GUARDADO (LOCALSTORAGE) ---
+        // Al cargar la página de admin, buscamos si ya guardaste algo antes
+        document.addEventListener("DOMContentLoaded", () => {
+            if(localStorage.getItem("tm_title")) document.getElementById("input-title").value = localStorage.getItem("tm_title");
+            if(localStorage.getItem("tm_desc")) document.getElementById("input-desc").value = localStorage.getItem("tm_desc");
+        });
+
+        // Función que se ejecuta al darle al botón "Guardar Cambios"
+        function guardarDatos() {
+            const titleValue = document.getElementById("input-title").value;
+            const descValue = document.getElementById("input-desc").value;
+
+            // Guardar en la memoria del navegador
+            localStorage.setItem("tm_title", titleValue);
+            localStorage.setItem("tm_desc", descValue);
+
+            // Mostrar alerta verde
+            const alertBox = document.getElementById("success-alert");
+            alertBox.style.display = "block";
+            setTimeout(() => { alertBox.style.display = "none"; }, 3000);
+        }
+
+        // --- 3. GRÁFICOS (Chart.js) ---
         const ctxTraffic = document.getElementById('trafficChart').getContext('2d');
         new Chart(ctxTraffic, {
             type: 'line',
-            data: {
-                labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
-                datasets: [{
-                    label: 'Visitas',
-                    data: [120, 190, 150, 220, 300, 450, 410],
-                    borderColor: '#B39B82',
-                    backgroundColor: 'rgba(179, 155, 130, 0.2)',
-                    fill: true,
-                    tension: 0.4
-                }]
-            },
+            data: { labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+                    datasets: [{ label: 'Visitas', data: [120, 190, 150, 220, 300, 450, 410],
+                    borderColor: '#B39B82', backgroundColor: 'rgba(179, 155, 130, 0.2)', fill: true, tension: 0.4 }] },
             options: { responsive: true }
         });
-
-        // Gráfica de Anillo (Dispositivos)
         const ctxDevice = document.getElementById('deviceChart').getContext('2d');
         new Chart(ctxDevice, {
             type: 'doughnut',
-            data: {
-                labels: ['Móvil', 'Escritorio', 'Tablet'],
-                datasets: [{
-                    data: [65, 30, 5],
-                    backgroundColor: ['#2c3036', '#B39B82', '#e9ecef']
-                }]
-            },
+            data: { labels: ['Móvil', 'Escritorio', 'Tablet'],
+                    datasets: [{ data: [65, 30, 5], backgroundColor: ['#2c3036', '#B39B82', '#e9ecef'] }] },
             options: { responsive: true, cutout: '70%' }
         });
     </script>
