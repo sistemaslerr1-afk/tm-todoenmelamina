@@ -4,17 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo en Melamina | Diseño y Fabricación</title>
-    
-    <!-- ÍCONO DE LA PESTAÑA -->
     <link rel="icon" type="image/png" href="LOGO1.png">
-    
-    <!-- Fuentes premium -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR -->
     <div class="top-bar">
         <div class="top-bar-content">
             <span>📍 Querétaro, Querétaro</span>
@@ -23,7 +18,6 @@
         </div>
     </div>
 
-    <!-- ENCABEZADO -->
     <header class="header">
         <div class="logo-container">
             <div>
@@ -40,9 +34,9 @@
         </nav>
     </header>
 
-    <!-- HERO PORTADA -->
+    <!-- PORTADA -->
     <section id="inicio" class="hero-portada">
-        <img src="FOND.jpeg" alt="Fondo Todo en Melamina" class="hero-bg-img" onerror="this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'">
+        <img id="view-hero-img" src="FOND.jpeg" alt="Fondo Todo en Melamina" class="hero-bg-img" onerror="this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'">
         <div class="hero-overlay-gradient"></div>
         
         <div class="hero-content-glass fade-in-up" id="draggable-card">
@@ -50,13 +44,9 @@
                 <span class="drag-hint">⣿ Arrastrar ventana</span>
                 <button class="close-card-btn" onclick="document.getElementById('draggable-card').style.display='none'" title="Cerrar ventana">✖</button>
             </div>
-
             <span class="hero-badge">DISEÑO PREMIUM</span>
-            
-            <!-- Estos textos cambiarán si los editas en el admin -->
-            <h1 class="title-main" id="portada-titulo">Transformamos tu espacio en una obra de arte.</h1>
-            <p class="description" id="portada-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</p>
-            
+            <h1 class="title-main" id="view-hero-title">Transformamos tu espacio en una obra de arte.</h1>
+            <p class="description" id="view-hero-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</p>
             <div class="hero-buttons">
                 <a href="#contacto" class="cta-button">Agendar Asesoría</a>
                 <a href="#galeria" class="cta-button-outline">Ver Proyectos</a>
@@ -64,18 +54,18 @@
         </div>
     </section>
 
-    <!-- SECCIÓN ACERCA DE -->
+    <!-- NOSOTROS -->
     <section class="about-section scroll-anim">
         <div class="about-container">
             <div class="about-text">
-                <h2>Diseño <span class="text-italic">funcional</span> e inteligente</h2>
-                <p>Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza de tu entorno.</p>
+                <h2 id="view-about-title">Diseño <span class="text-italic">funcional</span> e inteligente</h2>
+                <p id="view-about-desc">Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza de tu entorno.</p>
             </div>
             <ul class="benefits-list">
-                <li><span class="icon">✨</span> Materiales Premium</li>
-                <li><span class="icon">📐</span> Diseño Increíble</li>
-                <li><span class="icon">🧹</span> Instalación Limpia</li>
-                <li><span class="icon">🛠️</span> Trabajos a tu medida</li>
+                <li><span class="icon">✨</span> <span id="view-about-b1">Materiales Premium</span></li>
+                <li><span class="icon">📐</span> <span id="view-about-b2">Diseño Increíble</span></li>
+                <li><span class="icon">🧹</span> <span id="view-about-b3">Instalación Limpia</span></li>
+                <li><span class="icon">🛠️</span> <span id="view-about-b4">Trabajos a tu medida</span></li>
             </ul>
         </div>
     </section>
@@ -86,14 +76,13 @@
             <h2>Inspiración en Melamina</h2>
             <p>Usa la barra inferior para girar y explorar nuestros diseños.</p>
         </div>
-        
         <div class="scene">
             <div class="carousel-3d" id="carousel-3d">
-                <div class="carousel-cell"><img src="img-slide1.jpg" alt="Idea 1" onerror="this.src='https://images.unsplash.com/photo-1556909211-36987daf7b4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"><div class="caption">Texturas Cálidas</div></div>
-                <div class="carousel-cell"><img src="img-slide2.jpg" alt="Idea 2" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"><div class="caption">Acabados Mate</div></div>
-                <div class="carousel-cell"><img src="img-slide3.jpg" alt="Idea 3" onerror="this.src='https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"><div class="caption">Optimización</div></div>
-                <div class="carousel-cell"><img src="img-slide4.jpg" alt="Idea 4" onerror="this.src='https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"><div class="caption">Minimalismo</div></div>
-                <div class="carousel-cell"><img src="img-slide5.jpg" alt="Idea 5" onerror="this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'"><div class="caption">Diseño Premium</div></div>
+                <div class="carousel-cell"><img id="view-car-img1" src="img-slide1.jpg" onerror="this.src='https://images.unsplash.com/photo-1556909211-36987daf7b4d?ixlib=rb-4.0.3&w=800&q=80'"><div class="caption" id="view-car-txt1">Texturas Cálidas</div></div>
+                <div class="carousel-cell"><img id="view-car-img2" src="img-slide2.jpg" onerror="this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&w=800&q=80'"><div class="caption" id="view-car-txt2">Acabados Mate</div></div>
+                <div class="carousel-cell"><img id="view-car-img3" src="img-slide3.jpg" onerror="this.src='https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&w=800&q=80'"><div class="caption" id="view-car-txt3">Optimización</div></div>
+                <div class="carousel-cell"><img id="view-car-img4" src="img-slide4.jpg" onerror="this.src='https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&w=800&q=80'"><div class="caption" id="view-car-txt4">Minimalismo</div></div>
+                <div class="carousel-cell"><img id="view-car-img5" src="img-slide5.jpg" onerror="this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&w=800&q=80'"><div class="caption" id="view-car-txt5">Diseño Premium</div></div>
             </div>
         </div>
         <div class="slider-container">
@@ -109,19 +98,19 @@
         </div>
         <div class="cards-grid">
             <div class="card glass-card">
-                <div class="card-icon">🍳</div>
-                <h3>Cocinas Integrales</h3>
-                <p>Diseños ergonómicos, cubiertas de cuarzo, granito y acabados en melamina de alto brillo o mate.</p>
+                <div class="card-icon" id="view-srv-ico1">🍳</div>
+                <h3 id="view-srv-tit1">Cocinas Integrales</h3>
+                <p id="view-srv-desc1">Diseños ergonómicos, cubiertas de cuarzo, granito y acabados en melamina de alto brillo o mate.</p>
             </div>
             <div class="card glass-card">
-                <div class="card-icon">👗</div>
-                <h3>Closets y Vestidores</h3>
-                <p>Optimización total del espacio con sistemas de cierre suave y distribución inteligente.</p>
+                <div class="card-icon" id="view-srv-ico2">👗</div>
+                <h3 id="view-srv-tit2">Closets y Vestidores</h3>
+                <p id="view-srv-desc2">Optimización total del espacio con sistemas de cierre suave y distribución inteligente.</p>
             </div>
             <div class="card glass-card">
-                <div class="card-icon">💻</div>
-                <h3>Mobiliario de Oficina</h3>
-                <p>Escritorios y libreros minimalistas diseñados para aumentar tu productividad y confort.</p>
+                <div class="card-icon" id="view-srv-ico3">💻</div>
+                <h3 id="view-srv-tit3">Mobiliario de Oficina</h3>
+                <p id="view-srv-desc3">Escritorios y libreros minimalistas diseñados para aumentar tu productividad y confort.</p>
             </div>
         </div>
     </section>
@@ -134,21 +123,28 @@
         </div>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="img-1.jpg" alt="Cocina" onerror="this.src='https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <img id="view-gal-img1" src="img-1.jpg" onerror="this.src='https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-4.0.3&w=800&q=80'">
                 <div class="gallery-overlay"><span>Ver Proyecto</span></div>
             </div>
             <div class="gallery-item">
-                <img src="img-2.jpg" alt="Vestidor" onerror="this.src='https://images.unsplash.com/photo-1595514535311-662f59fa0f77?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <img id="view-gal-img2" src="img-2.jpg" onerror="this.src='https://images.unsplash.com/photo-1595514535311-662f59fa0f77?ixlib=rb-4.0.3&w=800&q=80'">
                 <div class="gallery-overlay"><span>Ver Proyecto</span></div>
             </div>
             <div class="gallery-item">
-                <img src="img-3.jpg" alt="Baño" onerror="this.src='https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <img id="view-gal-img3" src="img-3.jpg" onerror="this.src='https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&w=800&q=80'">
                 <div class="gallery-overlay"><span>Ver Proyecto</span></div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <section id="contacto" class="cta-banner scroll-anim">
+        <div class="cta-content">
+            <h2>¿Listo para renovar tu espacio?</h2>
+            <p>Contáctanos hoy mismo y recibe un presupuesto sin compromiso. Estamos en Querétaro.</p>
+            <a href="https://wa.me/524423979275" class="cta-button-light">Contactar por WhatsApp</a>
+        </div>
+    </section>
+
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-column">
@@ -167,49 +163,67 @@
                 <p>Sábados: 10:00 AM - 2:00 PM</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Todo en Melamina. Todos los derechos reservados.</p>
-        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Todo en Melamina. Todos los derechos reservados.</p></div>
     </footer>
 
-    <!-- SCRIPTS -->
     <script>
-        // SCRIPT PARA CONECTAR EL ADMIN CON LA PÁGINA PRINCIPAL
+        // RECUPERAR DATOS DEL ADMINISTRADOR (LOCALSTORAGE)
         document.addEventListener("DOMContentLoaded", function() {
-            // Lee los datos guardados en la memoria del navegador
-            const savedTitle = localStorage.getItem("tm_title");
-            const savedDesc = localStorage.getItem("tm_desc");
+            const data = JSON.parse(localStorage.getItem("tm_website_data"));
+            if (data) {
+                // Portada
+                if(data.heroImg) document.getElementById("view-hero-img").src = data.heroImg;
+                if(data.heroTitle) document.getElementById("view-hero-title").innerHTML = data.heroTitle;
+                if(data.heroDesc) document.getElementById("view-hero-desc").innerText = data.heroDesc;
+                
+                // Nosotros
+                if(data.aboutTitle) document.getElementById("view-about-title").innerHTML = data.aboutTitle;
+                if(data.aboutDesc) document.getElementById("view-about-desc").innerText = data.aboutDesc;
+                if(data.aboutB1) document.getElementById("view-about-b1").innerText = data.aboutB1;
+                if(data.aboutB2) document.getElementById("view-about-b2").innerText = data.aboutB2;
+                if(data.aboutB3) document.getElementById("view-about-b3").innerText = data.aboutB3;
+                if(data.aboutB4) document.getElementById("view-about-b4").innerText = data.aboutB4;
 
-            // Si hay datos guardados, los aplica a la página
-            if(savedTitle) document.getElementById("portada-titulo").innerText = savedTitle;
-            if(savedDesc) document.getElementById("portada-desc").innerText = savedDesc;
+                // Carrusel
+                for(let i=1; i<=5; i++) {
+                    if(data[`carImg${i}`]) document.getElementById(`view-car-img${i}`).src = data[`carImg${i}`];
+                    if(data[`carTxt${i}`]) document.getElementById(`view-car-txt${i}`).innerText = data[`carTxt${i}`];
+                }
+
+                // Servicios
+                for(let i=1; i<=3; i++) {
+                    if(data[`srvIco${i}`]) document.getElementById(`view-srv-ico${i}`).innerText = data[`srvIco${i}`];
+                    if(data[`srvTit${i}`]) document.getElementById(`view-srv-tit${i}`).innerText = data[`srvTit${i}`];
+                    if(data[`srvDesc${i}`]) document.getElementById(`view-srv-desc${i}`).innerText = data[`srvDesc${i}`];
+                }
+
+                // Galería
+                for(let i=1; i<=3; i++) {
+                    if(data[`galImg${i}`]) document.getElementById(`view-gal-img${i}`).src = data[`galImg${i}`];
+                }
+            }
         });
 
-        // Animaciones de scroll suaves
-        document.addEventListener("DOMContentLoaded", function() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('visible');
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.scroll-anim').forEach((el) => observer.observe(el));
-        });
+        // ANIMACIONES SCROLL
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.scroll-anim').forEach((el) => observer.observe(el));
 
-        // Lógica del Carrusel 3D Giratorio
+        // CARRUSEL 3D
         const carousel3d = document.getElementById('carousel-3d');
         const slider = document.getElementById('carousel-slider');
         carousel3d.style.transform = `translateZ(-350px) rotateY(0deg)`;
         slider.addEventListener('input', (e) => {
-            const angle = e.target.value;
-            carousel3d.style.transform = `translateZ(-350px) rotateY(${-angle}deg)`;
+            carousel3d.style.transform = `translateZ(-350px) rotateY(${-e.target.value}deg)`;
         });
 
-        // Lógica para arrastrar la tarjeta principal
+        // TARJETA ARRASTRABLE
         const card = document.getElementById("draggable-card");
         const dragHandle = document.getElementById("card-drag-handle");
         const portadaContainer = document.querySelector(".hero-portada");
-        let isDragging = false;
-        let offsetX = 0; let offsetY = 0;
+        let isDragging = false, offsetX = 0, offsetY = 0;
+        
         const startDrag = (clientX, clientY) => {
             isDragging = true;
             card.style.position = "absolute"; card.style.margin = "0"; card.style.bottom = "auto"; card.style.zIndex = "2000";
@@ -219,20 +233,16 @@
         const onDrag = (clientX, clientY) => {
             if (!isDragging) return;
             const containerRect = portadaContainer.getBoundingClientRect();
-            let newLeft = clientX - containerRect.left - offsetX;
-            let newTop = clientY - containerRect.top - offsetY;
-            card.style.left = `${newLeft}px`; card.style.top = `${newTop}px`;
+            card.style.left = `${clientX - containerRect.left - offsetX}px`;
+            card.style.top = `${clientY - containerRect.top - offsetY}px`;
         };
         const stopDrag = () => { isDragging = false; };
+        
         dragHandle.addEventListener("mousedown", (e) => startDrag(e.clientX, e.clientY));
         document.addEventListener("mousemove", (e) => onDrag(e.clientX, e.clientY));
         document.addEventListener("mouseup", stopDrag);
-        dragHandle.addEventListener("touchstart", (e) => {
-            const touch = e.touches[0]; startDrag(touch.clientX, touch.clientY);
-        });
-        document.addEventListener("touchmove", (e) => {
-            if (!isDragging) return; const touch = e.touches[0]; onDrag(touch.clientX, touch.clientY);
-        });
+        dragHandle.addEventListener("touchstart", (e) => { startDrag(e.touches[0].clientX, e.touches[0].clientY); });
+        document.addEventListener("touchmove", (e) => { if (isDragging) onDrag(e.touches[0].clientX, e.touches[0].clientY); });
         document.addEventListener("touchend", stopDrag);
     </script>
 </body>
