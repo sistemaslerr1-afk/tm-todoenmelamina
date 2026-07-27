@@ -8,11 +8,28 @@
     <link rel="icon" type="image/png" href="LOGO1.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <!-- CÓDIGO DE GOOGLE ANALYTICS (Quita los comentarios < ! - - para activarlo) -->
+    <!-- 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
 </head>
 <body>
 
+    <!-- PANTALLA DE CARGA (PRELOADER) -->
+    <div id="preloader">
+        <div class="loader-logo">TODO EN MELAMINA</div>
+        <div class="spinner"></div>
+    </div>
+
     <!-- BOTÓN FLOTANTE WHATSAPP -->
-    <a href="https://wa.me/524423979275?text=Hola,%20me%20gustaría%20cotizar%20un%20proyecto." target="_blank" class="whatsapp-float" title="Cotiza por WhatsApp">
+    <a id="view-float-wa" href="https://wa.me/524423979275?text=Hola,%20me%20gustaría%20cotizar%20un%20proyecto." target="_blank" class="whatsapp-float" title="Cotiza por WhatsApp">
         <svg viewBox="0 0 32 32" width="32" height="32" fill="white"><path d="M16 2a13 13 0 0 0-11 20l-2 6 6-2a13 13 0 1 0 7-24zm0 2a11 11 0 1 1-9 17l-4 1 1-4a11 11 0 0 1 12-14zm-4 5a1 1 0 0 0-1 1c0 1 1 3 3 5s4 4 5 4a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1l-2-1a1 1 0 0 0-1 0l-1 1a2 2 0 0 1-2-2l1-1a1 1 0 0 0 0-1l-1-2a1 1 0 0 0-1-1z"/></svg>
     </a>
 
@@ -39,7 +56,7 @@
             <a href="#servicios">Servicios</a>
             <a href="#carrusel">Inspiración</a>
             <a href="#galeria">Proyectos</a>
-            <a href="https://wa.me/524423979275" target="_blank" class="btn-contacto-destacado">Cotizar ahora</a>
+            <a id="view-nav-wa" href="https://wa.me/524423979275" target="_blank" class="btn-contacto-destacado">Cotizar ahora</a>
         </nav>
     </header>
 
@@ -124,7 +141,7 @@
         </div>
     </section>
 
-    <!-- NUEVO: TESTIMONIOS -->
+    <!-- TESTIMONIOS -->
     <section class="testimonials scroll-anim">
         <div class="section-header">
             <h2>Lo que dicen nuestros clientes</h2>
@@ -138,7 +155,7 @@
             </div>
             <div class="test-card">
                 <div class="stars">⭐⭐⭐⭐⭐</div>
-                <p class="test-text" id="view-test-txt2">"La cocina quedó espectacular. El diseño 3D previo me ayudó mucho a visualizarlo. Súper recomendados en Querétaro."</p>
+                <p class="test-text" id="view-test-txt2">"La cocina quedó espectacular. El diseño 3D previo me ayudó mucho a visualizarlo. Súper recomendados."</p>
                 <h4 class="test-name" id="view-test-name2">- Roberto C.</h4>
             </div>
             <div class="test-card">
@@ -169,8 +186,6 @@
                 <div class="gallery-overlay"><span>Ver Detalles</span></div>
             </div>
         </div>
-        
-        <!-- BOTÓN GOOGLE PHOTOS CENTRAL -->
         <div style="text-align: center; margin-top: 50px;">
             <a id="view-gal-link" href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button-photos">
                 📸 Explorar Álbum Completo de Trabajos
@@ -178,7 +193,7 @@
         </div>
     </section>
 
-    <!-- NUEVO: PREGUNTAS FRECUENTES -->
+    <!-- PREGUNTAS FRECUENTES -->
     <section class="faq-section scroll-anim">
         <div class="section-header">
             <h2>Preguntas Frecuentes</h2>
@@ -194,17 +209,17 @@
             </div>
             <div class="faq-item">
                 <h4 id="view-faq-q3">¿El presupuesto incluye instalación?</h4>
-                <p id="view-faq-a3">Totalmente. Nuestras cotizaciones son integrales: diseño, fabricación, flete (en Querétaro) e instalación en tu domicilio.</p>
+                <p id="view-faq-a3">Totalmente. Nuestras cotizaciones son integrales: diseño, fabricación, flete e instalación en tu domicilio.</p>
             </div>
         </div>
     </section>
 
-    <!-- CONTACTO -->
+    <!-- CONTACTO CTA -->
     <section id="contacto" class="cta-banner scroll-anim">
         <div class="cta-content">
             <h2 id="view-cta-title">¿Listo para renovar tu espacio?</h2>
             <p id="view-cta-desc">Contáctanos hoy mismo y recibe un presupuesto sin compromiso. Estamos en Querétaro.</p>
-            <a href="https://wa.me/524423979275" target="_blank" class="cta-button-light">Contactar por WhatsApp</a>
+            <a id="view-cta-wa" href="https://wa.me/524423979275" target="_blank" class="cta-button-light">Contactar por WhatsApp</a>
         </div>
     </section>
 
@@ -214,6 +229,11 @@
             <div class="footer-column">
                 <div class="footer-logo">TODO EN <span>MELAMINA</span></div>
                 <p id="view-foot-desc">Transformando espacios con elegancia y precisión, diseñando muebles que cuentan historias.</p>
+                <div class="social-links">
+                    <a id="view-soc-fb" href="#" target="_blank" title="Facebook">FB</a>
+                    <a id="view-soc-ig" href="#" target="_blank" title="Instagram">IG</a>
+                    <a id="view-soc-tk" href="#" target="_blank" title="TikTok">TK</a>
+                </div>
             </div>
             <div class="footer-column">
                 <h3>Contacto</h3>
@@ -231,18 +251,36 @@
     </footer>
 
     <script>
+        // QUITAR PANTALLA DE CARGA CUANDO LISTO
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            preloader.classList.add('hide');
+            setTimeout(() => preloader.style.display = 'none', 500);
+        });
+
         // RECUPERAR DATOS DEL ADMINISTRADOR
         document.addEventListener("DOMContentLoaded", function() {
             const data = JSON.parse(localStorage.getItem("tm_website_data"));
             if (data) {
+                // Info principal
                 if(data.topLoc) document.getElementById("view-top-loc").innerText = data.topLoc;
                 if(data.topEmail) document.getElementById("view-top-email").innerText = data.topEmail;
                 if(data.topPhone) document.getElementById("view-top-phone").innerText = data.topPhone;
+                
+                // Redes y Contacto Link
+                if(data.waLink) {
+                    document.getElementById("view-float-wa").href = data.waLink;
+                    document.getElementById("view-nav-wa").href = data.waLink;
+                    document.getElementById("view-cta-wa").href = data.waLink;
+                }
+                if(data.socFb) document.getElementById("view-soc-fb").href = data.socFb;
+                if(data.socIg) document.getElementById("view-soc-ig").href = data.socIg;
+                if(data.socTk) document.getElementById("view-soc-tk").href = data.socTk;
+
                 if(data.heroImg) document.getElementById("view-hero-img").src = data.heroImg;
                 if(data.heroTitle) document.getElementById("view-hero-title").innerHTML = data.heroTitle;
                 if(data.heroDesc) document.getElementById("view-hero-desc").innerText = data.heroDesc;
                 
-                // Enlaces de Google Photos
                 if(data.galLink) {
                     document.getElementById("view-hero-link").href = data.galLink;
                     document.getElementById("view-gal-link").href = data.galLink;
@@ -266,11 +304,9 @@
                     if(data[`srvDesc${i}`]) document.getElementById(`view-srv-desc${i}`).innerText = data[`srvDesc${i}`];
                     if(data[`galImg${i}`]) document.getElementById(`view-gal-img${i}`).src = data[`galImg${i}`];
                     
-                    // Testimonios
                     if(data[`testName${i}`]) document.getElementById(`view-test-name${i}`).innerText = data[`testName${i}`];
                     if(data[`testTxt${i}`]) document.getElementById(`view-test-txt${i}`).innerText = `"${data[`testTxt${i}`]}"`;
                     
-                    // FAQ
                     if(data[`faqQ${i}`]) document.getElementById(`view-faq-q${i}`).innerText = data[`faqQ${i}`];
                     if(data[`faqA${i}`]) document.getElementById(`view-faq-a${i}`).innerText = data[`faqA${i}`];
                 }
