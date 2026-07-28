@@ -183,7 +183,7 @@
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
-            <!-- PORTADA, NOSOTROS, CARRUSEL -->
+            <!-- PORTADA -->
             <div id="portada" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Encabezado Principal</h3>
@@ -194,6 +194,7 @@
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
+            <!-- NOSOTROS -->
             <div id="nosotros" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Diseño Inteligente</h3>
@@ -209,6 +210,7 @@
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
+            <!-- CARRUSEL -->
             <div id="carrusel" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Carrusel 3D (5 Fotos)</h3>
@@ -223,7 +225,7 @@
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
-            <!-- NUEVO: CATÁLOGO CON SUB-PESTAÑAS Y PORTADAS 16:9 -->
+            <!-- CATÁLOGO INFINITO CON TEXTOS GLOBALES -->
             <div id="catalogo" class="tab-content">
                 <div class="sub-tabs">
                     <button class="sub-tab-btn active" onclick="switchSubTab('sub-mela', this)">🪵 Melaminas</button>
@@ -315,22 +317,22 @@
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
             
-            <!-- NUEVO: PROCESO DE TRABAJO (Reemplaza Testimonios) -->
+            <!-- PROCESO DE TRABAJO Y FAQ -->
             <div id="proceso" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Proceso de Trabajo (4 Pasos)</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Paso 1: Título</label><input type="text" id="in-proc-tit1" value="Asesoría"></div><div class="form-group"><label>Descripción 1</label><textarea id="in-proc-desc1">Analizamos tu espacio...</textarea></div>
-                        <div class="form-group"><label>Paso 2: Título</label><input type="text" id="in-proc-tit2" value="Diseño 3D"></div><div class="form-group"><label>Descripción 2</label><textarea id="in-proc-desc2">Modelamos tu proyecto...</textarea></div>
-                        <div class="form-group"><label>Paso 3: Título</label><input type="text" id="in-proc-tit3" value="Fabricación"></div><div class="form-group"><label>Descripción 3</label><textarea id="in-proc-desc3">Cortes precisos...</textarea></div>
-                        <div class="form-group"><label>Paso 4: Título</label><input type="text" id="in-proc-tit4" value="Instalación"></div><div class="form-group"><label>Descripción 4</label><textarea id="in-proc-desc4">Montaje limpio...</textarea></div>
+                        <div class="form-group"><label>Paso 1: Título</label><input type="text" id="in-proc-tit1" value="Asesoría"></div><div class="form-group"><label>Descripción 1</label><textarea id="in-proc-desc1">Analizamos tu espacio y necesidades.</textarea></div>
+                        <div class="form-group"><label>Paso 2: Título</label><input type="text" id="in-proc-tit2" value="Diseño 3D"></div><div class="form-group"><label>Descripción 2</label><textarea id="in-proc-desc2">Modelamos tu proyecto para aprobación.</textarea></div>
+                        <div class="form-group"><label>Paso 3: Título</label><input type="text" id="in-proc-tit3" value="Fabricación"></div><div class="form-group"><label>Descripción 3</label><textarea id="in-proc-desc3">Cortes precisos con materiales premium.</textarea></div>
+                        <div class="form-group"><label>Paso 4: Título</label><input type="text" id="in-proc-tit4" value="Instalación"></div><div class="form-group"><label>Descripción 4</label><textarea id="in-proc-desc4">Montaje limpio y profesional en tu domicilio.</textarea></div>
                     </div>
                 </div>
                 <div class="editor-section">
                     <h3 class="section-title">Preguntas Frecuentes</h3>
-                    <div class="form-group full"><label>Pregunta 1</label><input type="text" id="in-faq-q1" value="¿Cuánto tiempo tardan?"></div><div class="form-group full"><textarea id="in-faq-a1">Dependiendo...</textarea></div>
-                    <div class="form-group full"><label>Pregunta 2</label><input type="text" id="in-faq-q2" value="¿Ofrecen garantía?"></div><div class="form-group full"><textarea id="in-faq-a2">Sí...</textarea></div>
-                    <div class="form-group full"><label>Pregunta 3</label><input type="text" id="in-faq-q3" value="¿El presupuesto incluye instalación?"></div><div class="form-group full"><textarea id="in-faq-a3">Totalmente...</textarea></div>
+                    <div class="form-group full"><label>Pregunta 1</label><input type="text" id="in-faq-q1" value="¿Cuánto tiempo tardan en entregar un proyecto?"></div><div class="form-group full"><textarea id="in-faq-a1">Dependiendo del tamaño del proyecto...</textarea></div>
+                    <div class="form-group full"><label>Pregunta 2</label><input type="text" id="in-faq-q2" value="¿Ofrecen garantía?"></div><div class="form-group full"><textarea id="in-faq-a2">Sí, todos nuestros muebles cuentan con garantía...</textarea></div>
+                    <div class="form-group full"><label>Pregunta 3</label><input type="text" id="in-faq-q3" value="¿El presupuesto incluye instalación?"></div><div class="form-group full"><textarea id="in-faq-a3">Totalmente. Nuestras cotizaciones son integrales...</textarea></div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
@@ -462,22 +464,17 @@
                     return;
                 }
 
-                // Cargar Textos Globales y Portadas 16:9 del Catálogo
                 if(document.getElementById('in-mela-bg')) document.getElementById('in-mela-bg').value = data.melaBg || '';
                 if(document.getElementById('in-mela-info')) document.getElementById('in-mela-info').value = data.melaInfo || '';
-                
                 if(document.getElementById('in-cubi-bg')) document.getElementById('in-cubi-bg').value = data.cubiBg || '';
                 if(document.getElementById('in-cubi-info')) document.getElementById('in-cubi-info').value = data.cubiInfo || '';
-                
                 if(document.getElementById('in-herr-bg')) document.getElementById('in-herr-bg').value = data.herrBg || '';
                 if(document.getElementById('in-herr-info')) document.getElementById('in-herr-info').value = data.herrInfo || '';
 
-                // Cargar Arreglos del Catálogo
                 if(data.catMelaminas && data.catMelaminas.length > 0) { data.catMelaminas.forEach(item => crearTarjetaCatalogo('melaminas', item.img, item.tit, item.desc)); } else { crearTarjetaCatalogo('melaminas'); }
                 if(data.catCubiertas && data.catCubiertas.length > 0) { data.catCubiertas.forEach(item => crearTarjetaCatalogo('cubiertas', item.img, item.tit, item.desc)); } else { crearTarjetaCatalogo('cubiertas'); }
                 if(data.catHerrajes && data.catHerrajes.length > 0) { data.catHerrajes.forEach(item => crearTarjetaCatalogo('herrajes', item.img, item.tit, item.desc)); } else { crearTarjetaCatalogo('herrajes'); }
 
-                // Cargar Resto de la página (Proceso en vez de Testimonios)
                 const map = {
                     'in-top-loc':'topLoc', 'in-top-email':'topEmail', 'in-top-phone':'topPhone', 'in-wa-link':'waLink', 'in-soc-fb':'socFb', 'in-soc-ig':'socIg', 
                     'in-hero-img':'heroImg', 'in-hero-title':'heroTitle', 'in-hero-desc':'heroDesc', 'in-about-title':'aboutTitle', 'in-about-desc':'aboutDesc', 'in-about-b1':'aboutB1', 'in-about-b2':'aboutB2', 'in-about-b3':'aboutB3', 'in-about-b4':'aboutB4',
@@ -497,7 +494,6 @@
         function guardarTodo() {
             const data = {};
             
-            // Guardar Textos Globales y Portadas
             data.melaBg = document.getElementById('in-mela-bg').value;
             data.melaInfo = document.getElementById('in-mela-info').value;
             data.cubiBg = document.getElementById('in-cubi-bg').value;
@@ -505,7 +501,6 @@
             data.herrBg = document.getElementById('in-herr-bg').value;
             data.herrInfo = document.getElementById('in-herr-info').value;
 
-            // Recolectar listas
             data.catMelaminas = [];
             document.querySelectorAll('#admin-melaminas .cat-item-admin').forEach(el => {
                 data.catMelaminas.push({ img: el.querySelector('.c-img').value, tit: el.querySelector('.c-tit').value, desc: el.querySelector('.c-desc').value });
@@ -521,7 +516,6 @@
                 data.catHerrajes.push({ img: el.querySelector('.c-img').value, tit: el.querySelector('.c-tit').value, desc: el.querySelector('.c-desc').value });
             });
 
-            // Recolectar Resto
             const map = {
                 'in-top-loc':'topLoc', 'in-top-email':'topEmail', 'in-top-phone':'topPhone', 'in-wa-link':'waLink', 'in-soc-fb':'socFb', 'in-soc-ig':'socIg', 
                 'in-hero-img':'heroImg', 'in-hero-title':'heroTitle', 'in-hero-desc':'heroDesc', 'in-about-title':'aboutTitle', 'in-about-desc':'aboutDesc', 'in-about-b1':'aboutB1', 'in-about-b2':'aboutB2', 'in-about-b3':'aboutB3', 'in-about-b4':'aboutB4',
