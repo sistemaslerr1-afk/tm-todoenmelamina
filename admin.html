@@ -15,7 +15,7 @@
         .login-box { background: white; padding: 35px 25px; border-radius: 16px; width: 100%; max-width: 380px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
         .login-box h2 { color: var(--text-dark); margin-bottom: 8px; font-weight: 700; font-size: 1.4rem; }
         .login-box p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 25px; }
-        .login-box input { width: 100%; padding: 14px; margin-bottom: 15px; border: 1.5px solid #e1e5eb; border-radius: 10px; font-size: 1rem; text-align: center; outline: none; transition: 0.3s; }
+        .login-box input[type="password"], .login-box input[type="text"] { width: 100%; padding: 14px; margin-bottom: 15px; border: 1.5px solid #e1e5eb; border-radius: 10px; font-size: 1rem; text-align: center; outline: none; transition: 0.3s; }
         .login-box input:focus { border-color: var(--accent); }
         .login-box button { width: 100%; padding: 14px; background: var(--accent); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 12px rgba(179, 155, 130, 0.4); }
         .login-box button:hover { background: var(--accent-dark); }
@@ -61,9 +61,12 @@
         .form-group { margin-bottom: 15px; }
         .form-group.full { grid-column: span 2; }
         .form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.85rem; color: #4a5568; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px 14px; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 0.9rem; transition: 0.2s; outline: none; background: #fdfdfd; }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(179, 155, 130, 0.15); }
+        .form-group input[type="text"], .form-group textarea { width: 100%; padding: 12px 14px; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 0.9rem; transition: 0.2s; outline: none; background: #fdfdfd; }
+        .form-group input[type="text"]:focus, .form-group textarea:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(179, 155, 130, 0.15); }
         .form-group textarea { resize: vertical; height: 95px; }
+        
+        /* ESTILO PARA EL BOTON DE SUBIR ARCHIVO */
+        input[type="file"] { width: 100%; padding: 8px; margin-top: 8px; background: #f0f2f5; border-radius: 8px; font-size: 0.8rem; cursor: pointer; border: 1px dashed #cbd5e1; color: #475569; }
         
         .btn-save { background: var(--text-dark); color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-weight: 600; width: 100%; max-width: 1000px; font-size: 1rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 40px; }
         .btn-save:hover { background: var(--accent); }
@@ -83,11 +86,8 @@
             .mobile-toggle-btn { display: flex; align-items: center; justify-content: center; }
             .main-content { padding: 18px 15px; }
             .header h1 { font-size: 1.25rem; }
-            .btn-preview, .btn-analytics-external { padding: 8px 12px; font-size: 0.78rem; }
             .form-grid { grid-template-columns: 1fr; }
             .form-group.full { grid-column: span 1; }
-            .editor-section { padding: 18px 15px; }
-            .iframe-container { height: 500px; }
             .sidebar-overlay.active { display: block; }
         }
     </style>
@@ -195,7 +195,11 @@
             <div id="portada" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Encabezado Principal (Hero)</h3>
-                    <div class="form-group full"><label>Nombre o Ruta de Imagen de Fondo</label><input type="text" id="in-hero-img" value="FOND.jpeg"></div>
+                    <div class="form-group full">
+                        <label>Imagen de Fondo (URL o Subir)</label>
+                        <input type="text" id="in-hero-img" value="FOND.jpeg">
+                        <input type="file" accept="image/*" onchange="procesarImagen(event, 'in-hero-img')">
+                    </div>
                     <div class="form-group full"><label>Título Principal</label><input type="text" id="in-hero-title" value="Transformamos tu espacio en una obra de arte."></div>
                     <div class="form-group full"><label>Descripción Secundaria</label><textarea id="in-hero-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</textarea></div>
                 </div>
@@ -221,15 +225,15 @@
                 <div class="editor-section">
                     <h3 class="section-title">Carrusel 3D (5 Fotos)</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Img 1 (Archivo)</label><input type="text" id="in-car-img1" value="VISTA.jpg"></div>
+                        <div class="form-group"><label>Img 1 (URL o Subir)</label><input type="text" id="in-car-img1" value="VISTA.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img1')"></div>
                         <div class="form-group"><label>Texto 1</label><input type="text" id="in-car-txt1" value="Texturas Cálidas"></div>
-                        <div class="form-group"><label>Img 2 (Archivo)</label><input type="text" id="in-car-img2" value="DET.jpg"></div>
+                        <div class="form-group"><label>Img 2 (URL o Subir)</label><input type="text" id="in-car-img2" value="DET.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img2')"></div>
                         <div class="form-group"><label>Texto 2</label><input type="text" id="in-car-txt2" value="Acabados Mate"></div>
-                        <div class="form-group"><label>Img 3 (Archivo)</label><input type="text" id="in-car-img3" value="FOND.jpeg"></div>
+                        <div class="form-group"><label>Img 3 (URL o Subir)</label><input type="text" id="in-car-img3" value="FOND.jpeg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img3')"></div>
                         <div class="form-group"><label>Texto 3</label><input type="text" id="in-car-txt3" value="Optimización"></div>
-                        <div class="form-group"><label>Img 4 (Archivo)</label><input type="text" id="in-car-img4" value="VISTA.jpg"></div>
+                        <div class="form-group"><label>Img 4 (URL o Subir)</label><input type="text" id="in-car-img4" value="VISTA.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img4')"></div>
                         <div class="form-group"><label>Texto 4</label><input type="text" id="in-car-txt4" value="Minimalismo"></div>
-                        <div class="form-group"><label>Img 5 (Archivo)</label><input type="text" id="in-car-img5" value="DET.jpg"></div>
+                        <div class="form-group"><label>Img 5 (URL o Subir)</label><input type="text" id="in-car-img5" value="DET.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img5')"></div>
                         <div class="form-group"><label>Texto 5</label><input type="text" id="in-car-txt5" value="Diseño Premium"></div>
                     </div>
                 </div>
@@ -301,9 +305,21 @@
                 </div>
                 <div class="editor-section">
                     <h3 class="section-title">3 Imágenes Destacadas en la Web</h3>
-                    <div class="form-group full"><label>Imagen 1 (Ruta o URL)</label><input type="text" id="in-gal-img1" value="VISTA.jpg"></div>
-                    <div class="form-group full"><label>Imagen 2 (Ruta o URL)</label><input type="text" id="in-gal-img2" value="DET.jpg"></div>
-                    <div class="form-group full"><label>Imagen 3 (Ruta o URL)</label><input type="text" id="in-gal-img3" value="FOND.jpeg"></div>
+                    <div class="form-group full">
+                        <label>Imagen 1 (URL o Subir)</label>
+                        <input type="text" id="in-gal-img1" value="VISTA.jpg">
+                        <input type="file" accept="image/*" onchange="procesarImagen(event, 'in-gal-img1')">
+                    </div>
+                    <div class="form-group full">
+                        <label>Imagen 2 (URL o Subir)</label>
+                        <input type="text" id="in-gal-img2" value="DET.jpg">
+                        <input type="file" accept="image/*" onchange="procesarImagen(event, 'in-gal-img2')">
+                    </div>
+                    <div class="form-group full">
+                        <label>Imagen 3 (URL o Subir)</label>
+                        <input type="text" id="in-gal-img3" value="FOND.jpeg">
+                        <input type="file" accept="image/*" onchange="procesarImagen(event, 'in-gal-img3')">
+                    </div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
@@ -311,11 +327,54 @@
     </div>
 
     <script>
+        // GENERACIÓN DE CAMPOS DEL CATÁLOGO CON BOTÓN DE SUBIR ARCHIVO
         const catMelaminas = document.getElementById('admin-melaminas');
         const catCubiertas = document.getElementById('admin-cubiertas');
         for(let i=1; i<=4; i++) {
-            catMelaminas.innerHTML += `<div class="cat-item-admin"><h4>Melamina ${i}</h4><div class="form-grid"><div class="form-group"><label>URL Imagen</label><input type="text" id="in-mel-img${i}"></div><div class="form-group"><label>Nombre</label><input type="text" id="in-mel-tit${i}"></div><div class="form-group full"><label>Descripción</label><input type="text" id="in-mel-desc${i}"></div></div></div>`;
-            catCubiertas.innerHTML += `<div class="cat-item-admin"><h4>Cubierta ${i}</h4><div class="form-grid"><div class="form-group"><label>URL Imagen</label><input type="text" id="in-cub-img${i}"></div><div class="form-group"><label>Nombre</label><input type="text" id="in-cub-tit${i}"></div><div class="form-group full"><label>Descripción</label><input type="text" id="in-cub-desc${i}"></div></div></div>`;
+            catMelaminas.innerHTML += `<div class="cat-item-admin"><h4>Melamina ${i}</h4><div class="form-grid"><div class="form-group"><label>Imagen (URL o Subir)</label><input type="text" id="in-mel-img${i}" placeholder="Pega URL o usa el botón abajo"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-mel-img${i}')"></div><div class="form-group"><label>Nombre</label><input type="text" id="in-mel-tit${i}"></div><div class="form-group full"><label>Descripción</label><input type="text" id="in-mel-desc${i}"></div></div></div>`;
+            catCubiertas.innerHTML += `<div class="cat-item-admin"><h4>Cubierta ${i}</h4><div class="form-grid"><div class="form-group"><label>Imagen (URL o Subir)</label><input type="text" id="in-cub-img${i}" placeholder="Pega URL o usa el botón abajo"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-cub-img${i}')"></div><div class="form-group"><label>Nombre</label><input type="text" id="in-cub-tit${i}"></div><div class="form-group full"><label>Descripción</label><input type="text" id="in-cub-desc${i}"></div></div></div>`;
+        }
+
+        // MOTOR DE CONVERSIÓN DE IMÁGENES (Subir desde PC/Celular sin servidor)
+        function procesarImagen(event, inputId) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const targetInput = document.getElementById(inputId);
+            targetInput.value = "Cargando y optimizando imagen...";
+
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(e) {
+                const img = new Image();
+                img.src = e.target.result;
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 800; 
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // Convertir a texto base64 para guardarlo en la página
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.6);
+                    targetInput.value = dataUrl;
+                    
+                    const alertBox = document.getElementById("success-alert");
+                    alertBox.style.backgroundColor = "#17a2b8";
+                    alertBox.innerText = "¡Imagen cargada! No olvides hacer clic en 'Guardar Cambios'.";
+                    alertBox.style.display = "block"; 
+                    setTimeout(() => { alertBox.style.display = "none"; alertBox.style.backgroundColor = "#28a745"; alertBox.innerText = "¡Cambios guardados con éxito!"; }, 3500);
+                };
+            };
         }
 
         function checkLogin() {
