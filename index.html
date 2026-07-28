@@ -270,47 +270,56 @@
     </div>
 
     <script>
-        // QUITAR PANTALLA DE CARGA CUANDO LISTO
-        window.addEventListener('load', function() {
-            const preloader = document.getElementById('preloader');
-            preloader.classList.add('hide');
-            setTimeout(() => preloader.style.display = 'none', 500);
-        });
+    // 1. QUITAR PANTALLA DE CARGA CUANDO LISTO
+    window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+        preloader.classList.add('hide');
+        setTimeout(() => preloader.style.display = 'none', 500);
+    });
 
-        // FUNCIONES DEL CATÁLOGO
-        function abrirSuperCatalogo() {
-            const modal = document.getElementById('super-catalogo-modal');
+    // 2. FUNCIONES DEL CATÁLOGO (Apertura y Cierre Blindados)
+    function abrirSuperCatalogo() {
+        const modal = document.getElementById('super-catalogo-modal');
+        if(modal) {
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
-            setTimeout(() => { modal.style.opacity = '1'; }, 10);
+            setTimeout(() => { modal.style.opacity = '1'; }, 20);
+        } else {
+            console.error("No se encontró el modal del catálogo");
         }
-        function cerrarSuperCatalogo() {
-            const modal = document.getElementById('super-catalogo-modal');
+    }
+
+    function cerrarSuperCatalogo() {
+        const modal = document.getElementById('super-catalogo-modal');
+        if(modal) {
             modal.style.opacity = '0';
             document.body.style.overflow = 'auto';
             setTimeout(() => { modal.style.display = 'none'; }, 400);
         }
-        function filtrarCatalogo(tipo, btn) {
-            document.querySelectorAll('.s-tab').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            if(tipo === 'mela') {
-                document.getElementById('showcase-melaminas').classList.add('active');
-                document.getElementById('showcase-cubiertas').classList.remove('active');
-            } else {
-                document.getElementById('showcase-melaminas').classList.remove('active');
-                document.getElementById('showcase-cubiertas').classList.add('active');
-            }
-        }
+    }
 
-        // RECUPERAR DATOS DEL ADMINISTRADOR
-        document.addEventListener("DOMContentLoaded", function() {
+    function filtrarCatalogo(tipo, btn) {
+        document.querySelectorAll('.s-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        if(tipo === 'mela') {
+            document.getElementById('showcase-melaminas').classList.add('active');
+            document.getElementById('showcase-cubiertas').classList.remove('active');
+        } else {
+            document.getElementById('showcase-melaminas').classList.remove('active');
+            document.getElementById('showcase-cubiertas').classList.add('active');
+        }
+    }
+
+    // 3. RECUPERAR DATOS Y DIBUJAR CATÁLOGO
+    document.addEventListener("DOMContentLoaded", function() {
+        try {
             const data = JSON.parse(localStorage.getItem("tm_website_data"));
             
-            // Dibujar catálogo si hay datos guardados
             if (data) {
                 let htmlMela = '';
                 let htmlCubi = '';
 
+                // Dibujar Melaminas
                 for(let i=1; i<=4; i++) {
                     if(data[`melImg${i}`] && data[`melImg${i}`].trim() !== '') {
                         htmlMela += `
@@ -323,6 +332,7 @@
                         </div>`;
                     }
                 }
+                // Dibujar Cubiertas
                 for(let i=1; i<=4; i++) {
                     if(data[`cubImg${i}`] && data[`cubImg${i}`].trim() !== '') {
                         htmlCubi += `
@@ -335,85 +345,98 @@
                         </div>`;
                     }
                 }
-                document.getElementById('showcase-melaminas').innerHTML = htmlMela || '<p style="color:white; width:100%; text-align:center;">Agrega imágenes desde el panel de administrador.</p>';
-                document.getElementById('showcase-cubiertas').innerHTML = htmlCubi || '<p style="color:white; width:100%; text-align:center;">Agrega imágenes desde el panel de administrador.</p>';
+
+                // Insertar en la página
+                const contMela = document.getElementById('showcase-melaminas');
+                const contCubi = document.getElementById('showcase-cubiertas');
+                
+                if(contMela) contMela.innerHTML = htmlMela || '<p style="color:#aaa; width:100%; text-align:center;">Agrega imágenes desde tu panel de administrador.</p>';
+                if(contCubi) contCubi.innerHTML = htmlCubi || '<p style="color:#aaa; width:100%; text-align:center;">Agrega imágenes desde tu panel de administrador.</p>';
             }
 
-            // Datos Base de tu página normal
+            // Textos y configuraciones base
             if (data) {
-                if(data.topLoc) document.getElementById("view-top-loc").innerText = data.topLoc;
-                if(data.topEmail) document.getElementById("view-top-email").innerText = data.topEmail;
-                if(data.topPhone) document.getElementById("view-top-phone").innerText = data.topPhone;
+                if(data.topLoc && document.getElementById("view-top-loc")) document.getElementById("view-top-loc").innerText = data.topLoc;
+                if(data.topEmail && document.getElementById("view-top-email")) document.getElementById("view-top-email").innerText = data.topEmail;
+                if(data.topPhone && document.getElementById("view-top-phone")) document.getElementById("view-top-phone").innerText = data.topPhone;
                 
                 if(data.waLink) {
-                    document.getElementById("view-float-wa").href = data.waLink;
-                    document.getElementById("view-nav-wa").href = data.waLink;
-                    document.getElementById("view-cta-wa").href = data.waLink;
+                    if(document.getElementById("view-float-wa")) document.getElementById("view-float-wa").href = data.waLink;
+                    if(document.getElementById("view-nav-wa")) document.getElementById("view-nav-wa").href = data.waLink;
+                    if(document.getElementById("view-cta-wa")) document.getElementById("view-cta-wa").href = data.waLink;
                 }
-                if(data.socFb) document.getElementById("view-soc-fb").href = data.socFb;
-                if(data.socIg) document.getElementById("view-soc-ig").href = data.socIg;
-                if(data.socTk) document.getElementById("view-soc-tk").href = data.socTk;
+                if(data.socFb && document.getElementById("view-soc-fb")) document.getElementById("view-soc-fb").href = data.socFb;
+                if(data.socIg && document.getElementById("view-soc-ig")) document.getElementById("view-soc-ig").href = data.socIg;
 
-                if(data.heroImg) document.getElementById("view-hero-img").src = data.heroImg;
-                if(data.heroTitle) document.getElementById("view-hero-title").innerHTML = data.heroTitle;
-                if(data.heroDesc) document.getElementById("view-hero-desc").innerText = data.heroDesc;
+                if(data.heroImg && document.getElementById("view-hero-img")) document.getElementById("view-hero-img").src = data.heroImg;
+                if(data.heroTitle && document.getElementById("view-hero-title")) document.getElementById("view-hero-title").innerHTML = data.heroTitle;
+                if(data.heroDesc && document.getElementById("view-hero-desc")) document.getElementById("view-hero-desc").innerText = data.heroDesc;
                 
                 if(data.galLink) {
-                    document.getElementById("view-hero-link").href = data.galLink;
-                    document.getElementById("view-gal-link").href = data.galLink;
+                    if(document.getElementById("view-hero-link")) document.getElementById("view-hero-link").href = data.galLink;
+                    if(document.getElementById("view-gal-link")) document.getElementById("view-gal-link").href = data.galLink;
                 }
 
-                if(data.aboutTitle) document.getElementById("view-about-title").innerHTML = data.aboutTitle;
-                if(data.aboutDesc) document.getElementById("view-about-desc").innerText = data.aboutDesc;
-                if(data.aboutB1) document.getElementById("view-about-b1").innerText = data.aboutB1;
-                if(data.aboutB2) document.getElementById("view-about-b2").innerText = data.aboutB2;
-                if(data.aboutB3) document.getElementById("view-about-b3").innerText = data.aboutB3;
-                if(data.aboutB4) document.getElementById("view-about-b4").innerText = data.aboutB4;
+                if(data.aboutTitle && document.getElementById("view-about-title")) document.getElementById("view-about-title").innerHTML = data.aboutTitle;
+                if(data.aboutDesc && document.getElementById("view-about-desc")) document.getElementById("view-about-desc").innerText = data.aboutDesc;
+                if(data.aboutB1 && document.getElementById("view-about-b1")) document.getElementById("view-about-b1").innerText = data.aboutB1;
+                if(data.aboutB2 && document.getElementById("view-about-b2")) document.getElementById("view-about-b2").innerText = data.aboutB2;
+                if(data.aboutB3 && document.getElementById("view-about-b3")) document.getElementById("view-about-b3").innerText = data.aboutB3;
+                if(data.aboutB4 && document.getElementById("view-about-b4")) document.getElementById("view-about-b4").innerText = data.aboutB4;
 
                 for(let i=1; i<=5; i++) {
-                    if(data[`carImg${i}`]) document.getElementById(`view-car-img${i}`).src = data[`carImg${i}`];
-                    if(data[`carTxt${i}`]) document.getElementById(`view-car-txt${i}`).innerText = data[`carTxt${i}`];
+                    if(data[`carImg${i}`] && document.getElementById(`view-car-img${i}`)) document.getElementById(`view-car-img${i}`).src = data[`carImg${i}`];
+                    if(data[`carTxt${i}`] && document.getElementById(`view-car-txt${i}`)) document.getElementById(`view-car-txt${i}`).innerText = data[`carTxt${i}`];
                 }
 
                 for(let i=1; i<=3; i++) {
-                    if(data[`srvIco${i}`]) document.getElementById(`view-srv-ico${i}`).innerText = data[`srvIco${i}`];
-                    if(data[`srvTit${i}`]) document.getElementById(`view-srv-tit${i}`).innerText = data[`srvTit${i}`];
-                    if(data[`srvDesc${i}`]) document.getElementById(`view-srv-desc${i}`).innerText = data[`srvDesc${i}`];
-                    if(data[`galImg${i}`]) document.getElementById(`view-gal-img${i}`).src = data[`galImg${i}`];
+                    if(data[`srvIco${i}`] && document.getElementById(`view-srv-ico${i}`)) document.getElementById(`view-srv-ico${i}`).innerText = data[`srvIco${i}`];
+                    if(data[`srvTit${i}`] && document.getElementById(`view-srv-tit${i}`)) document.getElementById(`view-srv-tit${i}`).innerText = data[`srvTit${i}`];
+                    if(data[`srvDesc${i}`] && document.getElementById(`view-srv-desc${i}`)) document.getElementById(`view-srv-desc${i}`).innerText = data[`srvDesc${i}`];
+                    if(data[`galImg${i}`] && document.getElementById(`view-gal-img${i}`)) document.getElementById(`view-gal-img${i}`).src = data[`galImg${i}`];
                     
-                    if(data[`testName${i}`]) document.getElementById(`view-test-name${i}`).innerText = data[`testName${i}`];
-                    if(data[`testTxt${i}`]) document.getElementById(`view-test-txt${i}`).innerText = `"${data[`testTxt${i}`]}"`;
+                    if(data[`testName${i}`] && document.getElementById(`view-test-name${i}`)) document.getElementById(`view-test-name${i}`).innerText = data[`testName${i}`];
+                    if(data[`testTxt${i}`] && document.getElementById(`view-test-txt${i}`)) document.getElementById(`view-test-txt${i}`).innerText = `"${data[`testTxt${i}`]}"`;
                     
-                    if(data[`faqQ${i}`]) document.getElementById(`view-faq-q${i}`).innerText = data[`faqQ${i}`];
-                    if(data[`faqA${i}`]) document.getElementById(`view-faq-a${i}`).innerText = data[`faqA${i}`];
+                    if(data[`faqQ${i}`] && document.getElementById(`view-faq-q${i}`)) document.getElementById(`view-faq-q${i}`).innerText = data[`faqQ${i}`];
+                    if(data[`faqA${i}`] && document.getElementById(`view-faq-a${i}`)) document.getElementById(`view-faq-a${i}`).innerText = data[`faqA${i}`];
                 }
 
-                if(data.ctaTitle) document.getElementById("view-cta-title").innerText = data.ctaTitle;
-                if(data.ctaDesc) document.getElementById("view-cta-desc").innerText = data.ctaDesc;
-                if(data.footDesc) document.getElementById("view-foot-desc").innerText = data.footDesc;
-                if(data.footLoc) document.getElementById("view-foot-loc").innerText = data.footLoc;
-                if(data.footEmail) document.getElementById("view-foot-email").innerText = data.footEmail;
-                if(data.footPhone) document.getElementById("view-foot-phone").innerText = data.footPhone;
+                if(data.ctaTitle && document.getElementById("view-cta-title")) document.getElementById("view-cta-title").innerText = data.ctaTitle;
+                if(data.ctaDesc && document.getElementById("view-cta-desc")) document.getElementById("view-cta-desc").innerText = data.ctaDesc;
+                if(data.footDesc && document.getElementById("view-foot-desc")) document.getElementById("view-foot-desc").innerText = data.footDesc;
+                if(data.footLoc && document.getElementById("view-foot-loc")) document.getElementById("view-foot-loc").innerText = data.footLoc;
+                if(data.footEmail && document.getElementById("view-foot-email")) document.getElementById("view-foot-email").innerText = data.footEmail;
+                if(data.footPhone && document.getElementById("view-foot-phone")) document.getElementById("view-foot-phone").innerText = data.footPhone;
             }
-        });
+        } catch(e) {
+            console.error("Error cargando los datos del LocalStorage:", e);
+        }
+    });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.scroll-anim').forEach((el) => observer.observe(el));
+    // 4. ANIMACIONES AL HACER SCROLL
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.scroll-anim').forEach((el) => observer.observe(el));
 
-        const carousel3d = document.getElementById('carousel-3d');
-        const slider = document.getElementById('carousel-slider');
+    // 5. CARRUSEL 3D
+    const carousel3d = document.getElementById('carousel-3d');
+    const slider = document.getElementById('carousel-slider');
+    if(carousel3d && slider) {
         carousel3d.style.transform = `translateZ(-350px) rotateY(0deg)`;
         slider.addEventListener('input', (e) => {
             carousel3d.style.transform = `translateZ(-350px) rotateY(${-e.target.value}deg)`;
         });
+    }
 
-        const card = document.getElementById("draggable-card");
-        const dragHandle = document.getElementById("card-drag-handle");
-        const portadaContainer = document.querySelector(".hero-portada");
-        let isDragging = false, offsetX = 0, offsetY = 0;
-        
+    // 6. TARJETA FLOTANTE (DRAG)
+    const card = document.getElementById("draggable-card");
+    const dragHandle = document.getElementById("card-drag-handle");
+    const portadaContainer = document.querySelector(".hero-portada");
+    let isDragging = false, offsetX = 0, offsetY = 0;
+    
+    if(card && dragHandle && portadaContainer) {
         const startDrag = (clientX, clientY) => {
             isDragging = true;
             card.style.position = "absolute"; card.style.margin = "0"; card.style.bottom = "auto"; card.style.zIndex = "2000";
@@ -434,6 +457,7 @@
         dragHandle.addEventListener("touchstart", (e) => { startDrag(e.touches[0].clientX, e.touches[0].clientY); });
         document.addEventListener("touchmove", (e) => { if (isDragging) onDrag(e.touches[0].clientX, e.touches[0].clientY); });
         document.addEventListener("touchend", stopDrag);
-    </script>
+    }
+</script>
 </body>
 </html>
