@@ -40,6 +40,7 @@
         .btn-preview { background: var(--accent); color: white; padding: 10px 18px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(179, 155, 130, 0.3); transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; }
         .btn-preview:hover { background: var(--accent-dark); }
         .btn-analytics-external { background: #4285F4; color: white; padding: 10px 18px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3); transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-analytics-external:hover { background: #3367d6; }
 
         #success-alert { display: none; background-color: #28a745; color: white; padding: 14px 20px; border-radius: 10px; margin-bottom: 20px; text-align: center; font-weight: 600; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2); }
 
@@ -71,8 +72,7 @@
         .iframe-container iframe { width: 100%; height: 100%; border: none; }
 
         .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); backdrop-filter: blur(3px); z-index: 8500; }
-
-        /* Item de Catálogo */
+        
         .cat-item-admin { background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #e1e5eb;}
         .cat-item-admin h4 { margin-bottom: 10px; font-size: 0.95rem; color: var(--text-dark); }
 
@@ -83,8 +83,11 @@
             .mobile-toggle-btn { display: flex; align-items: center; justify-content: center; }
             .main-content { padding: 18px 15px; }
             .header h1 { font-size: 1.25rem; }
+            .btn-preview, .btn-analytics-external { padding: 8px 12px; font-size: 0.78rem; }
             .form-grid { grid-template-columns: 1fr; }
             .form-group.full { grid-column: span 1; }
+            .editor-section { padding: 18px 15px; }
+            .iframe-container { height: 500px; }
             .sidebar-overlay.active { display: block; }
         }
     </style>
@@ -95,7 +98,7 @@
         <div class="login-box">
             <h2>Panel de Control</h2>
             <p>Todo en Melamina - Administración</p>
-            <div id="login-error">Contraseña incorrecta.</div>
+            <div id="login-error">Contraseña incorrecta. Inténtalo de nuevo.</div>
             <input type="password" id="admin-pass" placeholder="Ingresa tu contraseña" onkeydown="if(event.key === 'Enter') checkLogin()">
             <button onclick="checkLogin()">Ingresar</button>
         </div>
@@ -105,7 +108,10 @@
 
     <div id="admin-wrapper">
         <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">MELAMINA ADMIN <button class="close-sidebar-btn" onclick="toggleSidebar()">✖</button></div>
+            <div class="sidebar-header">
+                MELAMINA ADMIN
+                <button class="close-sidebar-btn" onclick="toggleSidebar()">✖</button>
+            </div>
             <ul class="nav-links">
                 <li class="tab-link active" onclick="switchTab('dashboard', this)">📊 Analytics Real</li>
                 <li class="tab-link" onclick="switchTab('ajustes', this)">⚙️ Generales & Redes</li>
@@ -133,11 +139,23 @@
 
             <div id="success-alert">¡Cambios guardados con éxito!</div>
 
-            <!-- TAB DASHBOARD ANALYTICS -->
             <div id="dashboard" class="tab-content active">
                 <div class="metrics-grid">
-                    <div class="metric-card"><div class="title">Estado Tracker</div><div class="number" style="font-size:1.1rem; color:#28a745;">G-QFL8N8EDV2</div><span class="badge">Activo & Enlazado</span></div>
-                    <div class="metric-card"><div class="title">Seguridad</div><div class="number" style="font-size:1.1rem;">HTTPS / SSL</div><span class="badge">Protegido</span></div>
+                    <div class="metric-card">
+                        <div class="title">Estado Tracker</div>
+                        <div class="number" style="font-size:1.1rem; color:#28a745;">G-QFL8N8EDV2</div>
+                        <span class="badge">Activo & Enlazado</span>
+                    </div>
+                    <div class="metric-card">
+                        <div class="title">Seguridad</div>
+                        <div class="number" style="font-size:1.1rem;">HTTPS / SSL</div>
+                        <span class="badge">Protegido</span>
+                    </div>
+                    <div class="metric-card">
+                        <div class="title">Plataforma</div>
+                        <div class="number" style="font-size:1.1rem;">Looker Studio</div>
+                        <span class="badge">Google Cloud</span>
+                    </div>
                 </div>
                 <div class="editor-section" style="max-width: 100%;">
                     <h3 class="section-title">Reporte Interactivo de Tráfico</h3>
@@ -147,46 +165,48 @@
                 </div>
             </div>
 
-            <!-- AJUSTES GENERALES -->
             <div id="ajustes" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Barra Superior y Redes</h3>
+                    <h3 class="section-title">Barra Superior de Contacto</h3>
                     <div class="form-grid">
                         <div class="form-group"><label>Ubicación</label><input type="text" id="in-top-loc" value="📍 Querétaro, Querétaro"></div>
                         <div class="form-group"><label>Correo Electrónico</label><input type="text" id="in-top-email" value="✉️ todoenmelaminatm@gmail.com"></div>
                         <div class="form-group"><label>Teléfono de Contacto</label><input type="text" id="in-top-phone" value="📞 +52 442 397 9275"></div>
                     </div>
+                </div>
+                <div class="editor-section">
+                    <h3 class="section-title">Redes Sociales y WhatsApp</h3>
                     <div class="form-group full"><label>Enlace Directo de WhatsApp</label><input type="text" id="in-wa-link" value="https://wa.me/524423979275?text=Hola,%20me%20gustaría%20cotizar%20un%20proyecto."></div>
                     <div class="form-grid">
                         <div class="form-group"><label>Link Facebook</label><input type="text" id="in-soc-fb" value="#"></div>
                         <div class="form-group"><label>Link Instagram</label><input type="text" id="in-soc-ig" value="#"></div>
+                        <div class="form-group"><label>Link TikTok</label><input type="text" id="in-soc-tk" value="#"></div>
                     </div>
                 </div>
                 <div class="editor-section">
                     <h3 class="section-title">Textos de Pie de Página (Footer)</h3>
                     <div class="form-group full"><label>Título del Banner CTA</label><input type="text" id="in-cta-title" value="¿Listo para renovar tu espacio?"></div>
-                    <div class="form-group full"><label>Descripción CTA</label><textarea id="in-cta-desc">Contáctanos hoy mismo y recibe un presupuesto sin compromiso.</textarea></div>
-                    <div class="form-group full"><label>Eslogan Footer</label><input type="text" id="in-foot-desc" value="Transformando espacios con elegancia y precisión."></div>
+                    <div class="form-group full"><label>Descripción CTA</label><textarea id="in-cta-desc">Contáctanos hoy mismo y recibe un presupuesto sin compromiso. Estamos en Querétaro.</textarea></div>
+                    <div class="form-group full"><label>Eslogan Footer</label><input type="text" id="in-foot-desc" value="Transformando espacios con elegancia y precisión, diseñando muebles que cuentan historias."></div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
-            <!-- PORTADA, NOSOTROS, CARRUSEL (Los que ya tenías) -->
             <div id="portada" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Encabezado Principal (Hero)</h3>
-                    <div class="form-group full"><label>URL Imagen Hero</label><input type="text" id="in-hero-img" value="FOND.jpeg"></div>
-                    <div class="form-group full"><label>Título</label><input type="text" id="in-hero-title" value="Transformamos tu espacio en una obra de arte."></div>
-                    <div class="form-group full"><label>Descripción</label><textarea id="in-hero-desc">Diseño y fabricación a medida en Querétaro.</textarea></div>
+                    <div class="form-group full"><label>Nombre o Ruta de Imagen de Fondo</label><input type="text" id="in-hero-img" value="FOND.jpeg"></div>
+                    <div class="form-group full"><label>Título Principal</label><input type="text" id="in-hero-title" value="Transformamos tu espacio en una obra de arte."></div>
+                    <div class="form-group full"><label>Descripción Secundaria</label><textarea id="in-hero-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</textarea></div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
             <div id="nosotros" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Diseño Inteligente</h3>
-                    <div class="form-group full"><label>Título</label><input type="text" id="in-about-title" value="Diseño funcional e inteligente"></div>
-                    <div class="form-group full"><label>Descripción</label><textarea id="in-about-desc">Nos especializamos en optimizar cada centímetro...</textarea></div>
+                    <h3 class="section-title">Sección Sobre Nosotros</h3>
+                    <div class="form-group full"><label>Título de la Sección</label><input type="text" id="in-about-title" value='Diseño <span class="text-italic">funcional</span> e inteligente'></div>
+                    <div class="form-group full"><label>Descripción Corta</label><textarea id="in-about-desc">Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza de tu entorno.</textarea></div>
                     <div class="form-grid">
                         <div class="form-group"><label>Beneficio 1</label><input type="text" id="in-about-b1" value="Materiales Premium"></div>
                         <div class="form-group"><label>Beneficio 2</label><input type="text" id="in-about-b2" value="Diseño Increíble"></div>
@@ -199,44 +219,49 @@
 
             <div id="carrusel" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Las 5 Imágenes del Carrusel</h3>
+                    <h3 class="section-title">Carrusel 3D (5 Fotos)</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Img 1</label><input type="text" id="in-car-img1" value="VISTA.jpg"></div><div class="form-group"><label>Texto 1</label><input type="text" id="in-car-txt1" value="Texturas"></div>
-                        <div class="form-group"><label>Img 2</label><input type="text" id="in-car-img2" value="DET.jpg"></div><div class="form-group"><label>Texto 2</label><input type="text" id="in-car-txt2" value="Mate"></div>
-                        <div class="form-group"><label>Img 3</label><input type="text" id="in-car-img3" value="FOND.jpeg"></div><div class="form-group"><label>Texto 3</label><input type="text" id="in-car-txt3" value="Optimización"></div>
-                        <div class="form-group"><label>Img 4</label><input type="text" id="in-car-img4" value="VISTA.jpg"></div><div class="form-group"><label>Texto 4</label><input type="text" id="in-car-txt4" value="Minimalismo"></div>
-                        <div class="form-group"><label>Img 5</label><input type="text" id="in-car-img5" value="DET.jpg"></div><div class="form-group"><label>Texto 5</label><input type="text" id="in-car-txt5" value="Premium"></div>
+                        <div class="form-group"><label>Img 1 (Archivo)</label><input type="text" id="in-car-img1" value="VISTA.jpg"></div>
+                        <div class="form-group"><label>Texto 1</label><input type="text" id="in-car-txt1" value="Texturas Cálidas"></div>
+                        <div class="form-group"><label>Img 2 (Archivo)</label><input type="text" id="in-car-img2" value="DET.jpg"></div>
+                        <div class="form-group"><label>Texto 2</label><input type="text" id="in-car-txt2" value="Acabados Mate"></div>
+                        <div class="form-group"><label>Img 3 (Archivo)</label><input type="text" id="in-car-img3" value="FOND.jpeg"></div>
+                        <div class="form-group"><label>Texto 3</label><input type="text" id="in-car-txt3" value="Optimización"></div>
+                        <div class="form-group"><label>Img 4 (Archivo)</label><input type="text" id="in-car-img4" value="VISTA.jpg"></div>
+                        <div class="form-group"><label>Texto 4</label><input type="text" id="in-car-txt4" value="Minimalismo"></div>
+                        <div class="form-group"><label>Img 5 (Archivo)</label><input type="text" id="in-car-img5" value="DET.jpg"></div>
+                        <div class="form-group"><label>Texto 5</label><input type="text" id="in-car-txt5" value="Diseño Premium"></div>
                     </div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
-            <!-- NUEVA PESTAÑA CATÁLOGO DE MATERIALES -->
+            <!-- CATÁLOGO ACABADOS -->
             <div id="catalogo" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">🪵 Melaminas (Agrega hasta 4)</h3>
-                    <p style="font-size: 0.85rem; color:#777; margin-bottom: 15px;">Deja la URL de imagen en blanco si no quieres que se muestre esa tarjeta.</p>
-                    <div id="admin-melaminas">
-                        <!-- Generado por JS -->
-                    </div>
+                    <div id="admin-melaminas"></div>
                 </div>
                 <div class="editor-section">
                     <h3 class="section-title">🪨 Cubiertas y Cuarzos (Agrega hasta 4)</h3>
-                    <div id="admin-cubiertas">
-                        <!-- Generado por JS -->
-                    </div>
+                    <div id="admin-cubiertas"></div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
-            <!-- SERVICIOS, TESTIMONIOS, PROYECTOS -->
             <div id="servicios" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Servicios</h3>
+                    <h3 class="section-title">Tarjetas de Servicios</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Icono 1</label><input type="text" id="in-srv-ico1" value="🍳"></div><div class="form-group"><label>Título 1</label><input type="text" id="in-srv-tit1" value="Cocinas"></div><div class="form-group full"><textarea id="in-srv-desc1">Desc...</textarea></div>
-                        <div class="form-group"><label>Icono 2</label><input type="text" id="in-srv-ico2" value="👗"></div><div class="form-group"><label>Título 2</label><input type="text" id="in-srv-tit2" value="Closets"></div><div class="form-group full"><textarea id="in-srv-desc2">Desc...</textarea></div>
-                        <div class="form-group"><label>Icono 3</label><input type="text" id="in-srv-ico3" value="💻"></div><div class="form-group"><label>Título 3</label><input type="text" id="in-srv-tit3" value="Oficina"></div><div class="form-group full"><textarea id="in-srv-desc3">Desc...</textarea></div>
+                        <div class="form-group"><label>Icono 1 (Emoji)</label><input type="text" id="in-srv-ico1" value="🍳"></div>
+                        <div class="form-group"><label>Título 1</label><input type="text" id="in-srv-tit1" value="Cocinas Integrales"></div>
+                        <div class="form-group full"><label>Descripción 1</label><textarea id="in-srv-desc1">Diseños ergonómicos, cubiertas de cuarzo, granito y acabados en melamina de alto brillo o mate.</textarea></div>
+                        <div class="form-group"><label>Icono 2 (Emoji)</label><input type="text" id="in-srv-ico2" value="👗"></div>
+                        <div class="form-group"><label>Título 2</label><input type="text" id="in-srv-tit2" value="Closets y Vestidores"></div>
+                        <div class="form-group full"><label>Descripción 2</label><textarea id="in-srv-desc2">Optimización total del espacio con sistemas de cierre suave y distribución inteligente.</textarea></div>
+                        <div class="form-group"><label>Icono 3 (Emoji)</label><input type="text" id="in-srv-ico3" value="💻"></div>
+                        <div class="form-group"><label>Título 3</label><input type="text" id="in-srv-tit3" value="Mobiliario de Oficina"></div>
+                        <div class="form-group full"><label>Descripción 3</label><textarea id="in-srv-desc3">Escritorios y libreros minimalistas diseñados para aumentar tu productividad y confort.</textarea></div>
                     </div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
@@ -244,23 +269,41 @@
             
             <div id="testimonios" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Reseñas y FAQ</h3>
+                    <h3 class="section-title">Reseñas de Clientes</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Nombre 1</label><input type="text" id="in-test-name1" value="- Laura M."></div><div class="form-group"><label>Opinión 1</label><input type="text" id="in-test-txt1" value="Me encantó..."></div>
-                        <div class="form-group"><label>Nombre 2</label><input type="text" id="in-test-name2" value="- Roberto C."></div><div class="form-group"><label>Opinión 2</label><input type="text" id="in-test-txt2" value="Excelente..."></div>
-                        <div class="form-group full"><label>Pregunta 1</label><input type="text" id="in-faq-q1" value="¿Garantía?"></div><div class="form-group full"><textarea id="in-faq-a1">Sí...</textarea></div>
+                        <div class="form-group"><label>Cliente 1</label><input type="text" id="in-test-name1" value="- Laura M."></div>
+                        <div class="form-group"><label>Comentario 1</label><input type="text" id="in-test-txt1" value="Me encantó el vestidor que hicieron. Excelente calidad de melamina y entregaron justo en la fecha acordada."></div>
+                        <div class="form-group"><label>Cliente 2</label><input type="text" id="in-test-name2" value="- Roberto C."></div>
+                        <div class="form-group"><label>Comentario 2</label><input type="text" id="in-test-txt2" value="La cocina quedó espectacular. El diseño 3D previo me ayudó mucho a visualizarlo. Súper recomendados."></div>
+                        <div class="form-group"><label>Cliente 3</label><input type="text" id="in-test-name3" value="- Familia Sánchez"></div>
+                        <div class="form-group"><label>Comentario 3</label><input type="text" id="in-test-txt3" value="Muy profesionales desde la cotización hasta la instalación limpia y sin dejar escombros. Excelente trabajo."></div>
                     </div>
+                </div>
+                <div class="editor-section">
+                    <h3 class="section-title">Preguntas Frecuentes</h3>
+                    <div class="form-group full"><label>Pregunta 1</label><input type="text" id="in-faq-q1" value="¿Cuánto tiempo tardan en entregar un proyecto?"></div>
+                    <div class="form-group full"><label>Respuesta 1</label><textarea id="in-faq-a1">Dependiendo del tamaño del proyecto, el tiempo de fabricación e instalación varía entre 2 y 4 semanas tras aprobar el diseño.</textarea></div>
+                    <div class="form-group full"><label>Pregunta 2</label><input type="text" id="in-faq-q2" value="¿Ofrecen garantía?"></div>
+                    <div class="form-group full"><label>Respuesta 2</label><textarea id="in-faq-a2">Sí, todos nuestros muebles cuentan con garantía contra defectos de fabricación e instalación.</textarea></div>
+                    <div class="form-group full"><label>Pregunta 3</label><input type="text" id="in-faq-q3" value="¿El presupuesto incluye instalación?"></div>
+                    <div class="form-group full"><label>Respuesta 3</label><textarea id="in-faq-a3">Totalmente. Nuestras cotizaciones son integrales: diseño, fabricación, flete e instalación en tu domicilio.</textarea></div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
             <div id="proyectos" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Galería Externa</h3>
-                    <div class="form-group full"><label>Enlace Google Photos</label><input type="text" id="in-gal-link" value="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA"></div>
-                    <div class="form-group full"><label>Imagen 1</label><input type="text" id="in-gal-img1" value="VISTA.jpg"></div>
-                    <div class="form-group full"><label>Imagen 2</label><input type="text" id="in-gal-img2" value="DET.jpg"></div>
-                    <div class="form-group full"><label>Imagen 3</label><input type="text" id="in-gal-img3" value="FOND.jpeg"></div>
+                    <h3 class="section-title">Galería Externa de Trabajos</h3>
+                    <div class="form-group full">
+                        <label>Enlace de Google Photos (Álbum Completo)</label>
+                        <input type="text" id="in-gal-link" value="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA">
+                    </div>
+                </div>
+                <div class="editor-section">
+                    <h3 class="section-title">3 Imágenes Destacadas en la Web</h3>
+                    <div class="form-group full"><label>Imagen 1 (Ruta o URL)</label><input type="text" id="in-gal-img1" value="VISTA.jpg"></div>
+                    <div class="form-group full"><label>Imagen 2 (Ruta o URL)</label><input type="text" id="in-gal-img2" value="DET.jpg"></div>
+                    <div class="form-group full"><label>Imagen 3 (Ruta o URL)</label><input type="text" id="in-gal-img3" value="FOND.jpeg"></div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
@@ -268,11 +311,10 @@
     </div>
 
     <script>
-        // GENERAR CAMPOS DE CATÁLOGO DINÁMICAMENTE PARA NO ALARGAR HTML
         const catMelaminas = document.getElementById('admin-melaminas');
         const catCubiertas = document.getElementById('admin-cubiertas');
         for(let i=1; i<=4; i++) {
-            catMelaminas.innerHTML += `<div class="cat-item-admin"><h4>Melamina ${i}</h4><div class="form-grid"><div class="form-group"><label>URL Imagen</label><input type="text" id="in-mel-img${i}"></div><div class="form-group"><label>Nombre</label><input type="text" id="in-mel-tit${i}"></div><div class="form-group full"><label>Descripción (Ej: Mate / Veta)</label><input type="text" id="in-mel-desc${i}"></div></div></div>`;
+            catMelaminas.innerHTML += `<div class="cat-item-admin"><h4>Melamina ${i}</h4><div class="form-grid"><div class="form-group"><label>URL Imagen</label><input type="text" id="in-mel-img${i}"></div><div class="form-group"><label>Nombre</label><input type="text" id="in-mel-tit${i}"></div><div class="form-group full"><label>Descripción</label><input type="text" id="in-mel-desc${i}"></div></div></div>`;
             catCubiertas.innerHTML += `<div class="cat-item-admin"><h4>Cubierta ${i}</h4><div class="form-grid"><div class="form-group"><label>URL Imagen</label><input type="text" id="in-cub-img${i}"></div><div class="form-group"><label>Nombre</label><input type="text" id="in-cub-tit${i}"></div><div class="form-group full"><label>Descripción</label><input type="text" id="in-cub-desc${i}"></div></div></div>`;
         }
 
@@ -281,12 +323,16 @@
                 document.getElementById("login-overlay").style.display = "none";
                 document.getElementById("admin-wrapper").style.display = "flex";
                 cargarDatos();
-            } else { document.getElementById("login-error").style.display = "block"; }
+            } else { 
+                document.getElementById("login-error").style.display = "block"; 
+            }
         }
 
         function toggleSidebar() {
-            document.getElementById("sidebar").classList.toggle('open');
-            document.getElementById("sidebar-overlay").classList.toggle('active');
+            const sidebar = document.getElementById("sidebar");
+            const overlay = document.getElementById("sidebar-overlay");
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
         }
 
         function switchTab(tabId, element) {
@@ -294,44 +340,58 @@
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             element.classList.add('active'); 
             document.getElementById(tabId).classList.add('active');
-            const titles = { 'dashboard':'Analytics Real', 'ajustes':'Generales', 'portada':'Portada', 'nosotros':'Nosotros', 'carrusel':'Carrusel', 'catalogo':'Catálogo Acabados', 'servicios':'Servicios', 'testimonios':'Reseñas', 'proyectos':'Proyectos' };
+            
+            const titles = { 
+                'dashboard':'Analytics Real', 'ajustes':'Generales & Redes', 'portada':'Edición de Portada', 
+                'nosotros':'Sección Nosotros', 'carrusel':'Editor de Carrusel', 'catalogo':'Catálogo Acabados', 
+                'servicios':'Edición de Servicios', 'testimonios': 'Reseñas y FAQ', 'proyectos':'Galería de Proyectos' 
+            };
             document.getElementById('page-title').innerText = titles[tabId];
             if(window.innerWidth <= 900) { toggleSidebar(); }
         }
 
         function cargarDatos() {
             const data = JSON.parse(localStorage.getItem("tm_website_data"));
-            if (!data) return;
-
-            // Cargar Catálogos
-            for(let i=1; i<=4; i++) {
-                if(data[`melImg${i}`]) document.getElementById(`in-mel-img${i}`).value = data[`melImg${i}`];
-                if(data[`melTit${i}`]) document.getElementById(`in-mel-tit${i}`).value = data[`melTit${i}`];
-                if(data[`melDesc${i}`]) document.getElementById(`in-mel-desc${i}`).value = data[`melDesc${i}`];
-                if(data[`cubImg${i}`]) document.getElementById(`in-cub-img${i}`).value = data[`cubImg${i}`];
-                if(data[`cubTit${i}`]) document.getElementById(`in-cub-tit${i}`).value = data[`cubTit${i}`];
-                if(data[`cubDesc${i}`]) document.getElementById(`in-cub-desc${i}`).value = data[`cubDesc${i}`];
-            }
-
-            // Cargar Resto
-            const map = {
-                'in-top-loc':'topLoc', 'in-top-email':'topEmail', 'in-top-phone':'topPhone', 'in-wa-link':'waLink', 'in-soc-fb':'socFb', 'in-soc-ig':'socIg', 
-                'in-hero-img':'heroImg', 'in-hero-title':'heroTitle', 'in-hero-desc':'heroDesc',
-                'in-about-title':'aboutTitle', 'in-about-desc':'aboutDesc', 'in-about-b1':'aboutB1', 'in-about-b2':'aboutB2', 'in-about-b3':'aboutB3', 'in-about-b4':'aboutB4',
-                'in-car-img1':'carImg1', 'in-car-txt1':'carTxt1', 'in-car-img2':'carImg2', 'in-car-txt2':'carTxt2', 'in-car-img3':'carImg3', 'in-car-txt3':'carTxt3', 'in-car-img4':'carImg4', 'in-car-txt4':'carTxt4', 'in-car-img5':'carImg5', 'in-car-txt5':'carTxt5',
-                'in-srv-ico1':'srvIco1', 'in-srv-tit1':'srvTit1', 'in-srv-desc1':'srvDesc1', 'in-srv-ico2':'srvIco2', 'in-srv-tit2':'srvTit2', 'in-srv-desc2':'srvDesc2', 'in-srv-ico3':'srvIco3', 'in-srv-tit3':'srvTit3', 'in-srv-desc3':'srvDesc3',
-                'in-gal-img1':'galImg1', 'in-gal-img2':'galImg2', 'in-gal-img3':'galImg3', 'in-gal-link':'galLink',
-                'in-test-name1':'testName1', 'in-test-txt1':'testTxt1', 'in-test-name2':'testName2', 'in-test-txt2':'testTxt2', 'in-faq-q1':'faqQ1', 'in-faq-a1':'faqA1',
-                'in-cta-title':'ctaTitle', 'in-cta-desc':'ctaDesc', 'in-foot-desc':'footDesc'
-            };
-            for (const [id, key] of Object.entries(map)) {
-                if (data[key] && document.getElementById(id)) document.getElementById(id).value = data[key];
+            if (data) {
+                const map = {
+                    'in-top-loc':'topLoc', 'in-top-email':'topEmail', 'in-top-phone':'topPhone',
+                    'in-wa-link':'waLink', 'in-soc-fb':'socFb', 'in-soc-ig':'socIg', 'in-soc-tk':'socTk',
+                    'in-hero-img':'heroImg', 'in-hero-title':'heroTitle', 'in-hero-desc':'heroDesc',
+                    'in-about-title':'aboutTitle', 'in-about-desc':'aboutDesc', 'in-about-b1':'aboutB1', 'in-about-b2':'aboutB2', 'in-about-b3':'aboutB3', 'in-about-b4':'aboutB4',
+                    'in-car-img1':'carImg1', 'in-car-txt1':'carTxt1', 'in-car-img2':'carImg2', 'in-car-txt2':'carTxt2', 'in-car-img3':'carImg3', 'in-car-txt3':'carTxt3', 'in-car-img4':'carImg4', 'in-car-txt4':'carTxt4', 'in-car-img5':'carImg5', 'in-car-txt5':'carTxt5',
+                    'in-srv-ico1':'srvIco1', 'in-srv-tit1':'srvTit1', 'in-srv-desc1':'srvDesc1', 'in-srv-ico2':'srvIco2', 'in-srv-tit2':'srvTit2', 'in-srv-desc2':'srvDesc2', 'in-srv-ico3':'srvIco3', 'in-srv-tit3':'srvTit3', 'in-srv-desc3':'srvDesc3',
+                    'in-gal-img1':'galImg1', 'in-gal-img2':'galImg2', 'in-gal-img3':'galImg3', 'in-gal-link':'galLink',
+                    'in-test-name1':'testName1', 'in-test-txt1':'testTxt1', 'in-test-name2':'testName2', 'in-test-txt2':'testTxt2', 'in-test-name3':'testName3', 'in-test-txt3':'testTxt3',
+                    'in-faq-q1':'faqQ1', 'in-faq-a1':'faqA1', 'in-faq-q2':'faqQ2', 'in-faq-a2':'faqA2', 'in-faq-q3':'faqQ3', 'in-faq-a3':'faqA3',
+                    'in-cta-title':'ctaTitle', 'in-cta-desc':'ctaDesc', 'in-foot-desc':'footDesc', 'in-foot-loc':'footLoc', 'in-foot-email':'footEmail', 'in-foot-phone':'footPhone'
+                };
+                for (const [id, key] of Object.entries(map)) {
+                    if (data[key] && document.getElementById(id)) document.getElementById(id).value = data[key];
+                }
+                for(let i=1; i<=4; i++) {
+                    if(data[`melImg${i}`]) document.getElementById(`in-mel-img${i}`).value = data[`melImg${i}`];
+                    if(data[`melTit${i}`]) document.getElementById(`in-mel-tit${i}`).value = data[`melTit${i}`];
+                    if(data[`melDesc${i}`]) document.getElementById(`in-mel-desc${i}`).value = data[`melDesc${i}`];
+                    if(data[`cubImg${i}`]) document.getElementById(`in-cub-img${i}`).value = data[`cubImg${i}`];
+                    if(data[`cubTit${i}`]) document.getElementById(`in-cub-tit${i}`).value = data[`cubTit${i}`];
+                    if(data[`cubDesc${i}`]) document.getElementById(`in-cub-desc${i}`).value = data[`cubDesc${i}`];
+                }
             }
         }
 
         function guardarTodo() {
-            const data = {};
-            // Guardar Catálogos
+            const data = {
+                topLoc: document.getElementById('in-top-loc').value, topEmail: document.getElementById('in-top-email').value, topPhone: document.getElementById('in-top-phone').value,
+                waLink: document.getElementById('in-wa-link').value, socFb: document.getElementById('in-soc-fb').value, socIg: document.getElementById('in-soc-ig').value, socTk: document.getElementById('in-soc-tk').value,
+                heroImg: document.getElementById('in-hero-img').value, heroTitle: document.getElementById('in-hero-title').value, heroDesc: document.getElementById('in-hero-desc').value,
+                aboutTitle: document.getElementById('in-about-title').value, aboutDesc: document.getElementById('in-about-desc').value, aboutB1: document.getElementById('in-about-b1').value, aboutB2: document.getElementById('in-about-b2').value, aboutB3: document.getElementById('in-about-b3').value, aboutB4: document.getElementById('in-about-b4').value,
+                carImg1: document.getElementById('in-car-img1').value, carTxt1: document.getElementById('in-car-txt1').value, carImg2: document.getElementById('in-car-img2').value, carTxt2: document.getElementById('in-car-txt2').value, carImg3: document.getElementById('in-car-img3').value, carTxt3: document.getElementById('in-car-txt3').value, carImg4: document.getElementById('in-car-img4').value, carTxt4: document.getElementById('in-car-txt4').value, carImg5: document.getElementById('in-car-img5').value, carTxt5: document.getElementById('in-car-txt5').value,
+                srvIco1: document.getElementById('in-srv-ico1').value, srvTit1: document.getElementById('in-srv-tit1').value, srvDesc1: document.getElementById('in-srv-desc1').value, srvIco2: document.getElementById('in-srv-ico2').value, srvTit2: document.getElementById('in-srv-tit2').value, srvDesc2: document.getElementById('in-srv-desc2').value, srvIco3: document.getElementById('in-srv-ico3').value, srvTit3: document.getElementById('in-srv-tit3').value, srvDesc3: document.getElementById('in-srv-desc3').value,
+                galImg1: document.getElementById('in-gal-img1').value, galImg2: document.getElementById('in-gal-img2').value, galImg3: document.getElementById('in-gal-img3').value, galLink: document.getElementById('in-gal-link').value,
+                testName1: document.getElementById('in-test-name1').value, testTxt1: document.getElementById('in-test-txt1').value, testName2: document.getElementById('in-test-name2').value, testTxt2: document.getElementById('in-test-txt2').value, testName3: document.getElementById('in-test-name3').value, testTxt3: document.getElementById('in-test-txt3').value,
+                faqQ1: document.getElementById('in-faq-q1').value, faqA1: document.getElementById('in-faq-a1').value, faqQ2: document.getElementById('in-faq-q2').value, faqA2: document.getElementById('in-faq-a2').value, faqQ3: document.getElementById('in-faq-q3').value, faqA3: document.getElementById('in-faq-a3').value,
+                ctaTitle: document.getElementById('in-cta-title').value, ctaDesc: document.getElementById('in-cta-desc').value, footDesc: document.getElementById('in-foot-desc').value, footLoc: document.getElementById('in-foot-loc').value, footEmail: document.getElementById('in-foot-email').value, footPhone: document.getElementById('in-foot-phone').value
+            };
             for(let i=1; i<=4; i++) {
                 data[`melImg${i}`] = document.getElementById(`in-mel-img${i}`).value;
                 data[`melTit${i}`] = document.getElementById(`in-mel-tit${i}`).value;
@@ -340,22 +400,6 @@
                 data[`cubTit${i}`] = document.getElementById(`in-cub-tit${i}`).value;
                 data[`cubDesc${i}`] = document.getElementById(`in-cub-desc${i}`).value;
             }
-            
-            // Guardar Resto
-            const map = {
-                'in-top-loc':'topLoc', 'in-top-email':'topEmail', 'in-top-phone':'topPhone', 'in-wa-link':'waLink', 'in-soc-fb':'socFb', 'in-soc-ig':'socIg', 
-                'in-hero-img':'heroImg', 'in-hero-title':'heroTitle', 'in-hero-desc':'heroDesc',
-                'in-about-title':'aboutTitle', 'in-about-desc':'aboutDesc', 'in-about-b1':'aboutB1', 'in-about-b2':'aboutB2', 'in-about-b3':'aboutB3', 'in-about-b4':'aboutB4',
-                'in-car-img1':'carImg1', 'in-car-txt1':'carTxt1', 'in-car-img2':'carImg2', 'in-car-txt2':'carTxt2', 'in-car-img3':'carImg3', 'in-car-txt3':'carTxt3', 'in-car-img4':'carImg4', 'in-car-txt4':'carTxt4', 'in-car-img5':'carImg5', 'in-car-txt5':'carTxt5',
-                'in-srv-ico1':'srvIco1', 'in-srv-tit1':'srvTit1', 'in-srv-desc1':'srvDesc1', 'in-srv-ico2':'srvIco2', 'in-srv-tit2':'srvTit2', 'in-srv-desc2':'srvDesc2', 'in-srv-ico3':'srvIco3', 'in-srv-tit3':'srvTit3', 'in-srv-desc3':'srvDesc3',
-                'in-gal-img1':'galImg1', 'in-gal-img2':'galImg2', 'in-gal-img3':'galImg3', 'in-gal-link':'galLink',
-                'in-test-name1':'testName1', 'in-test-txt1':'testTxt1', 'in-test-name2':'testName2', 'in-test-txt2':'testTxt2', 'in-faq-q1':'faqQ1', 'in-faq-a1':'faqA1',
-                'in-cta-title':'ctaTitle', 'in-cta-desc':'ctaDesc', 'in-foot-desc':'footDesc'
-            };
-            for (const [id, key] of Object.entries(map)) {
-                if(document.getElementById(id)) data[key] = document.getElementById(id).value;
-            }
-
             localStorage.setItem("tm_website_data", JSON.stringify(data));
             const alertBox = document.getElementById("success-alert");
             alertBox.style.display = "block"; setTimeout(() => { alertBox.style.display = "none"; }, 3500);
