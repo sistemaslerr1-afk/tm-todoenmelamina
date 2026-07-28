@@ -142,20 +142,37 @@
         </div>
     </footer>
 
-    <!-- MODAL CATÁLOGO VISUAL FLOTANTE (ESTRICTAMENTE OCULTO HASTA DAR CLIC) -->
+    <!-- MODAL CATÁLOGO VISUAL FLOTANTE CON LAS 3 SECCIONES -->
     <div id="super-catalogo-modal" class="super-modal" style="display: none; opacity: 0;">
         <button class="close-super-modal" onclick="cerrarSuperCatalogo()">✖</button>
         <div class="super-modal-content">
             <h2 class="super-title">Colección de Acabados</h2>
-            <p class="super-subtitle">Nuestras maderas y piedras más espectaculares.</p>
+            <p class="super-subtitle">Selecciona una categoría para explorar la calidad de nuestros materiales.</p>
             
             <div class="super-tabs">
                 <button class="s-tab active" onclick="filtrarCatalogo('mela', this)">🪵 Melaminas / MDF</button>
                 <button class="s-tab" onclick="filtrarCatalogo('cubi', this)">🪨 Cubiertas / Cuarzos</button>
+                <button class="s-tab" onclick="filtrarCatalogo('herr', this)">⚙️ Herrajes / Accesorios</button>
             </div>
 
-            <div id="showcase-melaminas" class="super-showcase active"></div>
-            <div id="showcase-cubiertas" class="super-showcase"></div>
+            <!-- CONTENEDOR MELAMINAS -->
+            <div id="sec-mela" class="super-section active">
+                <div id="info-mela" class="showcase-global-info"></div>
+                <div id="showcase-melaminas" class="super-showcase"></div>
+            </div>
+
+            <!-- CONTENEDOR CUBIERTAS -->
+            <div id="sec-cubi" class="super-section">
+                <div id="info-cubi" class="showcase-global-info"></div>
+                <div id="showcase-cubiertas" class="super-showcase"></div>
+            </div>
+
+            <!-- CONTENEDOR HERRAJES -->
+            <div id="sec-herr" class="super-section">
+                <div id="info-herr" class="showcase-global-info"></div>
+                <div id="showcase-herrajes" class="super-showcase"></div>
+            </div>
+
         </div>
     </div>
 
@@ -186,23 +203,33 @@
         function filtrarCatalogo(tipo, btn) {
             document.querySelectorAll('.s-tab').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            if(tipo === 'mela') {
-                document.getElementById('showcase-melaminas').classList.add('active');
-                document.getElementById('showcase-cubiertas').classList.remove('active');
-            } else {
-                document.getElementById('showcase-melaminas').classList.remove('active');
-                document.getElementById('showcase-cubiertas').classList.add('active');
-            }
+            
+            document.querySelectorAll('.super-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(`sec-${tipo}`).classList.add('active');
         }
 
         document.addEventListener("DOMContentLoaded", function() {
             try {
                 const data = JSON.parse(localStorage.getItem("tm_website_data"));
                 
-                // DIBUJAR CATÁLOGO DE ARREGLOS INFINITOS
+                // DIBUJAR CATÁLOGO COMPLETO
                 if (data) {
-                    let htmlMela = '';
-                    let htmlCubi = '';
+                    
+                    // Insertar Textos Globales
+                    if(data.melaInfo && data.melaInfo.trim() !== '') {
+                        document.getElementById('info-mela').innerHTML = `<p>${data.melaInfo}</p>`;
+                    } else { document.getElementById('info-mela').style.display = 'none'; }
+                    
+                    if(data.cubiInfo && data.cubiInfo.trim() !== '') {
+                        document.getElementById('info-cubi').innerHTML = `<p>${data.cubiInfo}</p>`;
+                    } else { document.getElementById('info-cubi').style.display = 'none'; }
+                    
+                    if(data.herrInfo && data.herrInfo.trim() !== '') {
+                        document.getElementById('info-herr').innerHTML = `<p>${data.herrInfo}</p>`;
+                    } else { document.getElementById('info-herr').style.display = 'none'; }
+
+                    // Dibujar Tarjetas
+                    let htmlMela = '', htmlCubi = '', htmlHerr = '';
 
                     if(data.catMelaminas && data.catMelaminas.length > 0) {
                         data.catMelaminas.forEach(item => {
@@ -234,11 +261,28 @@
                         });
                     }
 
+                    if(data.catHerrajes && data.catHerrajes.length > 0) {
+                        data.catHerrajes.forEach(item => {
+                            if(item.img && item.img.trim() !== '') {
+                                htmlHerr += `
+                                <div class="magic-card">
+                                    <img src="${item.img}" alt="Herraje">
+                                    <div class="magic-info">
+                                        <h3>${item.tit || 'Accesorio Premium'}</h3>
+                                        <p>${item.desc || ''}</p>
+                                    </div>
+                                </div>`;
+                            }
+                        });
+                    }
+
                     const contMela = document.getElementById('showcase-melaminas');
                     const contCubi = document.getElementById('showcase-cubiertas');
+                    const contHerr = document.getElementById('showcase-herrajes');
                     
                     if(contMela) contMela.innerHTML = htmlMela || '<p style="color:#aaa; width:100%; text-align:center;">Agrega imágenes desde tu panel de administrador.</p>';
                     if(contCubi) contCubi.innerHTML = htmlCubi || '<p style="color:#aaa; width:100%; text-align:center;">Agrega imágenes desde tu panel de administrador.</p>';
+                    if(contHerr) contHerr.innerHTML = htmlHerr || '<p style="color:#aaa; width:100%; text-align:center;">Agrega imágenes desde tu panel de administrador.</p>';
                 }
 
                 // RECUPERAR EL RESTO DE TU PÁGINA INTACTA
