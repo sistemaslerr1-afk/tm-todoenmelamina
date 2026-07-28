@@ -54,7 +54,7 @@
         <nav class="nav">
             <a href="#inicio">Inicio</a>
             <a href="#servicios">Servicios</a>
-            <a href="javascript:void(0)" onclick="abrirCatalogoModal()" style="color: var(--accent-wood); font-weight: 600;">🎨 Catálogo</a>
+            <a href="#materiales" style="color: var(--accent-wood); font-weight: 600;">🎨 Catálogo</a>
             <a href="#carrusel">Inspiración</a>
             <a href="#galeria">Proyectos</a>
             <a id="view-nav-wa" href="https://wa.me/524423979275" target="_blank" class="btn-contacto-destacado">Cotizar ahora</a>
@@ -75,7 +75,7 @@
             <h1 class="title-main" id="view-hero-title">Transformamos tu espacio en una obra de arte.</h1>
             <p class="description" id="view-hero-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</p>
             <div class="hero-buttons">
-                <a href="javascript:void(0)" onclick="abrirCatalogoModal()" class="cta-button">🎨 Ver Catálogo</a>
+                <a href="#materiales" class="cta-button">🎨 Ver Catálogo</a>
                 <a id="view-hero-link" href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button-outline">📸 Ver Álbum de Fotos</a>
             </div>
         </div>
@@ -139,6 +139,82 @@
                 <h3 id="view-srv-tit3">Mobiliario de Oficina</h3>
                 <p id="view-srv-desc3">Escritorios y libreros minimalistas diseñados para aumentar tu productividad y confort.</p>
             </div>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO NATIVO DE MATERIALES -->
+    <section id="materiales" class="materials-section scroll-anim">
+        <div class="section-header">
+            <h2>Acabados y Materiales</h2>
+            <p>Nuestra selección de las texturas más elegantes y solicitadas para tus proyectos.</p>
+        </div>
+        
+        <div class="materials-tabs">
+            <button class="mat-tab active" onclick="mostrarMateriales('melaminas', this)">🪵 Melaminas y MDF</button>
+            <button class="mat-tab" onclick="mostrarMateriales('cubiertas', this)">🪨 Cubiertas de Cuarzo y Granito</button>
+        </div>
+
+        <!-- REJILLA DE MELAMINAS -->
+        <div id="grid-melaminas" class="materials-grid active">
+            <div class="mat-card">
+                <img src="https://images.unsplash.com/photo-1546484396-fb3fc6f95f98?auto=format&fit=crop&w=400&q=80" alt="Nogal Clásico">
+                <div class="mat-info">
+                    <h4>Nogal Clásico</h4>
+                    <p>Veta Natural / Mate</p>
+                </div>
+            </div>
+            <div class="mat-card">
+                <img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?auto=format&fit=crop&w=400&q=80" alt="Encino Polar">
+                <div class="mat-info">
+                    <h4>Encino Polar</h4>
+                    <p>Texturizado / Claro</p>
+                </div>
+            </div>
+            <div class="mat-card">
+                <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&w=400&q=80" alt="Gris Oxford">
+                <div class="mat-info">
+                    <h4>Gris Oxford</h4>
+                    <p>Liso / Super Mate</p>
+                </div>
+            </div>
+            <div class="mat-card">
+                <img src="https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?auto=format&fit=crop&w=400&q=80" alt="Roble Tabaco">
+                <div class="mat-info">
+                    <h4>Roble Tabaco</h4>
+                    <p>Sincronizado / Oscuro</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- REJILLA DE CUBIERTAS (Oculta por defecto) -->
+        <div id="grid-cubiertas" class="materials-grid" style="display:none;">
+            <div class="mat-card">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80" alt="Cuarzo Blanco">
+                <div class="mat-info">
+                    <h4>Cuarzo Blanco Puro</h4>
+                    <p>Superficie Sólida</p>
+                </div>
+            </div>
+            <div class="mat-card">
+                <img src="https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=400&q=80" alt="Granito San Gabriel">
+                <div class="mat-info">
+                    <h4>Granito Negro San Gabriel</h4>
+                    <p>Piedra Natural / Pulido</p>
+                </div>
+            </div>
+            <div class="mat-card">
+                <img src="https://images.unsplash.com/photo-1585128719715-46776b56a0fb?auto=format&fit=crop&w=400&q=80" alt="Mármol Carrara">
+                <div class="mat-info">
+                    <h4>Mármol Carrara</h4>
+                    <p>Veta Gris / Brillante</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="https://wa.me/524423979275?text=Hola,%20me%20encantaron%20sus%20acabados.%20¿Podrían%20mostrarme%20el%20muestrario%20completo?" target="_blank" class="cta-button-photos">
+                ✨ Solicitar Catálogo Completo por WhatsApp
+            </a>
         </div>
     </section>
 
@@ -251,35 +327,6 @@
         <div class="footer-bottom"><p>&copy; 2026 Todo en Melamina. Todos los derechos reservados.</p></div>
     </footer>
 
-    <!-- VENTANA MODAL DEL CATÁLOGO DE MATERIALES -->
-    <div id="modal-catalogo" class="modal-catalogo-overlay">
-        <div class="modal-catalogo-content">
-            <div class="modal-header">
-                <h3>🎨 Muestrario Oficial de Materiales & Acabados</h3>
-                <button class="btn-cerrar-modal" onclick="cerrarCatalogoModal()">✖</button>
-            </div>
-            
-            <!-- PESTAÑAS DE PROVEEDORES -->
-            <div class="proveedores-tabs">
-                <button id="btn-tab-cubimax" class="tab-prov active" onclick="cargarCatalogo('cubimax')">🪵 Melaminas & MDF (Cubimax)</button>
-                <button id="btn-tab-triplay" class="tab-prov" onclick="cargarCatalogo('triplaymarket')">🍳 Cubiertas & Más (Triplaymarket)</button>
-                <a id="btn-external-link" href="https://cubimax.com.mx/" target="_blank" class="btn-external-cat">🔗 Ver a pantalla completa</a>
-            </div>
-
-            <!-- VISOR INTEGRADO -->
-            <div class="visor-container">
-                <iframe id="iframe-catalogo" src="https://cubimax.com.mx/" frameborder="0"></iframe>
-            </div>
-
-            <div class="modal-footer">
-                <span style="color: #475569; font-size: 0.9rem; font-weight: 500;">¿Ya elegiste tu tono o textura favorita?</span>
-                <a id="btn-cotizar-material" href="https://wa.me/524423979275?text=Hola!%20Estuve%20viendo%20el%20catálogo%20de%20materiales%20y%20me%20gustó%20un%20acabado." target="_blank" class="cta-button-wa">
-                    💬 Cotizar con este Material
-                </a>
-            </div>
-        </div>
-    </div>
-
     <script>
         // QUITAR PANTALLA DE CARGA CUANDO LISTO
         window.addEventListener('load', function() {
@@ -288,29 +335,17 @@
             setTimeout(() => preloader.style.display = 'none', 500);
         });
 
-        // FUNCIONES MODAL CATÁLOGO
-        function abrirCatalogoModal() {
-            document.getElementById('modal-catalogo').style.display = 'flex';
-        }
-        function cerrarCatalogoModal() {
-            document.getElementById('modal-catalogo').style.display = 'none';
-        }
-        function cargarCatalogo(prov) {
-            const iframe = document.getElementById('iframe-catalogo');
-            const extLink = document.getElementById('btn-external-link');
-            const btnCubimax = document.getElementById('btn-tab-cubimax');
-            const btnTriplay = document.getElementById('btn-tab-triplay');
-
-            if(prov === 'cubimax') {
-                iframe.src = "https://cubimax.com.mx/";
-                extLink.href = "https://cubimax.com.mx/";
-                btnCubimax.classList.add('active');
-                btnTriplay.classList.remove('active');
+        // FUNCIONES CATÁLOGO NATIVO
+        function mostrarMateriales(tipo, btn) {
+            document.querySelectorAll('.mat-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            if(tipo === 'melaminas') {
+                document.getElementById('grid-melaminas').style.display = 'grid';
+                document.getElementById('grid-cubiertas').style.display = 'none';
             } else {
-                iframe.src = "https://triplaymarket.com/";
-                extLink.href = "https://triplaymarket.com/";
-                btnTriplay.classList.add('active');
-                btnCubimax.classList.remove('active');
+                document.getElementById('grid-melaminas').style.display = 'none';
+                document.getElementById('grid-cubiertas').style.display = 'grid';
             }
         }
 
@@ -318,17 +353,14 @@
         document.addEventListener("DOMContentLoaded", function() {
             const data = JSON.parse(localStorage.getItem("tm_website_data"));
             if (data) {
-                // Info principal
                 if(data.topLoc) document.getElementById("view-top-loc").innerText = data.topLoc;
                 if(data.topEmail) document.getElementById("view-top-email").innerText = data.topEmail;
                 if(data.topPhone) document.getElementById("view-top-phone").innerText = data.topPhone;
                 
-                // Redes y Contacto Link
                 if(data.waLink) {
                     document.getElementById("view-float-wa").href = data.waLink;
                     document.getElementById("view-nav-wa").href = data.waLink;
                     document.getElementById("view-cta-wa").href = data.waLink;
-                    document.getElementById("btn-cotizar-material").href = data.waLink;
                 }
                 if(data.socFb) document.getElementById("view-soc-fb").href = data.socFb;
                 if(data.socIg) document.getElementById("view-soc-ig").href = data.socIg;
