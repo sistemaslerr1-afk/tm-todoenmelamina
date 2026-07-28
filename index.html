@@ -6,7 +6,7 @@
     <title>Todo en Melamina | Diseño y Fabricación en Querétaro</title>
     <meta name="description" content="Diseño y fabricación de mobiliario a medida en melamina y maderas finas.">
     
-    <!-- Google tag (gtag.js) - Google Analytics -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QFL8N8EDV2"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -15,7 +15,7 @@
 
       gtag('config', 'G-QFL8N8EDV2');
     </script>
-
+    
     <link rel="icon" type="image/png" href="LOGO1.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -27,7 +27,7 @@
         <div class="loader-logo">TODO EN MELAMINA</div>
         <div class="spinner"></div>
     </div>
-
+    
     <!-- BOTÓN FLOTANTE WHATSAPP -->
     <a id="view-float-wa" href="https://wa.me/524423979275?text=Hola,%20me%20gustaría%20cotizar%20un%20proyecto." target="_blank" class="whatsapp-float" title="Cotiza por WhatsApp">
         <svg viewBox="0 0 32 32" width="32" height="32" fill="white"><path d="M16 2a13 13 0 0 0-11 20l-2 6 6-2a13 13 0 1 0 7-24zm0 2a11 11 0 1 1-9 17l-4 1 1-4a11 11 0 0 1 12-14zm-4 5a1 1 0 0 0-1 1c0 1 1 3 3 5s4 4 5 4a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1l-2-1a1 1 0 0 0-1 0l-1 1a2 2 0 0 1-2-2l1-1a1 1 0 0 0 0-1l-1-2a1 1 0 0 0-1-1z"/></svg>
@@ -54,7 +54,6 @@
         <nav class="nav">
             <a href="#inicio">Inicio</a>
             <a href="#servicios">Servicios</a>
-            <a href="javascript:void(0)" onclick="abrirCatalogoModal()" class="btn-nav-catalogo">🎨 Catálogo de Colores</a>
             <a href="#carrusel">Inspiración</a>
             <a href="#galeria">Proyectos</a>
             <a id="view-nav-wa" href="https://wa.me/524423979275" target="_blank" class="btn-contacto-destacado">Cotizar ahora</a>
@@ -75,8 +74,8 @@
             <h1 class="title-main" id="view-hero-title">Transformamos tu espacio en una obra de arte.</h1>
             <p class="description" id="view-hero-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</p>
             <div class="hero-buttons">
-                <a href="javascript:void(0)" onclick="abrirCatalogoModal()" class="cta-button">🎨 Ver Catálogo de Colores</a>
-                <a id="view-hero-link" href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button-outline">📸 Ver Trabajos</a>
+                <a href="#contacto" class="cta-button">Agendar Asesoría</a>
+                <a id="view-hero-link" href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button-outline">📸 Ver Álbum de Fotos</a>
             </div>
         </div>
     </section>
@@ -251,30 +250,6 @@
         <div class="footer-bottom"><p>&copy; 2026 Todo en Melamina. Todos los derechos reservados.</p></div>
     </footer>
 
-    <!-- MODAL CATÁLOGO EN VIVO -->
-    <div id="modal-catalogo" class="modal-catalogo-overlay">
-        <div class="modal-catalogo-content">
-            <div class="modal-header">
-                <h3>🎨 Muestrario & Catálogo de Materiales (Querétaro)</h3>
-                <button class="btn-cerrar-modal" onclick="cerrarCatalogoModal()">✖</button>
-            </div>
-            <div class="proveedores-tabs">
-                <button id="btn-tab-cubimax" class="tab-prov active" onclick="cargarCatalogo('cubimax')">🪵 Cubimax (Melaminas / MDF)</button>
-                <button id="btn-tab-triplay" class="tab-prov" onclick="cargarCatalogo('triplaymarket')">🍳 Triplaymarket (Cubiertas / Maderas)</button>
-                <a id="btn-external-link" href="https://cubimax.com.mx/" target="_blank" class="btn-external-cat">🔗 Abrir en pestaña nueva</a>
-            </div>
-            <div class="visor-container">
-                <iframe id="iframe-catalogo" src="https://cubimax.com.mx/" frameborder="0"></iframe>
-            </div>
-            <div class="modal-footer">
-                <span>¿Elegiste algún tono o textura que te guste?</span>
-                <a id="btn-cotizar-material" href="https://wa.me/524423979275?text=Hola!%20Vi%20el%20catálogo%20de%20colores%20y%20me%20gustaría%20cotizar%20un%20proyecto." target="_blank" class="cta-button-wa">
-                    💬 Cotizar este tono por WhatsApp
-                </a>
-            </div>
-        </div>
-    </div>
-
     <script>
         // QUITAR PANTALLA DE CARGA CUANDO LISTO
         window.addEventListener('load', function() {
@@ -283,45 +258,20 @@
             setTimeout(() => preloader.style.display = 'none', 500);
         });
 
-        // FUNCIONES MODAL CATÁLOGO
-        function abrirCatalogoModal() {
-            document.getElementById('modal-catalogo').style.display = 'flex';
-        }
-        function cerrarCatalogoModal() {
-            document.getElementById('modal-catalogo').style.display = 'none';
-        }
-        function cargarCatalogo(prov) {
-            const iframe = document.getElementById('iframe-catalogo');
-            const extLink = document.getElementById('btn-external-link');
-            const btnCubimax = document.getElementById('btn-tab-cubimax');
-            const btnTriplay = document.getElementById('btn-tab-triplay');
-
-            if(prov === 'cubimax') {
-                iframe.src = "https://cubimax.com.mx/";
-                extLink.href = "https://cubimax.com.mx/";
-                btnCubimax.classList.add('active');
-                btnTriplay.classList.remove('active');
-            } else {
-                iframe.src = "https://triplaymarket.com/";
-                extLink.href = "https://triplaymarket.com/";
-                btnTriplay.classList.add('active');
-                btnCubimax.classList.remove('active');
-            }
-        }
-
         // RECUPERAR DATOS DEL ADMINISTRADOR
         document.addEventListener("DOMContentLoaded", function() {
             const data = JSON.parse(localStorage.getItem("tm_website_data"));
             if (data) {
+                // Info principal
                 if(data.topLoc) document.getElementById("view-top-loc").innerText = data.topLoc;
                 if(data.topEmail) document.getElementById("view-top-email").innerText = data.topEmail;
                 if(data.topPhone) document.getElementById("view-top-phone").innerText = data.topPhone;
                 
+                // Redes y Contacto Link
                 if(data.waLink) {
                     document.getElementById("view-float-wa").href = data.waLink;
                     document.getElementById("view-nav-wa").href = data.waLink;
                     document.getElementById("view-cta-wa").href = data.waLink;
-                    document.getElementById("btn-cotizar-material").href = data.waLink;
                 }
                 if(data.socFb) document.getElementById("view-soc-fb").href = data.socFb;
                 if(data.socIg) document.getElementById("view-soc-ig").href = data.socIg;
@@ -332,6 +282,7 @@
                 if(data.heroDesc) document.getElementById("view-hero-desc").innerText = data.heroDesc;
                 
                 if(data.galLink) {
+                    document.getElementById("view-hero-link").href = data.galLink;
                     document.getElementById("view-gal-link").href = data.galLink;
                 }
 
