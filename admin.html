@@ -50,9 +50,17 @@
         .metric-card .number { font-size: 1.6rem; font-weight: 700; color: var(--text-dark); margin-top: 5px; }
         .metric-card .badge { display: inline-block; font-size: 0.72rem; font-weight: 600; color: #28a745; background: #e6f4ea; padding: 3px 8px; border-radius: 20px; margin-top: 6px; }
 
+        /* Pestañas Principales */
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Sub-Pestañas para Catálogo */
+        .sub-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e1e5eb; padding-bottom: 10px; flex-wrap: wrap;}
+        .sub-tab-btn { background: none; border: none; padding: 8px 18px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: 0.3s; border-radius: 8px; }
+        .sub-tab-btn.active { color: #fff; background: var(--accent); }
+        .sub-tab-content { display: none; animation: fadeIn 0.3s ease; }
+        .sub-tab-content.active { display: block; }
 
         .editor-section { background: var(--admin-card); padding: 25px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); max-width: 1000px; margin-bottom: 25px; border: 1px solid rgba(0,0,0,0.02); }
         .section-title { border-bottom: 2px solid #f4f6f9; padding-bottom: 12px; margin-bottom: 20px; color: var(--accent); font-size: 1.1rem; font-weight: 600; }
@@ -115,7 +123,7 @@
                 <li class="tab-link" onclick="switchTab('carrusel', this)">🎡 Carrusel</li>
                 <li class="tab-link" onclick="switchTab('catalogo', this)">🎨 Catálogo Acabados</li>
                 <li class="tab-link" onclick="switchTab('servicios', this)">🛠️ Servicios</li>
-                <li class="tab-link" onclick="switchTab('testimonios', this)">💬 Reseñas & FAQ</li>
+                <li class="tab-link" onclick="switchTab('proceso', this)">📋 Proceso de Trabajo</li>
                 <li class="tab-link" onclick="switchTab('proyectos', this)">🖼️ Proyectos</li>
             </ul>
         </aside>
@@ -134,7 +142,7 @@
 
             <div id="success-alert">¡Cambios guardados con éxito!</div>
 
-            <!-- DASHBOARD, AJUSTES, PORTADA, NOSOTROS, CARRUSEL -->
+            <!-- DASHBOARD -->
             <div id="dashboard" class="tab-content active">
                 <div class="metrics-grid">
                     <div class="metric-card"><div class="title">Estado Tracker</div><div class="number" style="font-size:1.1rem; color:#28a745;">G-QFL8N8EDV2</div><span class="badge">Activo & Enlazado</span></div>
@@ -148,6 +156,7 @@
                 </div>
             </div>
 
+            <!-- AJUSTES GENERALES -->
             <div id="ajustes" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Barra Superior de Contacto</h3>
@@ -163,7 +172,6 @@
                     <div class="form-grid">
                         <div class="form-group"><label>Link Facebook</label><input type="text" id="in-soc-fb" value="#"></div>
                         <div class="form-group"><label>Link Instagram</label><input type="text" id="in-soc-ig" value="#"></div>
-                        <div class="form-group"><label>Link TikTok</label><input type="text" id="in-soc-tk" value="#"></div>
                     </div>
                 </div>
                 <div class="editor-section">
@@ -175,14 +183,11 @@
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
+            <!-- PORTADA, NOSOTROS, CARRUSEL -->
             <div id="portada" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Encabezado Principal</h3>
-                    <div class="form-group full">
-                        <label>Imagen de Fondo (URL o Subir)</label>
-                        <input type="text" id="in-hero-img" value="FOND.jpeg">
-                        <input type="file" accept="image/*" onchange="procesarImagen(event, 'in-hero-img')">
-                    </div>
+                    <div class="form-group full"><label>Imagen de Fondo</label><input type="text" id="in-hero-img" value="FOND.jpeg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-hero-img')"></div>
                     <div class="form-group full"><label>Título Principal</label><input type="text" id="in-hero-title" value="Transformamos tu espacio en una obra de arte."></div>
                     <div class="form-group full"><label>Descripción Secundaria</label><textarea id="in-hero-desc">Diseño y fabricación a medida.</textarea></div>
                 </div>
@@ -208,67 +213,96 @@
                 <div class="editor-section">
                     <h3 class="section-title">Carrusel 3D (5 Fotos)</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Img 1 (URL/Subir)</label><input type="text" id="in-car-img1" value="VISTA.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img1')"></div>
-                        <div class="form-group"><label>Texto 1</label><input type="text" id="in-car-txt1" value="Texturas Cálidas"></div>
-                        <div class="form-group"><label>Img 2 (URL/Subir)</label><input type="text" id="in-car-img2" value="DET.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img2')"></div>
-                        <div class="form-group"><label>Texto 2</label><input type="text" id="in-car-txt2" value="Acabados Mate"></div>
-                        <div class="form-group"><label>Img 3 (URL/Subir)</label><input type="text" id="in-car-img3" value="FOND.jpeg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img3')"></div>
-                        <div class="form-group"><label>Texto 3</label><input type="text" id="in-car-txt3" value="Optimización"></div>
-                        <div class="form-group"><label>Img 4 (URL/Subir)</label><input type="text" id="in-car-img4" value="VISTA.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img4')"></div>
-                        <div class="form-group"><label>Texto 4</label><input type="text" id="in-car-txt4" value="Minimalismo"></div>
-                        <div class="form-group"><label>Img 5 (URL/Subir)</label><input type="text" id="in-car-img5" value="DET.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img5')"></div>
-                        <div class="form-group"><label>Texto 5</label><input type="text" id="in-car-txt5" value="Diseño Premium"></div>
+                        <div class="form-group"><label>Img 1 (URL/Subir)</label><input type="text" id="in-car-img1" value="VISTA.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img1')"></div><div class="form-group"><label>Texto 1</label><input type="text" id="in-car-txt1" value="Texturas Cálidas"></div>
+                        <div class="form-group"><label>Img 2 (URL/Subir)</label><input type="text" id="in-car-img2" value="DET.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img2')"></div><div class="form-group"><label>Texto 2</label><input type="text" id="in-car-txt2" value="Acabados Mate"></div>
+                        <div class="form-group"><label>Img 3 (URL/Subir)</label><input type="text" id="in-car-img3" value="FOND.jpeg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img3')"></div><div class="form-group"><label>Texto 3</label><input type="text" id="in-car-txt3" value="Optimización"></div>
+                        <div class="form-group"><label>Img 4 (URL/Subir)</label><input type="text" id="in-car-img4" value="VISTA.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img4')"></div><div class="form-group"><label>Texto 4</label><input type="text" id="in-car-txt4" value="Minimalismo"></div>
+                        <div class="form-group"><label>Img 5 (URL/Subir)</label><input type="text" id="in-car-img5" value="DET.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img5')"></div><div class="form-group"><label>Texto 5</label><input type="text" id="in-car-txt5" value="Diseño Premium"></div>
                     </div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
-            <!-- CATÁLOGO INFINITO CON TEXTOS GLOBALES -->
+            <!-- NUEVO: CATÁLOGO CON SUB-PESTAÑAS Y PORTADAS 16:9 -->
             <div id="catalogo" class="tab-content">
-                
-                <!-- MELAMINAS -->
-                <div class="editor-section">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                        <h3 class="section-title" style="margin:0; border:none;">🪵 Melaminas y MDF</h3>
-                        <button type="button" class="btn-preview" onclick="crearTarjetaCatalogo('melaminas')">+ Agregar Melamina</button>
-                    </div>
-                    <div class="form-group full">
-                        <label>Texto de Introducción de esta Categoría</label>
-                        <textarea id="in-mela-info" placeholder="Ej: Descubre nuestra variedad de texturas y acabados..."></textarea>
-                    </div>
-                    <div id="admin-melaminas"></div>
-                </div>
-                
-                <!-- CUBIERTAS -->
-                <div class="editor-section">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                        <h3 class="section-title" style="margin:0; border:none;">🪨 Cubiertas y Cuarzos</h3>
-                        <button type="button" class="btn-preview" onclick="crearTarjetaCatalogo('cubiertas')">+ Agregar Cubierta</button>
-                    </div>
-                    <div class="form-group full">
-                        <label>Texto de Introducción de esta Categoría</label>
-                        <textarea id="in-cubi-info" placeholder="Ej: Las mejores piedras naturales y superficies sólidas..."></textarea>
-                    </div>
-                    <div id="admin-cubiertas"></div>
+                <div class="sub-tabs">
+                    <button class="sub-tab-btn active" onclick="switchSubTab('sub-mela', this)">🪵 Melaminas</button>
+                    <button class="sub-tab-btn" onclick="switchSubTab('sub-cubi', this)">🪨 Cubiertas</button>
+                    <button class="sub-tab-btn" onclick="switchSubTab('sub-herr', this)">⚙️ Herrajes</button>
                 </div>
 
-                <!-- HERRAJES -->
-                <div class="editor-section">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                        <h3 class="section-title" style="margin:0; border:none;">⚙️ Herrajes y Accesorios</h3>
-                        <button type="button" class="btn-preview" onclick="crearTarjetaCatalogo('herrajes')">+ Agregar Herraje</button>
+                <!-- SUB: MELAMINAS -->
+                <div id="sub-mela" class="sub-tab-content active">
+                    <div class="editor-section">
+                        <h3 class="section-title">Portada e Info Global - Melaminas</h3>
+                        <div class="form-group full">
+                            <label>Imagen Principal (16:9 Recomendado)</label>
+                            <input type="text" id="in-mela-bg" placeholder="URL o subir">
+                            <input type="file" accept="image/*" onchange="procesarImagen(event, 'in-mela-bg')">
+                        </div>
+                        <div class="form-group full">
+                            <label>Texto de Introducción</label>
+                            <textarea id="in-mela-info" placeholder="Ej: Descubre nuestra variedad de texturas..."></textarea>
+                        </div>
                     </div>
-                    <div class="form-group full">
-                        <label>Texto de Introducción de esta Categoría</label>
-                        <textarea id="in-herr-info" placeholder="Ej: Accesorios de cierre suave, organizadores y tecnología..."></textarea>
+                    <div class="editor-section">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                            <h3 class="section-title" style="margin:0; border:none;">Lista de Melaminas</h3>
+                            <button type="button" class="btn-preview" onclick="crearTarjetaCatalogo('melaminas')">+ Agregar Melamina</button>
+                        </div>
+                        <div id="admin-melaminas"></div>
                     </div>
-                    <div id="admin-herrajes"></div>
                 </div>
 
+                <!-- SUB: CUBIERTAS -->
+                <div id="sub-cubi" class="sub-tab-content">
+                    <div class="editor-section">
+                        <h3 class="section-title">Portada e Info Global - Cubiertas</h3>
+                        <div class="form-group full">
+                            <label>Imagen Principal (16:9 Recomendado)</label>
+                            <input type="text" id="in-cubi-bg" placeholder="URL o subir">
+                            <input type="file" accept="image/*" onchange="procesarImagen(event, 'in-cubi-bg')">
+                        </div>
+                        <div class="form-group full">
+                            <label>Texto de Introducción</label>
+                            <textarea id="in-cubi-info" placeholder="Ej: Las mejores piedras naturales..."></textarea>
+                        </div>
+                    </div>
+                    <div class="editor-section">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                            <h3 class="section-title" style="margin:0; border:none;">Lista de Cubiertas</h3>
+                            <button type="button" class="btn-preview" onclick="crearTarjetaCatalogo('cubiertas')">+ Agregar Cubierta</button>
+                        </div>
+                        <div id="admin-cubiertas"></div>
+                    </div>
+                </div>
+
+                <!-- SUB: HERRAJES -->
+                <div id="sub-herr" class="sub-tab-content">
+                    <div class="editor-section">
+                        <h3 class="section-title">Portada e Info Global - Herrajes</h3>
+                        <div class="form-group full">
+                            <label>Imagen Principal (16:9 Recomendado)</label>
+                            <input type="text" id="in-herr-bg" placeholder="URL o subir">
+                            <input type="file" accept="image/*" onchange="procesarImagen(event, 'in-herr-bg')">
+                        </div>
+                        <div class="form-group full">
+                            <label>Texto de Introducción</label>
+                            <textarea id="in-herr-info" placeholder="Ej: Accesorios de cierre suave..."></textarea>
+                        </div>
+                    </div>
+                    <div class="editor-section">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                            <h3 class="section-title" style="margin:0; border:none;">Lista de Herrajes</h3>
+                            <button type="button" class="btn-preview" onclick="crearTarjetaCatalogo('herrajes')">+ Agregar Herraje</button>
+                        </div>
+                        <div id="admin-herrajes"></div>
+                    </div>
+                </div>
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
-            <!-- SERVICIOS, TESTIMONIOS, PROYECTOS -->
+            <!-- SERVICIOS -->
             <div id="servicios" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Tarjetas de Servicios</h3>
@@ -281,13 +315,15 @@
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
             
-            <div id="testimonios" class="tab-content">
+            <!-- NUEVO: PROCESO DE TRABAJO (Reemplaza Testimonios) -->
+            <div id="proceso" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Reseñas de Clientes</h3>
+                    <h3 class="section-title">Proceso de Trabajo (4 Pasos)</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Cliente 1</label><input type="text" id="in-test-name1" value="- Laura M."></div><div class="form-group"><label>Comentario 1</label><input type="text" id="in-test-txt1" value="Me encantó..."></div>
-                        <div class="form-group"><label>Cliente 2</label><input type="text" id="in-test-name2" value="- Roberto C."></div><div class="form-group"><label>Comentario 2</label><input type="text" id="in-test-txt2" value="La cocina quedó..."></div>
-                        <div class="form-group"><label>Cliente 3</label><input type="text" id="in-test-name3" value="- Familia Sánchez"></div><div class="form-group"><label>Comentario 3</label><input type="text" id="in-test-txt3" value="Muy profesionales..."></div>
+                        <div class="form-group"><label>Paso 1: Título</label><input type="text" id="in-proc-tit1" value="Asesoría"></div><div class="form-group"><label>Descripción 1</label><textarea id="in-proc-desc1">Analizamos tu espacio...</textarea></div>
+                        <div class="form-group"><label>Paso 2: Título</label><input type="text" id="in-proc-tit2" value="Diseño 3D"></div><div class="form-group"><label>Descripción 2</label><textarea id="in-proc-desc2">Modelamos tu proyecto...</textarea></div>
+                        <div class="form-group"><label>Paso 3: Título</label><input type="text" id="in-proc-tit3" value="Fabricación"></div><div class="form-group"><label>Descripción 3</label><textarea id="in-proc-desc3">Cortes precisos...</textarea></div>
+                        <div class="form-group"><label>Paso 4: Título</label><input type="text" id="in-proc-tit4" value="Instalación"></div><div class="form-group"><label>Descripción 4</label><textarea id="in-proc-desc4">Montaje limpio...</textarea></div>
                     </div>
                 </div>
                 <div class="editor-section">
@@ -299,6 +335,7 @@
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
+            <!-- PROYECTOS -->
             <div id="proyectos" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Galería Externa de Trabajos</h3>
@@ -334,9 +371,16 @@
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             element.classList.add('active'); 
             document.getElementById(tabId).classList.add('active');
-            const titles = { 'dashboard':'Analytics Real', 'ajustes':'Generales & Redes', 'portada':'Edición de Portada', 'nosotros':'Sección Nosotros', 'carrusel':'Editor de Carrusel', 'catalogo':'Catálogo Acabados', 'servicios':'Edición de Servicios', 'testimonios': 'Reseñas y FAQ', 'proyectos':'Galería de Proyectos' };
+            const titles = { 'dashboard':'Analytics Real', 'ajustes':'Generales & Redes', 'portada':'Edición de Portada', 'nosotros':'Sección Nosotros', 'carrusel':'Editor de Carrusel', 'catalogo':'Catálogo Acabados', 'servicios':'Edición de Servicios', 'proceso': 'Proceso y FAQ', 'proyectos':'Galería de Proyectos' };
             document.getElementById('page-title').innerText = titles[tabId];
             if(window.innerWidth <= 900) { toggleSidebar(); }
+        }
+
+        function switchSubTab(subTabId, element) {
+            document.querySelectorAll('.sub-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.sub-tab-content').forEach(tab => tab.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById(subTabId).classList.add('active');
         }
 
         function procesarImagen(event, inputId) {
@@ -353,7 +397,7 @@
                 img.src = e.target.result;
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
-                    const MAX_WIDTH = 400; 
+                    const MAX_WIDTH = 500; 
                     let width = img.width;
                     let height = img.height;
 
@@ -369,7 +413,6 @@
 
                     const dataUrl = canvas.toDataURL('image/jpeg', 0.5); 
                     targetInput.value = dataUrl;
-                    
                     mostrarAlerta("¡Imagen cargada! Dale a 'Guardar Cambios'.", "#17a2b8");
                 };
             };
@@ -415,38 +458,33 @@
             try {
                 const data = JSON.parse(localStorage.getItem("tm_website_data"));
                 if (!data) {
-                    crearTarjetaCatalogo('melaminas');
-                    crearTarjetaCatalogo('cubiertas');
-                    crearTarjetaCatalogo('herrajes');
+                    crearTarjetaCatalogo('melaminas'); crearTarjetaCatalogo('cubiertas'); crearTarjetaCatalogo('herrajes');
                     return;
                 }
 
-                // Cargar Textos Globales del Catálogo
+                // Cargar Textos Globales y Portadas 16:9 del Catálogo
+                if(document.getElementById('in-mela-bg')) document.getElementById('in-mela-bg').value = data.melaBg || '';
                 if(document.getElementById('in-mela-info')) document.getElementById('in-mela-info').value = data.melaInfo || '';
+                
+                if(document.getElementById('in-cubi-bg')) document.getElementById('in-cubi-bg').value = data.cubiBg || '';
                 if(document.getElementById('in-cubi-info')) document.getElementById('in-cubi-info').value = data.cubiInfo || '';
+                
+                if(document.getElementById('in-herr-bg')) document.getElementById('in-herr-bg').value = data.herrBg || '';
                 if(document.getElementById('in-herr-info')) document.getElementById('in-herr-info').value = data.herrInfo || '';
 
                 // Cargar Arreglos del Catálogo
-                if(data.catMelaminas && data.catMelaminas.length > 0) {
-                    data.catMelaminas.forEach(item => crearTarjetaCatalogo('melaminas', item.img, item.tit, item.desc));
-                } else { crearTarjetaCatalogo('melaminas'); }
-                
-                if(data.catCubiertas && data.catCubiertas.length > 0) {
-                    data.catCubiertas.forEach(item => crearTarjetaCatalogo('cubiertas', item.img, item.tit, item.desc));
-                } else { crearTarjetaCatalogo('cubiertas'); }
+                if(data.catMelaminas && data.catMelaminas.length > 0) { data.catMelaminas.forEach(item => crearTarjetaCatalogo('melaminas', item.img, item.tit, item.desc)); } else { crearTarjetaCatalogo('melaminas'); }
+                if(data.catCubiertas && data.catCubiertas.length > 0) { data.catCubiertas.forEach(item => crearTarjetaCatalogo('cubiertas', item.img, item.tit, item.desc)); } else { crearTarjetaCatalogo('cubiertas'); }
+                if(data.catHerrajes && data.catHerrajes.length > 0) { data.catHerrajes.forEach(item => crearTarjetaCatalogo('herrajes', item.img, item.tit, item.desc)); } else { crearTarjetaCatalogo('herrajes'); }
 
-                if(data.catHerrajes && data.catHerrajes.length > 0) {
-                    data.catHerrajes.forEach(item => crearTarjetaCatalogo('herrajes', item.img, item.tit, item.desc));
-                } else { crearTarjetaCatalogo('herrajes'); }
-
-                // Cargar Resto de la página
+                // Cargar Resto de la página (Proceso en vez de Testimonios)
                 const map = {
-                    'in-top-loc':'topLoc', 'in-top-email':'topEmail', 'in-top-phone':'topPhone', 'in-wa-link':'waLink', 'in-soc-fb':'socFb', 'in-soc-ig':'socIg', 'in-soc-tk':'socTk',
+                    'in-top-loc':'topLoc', 'in-top-email':'topEmail', 'in-top-phone':'topPhone', 'in-wa-link':'waLink', 'in-soc-fb':'socFb', 'in-soc-ig':'socIg', 
                     'in-hero-img':'heroImg', 'in-hero-title':'heroTitle', 'in-hero-desc':'heroDesc', 'in-about-title':'aboutTitle', 'in-about-desc':'aboutDesc', 'in-about-b1':'aboutB1', 'in-about-b2':'aboutB2', 'in-about-b3':'aboutB3', 'in-about-b4':'aboutB4',
                     'in-car-img1':'carImg1', 'in-car-txt1':'carTxt1', 'in-car-img2':'carImg2', 'in-car-txt2':'carTxt2', 'in-car-img3':'carImg3', 'in-car-txt3':'carTxt3', 'in-car-img4':'carImg4', 'in-car-txt4':'carTxt4', 'in-car-img5':'carImg5', 'in-car-txt5':'carTxt5',
                     'in-srv-ico1':'srvIco1', 'in-srv-tit1':'srvTit1', 'in-srv-desc1':'srvDesc1', 'in-srv-ico2':'srvIco2', 'in-srv-tit2':'srvTit2', 'in-srv-desc2':'srvDesc2', 'in-srv-ico3':'srvIco3', 'in-srv-tit3':'srvTit3', 'in-srv-desc3':'srvDesc3',
                     'in-gal-img1':'galImg1', 'in-gal-img2':'galImg2', 'in-gal-img3':'galImg3', 'in-gal-link':'galLink',
-                    'in-test-name1':'testName1', 'in-test-txt1':'testTxt1', 'in-test-name2':'testName2', 'in-test-txt2':'testTxt2', 'in-test-name3':'testName3', 'in-test-txt3':'testTxt3',
+                    'in-proc-tit1':'procTit1', 'in-proc-desc1':'procDesc1', 'in-proc-tit2':'procTit2', 'in-proc-desc2':'procDesc2', 'in-proc-tit3':'procTit3', 'in-proc-desc3':'procDesc3', 'in-proc-tit4':'procTit4', 'in-proc-desc4':'procDesc4',
                     'in-faq-q1':'faqQ1', 'in-faq-a1':'faqA1', 'in-faq-q2':'faqQ2', 'in-faq-a2':'faqA2', 'in-faq-q3':'faqQ3', 'in-faq-a3':'faqA3',
                     'in-cta-title':'ctaTitle', 'in-cta-desc':'ctaDesc', 'in-foot-desc':'footDesc'
                 };
@@ -459,41 +497,38 @@
         function guardarTodo() {
             const data = {};
             
-            // Guardar Textos Globales
+            // Guardar Textos Globales y Portadas
+            data.melaBg = document.getElementById('in-mela-bg').value;
             data.melaInfo = document.getElementById('in-mela-info').value;
+            data.cubiBg = document.getElementById('in-cubi-bg').value;
             data.cubiInfo = document.getElementById('in-cubi-info').value;
+            data.herrBg = document.getElementById('in-herr-bg').value;
             data.herrInfo = document.getElementById('in-herr-info').value;
 
-            // Recolectar todas las tarjetas infinitas de catálogo
+            // Recolectar listas
             data.catMelaminas = [];
             document.querySelectorAll('#admin-melaminas .cat-item-admin').forEach(el => {
-                data.catMelaminas.push({
-                    img: el.querySelector('.c-img').value, tit: el.querySelector('.c-tit').value, desc: el.querySelector('.c-desc').value
-                });
+                data.catMelaminas.push({ img: el.querySelector('.c-img').value, tit: el.querySelector('.c-tit').value, desc: el.querySelector('.c-desc').value });
             });
 
             data.catCubiertas = [];
             document.querySelectorAll('#admin-cubiertas .cat-item-admin').forEach(el => {
-                data.catCubiertas.push({
-                    img: el.querySelector('.c-img').value, tit: el.querySelector('.c-tit').value, desc: el.querySelector('.c-desc').value
-                });
+                data.catCubiertas.push({ img: el.querySelector('.c-img').value, tit: el.querySelector('.c-tit').value, desc: el.querySelector('.c-desc').value });
             });
 
             data.catHerrajes = [];
             document.querySelectorAll('#admin-herrajes .cat-item-admin').forEach(el => {
-                data.catHerrajes.push({
-                    img: el.querySelector('.c-img').value, tit: el.querySelector('.c-tit').value, desc: el.querySelector('.c-desc').value
-                });
+                data.catHerrajes.push({ img: el.querySelector('.c-img').value, tit: el.querySelector('.c-tit').value, desc: el.querySelector('.c-desc').value });
             });
 
-            // Recolectar Resto de la página
+            // Recolectar Resto
             const map = {
-                'in-top-loc':'topLoc', 'in-top-email':'topEmail', 'in-top-phone':'topPhone', 'in-wa-link':'waLink', 'in-soc-fb':'socFb', 'in-soc-ig':'socIg', 'in-soc-tk':'socTk',
+                'in-top-loc':'topLoc', 'in-top-email':'topEmail', 'in-top-phone':'topPhone', 'in-wa-link':'waLink', 'in-soc-fb':'socFb', 'in-soc-ig':'socIg', 
                 'in-hero-img':'heroImg', 'in-hero-title':'heroTitle', 'in-hero-desc':'heroDesc', 'in-about-title':'aboutTitle', 'in-about-desc':'aboutDesc', 'in-about-b1':'aboutB1', 'in-about-b2':'aboutB2', 'in-about-b3':'aboutB3', 'in-about-b4':'aboutB4',
                 'in-car-img1':'carImg1', 'in-car-txt1':'carTxt1', 'in-car-img2':'carImg2', 'in-car-txt2':'carTxt2', 'in-car-img3':'carImg3', 'in-car-txt3':'carTxt3', 'in-car-img4':'carImg4', 'in-car-txt4':'carTxt4', 'in-car-img5':'carImg5', 'in-car-txt5':'carTxt5',
                 'in-srv-ico1':'srvIco1', 'in-srv-tit1':'srvTit1', 'in-srv-desc1':'srvDesc1', 'in-srv-ico2':'srvIco2', 'in-srv-tit2':'srvTit2', 'in-srv-desc2':'srvDesc2', 'in-srv-ico3':'srvIco3', 'in-srv-tit3':'srvTit3', 'in-srv-desc3':'srvDesc3',
                 'in-gal-img1':'galImg1', 'in-gal-img2':'galImg2', 'in-gal-img3':'galImg3', 'in-gal-link':'galLink',
-                'in-test-name1':'testName1', 'in-test-txt1':'testTxt1', 'in-test-name2':'testName2', 'in-test-txt2':'testTxt2', 'in-test-name3':'testName3', 'in-test-txt3':'testTxt3',
+                'in-proc-tit1':'procTit1', 'in-proc-desc1':'procDesc1', 'in-proc-tit2':'procTit2', 'in-proc-desc2':'procDesc2', 'in-proc-tit3':'procTit3', 'in-proc-desc3':'procDesc3', 'in-proc-tit4':'procTit4', 'in-proc-desc4':'procDesc4',
                 'in-faq-q1':'faqQ1', 'in-faq-a1':'faqA1', 'in-faq-q2':'faqQ2', 'in-faq-a2':'faqA2', 'in-faq-q3':'faqQ3', 'in-faq-a3':'faqA3',
                 'in-cta-title':'ctaTitle', 'in-cta-desc':'ctaDesc', 'in-foot-desc':'footDesc'
             };
@@ -505,7 +540,7 @@
                 localStorage.setItem("tm_website_data", JSON.stringify(data));
                 mostrarAlerta("¡Cambios guardados con éxito!", "#28a745");
             } catch(e) {
-                mostrarAlerta("❌ Error: Agregaste demasiadas fotos y la memoria se llenó. Elimina algunas.", "#dc3545");
+                mostrarAlerta("❌ Error: Agregaste demasiadas fotos y la memoria se llenó.", "#dc3545");
             }
         }
 
