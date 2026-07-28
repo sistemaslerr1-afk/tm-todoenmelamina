@@ -72,7 +72,7 @@
 
     <section class="about-section scroll-anim">
         <div class="about-container">
-            <div class="about-text"><h2 id="view-about-title">Diseño <span class="text-italic">funcional</span> e inteligente</h2><p id="view-about-desc">Nos especializamos en optimizar...</p></div>
+            <div class="about-text"><h2 id="view-about-title">Diseño <span class="text-italic">funcional</span> e inteligente</h2><p id="view-about-desc">Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza de tu entorno.</p></div>
             <ul class="benefits-list">
                 <li><span class="icon">✨</span> <span id="view-about-b1">Materiales Premium</span></li>
                 <li><span class="icon">📐</span> <span id="view-about-b2">Diseño Increíble</span></li>
@@ -99,9 +99,9 @@
     <section id="servicios" class="services scroll-anim">
         <div class="section-header"><h2>Nuestros Servicios</h2><p>Soluciones a medida para cada área de tu vida.</p></div>
         <div class="cards-grid">
-            <div class="card glass-card"><div class="card-icon" id="view-srv-ico1">🍳</div><h3 id="view-srv-tit1">Cocinas Integrales</h3><p id="view-srv-desc1">Diseños ergonómicos...</p></div>
-            <div class="card glass-card"><div class="card-icon" id="view-srv-ico2">👗</div><h3 id="view-srv-tit2">Closets y Vestidores</h3><p id="view-srv-desc2">Optimización total...</p></div>
-            <div class="card glass-card"><div class="card-icon" id="view-srv-ico3">💻</div><h3 id="view-srv-tit3">Mobiliario de Oficina</h3><p id="view-srv-desc3">Escritorios...</p></div>
+            <div class="card glass-card"><div class="card-icon" id="view-srv-ico1">🍳</div><h3 id="view-srv-tit1">Cocinas Integrales</h3><p id="view-srv-desc1">Diseños ergonómicos, cubiertas de cuarzo, granito y acabados en melamina de alto brillo o mate.</p></div>
+            <div class="card glass-card"><div class="card-icon" id="view-srv-ico2">👗</div><h3 id="view-srv-tit2">Closets y Vestidores</h3><p id="view-srv-desc2">Optimización total del espacio con sistemas de cierre suave y distribución inteligente.</p></div>
+            <div class="card glass-card"><div class="card-icon" id="view-srv-ico3">💻</div><h3 id="view-srv-tit3">Mobiliario de Oficina</h3><p id="view-srv-desc3">Escritorios y libreros minimalistas diseñados para aumentar tu productividad y confort.</p></div>
         </div>
     </section>
 
@@ -146,9 +146,9 @@
     <section class="faq-section scroll-anim">
         <div class="section-header"><h2>Preguntas Frecuentes</h2></div>
         <div class="faq-container">
-            <div class="faq-item"><h4 id="view-faq-q1">¿Cuánto tiempo tardan en entregar un proyecto?</h4><p id="view-faq-a1">Dependiendo del tamaño...</p></div>
-            <div class="faq-item"><h4 id="view-faq-q2">¿Ofrecen garantía?</h4><p id="view-faq-a2">Sí, todos nuestros muebles...</p></div>
-            <div class="faq-item"><h4 id="view-faq-q3">¿El presupuesto incluye instalación?</h4><p id="view-faq-a3">Totalmente...</p></div>
+            <div class="faq-item"><h4 id="view-faq-q1">¿Cuánto tiempo tardan en entregar un proyecto?</h4><p id="view-faq-a1">Dependiendo del tamaño del proyecto, varía entre 2 y 4 semanas tras aprobar el diseño.</p></div>
+            <div class="faq-item"><h4 id="view-faq-q2">¿Ofrecen garantía?</h4><p id="view-faq-a2">Sí, todos nuestros muebles cuentan con garantía contra defectos de fabricación e instalación.</p></div>
+            <div class="faq-item"><h4 id="view-faq-q3">¿El presupuesto incluye instalación?</h4><p id="view-faq-a3">Totalmente. Nuestras cotizaciones son integrales: diseño, fabricación, flete e instalación.</p></div>
         </div>
     </section>
 
@@ -169,7 +169,7 @@
         <div class="footer-bottom"><p>&copy; 2026 Todo en Melamina. Todos los derechos reservados.</p></div>
     </footer>
 
-    <!-- MODAL CATÁLOGO VISUAL FLOTANTE -->
+    <!-- MODAL CATÁLOGO VISUAL FIJO (CARGARÁ EN TODOS LOS CELULARES Y NAVEGADORES) -->
     <div id="super-catalogo-modal" class="super-modal" style="display: none; opacity: 0;">
         <button class="close-super-modal" onclick="cerrarSuperCatalogo()">✖</button>
         <div class="super-modal-content">
@@ -182,22 +182,40 @@
                 <button class="s-tab" onclick="filtrarCatalogo('herr', this)">⚙️ Herrajes / Accesorios</button>
             </div>
 
+            <!-- MELAMINAS -->
             <div id="sec-mela" class="super-section active">
-                <div class="super-header-img" id="box-mela-bg" style="display:none;"><img id="view-mela-bg" src="" alt="Melaminas"></div>
-                <div id="info-mela" class="showcase-global-info"></div>
-                <div id="showcase-melaminas" class="super-showcase"></div>
+                <div class="super-header-img"><img src="https://images.unsplash.com/photo-1546484396-fb3fc6f95f98?auto=format&fit=crop&w=1200&q=80" alt="Melaminas"></div>
+                <div class="showcase-global-info"><p>Descubre nuestra exclusiva variedad de texturas. Desde vetas naturales hasta acabados súper mate antihuellas.</p></div>
+                <div class="super-showcase">
+                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?auto=format&fit=crop&w=600&q=80" alt="Melamina 1"><div class="magic-info"><h3>Encino Polar</h3><p>Claro / Texturizado</p></div></div>
+                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&w=600&q=80" alt="Melamina 2"><div class="magic-info"><h3>Nogal Clásico</h3><p>Veta Natural / Mate</p></div></div>
+                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?auto=format&fit=crop&w=600&q=80" alt="Melamina 3"><div class="magic-info"><h3>Roble Tabaco</h3><p>Sincronizado / Oscuro</p></div></div>
+                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1581428982868-e410dd047a90?auto=format&fit=crop&w=600&q=80" alt="Melamina 4"><div class="magic-info"><h3>Gris Oxford</h3><p>Liso / Super Mate</p></div></div>
+                </div>
             </div>
 
+            <!-- CUBIERTAS -->
             <div id="sec-cubi" class="super-section">
-                <div class="super-header-img" id="box-cubi-bg" style="display:none;"><img id="view-cubi-bg" src="" alt="Cubiertas"></div>
-                <div id="info-cubi" class="showcase-global-info"></div>
-                <div id="showcase-cubiertas" class="super-showcase"></div>
+                <div class="super-header-img"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Cubiertas"></div>
+                <div class="showcase-global-info"><p>Las mejores piedras naturales y superficies sólidas de cuarzo para cocinas de alto rendimiento, resistentes a manchas y rayaduras.</p></div>
+                <div class="super-showcase">
+                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=600&q=80" alt="Cubierta 1"><div class="magic-info"><h3>Granito Negro San Gabriel</h3><p>Piedra Natural / Pulido</p></div></div>
+                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1585128719715-46776b56a0fb?auto=format&fit=crop&w=600&q=80" alt="Cubierta 2"><div class="magic-info"><h3>Mármol Carrara</h3><p>Veta Gris / Brillante</p></div></div>
+                    <div class="magic-card"><img src="https://plus.unsplash.com/premium_photo-1678197779346-63d11d102dc8?auto=format&fit=crop&w=600&q=80" alt="Cubierta 3"><div class="magic-info"><h3>Cuarzo Blanco Puro</h3><p>Superficie Sólida Antibacterial</p></div></div>
+                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1595514535310-94f7d498ff0b?auto=format&fit=crop&w=600&q=80" alt="Cubierta 4"><div class="magic-info"><h3>Cuarzo Calacatta</h3><p>Veta Marcada / Premium</p></div></div>
+                </div>
             </div>
 
+            <!-- HERRAJES -->
             <div id="sec-herr" class="super-section">
-                <div class="super-header-img" id="box-herr-bg" style="display:none;"><img id="view-herr-bg" src="" alt="Herrajes"></div>
-                <div id="info-herr" class="showcase-global-info"></div>
-                <div id="showcase-herrajes" class="super-showcase"></div>
+                <div class="super-header-img"><img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&w=1200&q=80" alt="Herrajes"></div>
+                <div class="showcase-global-info"><p>Tecnología europea en herrajes. Sistemas de cierre suave, organizadores extraíbles y bisagras de alta durabilidad que marcan la diferencia.</p></div>
+                <div class="super-showcase">
+                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1534353436294-0dbd4bdac845?auto=format&fit=crop&w=600&q=80" alt="Herraje 1"><div class="magic-info"><h3>Correderas Cierre Suave</h3><p>Extracción Total</p></div></div>
+                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1610488426090-09faaaec45cb?auto=format&fit=crop&w=600&q=80" alt="Herraje 2"><div class="magic-info"><h3>Bisagras Premium</h3><p>Con Amortiguador Integrado</p></div></div>
+                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80" alt="Herraje 3"><div class="magic-info"><h3>Jaladeras de Diseño</h3><p>Acabado Negro Mate / Dorado</p></div></div>
+                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" alt="Herraje 4"><div class="magic-info"><h3>Organizadores Mágicos</h3><p>Para esquinas de cocina</p></div></div>
+                </div>
             </div>
         </div>
     </div>
@@ -242,53 +260,10 @@
             document.getElementById(`sec-${tipo}`).classList.add('active');
         }
 
+        // Recuperar datos de la página (Excepto el Catálogo, que ya está fijo arriba)
         document.addEventListener("DOMContentLoaded", function() {
             try {
                 const data = JSON.parse(localStorage.getItem("tm_website_data"));
-                
-                if (data) {
-                    // Imágenes de Portada 16:9
-                    if(data.melaBg && data.melaBg.trim() !== '') { document.getElementById('view-mela-bg').src = data.melaBg; document.getElementById('box-mela-bg').style.display = 'block'; }
-                    if(data.cubiBg && data.cubiBg.trim() !== '') { document.getElementById('view-cubi-bg').src = data.cubiBg; document.getElementById('box-cubi-bg').style.display = 'block'; }
-                    if(data.herrBg && data.herrBg.trim() !== '') { document.getElementById('view-herr-bg').src = data.herrBg; document.getElementById('box-herr-bg').style.display = 'block'; }
-
-                    // Insertar Textos Globales
-                    if(data.melaInfo && data.melaInfo.trim() !== '') { document.getElementById('info-mela').innerHTML = `<p>${data.melaInfo}</p>`; } else { document.getElementById('info-mela').style.display = 'none'; }
-                    if(data.cubiInfo && data.cubiInfo.trim() !== '') { document.getElementById('info-cubi').innerHTML = `<p>${data.cubiInfo}</p>`; } else { document.getElementById('info-cubi').style.display = 'none'; }
-                    if(data.herrInfo && data.herrInfo.trim() !== '') { document.getElementById('info-herr').innerHTML = `<p>${data.herrInfo}</p>`; } else { document.getElementById('info-herr').style.display = 'none'; }
-
-                    let htmlMela = '', htmlCubi = '', htmlHerr = '';
-
-                    if(data.catMelaminas && data.catMelaminas.length > 0) {
-                        data.catMelaminas.forEach(item => {
-                            if(item.img && item.img.trim() !== '') {
-                                htmlMela += `<div class="magic-card"><img src="${item.img}" alt="Material"><div class="magic-info"><h3>${item.tit || 'Acabado Premium'}</h3><p>${item.desc || ''}</p></div></div>`;
-                            }
-                        });
-                    }
-                    if(data.catCubiertas && data.catCubiertas.length > 0) {
-                        data.catCubiertas.forEach(item => {
-                            if(item.img && item.img.trim() !== '') {
-                                htmlCubi += `<div class="magic-card"><img src="${item.img}" alt="Cubierta"><div class="magic-info"><h3>${item.tit || 'Piedra Natural'}</h3><p>${item.desc || ''}</p></div></div>`;
-                            }
-                        });
-                    }
-                    if(data.catHerrajes && data.catHerrajes.length > 0) {
-                        data.catHerrajes.forEach(item => {
-                            if(item.img && item.img.trim() !== '') {
-                                htmlHerr += `<div class="magic-card"><img src="${item.img}" alt="Herraje"><div class="magic-info"><h3>${item.tit || 'Accesorio Premium'}</h3><p>${item.desc || ''}</p></div></div>`;
-                            }
-                        });
-                    }
-
-                    const contMela = document.getElementById('showcase-melaminas');
-                    const contCubi = document.getElementById('showcase-cubiertas');
-                    const contHerr = document.getElementById('showcase-herrajes');
-                    
-                    if(contMela) contMela.innerHTML = htmlMela || '<p style="color:#aaa; width:100%; text-align:center;">Agrega imágenes desde tu panel de administrador.</p>';
-                    if(contCubi) contCubi.innerHTML = htmlCubi || '<p style="color:#aaa; width:100%; text-align:center;">Agrega imágenes desde tu panel de administrador.</p>';
-                    if(contHerr) contHerr.innerHTML = htmlHerr || '<p style="color:#aaa; width:100%; text-align:center;">Agrega imágenes desde tu panel de administrador.</p>';
-                }
 
                 if (data) {
                     if(data.topLoc && document.getElementById("view-top-loc")) document.getElementById("view-top-loc").innerText = data.topLoc;
