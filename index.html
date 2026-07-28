@@ -1,14 +1,33 @@
-<!-- PANTALLA DE CARGA (PRELOADER) -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo en Melamina | Diseño y Fabricación en Querétaro</title>
+    <meta name="description" content="Diseño y fabricación de mobiliario a medida en melamina y maderas finas.">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QFL8N8EDV2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QFL8N8EDV2');
+    </script>
+
+    <link rel="icon" type="image/png" href="LOGO1.png">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
     <div id="preloader">
         <img src="LOGO.png" alt="Icono" class="preloader-icon" onerror="this.style.display='none'">
         <div class="loader-logo">TODO EN MELAMINA</div>
         <div class="spinner"></div>
     </div>
 
-    <!-- BOTÓN FLOTANTE WHATSAPP -->
     <a id="view-float-wa" href="https://wa.me/524423979275" target="_blank" class="whatsapp-float"><svg viewBox="0 0 32 32" width="32" height="32" fill="white"><path d="M16 2a13 13 0 0 0-11 20l-2 6 6-2a13 13 0 1 0 7-24zm0 2a11 11 0 1 1-9 17l-4 1 1-4a11 11 0 0 1 12-14zm-4 5a1 1 0 0 0-1 1c0 1 1 3 3 5s4 4 5 4a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1l-2-1a1 1 0 0 0-1 0l-1 1a2 2 0 0 1-2-2l1-1a1 1 0 0 0 0-1l-1-2a1 1 0 0 0-1-1z"/></svg></a>
 
-    <!-- BARRA SUPERIOR -->
     <div class="top-bar">
         <div class="top-bar-content">
             <span id="view-top-loc">📍 Querétaro, Querétaro</span>
@@ -17,15 +36,12 @@
         </div>
     </div>
 
-    <!-- ENCABEZADO -->
     <header class="header">
         <div class="logo-container">
             <img src="LOGO.png" alt="Logo" style="height: 40px; margin-right: 10px; border-radius: 4px;" onerror="this.style.display='none'">
             <div><div class="logo-text">TODO EN MELAMINA</div><span class="sub-text">DISEÑO & FABRICACIÓN</span></div>
         </div>
-        <!-- Botón Hamburguesa para Celulares -->
         <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
-        <!-- Menú de Navegación -->
         <nav class="nav" id="main-nav">
             <a href="#inicio" onclick="toggleMenu()">Inicio</a>
             <a href="#servicios" onclick="toggleMenu()">Servicios</a>
@@ -35,3 +51,345 @@
             <a id="view-nav-wa" href="https://wa.me/524423979275" target="_blank" class="btn-contacto-destacado">Cotizar ahora</a>
         </nav>
     </header>
+
+    <section id="inicio" class="hero-portada">
+        <img id="view-hero-img" src="FOND.jpeg" alt="Fondo Todo en Melamina" class="hero-bg-img">
+        <div class="hero-overlay-gradient"></div>
+        <div class="hero-content-glass fade-in-up" id="draggable-card">
+            <div class="card-controls" id="card-drag-handle"><span class="drag-hint">⣿ Arrastrar ventana</span><button class="close-card-btn" onclick="document.getElementById('draggable-card').style.display='none'">✖</button></div>
+            <span class="hero-badge">DISEÑO PREMIUM</span>
+            <h1 class="title-main" id="view-hero-title">Transformamos tu espacio en una obra de arte.</h1>
+            <p class="description" id="view-hero-desc">Diseño y fabricación de mobiliario a medida.</p>
+            <div class="hero-buttons">
+                <a href="#contacto" class="cta-button">Agendar Asesoría</a>
+                <a id="view-hero-link" href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button-outline">📸 Ver Álbum de Fotos</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section scroll-anim">
+        <div class="about-container">
+            <div class="about-text"><h2 id="view-about-title">Diseño <span class="text-italic">funcional</span> e inteligente</h2><p id="view-about-desc">Nos especializamos en optimizar...</p></div>
+            <ul class="benefits-list">
+                <li><span class="icon">✨</span> <span id="view-about-b1">Materiales Premium</span></li>
+                <li><span class="icon">📐</span> <span id="view-about-b2">Diseño Increíble</span></li>
+                <li><span class="icon">🧹</span> <span id="view-about-b3">Instalación Limpia</span></li>
+                <li><span class="icon">🛠️</span> <span id="view-about-b4">Trabajos a tu medida</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="carrusel" class="carousel-section scroll-anim">
+        <div class="section-header"><h2>Inspiración en Melamina</h2><p>Usa la barra inferior para girar y explorar nuestros diseños.</p></div>
+        <div class="scene">
+            <div class="carousel-3d" id="carousel-3d">
+                <div class="carousel-cell"><img id="view-car-img1" src="VISTA.jpg"><div class="caption" id="view-car-txt1">Texturas Cálidas</div></div>
+                <div class="carousel-cell"><img id="view-car-img2" src="DET.jpg"><div class="caption" id="view-car-txt2">Acabados Mate</div></div>
+                <div class="carousel-cell"><img id="view-car-img3" src="FOND.jpeg"><div class="caption" id="view-car-txt3">Optimización</div></div>
+                <div class="carousel-cell"><img id="view-car-img4" src="VISTA.jpg"><div class="caption" id="view-car-txt4">Minimalismo</div></div>
+                <div class="carousel-cell"><img id="view-car-img5" src="DET.jpg"><div class="caption" id="view-car-txt5">Diseño Premium</div></div>
+            </div>
+        </div>
+        <div class="slider-container"><input type="range" min="0" max="360" value="0" class="carousel-slider" id="carousel-slider"></div>
+    </section>
+
+    <section id="servicios" class="services scroll-anim">
+        <div class="section-header"><h2>Nuestros Servicios</h2><p>Soluciones a medida para cada área de tu vida.</p></div>
+        <div class="cards-grid">
+            <div class="card glass-card"><div class="card-icon" id="view-srv-ico1">🍳</div><h3 id="view-srv-tit1">Cocinas Integrales</h3><p id="view-srv-desc1">Diseños ergonómicos...</p></div>
+            <div class="card glass-card"><div class="card-icon" id="view-srv-ico2">👗</div><h3 id="view-srv-tit2">Closets y Vestidores</h3><p id="view-srv-desc2">Optimización total...</p></div>
+            <div class="card glass-card"><div class="card-icon" id="view-srv-ico3">💻</div><h3 id="view-srv-tit3">Mobiliario de Oficina</h3><p id="view-srv-desc3">Escritorios...</p></div>
+        </div>
+    </section>
+
+    <section class="process-section scroll-anim">
+        <div class="section-header"><h2>Nuestro Proceso de Trabajo</h2><p>Transparencia y calidad desde la primera cita.</p></div>
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3 id="view-proc-tit1">Asesoría</h3>
+                <p id="view-proc-desc1">Analizamos tu espacio y necesidades.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3 id="view-proc-tit2">Diseño 3D</h3>
+                <p id="view-proc-desc2">Modelamos tu proyecto para aprobación.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3 id="view-proc-tit3">Fabricación</h3>
+                <p id="view-proc-desc3">Cortes precisos con materiales premium.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h3 id="view-proc-tit4">Instalación</h3>
+                <p id="view-proc-desc4">Montaje limpio y profesional en tu domicilio.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria" class="gallery-section scroll-anim">
+        <div class="section-header"><h2>Proyectos Destacados</h2><p>Explora la calidad y detalle de nuestras instalaciones.</p></div>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img id="view-gal-img1" src="VISTA.jpg"><div class="gallery-overlay"><span>Ver Detalles</span></div></div>
+            <div class="gallery-item"><img id="view-gal-img2" src="DET.jpg"><div class="gallery-overlay"><span>Ver Detalles</span></div></div>
+            <div class="gallery-item"><img id="view-gal-img3" src="FOND.jpeg"><div class="gallery-overlay"><span>Ver Detalles</span></div></div>
+        </div>
+        <div style="text-align: center; margin-top: 50px;">
+            <a id="view-gal-link" href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button-photos">📸 Explorar Álbum Completo</a>
+        </div>
+    </section>
+
+    <section class="faq-section scroll-anim">
+        <div class="section-header"><h2>Preguntas Frecuentes</h2></div>
+        <div class="faq-container">
+            <div class="faq-item"><h4 id="view-faq-q1">¿Cuánto tiempo tardan en entregar un proyecto?</h4><p id="view-faq-a1">Dependiendo del tamaño...</p></div>
+            <div class="faq-item"><h4 id="view-faq-q2">¿Ofrecen garantía?</h4><p id="view-faq-a2">Sí, todos nuestros muebles...</p></div>
+            <div class="faq-item"><h4 id="view-faq-q3">¿El presupuesto incluye instalación?</h4><p id="view-faq-a3">Totalmente...</p></div>
+        </div>
+    </section>
+
+    <section id="contacto" class="cta-banner scroll-anim">
+        <div class="cta-content">
+            <h2 id="view-cta-title">¿Listo para renovar tu espacio?</h2>
+            <p id="view-cta-desc">Contáctanos hoy mismo y recibe un presupuesto sin compromiso.</p>
+            <a id="view-cta-wa" href="https://wa.me/524423979275" target="_blank" class="cta-button-light">Contactar por WhatsApp</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column"><div class="footer-logo">TODO EN <span>MELAMINA</span></div><p id="view-foot-desc">Transformando espacios con elegancia y precisión, diseñando muebles que cuentan historias.</p><div class="social-links"><a id="view-soc-fb" href="#" target="_blank" title="Facebook">FB</a><a id="view-soc-ig" href="#" target="_blank" title="Instagram">IG</a></div></div>
+            <div class="footer-column"><h3>Contacto</h3><p id="view-foot-loc">📍 Querétaro, Querétaro</p><p id="view-foot-email">✉️ todoenmelaminatm@gmail.com</p><p id="view-foot-phone">📞 +52 442 397 9275</p></div>
+            <div class="footer-column"><h3>Horario</h3><p>Lunes a Viernes: 9:00 AM - 6:00 PM</p><p>Sábados: 10:00 AM - 2:00 PM</p></div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Todo en Melamina. Todos los derechos reservados.</p></div>
+    </footer>
+
+    <!-- MODAL CATÁLOGO VISUAL FLOTANTE -->
+    <div id="super-catalogo-modal" class="super-modal" style="display: none; opacity: 0;">
+        <button class="close-super-modal" onclick="cerrarSuperCatalogo()">✖</button>
+        <div class="super-modal-content">
+            <h2 class="super-title">Colección de Acabados</h2>
+            <p class="super-subtitle">Selecciona una categoría para explorar la calidad de nuestros materiales.</p>
+            
+            <div class="super-tabs">
+                <button class="s-tab active" onclick="filtrarCatalogo('mela', this)">🪵 Melaminas / MDF</button>
+                <button class="s-tab" onclick="filtrarCatalogo('cubi', this)">🪨 Cubiertas / Cuarzos</button>
+                <button class="s-tab" onclick="filtrarCatalogo('herr', this)">⚙️ Herrajes / Accesorios</button>
+            </div>
+
+            <div id="sec-mela" class="super-section active">
+                <div class="super-header-img" id="box-mela-bg" style="display:none;"><img id="view-mela-bg" src="" alt="Melaminas"></div>
+                <div id="info-mela" class="showcase-global-info"></div>
+                <div id="showcase-melaminas" class="super-showcase"></div>
+            </div>
+
+            <div id="sec-cubi" class="super-section">
+                <div class="super-header-img" id="box-cubi-bg" style="display:none;"><img id="view-cubi-bg" src="" alt="Cubiertas"></div>
+                <div id="info-cubi" class="showcase-global-info"></div>
+                <div id="showcase-cubiertas" class="super-showcase"></div>
+            </div>
+
+            <div id="sec-herr" class="super-section">
+                <div class="super-header-img" id="box-herr-bg" style="display:none;"><img id="view-herr-bg" src="" alt="Herrajes"></div>
+                <div id="info-herr" class="showcase-global-info"></div>
+                <div id="showcase-herrajes" class="super-showcase"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', function() {
+            document.getElementById('preloader').classList.add('hide');
+            setTimeout(() => document.getElementById('preloader').style.display = 'none', 500);
+        });
+
+        function toggleMenu() {
+            const nav = document.getElementById('main-nav');
+            if(window.innerWidth <= 768) {
+                nav.classList.toggle('active');
+            }
+        }
+
+        function abrirSuperCatalogo() {
+            const modal = document.getElementById('super-catalogo-modal');
+            if(modal) {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => { modal.style.opacity = '1'; }, 20);
+            }
+        }
+
+        function cerrarSuperCatalogo() {
+            const modal = document.getElementById('super-catalogo-modal');
+            if(modal) {
+                modal.style.opacity = '0';
+                document.body.style.overflow = 'auto';
+                setTimeout(() => { modal.style.display = 'none'; }, 400);
+            }
+        }
+
+        function filtrarCatalogo(tipo, btn) {
+            document.querySelectorAll('.s-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            document.querySelectorAll('.super-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(`sec-${tipo}`).classList.add('active');
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            try {
+                const data = JSON.parse(localStorage.getItem("tm_website_data"));
+                
+                if (data) {
+                    // Imágenes de Portada 16:9
+                    if(data.melaBg && data.melaBg.trim() !== '') { document.getElementById('view-mela-bg').src = data.melaBg; document.getElementById('box-mela-bg').style.display = 'block'; }
+                    if(data.cubiBg && data.cubiBg.trim() !== '') { document.getElementById('view-cubi-bg').src = data.cubiBg; document.getElementById('box-cubi-bg').style.display = 'block'; }
+                    if(data.herrBg && data.herrBg.trim() !== '') { document.getElementById('view-herr-bg').src = data.herrBg; document.getElementById('box-herr-bg').style.display = 'block'; }
+
+                    // Insertar Textos Globales
+                    if(data.melaInfo && data.melaInfo.trim() !== '') { document.getElementById('info-mela').innerHTML = `<p>${data.melaInfo}</p>`; } else { document.getElementById('info-mela').style.display = 'none'; }
+                    if(data.cubiInfo && data.cubiInfo.trim() !== '') { document.getElementById('info-cubi').innerHTML = `<p>${data.cubiInfo}</p>`; } else { document.getElementById('info-cubi').style.display = 'none'; }
+                    if(data.herrInfo && data.herrInfo.trim() !== '') { document.getElementById('info-herr').innerHTML = `<p>${data.herrInfo}</p>`; } else { document.getElementById('info-herr').style.display = 'none'; }
+
+                    let htmlMela = '', htmlCubi = '', htmlHerr = '';
+
+                    if(data.catMelaminas && data.catMelaminas.length > 0) {
+                        data.catMelaminas.forEach(item => {
+                            if(item.img && item.img.trim() !== '') {
+                                htmlMela += `<div class="magic-card"><img src="${item.img}" alt="Material"><div class="magic-info"><h3>${item.tit || 'Acabado Premium'}</h3><p>${item.desc || ''}</p></div></div>`;
+                            }
+                        });
+                    }
+                    if(data.catCubiertas && data.catCubiertas.length > 0) {
+                        data.catCubiertas.forEach(item => {
+                            if(item.img && item.img.trim() !== '') {
+                                htmlCubi += `<div class="magic-card"><img src="${item.img}" alt="Cubierta"><div class="magic-info"><h3>${item.tit || 'Piedra Natural'}</h3><p>${item.desc || ''}</p></div></div>`;
+                            }
+                        });
+                    }
+                    if(data.catHerrajes && data.catHerrajes.length > 0) {
+                        data.catHerrajes.forEach(item => {
+                            if(item.img && item.img.trim() !== '') {
+                                htmlHerr += `<div class="magic-card"><img src="${item.img}" alt="Herraje"><div class="magic-info"><h3>${item.tit || 'Accesorio Premium'}</h3><p>${item.desc || ''}</p></div></div>`;
+                            }
+                        });
+                    }
+
+                    const contMela = document.getElementById('showcase-melaminas');
+                    const contCubi = document.getElementById('showcase-cubiertas');
+                    const contHerr = document.getElementById('showcase-herrajes');
+                    
+                    if(contMela) contMela.innerHTML = htmlMela || '<p style="color:#aaa; width:100%; text-align:center;">Agrega imágenes desde tu panel de administrador.</p>';
+                    if(contCubi) contCubi.innerHTML = htmlCubi || '<p style="color:#aaa; width:100%; text-align:center;">Agrega imágenes desde tu panel de administrador.</p>';
+                    if(contHerr) contHerr.innerHTML = htmlHerr || '<p style="color:#aaa; width:100%; text-align:center;">Agrega imágenes desde tu panel de administrador.</p>';
+                }
+
+                if (data) {
+                    if(data.topLoc && document.getElementById("view-top-loc")) document.getElementById("view-top-loc").innerText = data.topLoc;
+                    if(data.topEmail && document.getElementById("view-top-email")) document.getElementById("view-top-email").innerText = data.topEmail;
+                    if(data.topPhone && document.getElementById("view-top-phone")) document.getElementById("view-top-phone").innerText = data.topPhone;
+                    
+                    if(data.waLink) {
+                        if(document.getElementById("view-float-wa")) document.getElementById("view-float-wa").href = data.waLink;
+                        if(document.getElementById("view-nav-wa")) document.getElementById("view-nav-wa").href = data.waLink;
+                        if(document.getElementById("view-cta-wa")) document.getElementById("view-cta-wa").href = data.waLink;
+                    }
+                    if(data.socFb && document.getElementById("view-soc-fb")) document.getElementById("view-soc-fb").href = data.socFb;
+                    if(data.socIg && document.getElementById("view-soc-ig")) document.getElementById("view-soc-ig").href = data.socIg;
+
+                    if(data.heroImg && document.getElementById("view-hero-img")) document.getElementById("view-hero-img").src = data.heroImg;
+                    if(data.heroTitle && document.getElementById("view-hero-title")) document.getElementById("view-hero-title").innerHTML = data.heroTitle;
+                    if(data.heroDesc && document.getElementById("view-hero-desc")) document.getElementById("view-hero-desc").innerText = data.heroDesc;
+                    
+                    if(data.galLink) {
+                        if(document.getElementById("view-hero-link")) document.getElementById("view-hero-link").href = data.galLink;
+                        if(document.getElementById("view-gal-link")) document.getElementById("view-gal-link").href = data.galLink;
+                    }
+
+                    if(data.aboutTitle && document.getElementById("view-about-title")) document.getElementById("view-about-title").innerHTML = data.aboutTitle;
+                    if(data.aboutDesc && document.getElementById("view-about-desc")) document.getElementById("view-about-desc").innerText = data.aboutDesc;
+                    if(data.aboutB1 && document.getElementById("view-about-b1")) document.getElementById("view-about-b1").innerText = data.aboutB1;
+                    if(data.aboutB2 && document.getElementById("view-about-b2")) document.getElementById("view-about-b2").innerText = data.aboutB2;
+                    if(data.aboutB3 && document.getElementById("view-about-b3")) document.getElementById("view-about-b3").innerText = data.aboutB3;
+                    if(data.aboutB4 && document.getElementById("view-about-b4")) document.getElementById("view-about-b4").innerText = data.aboutB4;
+
+                    for(let i=1; i<=5; i++) {
+                        if(data[`carImg${i}`] && document.getElementById(`view-car-img${i}`)) document.getElementById(`view-car-img${i}`).src = data[`carImg${i}`];
+                        if(data[`carTxt${i}`] && document.getElementById(`view-car-txt${i}`)) document.getElementById(`view-car-txt${i}`).innerText = data[`carTxt${i}`];
+                    }
+
+                    for(let i=1; i<=3; i++) {
+                        if(data[`srvIco${i}`] && document.getElementById(`view-srv-ico${i}`)) document.getElementById(`view-srv-ico${i}`).innerText = data[`srvIco${i}`];
+                        if(data[`srvTit${i}`] && document.getElementById(`view-srv-tit${i}`)) document.getElementById(`view-srv-tit${i}`).innerText = data[`srvTit${i}`];
+                        if(data[`srvDesc${i}`] && document.getElementById(`view-srv-desc${i}`)) document.getElementById(`view-srv-desc${i}`).innerText = data[`srvDesc${i}`];
+                        if(data[`galImg${i}`] && document.getElementById(`view-gal-img${i}`)) document.getElementById(`view-gal-img${i}`).src = data[`galImg${i}`];
+                    }
+
+                    for(let i=1; i<=4; i++) {
+                        if(data[`procTit${i}`] && document.getElementById(`view-proc-tit${i}`)) document.getElementById(`view-proc-tit${i}`).innerText = data[`procTit${i}`];
+                        if(data[`procDesc${i}`] && document.getElementById(`view-proc-desc${i}`)) document.getElementById(`view-proc-desc${i}`).innerText = data[`procDesc${i}`];
+                    }
+                    
+                    for(let i=1; i<=3; i++) {
+                        if(data[`faqQ${i}`] && document.getElementById(`view-faq-q${i}`)) document.getElementById(`view-faq-q${i}`).innerText = data[`faqQ${i}`];
+                        if(data[`faqA${i}`] && document.getElementById(`view-faq-a${i}`)) document.getElementById(`view-faq-a${i}`).innerText = data[`faqA${i}`];
+                    }
+
+                    if(data.ctaTitle && document.getElementById("view-cta-title")) document.getElementById("view-cta-title").innerText = data.ctaTitle;
+                    if(data.ctaDesc && document.getElementById("view-cta-desc")) document.getElementById("view-cta-desc").innerText = data.ctaDesc;
+                    if(data.footDesc && document.getElementById("view-foot-desc")) document.getElementById("view-foot-desc").innerText = data.footDesc;
+                    if(data.footLoc && document.getElementById("view-foot-loc")) document.getElementById("view-foot-loc").innerText = data.footLoc;
+                    if(data.footEmail && document.getElementById("view-foot-email")) document.getElementById("view-foot-email").innerText = data.footEmail;
+                    if(data.footPhone && document.getElementById("view-foot-phone")) document.getElementById("view-foot-phone").innerText = data.footPhone;
+                }
+            } catch(e) {
+                console.error("Error cargando los datos:", e);
+            }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.scroll-anim').forEach((el) => observer.observe(el));
+
+        const carousel3d = document.getElementById('carousel-3d');
+        const slider = document.getElementById('carousel-slider');
+        if(carousel3d && slider) {
+            carousel3d.style.transform = `translateZ(-350px) rotateY(0deg)`;
+            slider.addEventListener('input', (e) => {
+                carousel3d.style.transform = `translateZ(-350px) rotateY(${-e.target.value}deg)`;
+            });
+        }
+
+        const card = document.getElementById("draggable-card");
+        const dragHandle = document.getElementById("card-drag-handle");
+        const portadaContainer = document.querySelector(".hero-portada");
+        let isDragging = false, offsetX = 0, offsetY = 0;
+        
+        if(card && dragHandle && portadaContainer) {
+            const startDrag = (clientX, clientY) => {
+                isDragging = true;
+                card.style.position = "absolute"; card.style.margin = "0"; card.style.bottom = "auto"; card.style.zIndex = "2000";
+                const rect = card.getBoundingClientRect();
+                offsetX = clientX - rect.left; offsetY = clientY - rect.top;
+            };
+            const onDrag = (clientX, clientY) => {
+                if (!isDragging) return;
+                const containerRect = portadaContainer.getBoundingClientRect();
+                card.style.left = `${clientX - containerRect.left - offsetX}px`;
+                card.style.top = `${clientY - containerRect.top - offsetY}px`;
+            };
+            const stopDrag = () => { isDragging = false; };
+            
+            dragHandle.addEventListener("mousedown", (e) => startDrag(e.clientX, e.clientY));
+            document.addEventListener("mousemove", (e) => onDrag(e.clientX, e.clientY));
+            document.addEventListener("mouseup", stopDrag);
+            dragHandle.addEventListener("touchstart", (e) => { startDrag(e.touches[0].clientX, e.touches[0].clientY); });
+            document.addEventListener("touchmove", (e) => { if (isDragging) onDrag(e.touches[0].clientX, e.touches[0].clientY); });
+            document.addEventListener("touchend", stopDrag);
+        }
+    </script>
+</body>
+</html>
