@@ -97,12 +97,30 @@
         </div>
     </section>
 
-    <section class="testimonials scroll-anim">
-        <div class="section-header"><h2>Lo que dicen nuestros clientes</h2></div>
-        <div class="test-grid">
-            <div class="test-card"><div class="stars">⭐⭐⭐⭐⭐</div><p class="test-text" id="view-test-txt1">"..."</p><h4 class="test-name" id="view-test-name1">- L.</h4></div>
-            <div class="test-card"><div class="stars">⭐⭐⭐⭐⭐</div><p class="test-text" id="view-test-txt2">"..."</p><h4 class="test-name" id="view-test-name2">- R.</h4></div>
-            <div class="test-card"><div class="stars">⭐⭐⭐⭐⭐</div><p class="test-text" id="view-test-txt3">"..."</p><h4 class="test-name" id="view-test-name3">- F.</h4></div>
+    <!-- NUEVO: PROCESO DE TRABAJO (Reemplaza Testimonios) -->
+    <section class="process-section scroll-anim">
+        <div class="section-header"><h2>Nuestro Proceso de Trabajo</h2><p>Transparencia y calidad desde la primera cita.</p></div>
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3 id="view-proc-tit1">Asesoría</h3>
+                <p id="view-proc-desc1">Analizamos tu espacio y necesidades.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3 id="view-proc-tit2">Diseño 3D</h3>
+                <p id="view-proc-desc2">Modelamos tu proyecto para aprobación.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3 id="view-proc-tit3">Fabricación</h3>
+                <p id="view-proc-desc3">Cortes precisos con materiales premium.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h3 id="view-proc-tit4">Instalación</h3>
+                <p id="view-proc-desc4">Montaje limpio y profesional en tu domicilio.</p>
+            </div>
         </div>
     </section>
 
@@ -114,7 +132,7 @@
             <div class="gallery-item"><img id="view-gal-img3" src="FOND.jpeg"><div class="gallery-overlay"><span>Ver Detalles</span></div></div>
         </div>
         <div style="text-align: center; margin-top: 50px;">
-            <a id="view-gal-link" href="#" target="_blank" class="cta-button-photos">📸 Explorar Álbum</a>
+            <a id="view-gal-link" href="#" target="_blank" class="cta-button-photos">📸 Explorar Álbum Completo</a>
         </div>
     </section>
 
@@ -142,7 +160,7 @@
         </div>
     </footer>
 
-    <!-- MODAL CATÁLOGO VISUAL FLOTANTE CON LAS 3 SECCIONES -->
+    <!-- MODAL CATÁLOGO CON IMÁGENES 16:9 DE PORTADA -->
     <div id="super-catalogo-modal" class="super-modal" style="display: none; opacity: 0;">
         <button class="close-super-modal" onclick="cerrarSuperCatalogo()">✖</button>
         <div class="super-modal-content">
@@ -157,22 +175,24 @@
 
             <!-- CONTENEDOR MELAMINAS -->
             <div id="sec-mela" class="super-section active">
+                <div class="super-header-img" id="box-mela-bg" style="display:none;"><img id="view-mela-bg" src="" alt="Melaminas"></div>
                 <div id="info-mela" class="showcase-global-info"></div>
                 <div id="showcase-melaminas" class="super-showcase"></div>
             </div>
 
             <!-- CONTENEDOR CUBIERTAS -->
             <div id="sec-cubi" class="super-section">
+                <div class="super-header-img" id="box-cubi-bg" style="display:none;"><img id="view-cubi-bg" src="" alt="Cubiertas"></div>
                 <div id="info-cubi" class="showcase-global-info"></div>
                 <div id="showcase-cubiertas" class="super-showcase"></div>
             </div>
 
             <!-- CONTENEDOR HERRAJES -->
             <div id="sec-herr" class="super-section">
+                <div class="super-header-img" id="box-herr-bg" style="display:none;"><img id="view-herr-bg" src="" alt="Herrajes"></div>
                 <div id="info-herr" class="showcase-global-info"></div>
                 <div id="showcase-herrajes" class="super-showcase"></div>
             </div>
-
         </div>
     </div>
 
@@ -215,18 +235,15 @@
                 // DIBUJAR CATÁLOGO COMPLETO
                 if (data) {
                     
+                    // Imágenes de Portada 16:9
+                    if(data.melaBg && data.melaBg.trim() !== '') { document.getElementById('view-mela-bg').src = data.melaBg; document.getElementById('box-mela-bg').style.display = 'block'; }
+                    if(data.cubiBg && data.cubiBg.trim() !== '') { document.getElementById('view-cubi-bg').src = data.cubiBg; document.getElementById('box-cubi-bg').style.display = 'block'; }
+                    if(data.herrBg && data.herrBg.trim() !== '') { document.getElementById('view-herr-bg').src = data.herrBg; document.getElementById('box-herr-bg').style.display = 'block'; }
+
                     // Insertar Textos Globales
-                    if(data.melaInfo && data.melaInfo.trim() !== '') {
-                        document.getElementById('info-mela').innerHTML = `<p>${data.melaInfo}</p>`;
-                    } else { document.getElementById('info-mela').style.display = 'none'; }
-                    
-                    if(data.cubiInfo && data.cubiInfo.trim() !== '') {
-                        document.getElementById('info-cubi').innerHTML = `<p>${data.cubiInfo}</p>`;
-                    } else { document.getElementById('info-cubi').style.display = 'none'; }
-                    
-                    if(data.herrInfo && data.herrInfo.trim() !== '') {
-                        document.getElementById('info-herr').innerHTML = `<p>${data.herrInfo}</p>`;
-                    } else { document.getElementById('info-herr').style.display = 'none'; }
+                    if(data.melaInfo && data.melaInfo.trim() !== '') { document.getElementById('info-mela').innerHTML = `<p>${data.melaInfo}</p>`; } else { document.getElementById('info-mela').style.display = 'none'; }
+                    if(data.cubiInfo && data.cubiInfo.trim() !== '') { document.getElementById('info-cubi').innerHTML = `<p>${data.cubiInfo}</p>`; } else { document.getElementById('info-cubi').style.display = 'none'; }
+                    if(data.herrInfo && data.herrInfo.trim() !== '') { document.getElementById('info-herr').innerHTML = `<p>${data.herrInfo}</p>`; } else { document.getElementById('info-herr').style.display = 'none'; }
 
                     // Dibujar Tarjetas
                     let htmlMela = '', htmlCubi = '', htmlHerr = '';
@@ -234,44 +251,21 @@
                     if(data.catMelaminas && data.catMelaminas.length > 0) {
                         data.catMelaminas.forEach(item => {
                             if(item.img && item.img.trim() !== '') {
-                                htmlMela += `
-                                <div class="magic-card">
-                                    <img src="${item.img}" alt="Material">
-                                    <div class="magic-info">
-                                        <h3>${item.tit || 'Acabado Premium'}</h3>
-                                        <p>${item.desc || ''}</p>
-                                    </div>
-                                </div>`;
+                                htmlMela += `<div class="magic-card"><img src="${item.img}" alt="Material"><div class="magic-info"><h3>${item.tit || 'Acabado Premium'}</h3><p>${item.desc || ''}</p></div></div>`;
                             }
                         });
                     }
-
                     if(data.catCubiertas && data.catCubiertas.length > 0) {
                         data.catCubiertas.forEach(item => {
                             if(item.img && item.img.trim() !== '') {
-                                htmlCubi += `
-                                <div class="magic-card">
-                                    <img src="${item.img}" alt="Cubierta">
-                                    <div class="magic-info">
-                                        <h3>${item.tit || 'Piedra Natural'}</h3>
-                                        <p>${item.desc || ''}</p>
-                                    </div>
-                                </div>`;
+                                htmlCubi += `<div class="magic-card"><img src="${item.img}" alt="Cubierta"><div class="magic-info"><h3>${item.tit || 'Piedra Natural'}</h3><p>${item.desc || ''}</p></div></div>`;
                             }
                         });
                     }
-
                     if(data.catHerrajes && data.catHerrajes.length > 0) {
                         data.catHerrajes.forEach(item => {
                             if(item.img && item.img.trim() !== '') {
-                                htmlHerr += `
-                                <div class="magic-card">
-                                    <img src="${item.img}" alt="Herraje">
-                                    <div class="magic-info">
-                                        <h3>${item.tit || 'Accesorio Premium'}</h3>
-                                        <p>${item.desc || ''}</p>
-                                    </div>
-                                </div>`;
+                                htmlHerr += `<div class="magic-card"><img src="${item.img}" alt="Herraje"><div class="magic-info"><h3>${item.tit || 'Accesorio Premium'}</h3><p>${item.desc || ''}</p></div></div>`;
                             }
                         });
                     }
@@ -285,7 +279,7 @@
                     if(contHerr) contHerr.innerHTML = htmlHerr || '<p style="color:#aaa; width:100%; text-align:center;">Agrega imágenes desde tu panel de administrador.</p>';
                 }
 
-                // RECUPERAR EL RESTO DE TU PÁGINA INTACTA
+                // RECUPERAR EL RESTO DE TU PÁGINA
                 if (data) {
                     if(data.topLoc && document.getElementById("view-top-loc")) document.getElementById("view-top-loc").innerText = data.topLoc;
                     if(data.topEmail && document.getElementById("view-top-email")) document.getElementById("view-top-email").innerText = data.topEmail;
@@ -325,10 +319,15 @@
                         if(data[`srvTit${i}`] && document.getElementById(`view-srv-tit${i}`)) document.getElementById(`view-srv-tit${i}`).innerText = data[`srvTit${i}`];
                         if(data[`srvDesc${i}`] && document.getElementById(`view-srv-desc${i}`)) document.getElementById(`view-srv-desc${i}`).innerText = data[`srvDesc${i}`];
                         if(data[`galImg${i}`] && document.getElementById(`view-gal-img${i}`)) document.getElementById(`view-gal-img${i}`).src = data[`galImg${i}`];
-                        
-                        if(data[`testName${i}`] && document.getElementById(`view-test-name${i}`)) document.getElementById(`view-test-name${i}`).innerText = data[`testName${i}`];
-                        if(data[`testTxt${i}`] && document.getElementById(`view-test-txt${i}`)) document.getElementById(`view-test-txt${i}`).innerText = `"${data[`testTxt${i}`]}"`;
-                        
+                    }
+
+                    // PROCESO DE TRABAJO (NUEVO)
+                    for(let i=1; i<=4; i++) {
+                        if(data[`procTit${i}`] && document.getElementById(`view-proc-tit${i}`)) document.getElementById(`view-proc-tit${i}`).innerText = data[`procTit${i}`];
+                        if(data[`procDesc${i}`] && document.getElementById(`view-proc-desc${i}`)) document.getElementById(`view-proc-desc${i}`).innerText = data[`procDesc${i}`];
+                    }
+                    
+                    for(let i=1; i<=3; i++) {
                         if(data[`faqQ${i}`] && document.getElementById(`view-faq-q${i}`)) document.getElementById(`view-faq-q${i}`).innerText = data[`faqQ${i}`];
                         if(data[`faqA${i}`] && document.getElementById(`view-faq-a${i}`)) document.getElementById(`view-faq-a${i}`).innerText = data[`faqA${i}`];
                     }
