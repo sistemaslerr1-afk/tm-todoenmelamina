@@ -134,7 +134,7 @@
 
             <div id="success-alert">¡Cambios guardados con éxito!</div>
 
-            <!-- TAB DASHBOARD ANALYTICS -->
+            <!-- DASHBOARD, AJUSTES, PORTADA, NOSOTROS, CARRUSEL -->
             <div id="dashboard" class="tab-content active">
                 <div class="metrics-grid">
                     <div class="metric-card"><div class="title">Estado Tracker</div><div class="number" style="font-size:1.1rem; color:#28a745;">G-QFL8N8EDV2</div><span class="badge">Activo & Enlazado</span></div>
@@ -148,7 +148,6 @@
                 </div>
             </div>
 
-            <!-- AJUSTES GENERALES -->
             <div id="ajustes" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Barra Superior de Contacto</h3>
@@ -176,7 +175,6 @@
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
-            <!-- PORTADA -->
             <div id="portada" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Encabezado Principal</h3>
@@ -191,7 +189,6 @@
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
-            <!-- NOSOTROS -->
             <div id="nosotros" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Diseño Inteligente</h3>
@@ -207,7 +204,6 @@
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
-            <!-- CARRUSEL -->
             <div id="carrusel" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Carrusel 3D (5 Fotos)</h3>
@@ -227,23 +223,48 @@
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
-            <!-- CATÁLOGO INFINITO DE ACABADOS -->
+            <!-- CATÁLOGO INFINITO CON TEXTOS GLOBALES -->
             <div id="catalogo" class="tab-content">
+                
+                <!-- MELAMINAS -->
                 <div class="editor-section">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
                         <h3 class="section-title" style="margin:0; border:none;">🪵 Melaminas y MDF</h3>
                         <button type="button" class="btn-preview" onclick="crearTarjetaCatalogo('melaminas')">+ Agregar Melamina</button>
                     </div>
+                    <div class="form-group full">
+                        <label>Texto de Introducción de esta Categoría</label>
+                        <textarea id="in-mela-info" placeholder="Ej: Descubre nuestra variedad de texturas y acabados..."></textarea>
+                    </div>
                     <div id="admin-melaminas"></div>
                 </div>
                 
+                <!-- CUBIERTAS -->
                 <div class="editor-section">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
                         <h3 class="section-title" style="margin:0; border:none;">🪨 Cubiertas y Cuarzos</h3>
                         <button type="button" class="btn-preview" onclick="crearTarjetaCatalogo('cubiertas')">+ Agregar Cubierta</button>
                     </div>
+                    <div class="form-group full">
+                        <label>Texto de Introducción de esta Categoría</label>
+                        <textarea id="in-cubi-info" placeholder="Ej: Las mejores piedras naturales y superficies sólidas..."></textarea>
+                    </div>
                     <div id="admin-cubiertas"></div>
                 </div>
+
+                <!-- HERRAJES -->
+                <div class="editor-section">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                        <h3 class="section-title" style="margin:0; border:none;">⚙️ Herrajes y Accesorios</h3>
+                        <button type="button" class="btn-preview" onclick="crearTarjetaCatalogo('herrajes')">+ Agregar Herraje</button>
+                    </div>
+                    <div class="form-group full">
+                        <label>Texto de Introducción de esta Categoría</label>
+                        <textarea id="in-herr-info" placeholder="Ej: Accesorios de cierre suave, organizadores y tecnología..."></textarea>
+                    </div>
+                    <div id="admin-herrajes"></div>
+                </div>
+
                 <button class="btn-save" onclick="guardarTodo()">Guardar Cambios</button>
             </div>
 
@@ -318,7 +339,6 @@
             if(window.innerWidth <= 900) { toggleSidebar(); }
         }
 
-        // MOTOR DE COMPRESIÓN SÚPER LIGERA
         function procesarImagen(event, inputId) {
             const file = event.target.files[0];
             if (!file) return;
@@ -333,7 +353,7 @@
                 img.src = e.target.result;
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
-                    const MAX_WIDTH = 400; // Reducido a 400px para que no ocupe memoria
+                    const MAX_WIDTH = 400; 
                     let width = img.width;
                     let height = img.height;
 
@@ -347,7 +367,7 @@
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
 
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.5); // Súper comprimido al 50%
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.5); 
                     targetInput.value = dataUrl;
                     
                     mostrarAlerta("¡Imagen cargada! Dale a 'Guardar Cambios'.", "#17a2b8");
@@ -355,18 +375,21 @@
             };
         }
 
-        // LÓGICA DE TARJETAS INFINITAS PARA CATÁLOGO
         let itemCounter = 0;
         function crearTarjetaCatalogo(tipo, imgVal='', titVal='', descVal='') {
             const container = document.getElementById(`admin-${tipo}`);
             itemCounter++;
             const uniqueId = `cat_img_${itemCounter}`;
             
+            let label = '🪵 Melamina / MDF';
+            if(tipo === 'cubiertas') label = '🪨 Cubierta / Cuarzo';
+            if(tipo === 'herrajes') label = '⚙️ Herraje / Accesorio';
+
             const div = document.createElement('div');
             div.className = 'cat-item-admin';
             div.innerHTML = `
                 <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                    <h4>${tipo === 'melaminas' ? '🪵 Melamina / MDF' : '🪨 Cubierta / Cuarzo'}</h4>
+                    <h4>${label}</h4>
                     <button type="button" style="background:#ff4d4d; color:white; border:none; padding:5px 10px; border-radius:6px; cursor:pointer;" onclick="this.parentElement.parentElement.remove()">🗑️ Eliminar</button>
                 </div>
                 <div class="form-grid">
@@ -376,7 +399,7 @@
                         <input type="file" accept="image/*" onchange="procesarImagen(event, '${uniqueId}')">
                     </div>
                     <div class="form-group">
-                        <label>Nombre del Acabado</label>
+                        <label>Nombre del Artículo</label>
                         <input type="text" class="c-tit" value="${titVal}">
                     </div>
                     <div class="form-group full">
@@ -392,13 +415,18 @@
             try {
                 const data = JSON.parse(localStorage.getItem("tm_website_data"));
                 if (!data) {
-                    // Si es nuevo, poner 1 tarjeta vacía
                     crearTarjetaCatalogo('melaminas');
                     crearTarjetaCatalogo('cubiertas');
+                    crearTarjetaCatalogo('herrajes');
                     return;
                 }
 
-                // Cargar arreglos infinitos de catálogo
+                // Cargar Textos Globales del Catálogo
+                if(document.getElementById('in-mela-info')) document.getElementById('in-mela-info').value = data.melaInfo || '';
+                if(document.getElementById('in-cubi-info')) document.getElementById('in-cubi-info').value = data.cubiInfo || '';
+                if(document.getElementById('in-herr-info')) document.getElementById('in-herr-info').value = data.herrInfo || '';
+
+                // Cargar Arreglos del Catálogo
                 if(data.catMelaminas && data.catMelaminas.length > 0) {
                     data.catMelaminas.forEach(item => crearTarjetaCatalogo('melaminas', item.img, item.tit, item.desc));
                 } else { crearTarjetaCatalogo('melaminas'); }
@@ -406,6 +434,10 @@
                 if(data.catCubiertas && data.catCubiertas.length > 0) {
                     data.catCubiertas.forEach(item => crearTarjetaCatalogo('cubiertas', item.img, item.tit, item.desc));
                 } else { crearTarjetaCatalogo('cubiertas'); }
+
+                if(data.catHerrajes && data.catHerrajes.length > 0) {
+                    data.catHerrajes.forEach(item => crearTarjetaCatalogo('herrajes', item.img, item.tit, item.desc));
+                } else { crearTarjetaCatalogo('herrajes'); }
 
                 // Cargar Resto de la página
                 const map = {
@@ -427,6 +459,11 @@
         function guardarTodo() {
             const data = {};
             
+            // Guardar Textos Globales
+            data.melaInfo = document.getElementById('in-mela-info').value;
+            data.cubiInfo = document.getElementById('in-cubi-info').value;
+            data.herrInfo = document.getElementById('in-herr-info').value;
+
             // Recolectar todas las tarjetas infinitas de catálogo
             data.catMelaminas = [];
             document.querySelectorAll('#admin-melaminas .cat-item-admin').forEach(el => {
@@ -438,6 +475,13 @@
             data.catCubiertas = [];
             document.querySelectorAll('#admin-cubiertas .cat-item-admin').forEach(el => {
                 data.catCubiertas.push({
+                    img: el.querySelector('.c-img').value, tit: el.querySelector('.c-tit').value, desc: el.querySelector('.c-desc').value
+                });
+            });
+
+            data.catHerrajes = [];
+            document.querySelectorAll('#admin-herrajes .cat-item-admin').forEach(el => {
+                data.catHerrajes.push({
                     img: el.querySelector('.c-img').value, tit: el.querySelector('.c-tit').value, desc: el.querySelector('.c-desc').value
                 });
             });
@@ -457,7 +501,6 @@
                 if(document.getElementById(id)) data[key] = document.getElementById(id).value;
             }
 
-            // Guardar e Intentar atrapar errores de Memoria Llenada
             try {
                 localStorage.setItem("tm_website_data", JSON.stringify(data));
                 mostrarAlerta("¡Cambios guardados con éxito!", "#28a745");
