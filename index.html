@@ -169,7 +169,7 @@
         <div class="footer-bottom"><p>&copy; 2026 Todo en Melamina. Todos los derechos reservados.</p></div>
     </footer>
 
-    <!-- MODAL CATÁLOGO VISUAL FIJO (CARGARÁ EN TODOS LOS CELULARES Y NAVEGADORES) -->
+    <!-- MODAL CATÁLOGO VISUAL -->
     <div id="super-catalogo-modal" class="super-modal" style="display: none; opacity: 0;">
         <button class="close-super-modal" onclick="cerrarSuperCatalogo()">✖</button>
         <div class="super-modal-content">
@@ -182,40 +182,22 @@
                 <button class="s-tab" onclick="filtrarCatalogo('herr', this)">⚙️ Herrajes / Accesorios</button>
             </div>
 
-            <!-- MELAMINAS -->
             <div id="sec-mela" class="super-section active">
-                <div class="super-header-img"><img src="https://images.unsplash.com/photo-1546484396-fb3fc6f95f98?auto=format&fit=crop&w=1200&q=80" alt="Melaminas"></div>
-                <div class="showcase-global-info"><p>Descubre nuestra exclusiva variedad de texturas. Desde vetas naturales hasta acabados súper mate antihuellas.</p></div>
-                <div class="super-showcase">
-                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?auto=format&fit=crop&w=600&q=80" alt="Melamina 1"><div class="magic-info"><h3>Encino Polar</h3><p>Claro / Texturizado</p></div></div>
-                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&w=600&q=80" alt="Melamina 2"><div class="magic-info"><h3>Nogal Clásico</h3><p>Veta Natural / Mate</p></div></div>
-                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?auto=format&fit=crop&w=600&q=80" alt="Melamina 3"><div class="magic-info"><h3>Roble Tabaco</h3><p>Sincronizado / Oscuro</p></div></div>
-                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1581428982868-e410dd047a90?auto=format&fit=crop&w=600&q=80" alt="Melamina 4"><div class="magic-info"><h3>Gris Oxford</h3><p>Liso / Super Mate</p></div></div>
-                </div>
+                <div class="super-header-img" id="box-mela-bg" style="display:none;"><img id="view-mela-bg" src="" alt="Melaminas"></div>
+                <div id="info-mela" class="showcase-global-info"></div>
+                <div id="showcase-melaminas" class="super-showcase"></div>
             </div>
 
-            <!-- CUBIERTAS -->
             <div id="sec-cubi" class="super-section">
-                <div class="super-header-img"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Cubiertas"></div>
-                <div class="showcase-global-info"><p>Las mejores piedras naturales y superficies sólidas de cuarzo para cocinas de alto rendimiento, resistentes a manchas y rayaduras.</p></div>
-                <div class="super-showcase">
-                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=600&q=80" alt="Cubierta 1"><div class="magic-info"><h3>Granito Negro San Gabriel</h3><p>Piedra Natural / Pulido</p></div></div>
-                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1585128719715-46776b56a0fb?auto=format&fit=crop&w=600&q=80" alt="Cubierta 2"><div class="magic-info"><h3>Mármol Carrara</h3><p>Veta Gris / Brillante</p></div></div>
-                    <div class="magic-card"><img src="https://plus.unsplash.com/premium_photo-1678197779346-63d11d102dc8?auto=format&fit=crop&w=600&q=80" alt="Cubierta 3"><div class="magic-info"><h3>Cuarzo Blanco Puro</h3><p>Superficie Sólida Antibacterial</p></div></div>
-                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1595514535310-94f7d498ff0b?auto=format&fit=crop&w=600&q=80" alt="Cubierta 4"><div class="magic-info"><h3>Cuarzo Calacatta</h3><p>Veta Marcada / Premium</p></div></div>
-                </div>
+                <div class="super-header-img" id="box-cubi-bg" style="display:none;"><img id="view-cubi-bg" src="" alt="Cubiertas"></div>
+                <div id="info-cubi" class="showcase-global-info"></div>
+                <div id="showcase-cubiertas" class="super-showcase"></div>
             </div>
 
-            <!-- HERRAJES -->
             <div id="sec-herr" class="super-section">
-                <div class="super-header-img"><img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&w=1200&q=80" alt="Herrajes"></div>
-                <div class="showcase-global-info"><p>Tecnología europea en herrajes. Sistemas de cierre suave, organizadores extraíbles y bisagras de alta durabilidad que marcan la diferencia.</p></div>
-                <div class="super-showcase">
-                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1534353436294-0dbd4bdac845?auto=format&fit=crop&w=600&q=80" alt="Herraje 1"><div class="magic-info"><h3>Correderas Cierre Suave</h3><p>Extracción Total</p></div></div>
-                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1610488426090-09faaaec45cb?auto=format&fit=crop&w=600&q=80" alt="Herraje 2"><div class="magic-info"><h3>Bisagras Premium</h3><p>Con Amortiguador Integrado</p></div></div>
-                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80" alt="Herraje 3"><div class="magic-info"><h3>Jaladeras de Diseño</h3><p>Acabado Negro Mate / Dorado</p></div></div>
-                    <div class="magic-card"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" alt="Herraje 4"><div class="magic-info"><h3>Organizadores Mágicos</h3><p>Para esquinas de cocina</p></div></div>
-                </div>
+                <div class="super-header-img" id="box-herr-bg" style="display:none;"><img id="view-herr-bg" src="" alt="Herrajes"></div>
+                <div id="info-herr" class="showcase-global-info"></div>
+                <div id="showcase-herrajes" class="super-showcase"></div>
             </div>
         </div>
     </div>
@@ -255,78 +237,91 @@
         function filtrarCatalogo(tipo, btn) {
             document.querySelectorAll('.s-tab').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
             document.querySelectorAll('.super-section').forEach(sec => sec.classList.remove('active'));
             document.getElementById(`sec-${tipo}`).classList.add('active');
         }
 
-        // Recuperar datos de la página (Excepto el Catálogo, que ya está fijo arriba)
+        // EL SECRETO: AHORA LEE EL ARCHIVO DATA.JSON DESDE GITHUB (Para que todos los celulares lo vean)
         document.addEventListener("DOMContentLoaded", function() {
-            try {
-                const data = JSON.parse(localStorage.getItem("tm_website_data"));
-
-                if (data) {
-                    if(data.topLoc && document.getElementById("view-top-loc")) document.getElementById("view-top-loc").innerText = data.topLoc;
-                    if(data.topEmail && document.getElementById("view-top-email")) document.getElementById("view-top-email").innerText = data.topEmail;
-                    if(data.topPhone && document.getElementById("view-top-phone")) document.getElementById("view-top-phone").innerText = data.topPhone;
-                    
-                    if(data.waLink) {
-                        if(document.getElementById("view-float-wa")) document.getElementById("view-float-wa").href = data.waLink;
-                        if(document.getElementById("view-nav-wa")) document.getElementById("view-nav-wa").href = data.waLink;
-                        if(document.getElementById("view-cta-wa")) document.getElementById("view-cta-wa").href = data.waLink;
-                    }
-                    if(data.socFb && document.getElementById("view-soc-fb")) document.getElementById("view-soc-fb").href = data.socFb;
-                    if(data.socIg && document.getElementById("view-soc-ig")) document.getElementById("view-soc-ig").href = data.socIg;
-
-                    if(data.heroImg && document.getElementById("view-hero-img")) document.getElementById("view-hero-img").src = data.heroImg;
-                    if(data.heroTitle && document.getElementById("view-hero-title")) document.getElementById("view-hero-title").innerHTML = data.heroTitle;
-                    if(data.heroDesc && document.getElementById("view-hero-desc")) document.getElementById("view-hero-desc").innerText = data.heroDesc;
-                    
-                    if(data.galLink) {
-                        if(document.getElementById("view-hero-link")) document.getElementById("view-hero-link").href = data.galLink;
-                        if(document.getElementById("view-gal-link")) document.getElementById("view-gal-link").href = data.galLink;
-                    }
-
-                    if(data.aboutTitle && document.getElementById("view-about-title")) document.getElementById("view-about-title").innerHTML = data.aboutTitle;
-                    if(data.aboutDesc && document.getElementById("view-about-desc")) document.getElementById("view-about-desc").innerText = data.aboutDesc;
-                    if(data.aboutB1 && document.getElementById("view-about-b1")) document.getElementById("view-about-b1").innerText = data.aboutB1;
-                    if(data.aboutB2 && document.getElementById("view-about-b2")) document.getElementById("view-about-b2").innerText = data.aboutB2;
-                    if(data.aboutB3 && document.getElementById("view-about-b3")) document.getElementById("view-about-b3").innerText = data.aboutB3;
-                    if(data.aboutB4 && document.getElementById("view-about-b4")) document.getElementById("view-about-b4").innerText = data.aboutB4;
-
-                    for(let i=1; i<=5; i++) {
-                        if(data[`carImg${i}`] && document.getElementById(`view-car-img${i}`)) document.getElementById(`view-car-img${i}`).src = data[`carImg${i}`];
-                        if(data[`carTxt${i}`] && document.getElementById(`view-car-txt${i}`)) document.getElementById(`view-car-txt${i}`).innerText = data[`carTxt${i}`];
-                    }
-
-                    for(let i=1; i<=3; i++) {
-                        if(data[`srvIco${i}`] && document.getElementById(`view-srv-ico${i}`)) document.getElementById(`view-srv-ico${i}`).innerText = data[`srvIco${i}`];
-                        if(data[`srvTit${i}`] && document.getElementById(`view-srv-tit${i}`)) document.getElementById(`view-srv-tit${i}`).innerText = data[`srvTit${i}`];
-                        if(data[`srvDesc${i}`] && document.getElementById(`view-srv-desc${i}`)) document.getElementById(`view-srv-desc${i}`).innerText = data[`srvDesc${i}`];
-                        if(data[`galImg${i}`] && document.getElementById(`view-gal-img${i}`)) document.getElementById(`view-gal-img${i}`).src = data[`galImg${i}`];
-                    }
-
-                    for(let i=1; i<=4; i++) {
-                        if(data[`procTit${i}`] && document.getElementById(`view-proc-tit${i}`)) document.getElementById(`view-proc-tit${i}`).innerText = data[`procTit${i}`];
-                        if(data[`procDesc${i}`] && document.getElementById(`view-proc-desc${i}`)) document.getElementById(`view-proc-desc${i}`).innerText = data[`procDesc${i}`];
-                    }
-                    
-                    for(let i=1; i<=3; i++) {
-                        if(data[`faqQ${i}`] && document.getElementById(`view-faq-q${i}`)) document.getElementById(`view-faq-q${i}`).innerText = data[`faqQ${i}`];
-                        if(data[`faqA${i}`] && document.getElementById(`view-faq-a${i}`)) document.getElementById(`view-faq-a${i}`).innerText = data[`faqA${i}`];
-                    }
-
-                    if(data.ctaTitle && document.getElementById("view-cta-title")) document.getElementById("view-cta-title").innerText = data.ctaTitle;
-                    if(data.ctaDesc && document.getElementById("view-cta-desc")) document.getElementById("view-cta-desc").innerText = data.ctaDesc;
-                    if(data.footDesc && document.getElementById("view-foot-desc")) document.getElementById("view-foot-desc").innerText = data.footDesc;
-                    if(data.footLoc && document.getElementById("view-foot-loc")) document.getElementById("view-foot-loc").innerText = data.footLoc;
-                    if(data.footEmail && document.getElementById("view-foot-email")) document.getElementById("view-foot-email").innerText = data.footEmail;
-                    if(data.footPhone && document.getElementById("view-foot-phone")) document.getElementById("view-foot-phone").innerText = data.footPhone;
-                }
-            } catch(e) {
-                console.error("Error cargando los datos:", e);
-            }
+            fetch('data.json?v=' + new Date().getTime())
+                .then(response => {
+                    if(!response.ok) throw new Error("No hay data.json subido en GitHub todavía.");
+                    return response.json();
+                })
+                .then(data => aplicarDatosPagina(data))
+                .catch(error => {
+                    console.log("Mostrando diseño por defecto. Aún no has subido data.json.");
+                    // Fallback a memoria local solo por si estás haciendo pruebas sin subir a GitHub
+                    const dataLocal = JSON.parse(localStorage.getItem("tm_website_data"));
+                    if(dataLocal) aplicarDatosPagina(dataLocal);
+                });
         });
+
+        function aplicarDatosPagina(data) {
+            if (!data) return;
+
+            // Catálogo (Imágenes 16:9)
+            if(data.melaBg && data.melaBg.trim() !== '') { document.getElementById('view-mela-bg').src = data.melaBg; document.getElementById('box-mela-bg').style.display = 'block'; }
+            if(data.cubiBg && data.cubiBg.trim() !== '') { document.getElementById('view-cubi-bg').src = data.cubiBg; document.getElementById('box-cubi-bg').style.display = 'block'; }
+            if(data.herrBg && data.herrBg.trim() !== '') { document.getElementById('view-herr-bg').src = data.herrBg; document.getElementById('box-herr-bg').style.display = 'block'; }
+
+            // Catálogo (Textos Globales)
+            if(data.melaInfo && data.melaInfo.trim() !== '') { document.getElementById('info-mela').innerHTML = `<p>${data.melaInfo}</p>`; } else { document.getElementById('info-mela').style.display = 'none'; }
+            if(data.cubiInfo && data.cubiInfo.trim() !== '') { document.getElementById('info-cubi').innerHTML = `<p>${data.cubiInfo}</p>`; } else { document.getElementById('info-cubi').style.display = 'none'; }
+            if(data.herrInfo && data.herrInfo.trim() !== '') { document.getElementById('info-herr').innerHTML = `<p>${data.herrInfo}</p>`; } else { document.getElementById('info-herr').style.display = 'none'; }
+
+            // Catálogo (Tarjetas)
+            let htmlMela = '', htmlCubi = '', htmlHerr = '';
+            if(data.catMelaminas && data.catMelaminas.length > 0) { data.catMelaminas.forEach(item => { if(item.img && item.img.trim() !== '') { htmlMela += `<div class="magic-card"><img src="${item.img}" alt="Material"><div class="magic-info"><h3>${item.tit || 'Acabado'}</h3><p>${item.desc || ''}</p></div></div>`; } }); }
+            if(data.catCubiertas && data.catCubiertas.length > 0) { data.catCubiertas.forEach(item => { if(item.img && item.img.trim() !== '') { htmlCubi += `<div class="magic-card"><img src="${item.img}" alt="Cubierta"><div class="magic-info"><h3>${item.tit || 'Piedra'}</h3><p>${item.desc || ''}</p></div></div>`; } }); }
+            if(data.catHerrajes && data.catHerrajes.length > 0) { data.catHerrajes.forEach(item => { if(item.img && item.img.trim() !== '') { htmlHerr += `<div class="magic-card"><img src="${item.img}" alt="Herraje"><div class="magic-info"><h3>${item.tit || 'Accesorio'}</h3><p>${item.desc || ''}</p></div></div>`; } }); }
+
+            if(document.getElementById('showcase-melaminas')) document.getElementById('showcase-melaminas').innerHTML = htmlMela || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
+            if(document.getElementById('showcase-cubiertas')) document.getElementById('showcase-cubiertas').innerHTML = htmlCubi || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
+            if(document.getElementById('showcase-herrajes')) document.getElementById('showcase-herrajes').innerHTML = htmlHerr || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
+
+            // Textos y Configuración General
+            const map = {
+                'view-top-loc':'topLoc', 'view-top-email':'topEmail', 'view-top-phone':'topPhone',
+                'view-hero-img':'heroImg', 'view-hero-title':'heroTitle', 'view-hero-desc':'heroDesc',
+                'view-about-title':'aboutTitle', 'view-about-desc':'aboutDesc', 'view-about-b1':'aboutB1', 'view-about-b2':'aboutB2', 'view-about-b3':'aboutB3', 'view-about-b4':'aboutB4',
+                'view-proc-tit1':'procTit1', 'view-proc-desc1':'procDesc1', 'view-proc-tit2':'procTit2', 'view-proc-desc2':'procDesc2', 'view-proc-tit3':'procTit3', 'view-proc-desc3':'procDesc3', 'view-proc-tit4':'procTit4', 'view-proc-desc4':'procDesc4',
+                'view-faq-q1':'faqQ1', 'view-faq-a1':'faqA1', 'view-faq-q2':'faqQ2', 'view-faq-a2':'faqA2', 'view-faq-q3':'faqQ3', 'view-faq-a3':'faqA3',
+                'view-cta-title':'ctaTitle', 'view-cta-desc':'ctaDesc', 'view-foot-desc':'footDesc', 'view-foot-loc':'footLoc', 'view-foot-email':'footEmail', 'view-foot-phone':'footPhone'
+            };
+            for (const [id, key] of Object.entries(map)) {
+                const el = document.getElementById(id);
+                if (el && data[key]) {
+                    if (el.tagName === 'IMG') el.src = data[key];
+                    else el.innerHTML = data[key]; // innerHTML permite etiquetas como <span class="text-italic">
+                }
+            }
+
+            // Links y Redes
+            if(data.waLink) {
+                if(document.getElementById("view-float-wa")) document.getElementById("view-float-wa").href = data.waLink;
+                if(document.getElementById("view-nav-wa")) document.getElementById("view-nav-wa").href = data.waLink;
+                if(document.getElementById("view-cta-wa")) document.getElementById("view-cta-wa").href = data.waLink;
+            }
+            if(data.socFb && document.getElementById("view-soc-fb")) document.getElementById("view-soc-fb").href = data.socFb;
+            if(data.socIg && document.getElementById("view-soc-ig")) document.getElementById("view-soc-ig").href = data.socIg;
+            if(data.galLink) {
+                if(document.getElementById("view-hero-link")) document.getElementById("view-hero-link").href = data.galLink;
+                if(document.getElementById("view-gal-link")) document.getElementById("view-gal-link").href = data.galLink;
+            }
+
+            // Carrusel y Servicios (Ciclos)
+            for(let i=1; i<=5; i++) {
+                if(data[`carImg${i}`] && document.getElementById(`view-car-img${i}`)) document.getElementById(`view-car-img${i}`).src = data[`carImg${i}`];
+                if(data[`carTxt${i}`] && document.getElementById(`view-car-txt${i}`)) document.getElementById(`view-car-txt${i}`).innerText = data[`carTxt${i}`];
+            }
+            for(let i=1; i<=3; i++) {
+                if(data[`srvIco${i}`] && document.getElementById(`view-srv-ico${i}`)) document.getElementById(`view-srv-ico${i}`).innerText = data[`srvIco${i}`];
+                if(data[`srvTit${i}`] && document.getElementById(`view-srv-tit${i}`)) document.getElementById(`view-srv-tit${i}`).innerText = data[`srvTit${i}`];
+                if(data[`srvDesc${i}`] && document.getElementById(`view-srv-desc${i}`)) document.getElementById(`view-srv-desc${i}`).innerText = data[`srvDesc${i}`];
+                if(data[`galImg${i}`] && document.getElementById(`view-gal-img${i}`)) document.getElementById(`view-gal-img${i}`).src = data[`galImg${i}`];
+            }
+        }
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
