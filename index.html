@@ -22,27 +22,23 @@
 </head>
 <body>
 
-    <!-- PANTALLA DE CARGA (PRELOADER) -->
     <div id="preloader">
         <div class="loader-logo">TODO EN MELAMINA</div>
         <div class="spinner"></div>
     </div>
 
-    <!-- BOTÓN FLOTANTE WHATSAPP -->
-    <a id="view-float-wa" href="https://wa.me/524423979275?text=Hola,%20me%20gustaría%20cotizar%20un%20proyecto." target="_blank" class="whatsapp-float" title="Cotiza por WhatsApp">
+    <a id="view-float-wa" href="https://wa.me/524423979275" target="_blank" class="whatsapp-float" title="Cotiza por WhatsApp">
         <svg viewBox="0 0 32 32" width="32" height="32" fill="white"><path d="M16 2a13 13 0 0 0-11 20l-2 6 6-2a13 13 0 1 0 7-24zm0 2a11 11 0 1 1-9 17l-4 1 1-4a11 11 0 0 1 12-14zm-4 5a1 1 0 0 0-1 1c0 1 1 3 3 5s4 4 5 4a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1l-2-1a1 1 0 0 0-1 0l-1 1a2 2 0 0 1-2-2l1-1a1 1 0 0 0 0-1l-1-2a1 1 0 0 0-1-1z"/></svg>
     </a>
 
-    <!-- BARRA SUPERIOR -->
     <div class="top-bar">
         <div class="top-bar-content">
-            <span id="view-top-loc">📍 Querétaro, Querétaro</span>
+            <span id="view-top-loc">📍 Querétaro</span>
             <span id="view-top-email">✉️ todoenmelaminatm@gmail.com</span>
             <span id="view-top-phone">📞 +52 442 397 9275</span>
         </div>
     </div>
 
-    <!-- ENCABEZADO -->
     <header class="header">
         <div class="logo-container">
             <img src="LOGO.png" alt="Logo" style="height: 40px; margin-right: 10px; border-radius: 4px;" onerror="this.style.display='none'">
@@ -54,398 +50,179 @@
         <nav class="nav">
             <a href="#inicio">Inicio</a>
             <a href="#servicios">Servicios</a>
-            <a href="#materiales" style="color: var(--accent-wood); font-weight: 600;">🎨 Catálogo</a>
-            <a href="#carrusel">Inspiración</a>
+            <a href="javascript:void(0)" onclick="abrirSuperCatalogo()" style="color: var(--accent-wood); font-weight: 600;">🎨 Catálogo de Acabados</a>
             <a href="#galeria">Proyectos</a>
             <a id="view-nav-wa" href="https://wa.me/524423979275" target="_blank" class="btn-contacto-destacado">Cotizar ahora</a>
         </nav>
     </header>
 
-    <!-- PORTADA -->
     <section id="inicio" class="hero-portada">
         <img id="view-hero-img" src="FOND.jpeg" alt="Fondo Todo en Melamina" class="hero-bg-img">
         <div class="hero-overlay-gradient"></div>
         
         <div class="hero-content-glass fade-in-up" id="draggable-card">
             <div class="card-controls" id="card-drag-handle">
-                <span class="drag-hint">⣿ Arrastrar ventana</span>
-                <button class="close-card-btn" onclick="document.getElementById('draggable-card').style.display='none'" title="Cerrar ventana">✖</button>
+                <span class="drag-hint">⣿ Arrastrar</span>
+                <button class="close-card-btn" onclick="document.getElementById('draggable-card').style.display='none'">✖</button>
             </div>
             <span class="hero-badge">DISEÑO PREMIUM</span>
             <h1 class="title-main" id="view-hero-title">Transformamos tu espacio en una obra de arte.</h1>
-            <p class="description" id="view-hero-desc">Diseño y fabricación de mobiliario a medida con acabados premium en melamina y maderas finas. Elegancia que perdura en Querétaro.</p>
+            <p class="description" id="view-hero-desc">Diseño y fabricación de mobiliario a medida en Querétaro.</p>
             <div class="hero-buttons">
-                <a href="#materiales" class="cta-button">🎨 Ver Catálogo</a>
-                <a id="view-hero-link" href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button-outline">📸 Ver Álbum de Fotos</a>
+                <a href="javascript:void(0)" onclick="abrirSuperCatalogo()" class="cta-button">🎨 Ver Materiales</a>
+                <a id="view-hero-link" href="#" target="_blank" class="cta-button-outline">📸 Ver Proyectos</a>
             </div>
         </div>
     </section>
 
-    <!-- NOSOTROS -->
     <section class="about-section scroll-anim">
         <div class="about-container">
             <div class="about-text">
                 <h2 id="view-about-title">Diseño <span class="text-italic">funcional</span> e inteligente</h2>
-                <p id="view-about-desc">Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza de tu entorno.</p>
+                <p id="view-about-desc">Materiales de la más alta calidad y un diseño minimalista.</p>
             </div>
             <ul class="benefits-list">
-                <li><span class="icon">✨</span> <span id="view-about-b1">Materiales Premium</span></li>
-                <li><span class="icon">📐</span> <span id="view-about-b2">Diseño Increíble</span></li>
-                <li><span class="icon">🧹</span> <span id="view-about-b3">Instalación Limpia</span></li>
-                <li><span class="icon">🛠️</span> <span id="view-about-b4">Trabajos a tu medida</span></li>
+                <li><span class="icon">✨</span> <span id="view-about-b1">Premium</span></li>
+                <li><span class="icon">📐</span> <span id="view-about-b2">Diseño</span></li>
+                <li><span class="icon">🧹</span> <span id="view-about-b3">Limpia</span></li>
+                <li><span class="icon">🛠️</span> <span id="view-about-b4">A medida</span></li>
             </ul>
         </div>
     </section>
 
-    <!-- CARRUSEL 3D -->
     <section id="carrusel" class="carousel-section scroll-anim">
-        <div class="section-header">
-            <h2>Inspiración en Melamina</h2>
-            <p>Usa la barra inferior para girar y explorar nuestros diseños.</p>
-        </div>
+        <div class="section-header"><h2>Inspiración</h2></div>
         <div class="scene">
             <div class="carousel-3d" id="carousel-3d">
-                <div class="carousel-cell"><img id="view-car-img1" src="VISTA.jpg"><div class="caption" id="view-car-txt1">Texturas Cálidas</div></div>
-                <div class="carousel-cell"><img id="view-car-img2" src="DET.jpg"><div class="caption" id="view-car-txt2">Acabados Mate</div></div>
+                <div class="carousel-cell"><img id="view-car-img1" src="VISTA.jpg"><div class="caption" id="view-car-txt1">Texturas</div></div>
+                <div class="carousel-cell"><img id="view-car-img2" src="DET.jpg"><div class="caption" id="view-car-txt2">Mate</div></div>
                 <div class="carousel-cell"><img id="view-car-img3" src="FOND.jpeg"><div class="caption" id="view-car-txt3">Optimización</div></div>
                 <div class="carousel-cell"><img id="view-car-img4" src="VISTA.jpg"><div class="caption" id="view-car-txt4">Minimalismo</div></div>
-                <div class="carousel-cell"><img id="view-car-img5" src="DET.jpg"><div class="caption" id="view-car-txt5">Diseño Premium</div></div>
+                <div class="carousel-cell"><img id="view-car-img5" src="DET.jpg"><div class="caption" id="view-car-txt5">Premium</div></div>
             </div>
         </div>
-        <div class="slider-container">
-            <input type="range" min="0" max="360" value="0" class="carousel-slider" id="carousel-slider">
-        </div>
+        <div class="slider-container"><input type="range" min="0" max="360" value="0" class="carousel-slider" id="carousel-slider"></div>
     </section>
 
-    <!-- SERVICIOS -->
-    <section id="servicios" class="services scroll-anim">
-        <div class="section-header">
-            <h2>Nuestros Servicios</h2>
-            <p>Soluciones a medida para cada área de tu vida.</p>
-        </div>
-        <div class="cards-grid">
-            <div class="card glass-card">
-                <div class="card-icon" id="view-srv-ico1">🍳</div>
-                <h3 id="view-srv-tit1">Cocinas Integrales</h3>
-                <p id="view-srv-desc1">Diseños ergonómicos, cubiertas de cuarzo, granito y acabados en melamina de alto brillo o mate.</p>
+    <!-- GALERÍA FLOTANTE (CATÁLOGO INMERSIVO) -->
+    <div id="super-catalogo-modal" class="super-modal hide">
+        <button class="close-super-modal" onclick="cerrarSuperCatalogo()">✖</button>
+        <div class="super-modal-content">
+            <h2 class="super-title">Nuestra Colección de Acabados</h2>
+            <p class="super-subtitle">Selecciona una categoría para ver los detalles increíbles de nuestras maderas y piedras.</p>
+            
+            <div class="super-tabs">
+                <button class="s-tab active" onclick="filtrarCatalogo('mela', this)">🪵 Melaminas / MDF</button>
+                <button class="s-tab" onclick="filtrarCatalogo('cubi', this)">🪨 Cubiertas / Cuarzos</button>
             </div>
-            <div class="card glass-card">
-                <div class="card-icon" id="view-srv-ico2">👗</div>
-                <h3 id="view-srv-tit2">Closets y Vestidores</h3>
-                <p id="view-srv-desc2">Optimización total del espacio con sistemas de cierre suave y distribución inteligente.</p>
-            </div>
-            <div class="card glass-card">
-                <div class="card-icon" id="view-srv-ico3">💻</div>
-                <h3 id="view-srv-tit3">Mobiliario de Oficina</h3>
-                <p id="view-srv-desc3">Escritorios y libreros minimalistas diseñados para aumentar tu productividad y confort.</p>
-            </div>
-        </div>
-    </section>
 
-    <!-- CATÁLOGO NATIVO DE MATERIALES -->
-    <section id="materiales" class="materials-section scroll-anim">
-        <div class="section-header">
-            <h2>Acabados y Materiales</h2>
-            <p>Nuestra selección de las texturas más elegantes y solicitadas para tus proyectos.</p>
-        </div>
-        
-        <div class="materials-tabs">
-            <button class="mat-tab active" onclick="mostrarMateriales('melaminas', this)">🪵 Melaminas y MDF</button>
-            <button class="mat-tab" onclick="mostrarMateriales('cubiertas', this)">🪨 Cubiertas de Cuarzo y Granito</button>
-        </div>
+            <!-- CONTENEDOR DINÁMICO DONDE SE DIBUJAN LAS FOTOS DEL ADMIN -->
+            <div id="showcase-melaminas" class="super-showcase active"></div>
+            <div id="showcase-cubiertas" class="super-showcase"></div>
 
-        <!-- REJILLA DE MELAMINAS -->
-        <div id="grid-melaminas" class="materials-grid active">
-            <div class="mat-card">
-                <img src="https://images.unsplash.com/photo-1546484396-fb3fc6f95f98?auto=format&fit=crop&w=400&q=80" alt="Nogal Clásico">
-                <div class="mat-info">
-                    <h4>Nogal Clásico</h4>
-                    <p>Veta Natural / Mate</p>
-                </div>
-            </div>
-            <div class="mat-card">
-                <img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?auto=format&fit=crop&w=400&q=80" alt="Encino Polar">
-                <div class="mat-info">
-                    <h4>Encino Polar</h4>
-                    <p>Texturizado / Claro</p>
-                </div>
-            </div>
-            <div class="mat-card">
-                <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&w=400&q=80" alt="Gris Oxford">
-                <div class="mat-info">
-                    <h4>Gris Oxford</h4>
-                    <p>Liso / Super Mate</p>
-                </div>
-            </div>
-            <div class="mat-card">
-                <img src="https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?auto=format&fit=crop&w=400&q=80" alt="Roble Tabaco">
-                <div class="mat-info">
-                    <h4>Roble Tabaco</h4>
-                    <p>Sincronizado / Oscuro</p>
-                </div>
-            </div>
         </div>
-
-        <!-- REJILLA DE CUBIERTAS (Oculta por defecto) -->
-        <div id="grid-cubiertas" class="materials-grid" style="display:none;">
-            <div class="mat-card">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80" alt="Cuarzo Blanco">
-                <div class="mat-info">
-                    <h4>Cuarzo Blanco Puro</h4>
-                    <p>Superficie Sólida</p>
-                </div>
-            </div>
-            <div class="mat-card">
-                <img src="https://images.unsplash.com/photo-1588854337236-6889d631faa8?auto=format&fit=crop&w=400&q=80" alt="Granito San Gabriel">
-                <div class="mat-info">
-                    <h4>Granito Negro San Gabriel</h4>
-                    <p>Piedra Natural / Pulido</p>
-                </div>
-            </div>
-            <div class="mat-card">
-                <img src="https://images.unsplash.com/photo-1585128719715-46776b56a0fb?auto=format&fit=crop&w=400&q=80" alt="Mármol Carrara">
-                <div class="mat-info">
-                    <h4>Mármol Carrara</h4>
-                    <p>Veta Gris / Brillante</p>
-                </div>
-            </div>
-        </div>
-
-        <div style="text-align: center; margin-top: 50px;">
-            <a href="https://wa.me/524423979275?text=Hola,%20me%20encantaron%20sus%20acabados.%20¿Podrían%20mostrarme%20el%20muestrario%20completo?" target="_blank" class="cta-button-photos">
-                ✨ Solicitar Catálogo Completo por WhatsApp
-            </a>
-        </div>
-    </section>
-
-    <!-- TESTIMONIOS -->
-    <section class="testimonials scroll-anim">
-        <div class="section-header">
-            <h2>Lo que dicen nuestros clientes</h2>
-            <p>Tu satisfacción es nuestra mejor carta de presentación.</p>
-        </div>
-        <div class="test-grid">
-            <div class="test-card">
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <p class="test-text" id="view-test-txt1">"Me encantó el vestidor que hicieron. Excelente calidad de melamina y entregaron justo en la fecha acordada."</p>
-                <h4 class="test-name" id="view-test-name1">- Laura M.</h4>
-            </div>
-            <div class="test-card">
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <p class="test-text" id="view-test-txt2">"La cocina quedó espectacular. El diseño 3D previo me ayudó mucho a visualizarlo. Súper recomendados."</p>
-                <h4 class="test-name" id="view-test-name2">- Roberto C.</h4>
-            </div>
-            <div class="test-card">
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <p class="test-text" id="view-test-txt3">"Muy profesionales desde la cotización hasta la instalación limpia y sin dejar escombros. Excelente trabajo."</p>
-                <h4 class="test-name" id="view-test-name3">- Familia Sánchez</h4>
-            </div>
-        </div>
-    </section>
-
-    <!-- GALERÍA -->
-    <section id="galeria" class="gallery-section scroll-anim">
-        <div class="section-header">
-            <h2>Proyectos Destacados</h2>
-            <p>Explora la calidad y detalle de nuestras instalaciones.</p>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img id="view-gal-img1" src="VISTA.jpg">
-                <div class="gallery-overlay"><span>Ver Detalles</span></div>
-            </div>
-            <div class="gallery-item">
-                <img id="view-gal-img2" src="DET.jpg">
-                <div class="gallery-overlay"><span>Ver Detalles</span></div>
-            </div>
-            <div class="gallery-item">
-                <img id="view-gal-img3" src="FOND.jpeg">
-                <div class="gallery-overlay"><span>Ver Detalles</span></div>
-            </div>
-        </div>
-        <div style="text-align: center; margin-top: 50px;">
-            <a id="view-gal-link" href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button-photos">
-                📸 Explorar Álbum Completo de Trabajos
-            </a>
-        </div>
-    </section>
-
-    <!-- PREGUNTAS FRECUENTES -->
-    <section class="faq-section scroll-anim">
-        <div class="section-header">
-            <h2>Preguntas Frecuentes</h2>
-        </div>
-        <div class="faq-container">
-            <div class="faq-item">
-                <h4 id="view-faq-q1">¿Cuánto tiempo tardan en entregar un proyecto?</h4>
-                <p id="view-faq-a1">Dependiendo del tamaño del proyecto, el tiempo de fabricación e instalación varía entre 2 y 4 semanas tras aprobar el diseño.</p>
-            </div>
-            <div class="faq-item">
-                <h4 id="view-faq-q2">¿Ofrecen garantía?</h4>
-                <p id="view-faq-a2">Sí, todos nuestros muebles cuentan con garantía contra defectos de fabricación e instalación.</p>
-            </div>
-            <div class="faq-item">
-                <h4 id="view-faq-q3">¿El presupuesto incluye instalación?</h4>
-                <p id="view-faq-a3">Totalmente. Nuestras cotizaciones son integrales: diseño, fabricación, flete e instalación en tu domicilio.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACTO CTA -->
-    <section id="contacto" class="cta-banner scroll-anim">
-        <div class="cta-content">
-            <h2 id="view-cta-title">¿Listo para renovar tu espacio?</h2>
-            <p id="view-cta-desc">Contáctanos hoy mismo y recibe un presupuesto sin compromiso. Estamos en Querétaro.</p>
-            <a id="view-cta-wa" href="https://wa.me/524423979275" target="_blank" class="cta-button-light">Contactar por WhatsApp</a>
-        </div>
-    </section>
+    </div>
 
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-column">
                 <div class="footer-logo">TODO EN <span>MELAMINA</span></div>
-                <p id="view-foot-desc">Transformando espacios con elegancia y precisión, diseñando muebles que cuentan historias.</p>
-                <div class="social-links">
-                    <a id="view-soc-fb" href="#" target="_blank" title="Facebook">FB</a>
-                    <a id="view-soc-ig" href="#" target="_blank" title="Instagram">IG</a>
-                    <a id="view-soc-tk" href="#" target="_blank" title="TikTok">TK</a>
-                </div>
+                <p id="view-foot-desc">Diseñando muebles que cuentan historias.</p>
             </div>
             <div class="footer-column">
                 <h3>Contacto</h3>
-                <p id="view-foot-loc">📍 Querétaro, Querétaro</p>
-                <p id="view-foot-email">✉️ todoenmelaminatm@gmail.com</p>
-                <p id="view-foot-phone">📞 +52 442 397 9275</p>
-            </div>
-            <div class="footer-column">
-                <h3>Horario</h3>
-                <p>Lunes a Viernes: 9:00 AM - 6:00 PM</p>
-                <p>Sábados: 10:00 AM - 2:00 PM</p>
+                <p>📍 Querétaro</p>
             </div>
         </div>
-        <div class="footer-bottom"><p>&copy; 2026 Todo en Melamina. Todos los derechos reservados.</p></div>
     </footer>
 
     <script>
-        // QUITAR PANTALLA DE CARGA CUANDO LISTO
+        // Carga Inicial
         window.addEventListener('load', function() {
-            const preloader = document.getElementById('preloader');
-            preloader.classList.add('hide');
-            setTimeout(() => preloader.style.display = 'none', 500);
+            document.getElementById('preloader').classList.add('hide');
+            setTimeout(() => document.getElementById('preloader').style.display = 'none', 500);
         });
 
-        // FUNCIONES CATÁLOGO NATIVO
-        function mostrarMateriales(tipo, btn) {
-            document.querySelectorAll('.mat-tab').forEach(b => b.classList.remove('active'));
+        // Lógica Visual del Catálogo
+        function abrirSuperCatalogo() {
+            document.getElementById('super-catalogo-modal').classList.remove('hide');
+            document.body.style.overflow = 'hidden'; // Evita scroll de fondo
+        }
+        function cerrarSuperCatalogo() {
+            document.getElementById('super-catalogo-modal').classList.add('hide');
+            document.body.style.overflow = 'auto';
+        }
+        function filtrarCatalogo(tipo, btn) {
+            document.querySelectorAll('.s-tab').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
-            if(tipo === 'melaminas') {
-                document.getElementById('grid-melaminas').style.display = 'grid';
-                document.getElementById('grid-cubiertas').style.display = 'none';
+            if(tipo === 'mela') {
+                document.getElementById('showcase-melaminas').classList.add('active');
+                document.getElementById('showcase-cubiertas').classList.remove('active');
             } else {
-                document.getElementById('grid-melaminas').style.display = 'none';
-                document.getElementById('grid-cubiertas').style.display = 'grid';
+                document.getElementById('showcase-melaminas').classList.remove('active');
+                document.getElementById('showcase-cubiertas').classList.add('active');
             }
         }
 
-        // RECUPERAR DATOS DEL ADMINISTRADOR
+        // CARGAR DATOS DEL ADMIN EN LA PÁGINA (Y EN EL CATÁLOGO)
         document.addEventListener("DOMContentLoaded", function() {
             const data = JSON.parse(localStorage.getItem("tm_website_data"));
+            
+            // Si hay datos, construir Catálogo Dinámico
             if (data) {
-                if(data.topLoc) document.getElementById("view-top-loc").innerText = data.topLoc;
-                if(data.topEmail) document.getElementById("view-top-email").innerText = data.topEmail;
-                if(data.topPhone) document.getElementById("view-top-phone").innerText = data.topPhone;
-                
-                if(data.waLink) {
-                    document.getElementById("view-float-wa").href = data.waLink;
-                    document.getElementById("view-nav-wa").href = data.waLink;
-                    document.getElementById("view-cta-wa").href = data.waLink;
-                }
-                if(data.socFb) document.getElementById("view-soc-fb").href = data.socFb;
-                if(data.socIg) document.getElementById("view-soc-ig").href = data.socIg;
-                if(data.socTk) document.getElementById("view-soc-tk").href = data.socTk;
+                let htmlMela = '';
+                let htmlCubi = '';
 
+                // Dibujar Melaminas
+                for(let i=1; i<=4; i++) {
+                    if(data[`melImg${i}`]) {
+                        htmlMela += `
+                        <div class="magic-card">
+                            <img src="${data[`melImg${i}`]}" alt="Material">
+                            <div class="magic-info">
+                                <h3>${data[`melTit${i}`] || 'Melamina Premium'}</h3>
+                                <p>${data[`melDesc${i}`] || ''}</p>
+                            </div>
+                        </div>`;
+                    }
+                }
+                
+                // Dibujar Cubiertas
+                for(let i=1; i<=4; i++) {
+                    if(data[`cubImg${i}`]) {
+                        htmlCubi += `
+                        <div class="magic-card">
+                            <img src="${data[`cubImg${i}`]}" alt="Cubierta">
+                            <div class="magic-info">
+                                <h3>${data[`cubTit${i}`] || 'Piedra Natural'}</h3>
+                                <p>${data[`cubDesc${i}`] || ''}</p>
+                            </div>
+                        </div>`;
+                    }
+                }
+
+                // Inyectar HTML generado o mensaje por defecto
+                document.getElementById('showcase-melaminas').innerHTML = htmlMela || '<p style="color:white;">Aún no has agregado fotos en el admin.</p>';
+                document.getElementById('showcase-cubiertas').innerHTML = htmlCubi || '<p style="color:white;">Aún no has agregado fotos en el admin.</p>';
+            }
+
+            // Datos Base (Si existen)
+            if (data) {
                 if(data.heroImg) document.getElementById("view-hero-img").src = data.heroImg;
                 if(data.heroTitle) document.getElementById("view-hero-title").innerHTML = data.heroTitle;
-                if(data.heroDesc) document.getElementById("view-hero-desc").innerText = data.heroDesc;
-                
-                if(data.galLink) {
-                    document.getElementById("view-hero-link").href = data.galLink;
-                    document.getElementById("view-gal-link").href = data.galLink;
-                }
-
-                if(data.aboutTitle) document.getElementById("view-about-title").innerHTML = data.aboutTitle;
-                if(data.aboutDesc) document.getElementById("view-about-desc").innerText = data.aboutDesc;
-                if(data.aboutB1) document.getElementById("view-about-b1").innerText = data.aboutB1;
-                if(data.aboutB2) document.getElementById("view-about-b2").innerText = data.aboutB2;
-                if(data.aboutB3) document.getElementById("view-about-b3").innerText = data.aboutB3;
-                if(data.aboutB4) document.getElementById("view-about-b4").innerText = data.aboutB4;
-
                 for(let i=1; i<=5; i++) {
                     if(data[`carImg${i}`]) document.getElementById(`view-car-img${i}`).src = data[`carImg${i}`];
                     if(data[`carTxt${i}`]) document.getElementById(`view-car-txt${i}`).innerText = data[`carTxt${i}`];
                 }
-
-                for(let i=1; i<=3; i++) {
-                    if(data[`srvIco${i}`]) document.getElementById(`view-srv-ico${i}`).innerText = data[`srvIco${i}`];
-                    if(data[`srvTit${i}`]) document.getElementById(`view-srv-tit${i}`).innerText = data[`srvTit${i}`];
-                    if(data[`srvDesc${i}`]) document.getElementById(`view-srv-desc${i}`).innerText = data[`srvDesc${i}`];
-                    if(data[`galImg${i}`]) document.getElementById(`view-gal-img${i}`).src = data[`galImg${i}`];
-                    
-                    if(data[`testName${i}`]) document.getElementById(`view-test-name${i}`).innerText = data[`testName${i}`];
-                    if(data[`testTxt${i}`]) document.getElementById(`view-test-txt${i}`).innerText = `"${data[`testTxt${i}`]}"`;
-                    
-                    if(data[`faqQ${i}`]) document.getElementById(`view-faq-q${i}`).innerText = data[`faqQ${i}`];
-                    if(data[`faqA${i}`]) document.getElementById(`view-faq-a${i}`).innerText = data[`faqA${i}`];
-                }
-
-                if(data.ctaTitle) document.getElementById("view-cta-title").innerText = data.ctaTitle;
-                if(data.ctaDesc) document.getElementById("view-cta-desc").innerText = data.ctaDesc;
-                if(data.footDesc) document.getElementById("view-foot-desc").innerText = data.footDesc;
-                if(data.footLoc) document.getElementById("view-foot-loc").innerText = data.footLoc;
-                if(data.footEmail) document.getElementById("view-foot-email").innerText = data.footEmail;
-                if(data.footPhone) document.getElementById("view-foot-phone").innerText = data.footPhone;
             }
         });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.scroll-anim').forEach((el) => observer.observe(el));
-
+        // Carrusel Lógica
         const carousel3d = document.getElementById('carousel-3d');
-        const slider = document.getElementById('carousel-slider');
-        carousel3d.style.transform = `translateZ(-350px) rotateY(0deg)`;
-        slider.addEventListener('input', (e) => {
+        document.getElementById('carousel-slider').addEventListener('input', (e) => {
             carousel3d.style.transform = `translateZ(-350px) rotateY(${-e.target.value}deg)`;
         });
-
-        const card = document.getElementById("draggable-card");
-        const dragHandle = document.getElementById("card-drag-handle");
-        const portadaContainer = document.querySelector(".hero-portada");
-        let isDragging = false, offsetX = 0, offsetY = 0;
-        
-        const startDrag = (clientX, clientY) => {
-            isDragging = true;
-            card.style.position = "absolute"; card.style.margin = "0"; card.style.bottom = "auto"; card.style.zIndex = "2000";
-            const rect = card.getBoundingClientRect();
-            offsetX = clientX - rect.left; offsetY = clientY - rect.top;
-        };
-        const onDrag = (clientX, clientY) => {
-            if (!isDragging) return;
-            const containerRect = portadaContainer.getBoundingClientRect();
-            card.style.left = `${clientX - containerRect.left - offsetX}px`;
-            card.style.top = `${clientY - containerRect.top - offsetY}px`;
-        };
-        const stopDrag = () => { isDragging = false; };
-        
-        dragHandle.addEventListener("mousedown", (e) => startDrag(e.clientX, e.clientY));
-        document.addEventListener("mousemove", (e) => onDrag(e.clientX, e.clientY));
-        document.addEventListener("mouseup", stopDrag);
-        dragHandle.addEventListener("touchstart", (e) => { startDrag(e.touches[0].clientX, e.touches[0].clientY); });
-        document.addEventListener("touchmove", (e) => { if (isDragging) onDrag(e.touches[0].clientX, e.touches[0].clientY); });
-        document.addEventListener("touchend", stopDrag);
     </script>
 </body>
 </html>
