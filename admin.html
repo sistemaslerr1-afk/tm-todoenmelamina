@@ -71,10 +71,9 @@
         
         input[type="file"] { width: 100%; padding: 8px; margin-top: 8px; background: #f0f2f5; border-radius: 8px; font-size: 0.8rem; cursor: pointer; border: 1px dashed #cbd5e1; color: #475569; }
         
-        .btn-save { background: #28a745; color: white; border: none; padding: 18px 30px; border-radius: 10px; cursor: pointer; font-weight: 700; width: 100%; max-width: 1000px; font-size: 1.1rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(40,167,69,0.3); margin-bottom: 40px; }
-        .btn-save:hover { background: #218838; transform: translateY(-3px);}
+        .btn-save { background: #4285F4; color: white; border: none; padding: 18px 30px; border-radius: 10px; cursor: pointer; font-weight: 700; width: 100%; max-width: 1000px; font-size: 1.1rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3); margin-bottom: 40px; }
+        .btn-save:hover { background: #3367d6; transform: translateY(-3px);}
 
-        /* DISEÑO DE BUSCADOR Y LISTAS */
         .search-results-list { max-height: 250px; overflow-y: auto; border: 1px solid #eee; border-radius: 10px; margin-bottom: 15px; background: #fdfdfd; }
         .search-item { padding: 12px 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
         .search-item:last-child { border-bottom: none; }
@@ -132,15 +131,15 @@
                     <h1 id="page-title">Analytics Real</h1>
                 </div>
                 <div class="header-actions">
-                    <a href="index.html" target="_blank" class="btn-preview">👁️ Ver Web Local</a>
+                    <a href="index.html" target="_blank" class="btn-preview">👁️ Ver Web</a>
                 </div>
             </div>
 
-            <div id="success-alert">¡Archivo data.json guardado! Súbelo a GitHub para actualizar en Celulares.</div>
+            <div id="success-alert">¡Cambios guardados en la nube con éxito!</div>
 
             <div id="dashboard" class="tab-content active">
                 <div class="metrics-grid">
-                    <div class="metric-card"><div class="title">Sincronización Web</div><div class="number" style="font-size:1.1rem; color:#4285F4;">Vía Archivo JSON</div><span class="badge" style="background:#e8f0fe; color:#1a73e8;">Doble Guardado</span></div>
+                    <div class="metric-card"><div class="title">Estado</div><div class="number" style="font-size:1.1rem; color:#28a745;">Conectado a Firebase</div><span class="badge" style="background:#e8f0fe; color:#1a73e8;">Sincronización en Nube</span></div>
                 </div>
             </div>
 
@@ -161,7 +160,7 @@
                         <div class="form-group"><label>Instagram</label><input type="text" id="in-soc-ig"></div>
                     </div>
                 </div>
-                <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
+                <button class="btn-save" onclick="guardarTodo()">☁️ Guardar en la Nube</button>
             </div>
 
             <div id="portada" class="tab-content">
@@ -172,7 +171,7 @@
                     <div class="form-group full"><label>Descripción</label><textarea id="in-hero-desc"></textarea></div>
                     <div class="form-group full"><label>Link Google Photos</label><input type="text" id="in-gal-link"></div>
                 </div>
-                <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
+                <button class="btn-save" onclick="guardarTodo()">☁️ Guardar en la Nube</button>
             </div>
 
             <div id="nosotros" class="tab-content">
@@ -187,7 +186,7 @@
                         <div class="form-group"><label>Beneficio 4</label><input type="text" id="in-about-b4"></div>
                     </div>
                 </div>
-                <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
+                <button class="btn-save" onclick="guardarTodo()">☁️ Guardar en la Nube</button>
             </div>
 
             <div id="carrusel" class="tab-content">
@@ -201,10 +200,9 @@
                         <div class="form-group"><label>Img 5</label><input type="text" id="in-car-img5"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img5')"></div><div class="form-group"><label>Texto 5</label><input type="text" id="in-car-txt5"></div>
                     </div>
                 </div>
-                <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
+                <button class="btn-save" onclick="guardarTodo()">☁️ Guardar en la Nube</button>
             </div>
 
-            <!-- CATÁLOGO BUSCADOR COMPACTO -->
             <div id="catalogo" class="tab-content">
                 <div class="sub-tabs">
                     <button class="sub-tab-btn active" onclick="switchSubTab('sub-mela', this)">🪵 Melaminas</button>
@@ -212,7 +210,6 @@
                     <button class="sub-tab-btn" onclick="switchSubTab('sub-herr', this)">⚙️ Herrajes</button>
                 </div>
 
-                <!-- SUB: MELAMINAS -->
                 <div id="sub-mela" class="sub-tab-content active">
                     <div class="editor-section">
                         <h3 class="section-title">Portada e Info Global</h3>
@@ -247,7 +244,6 @@
                     </div>
                 </div>
 
-                <!-- SUB: CUBIERTAS -->
                 <div id="sub-cubi" class="sub-tab-content">
                     <div class="editor-section">
                         <h3 class="section-title">Portada e Info Global</h3>
@@ -282,7 +278,6 @@
                     </div>
                 </div>
 
-                <!-- SUB: HERRAJES -->
                 <div id="sub-herr" class="sub-tab-content">
                     <div class="editor-section">
                         <h3 class="section-title">Portada e Info Global</h3>
@@ -316,11 +311,9 @@
                         </div>
                     </div>
                 </div>
-
-                <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
+                <button class="btn-save" onclick="guardarTodo()">☁️ Guardar en la Nube</button>
             </div>
 
-            <!-- SERVICIOS Y PROCESOS -->
             <div id="servicios" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Tarjetas de Servicios</h3>
@@ -330,7 +323,7 @@
                         <div class="form-group"><label>Icono 3</label><input type="text" id="in-srv-ico3"></div><div class="form-group"><label>Título 3</label><input type="text" id="in-srv-tit3"></div><div class="form-group full"><textarea id="in-srv-desc3"></textarea></div>
                     </div>
                 </div>
-                <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
+                <button class="btn-save" onclick="guardarTodo()">☁️ Guardar en la Nube</button>
             </div>
             
             <div id="proceso" class="tab-content">
@@ -343,16 +336,32 @@
                         <div class="form-group"><label>Paso 4</label><input type="text" id="in-proc-tit4"></div><div class="form-group"><label>Desc</label><textarea id="in-proc-desc4"></textarea></div>
                     </div>
                 </div>
-                <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
+                <button class="btn-save" onclick="guardarTodo()">☁️ Guardar en la Nube</button>
             </div>
         </main>
     </div>
 
-    <script>
+    <!-- CONEXIÓN A FIREBASE DE GOOGLE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDkSR85yRiLqlzMTKYPbOxxZviUu9mjRfE",
+            authDomain: "despieces-8106b.firebaseapp.com",
+            projectId: "despieces-8106b",
+            storageBucket: "despieces-8106b.firebasestorage.app",
+            messagingSenderId: "439428891395",
+            appId: "1:439428891395:web:7c52a7acf4abec4202df36"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
         let catalogDB = { melaminas: [], cubiertas: [], herrajes: [] };
         let activeEditIndex = { melaminas: -1, cubiertas: -1, herrajes: -1 };
 
-        function checkLogin() {
+        window.checkLogin = function() {
             if (document.getElementById("admin-pass").value.trim() === "admin2026") {
                 document.getElementById("login-overlay").style.display = "none";
                 document.getElementById("admin-wrapper").style.display = "flex";
@@ -360,21 +369,21 @@
             } else { document.getElementById("login-error").style.display = "block"; }
         }
 
-        function toggleSidebar() { document.getElementById("sidebar").classList.toggle('open'); document.getElementById("sidebar-overlay").classList.toggle('active'); }
+        window.toggleSidebar = function() { document.getElementById("sidebar").classList.toggle('open'); document.getElementById("sidebar-overlay").classList.toggle('active'); }
 
-        function switchTab(tabId, element) {
+        window.switchTab = function(tabId, element) {
             document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             element.classList.add('active'); document.getElementById(tabId).classList.add('active');
         }
 
-        function switchSubTab(subTabId, element) {
+        window.switchSubTab = function(subTabId, element) {
             document.querySelectorAll('.sub-tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.sub-tab-content').forEach(tab => tab.classList.remove('active'));
             element.classList.add('active'); document.getElementById(subTabId).classList.add('active');
         }
 
-        function procesarImagen(event, inputId) {
+        window.procesarImagen = function(event, inputId) {
             const file = event.target.files[0];
             if (!file) return;
             const targetInput = document.getElementById(inputId);
@@ -395,7 +404,7 @@
             };
         }
 
-        function agregarItem(tipo) {
+        window.agregarItem = function(tipo) {
             let p = tipo.substring(0,4);
             const img = document.getElementById(`add-${p}-img`).value;
             const tit = document.getElementById(`add-${p}-tit`).value;
@@ -408,11 +417,11 @@
             document.getElementById(`add-${p}-tit`).value = '';
             document.getElementById(`add-${p}-desc`).value = '';
             
-            renderLista(tipo);
-            guardarTodo(true); 
+            window.renderLista(tipo);
+            window.guardarTodo(true); 
         }
 
-        function renderLista(tipo) {
+        window.renderLista = function(tipo) {
             let p = tipo.substring(0,4);
             const term = document.getElementById(`search-${p}`).value.toLowerCase();
             const container = document.getElementById(`list-${tipo}`);
@@ -422,13 +431,13 @@
                 if(item.tit.toLowerCase().includes(term)) {
                     const div = document.createElement('div');
                     div.className = 'search-item';
-                    div.innerHTML = `<span>${item.tit}</span> <button onclick="iniciarEdicion('${tipo}', ${index})">✏️ Editar</button>`;
+                    div.innerHTML = `<span>${item.tit}</span> <button onclick="window.iniciarEdicion('${tipo}', ${index})">✏️ Editar</button>`;
                     container.appendChild(div);
                 }
             });
         }
 
-        function iniciarEdicion(tipo, index) {
+        window.iniciarEdicion = function(tipo, index) {
             let p = tipo.substring(0,4);
             activeEditIndex[tipo] = index;
             const item = catalogDB[tipo][index];
@@ -438,21 +447,21 @@
             document.getElementById(`edit-box-${tipo}`).style.display = 'block';
         }
 
-        function guardarEdicion(tipo) {
+        window.guardarEdicion = function(tipo) {
             let p = tipo.substring(0,4);
             const index = activeEditIndex[tipo];
             catalogDB[tipo][index] = { img: document.getElementById(`edit-${p}-img`).value, tit: document.getElementById(`edit-${p}-tit`).value, desc: document.getElementById(`edit-${p}-desc`).value };
             document.getElementById(`edit-box-${tipo}`).style.display = 'none';
-            renderLista(tipo);
-            guardarTodo(true);
+            window.renderLista(tipo);
+            window.guardarTodo(true);
         }
 
-        function eliminarItem(tipo) {
+        window.eliminarItem = function(tipo) {
             if(!confirm("¿Borrar?")) return;
             catalogDB[tipo].splice(activeEditIndex[tipo], 1);
             document.getElementById(`edit-box-${tipo}`).style.display = 'none';
-            renderLista(tipo);
-            guardarTodo(true);
+            window.renderLista(tipo);
+            window.guardarTodo(true);
         }
 
         function migrarViejos(d) {
@@ -467,13 +476,25 @@
         }
 
         function cargarDatos() {
-            let localD = JSON.parse(localStorage.getItem("tm_website_data"));
-            if(localD) { migrarViejos(localD); poblar(localD); return; } 
-
-            fetch('data.json')
-                .then(r => r.json())
-                .then(d => { migrarViejos(d); poblar(d); })
-                .catch(e => console.log("No data.json"));
+            // Lee desde Firebase!
+            get(child(ref(db), 'tm_website_data')).then((snapshot) => {
+                if (snapshot.exists()) {
+                    let d = snapshot.val();
+                    migrarViejos(d);
+                    poblar(d);
+                } else {
+                    // Si Firebase está vacío, rescata de tu computadora local y lo sube de inmediato
+                    let localD = JSON.parse(localStorage.getItem("tm_website_data"));
+                    if(localD) { 
+                        migrarViejos(localD); 
+                        poblar(localD); 
+                        mostrarAlerta("Datos rescatados de tu PC. Presiona Guardar para enviarlos a la nube.", "#ffc107");
+                    }
+                }
+            }).catch((error) => {
+                console.error(error);
+                mostrarAlerta("Error al conectar con la Nube.", "#dc3545");
+            });
         }
 
         function poblar(data) {
@@ -481,7 +502,7 @@
             if(data.catMelaminas) catalogDB.melaminas = data.catMelaminas;
             if(data.catCubiertas) catalogDB.cubiertas = data.catCubiertas;
             if(data.catHerrajes) catalogDB.herrajes = data.catHerrajes;
-            renderLista('melaminas'); renderLista('cubiertas'); renderLista('herrajes');
+            window.renderLista('melaminas'); window.renderLista('cubiertas'); window.renderLista('herrajes');
 
             const m = {
                 'in-mela-bg':'melaBg', 'in-mela-info':'melaInfo', 'in-cubi-bg':'cubiBg', 'in-cubi-info':'cubiInfo', 'in-herr-bg':'herrBg', 'in-herr-info':'herrInfo',
@@ -496,7 +517,7 @@
             for(let [id, k] of Object.entries(m)) if(document.getElementById(id) && data[k]) document.getElementById(id).value = data[k];
         }
 
-        function guardarTodo(silencioso = false) {
+        window.guardarTodo = function(silencioso = false) {
             const data = {};
             data.catMelaminas = catalogDB.melaminas; data.catCubiertas = catalogDB.cubiertas; data.catHerrajes = catalogDB.herrajes;
             
@@ -512,24 +533,20 @@
             };
             for(let [id, k] of Object.entries(m)) if(document.getElementById(id)) data[k] = document.getElementById(id).value;
 
-            try {
-                localStorage.setItem("tm_website_data", JSON.stringify(data)); 
-                
-                if(!silencioso) { 
-                    const jsonStr = JSON.stringify(data, null, 2);
-                    const blob = new Blob([jsonStr], { type: "application/json" });
-                    const a = document.createElement("a");
-                    a.href = URL.createObjectURL(blob); a.download = "data.json";
-                    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-                    mostrarAlerta("¡Archivo data.json descargado para GitHub!", "#28a745");
-                }
-            } catch(e) { mostrarAlerta("❌ Memoria llena.", "#dc3545"); }
+            // Enviar los datos a la Nube de Google!
+            set(ref(db, 'tm_website_data'), data)
+              .then(() => {
+                  if(!silencioso) mostrarAlerta("¡Cambios guardados en la nube con éxito! Se verán en todos los celulares.", "#28a745");
+              })
+              .catch((error) => {
+                  mostrarAlerta("❌ Error al guardar en la nube.", "#dc3545");
+              });
         }
 
         function mostrarAlerta(msg, col) {
             const b = document.getElementById("success-alert");
             b.style.background = col; b.innerText = msg; b.style.display = "block"; 
-            setTimeout(() => b.style.display="none", 4000);
+            setTimeout(() => b.style.display="none", 5000);
         }
     </script>
 </body>
