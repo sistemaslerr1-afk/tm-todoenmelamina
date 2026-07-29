@@ -97,6 +97,10 @@
             .sidebar-overlay.active { display: block; }
         }
     </style>
+    
+    <!-- SCRIPTS DE FIREBASE (Versión Compat, 100% segura para botones) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
@@ -141,7 +145,7 @@
 
             <div id="success-alert">¡Cambios guardados en la Nube con éxito!</div>
 
-            <!-- DASHBOARD RESTAURADO AL 100% -->
+            <!-- DASHBOARD RESTAURADO -->
             <div id="dashboard" class="tab-content active">
                 <div class="metrics-grid">
                     <div class="metric-card"><div class="title">Conexión de Datos</div><div class="number" style="font-size:1.1rem; color:#4285F4;">Firebase Activo</div><span class="badge" style="background:#e8f0fe; color:#1a73e8;">Sincronización en Nube</span></div>
@@ -360,11 +364,9 @@
         </main>
     </div>
 
-    <!-- CONEXIÓN A FIREBASE CORRECTA (Versión 10.12.0) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
+    <!-- CONEXIÓN A FIREBASE CORRECTA Y SEGURA PARA BOTONES -->
+    <script>
+        // CONFIGURACIÓN DE FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyDkSR85yRiLqlzMTKYPbOxxZviUu9mjRfE",
             authDomain: "despieces-8106b.firebaseapp.com",
@@ -374,14 +376,13 @@
             messagingSenderId: "439428891395",
             appId: "1:439428891395:web:7c52a7acf4abec4202df36"
         };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
         let catalogDB = { melaminas: [], cubiertas: [], herrajes: [] };
         let activeEditIndex = { melaminas: -1, cubiertas: -1, herrajes: -1 };
 
-        window.checkLogin = function() {
+        function checkLogin() {
             if (document.getElementById("admin-pass").value.trim() === "admin2026") {
                 document.getElementById("login-overlay").style.display = "none";
                 document.getElementById("admin-wrapper").style.display = "flex";
@@ -389,22 +390,27 @@
             } else { document.getElementById("login-error").style.display = "block"; }
         }
 
-        window.toggleSidebar = function() { document.getElementById("sidebar").classList.toggle('open'); document.getElementById("sidebar-overlay").classList.toggle('active'); }
+        function toggleSidebar() { document.getElementById("sidebar").classList.toggle('open'); document.getElementById("sidebar-overlay").classList.toggle('active'); }
 
-        window.switchTab = function(tabId, element) {
+        function switchTab(tabId, element) {
             document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             element.classList.add('active'); document.getElementById(tabId).classList.add('active');
-            if(window.innerWidth <= 900) { window.toggleSidebar(); }
+            
+            // REPARACIÓN DEL TÍTULO DE LA PÁGINA
+            const titles = { 'dashboard':'Analytics Real', 'ajustes':'Generales & Redes', 'portada':'Edición de Portada', 'nosotros':'Sección Nosotros', 'carrusel':'Editor de Carrusel', 'catalogo':'Catálogo Acabados', 'servicios':'Edición de Servicios', 'proceso': 'Proceso y FAQ', 'proyectos':'Galería de Proyectos' };
+            document.getElementById('page-title').innerText = titles[tabId] || 'Admin';
+            
+            if(window.innerWidth <= 900) { toggleSidebar(); }
         }
 
-        window.switchSubTab = function(subTabId, element) {
+        function switchSubTab(subTabId, element) {
             document.querySelectorAll('.sub-tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.sub-tab-content').forEach(tab => tab.classList.remove('active'));
             element.classList.add('active'); document.getElementById(subTabId).classList.add('active');
         }
 
-        window.procesarImagen = function(event, inputId) {
+        function procesarImagen(event, inputId) {
             const file = event.target.files[0];
             if (!file) return;
             const targetInput = document.getElementById(inputId);
@@ -425,7 +431,7 @@
             };
         }
 
-        window.agregarItem = function(tipo) {
+        function agregarItem(tipo) {
             let p = tipo.substring(0,4);
             const img = document.getElementById(`add-${p}-img`).value;
             const tit = document.getElementById(`add-${p}-tit`).value;
@@ -438,11 +444,11 @@
             document.getElementById(`add-${p}-tit`).value = '';
             document.getElementById(`add-${p}-desc`).value = '';
             
-            window.renderLista(tipo);
-            window.guardarTodo(true); 
+            renderLista(tipo);
+            guardarTodo(true); 
         }
 
-        window.renderLista = function(tipo) {
+        function renderLista(tipo) {
             let p = tipo.substring(0,4);
             const term = document.getElementById(`search-${p}`).value.toLowerCase();
             const container = document.getElementById(`list-${tipo}`);
@@ -452,13 +458,13 @@
                 if(item.tit.toLowerCase().includes(term)) {
                     const div = document.createElement('div');
                     div.className = 'search-item';
-                    div.innerHTML = `<span>${item.tit}</span> <button onclick="window.iniciarEdicion('${tipo}', ${index})">✏️ Editar</button>`;
+                    div.innerHTML = `<span>${item.tit}</span> <button onclick="iniciarEdicion('${tipo}', ${index})">✏️ Editar</button>`;
                     container.appendChild(div);
                 }
             });
         }
 
-        window.iniciarEdicion = function(tipo, index) {
+        function iniciarEdicion(tipo, index) {
             let p = tipo.substring(0,4);
             activeEditIndex[tipo] = index;
             const item = catalogDB[tipo][index];
@@ -468,21 +474,21 @@
             document.getElementById(`edit-box-${tipo}`).style.display = 'block';
         }
 
-        window.guardarEdicion = function(tipo) {
+        function guardarEdicion(tipo) {
             let p = tipo.substring(0,4);
             const index = activeEditIndex[tipo];
             catalogDB[tipo][index] = { img: document.getElementById(`edit-${p}-img`).value, tit: document.getElementById(`edit-${p}-tit`).value, desc: document.getElementById(`edit-${p}-desc`).value };
             document.getElementById(`edit-box-${tipo}`).style.display = 'none';
-            window.renderLista(tipo);
-            window.guardarTodo(true);
+            renderLista(tipo);
+            guardarTodo(true);
         }
 
-        window.eliminarItem = function(tipo) {
+        function eliminarItem(tipo) {
             if(!confirm("¿Seguro que deseas borrar este elemento?")) return;
             catalogDB[tipo].splice(activeEditIndex[tipo], 1);
             document.getElementById(`edit-box-${tipo}`).style.display = 'none';
-            window.renderLista(tipo);
-            window.guardarTodo(true);
+            renderLista(tipo);
+            guardarTodo(true);
         }
 
         function migrarViejos(d) {
@@ -497,14 +503,13 @@
         }
 
         function cargarDatos() {
-            // Lee desde Firebase!
-            get(child(ref(db), 'tm_website_data')).then((snapshot) => {
+            // LEE DESDE FIREBASE
+            db.ref('tm_website_data').once('value').then((snapshot) => {
                 if (snapshot.exists()) {
                     let d = snapshot.val();
                     migrarViejos(d);
                     poblar(d);
                 } else {
-                    // Si Firebase está vacío, rescata de tu computadora local y lo sube de inmediato
                     let localD = JSON.parse(localStorage.getItem("tm_website_data"));
                     if(localD) { 
                         migrarViejos(localD); 
@@ -514,7 +519,7 @@
                 }
             }).catch((error) => {
                 console.error(error);
-                mostrarAlerta("Error al conectar con la Nube.", "#dc3545");
+                mostrarAlerta("Error al conectar con la Nube. (Revisa tus permisos en Firebase)", "#dc3545");
             });
         }
 
@@ -523,7 +528,7 @@
             if(data.catMelaminas) catalogDB.melaminas = data.catMelaminas;
             if(data.catCubiertas) catalogDB.cubiertas = data.catCubiertas;
             if(data.catHerrajes) catalogDB.herrajes = data.catHerrajes;
-            window.renderLista('melaminas'); window.renderLista('cubiertas'); window.renderLista('herrajes');
+            renderLista('melaminas'); renderLista('cubiertas'); renderLista('herrajes');
 
             const m = {
                 'in-mela-bg':'melaBg', 'in-mela-info':'melaInfo', 'in-cubi-bg':'cubiBg', 'in-cubi-info':'cubiInfo', 'in-herr-bg':'herrBg', 'in-herr-info':'herrInfo',
@@ -538,7 +543,7 @@
             for(let [id, k] of Object.entries(m)) if(document.getElementById(id) && data[k]) document.getElementById(id).value = data[k];
         }
 
-        window.guardarTodo = function(silencioso = false) {
+        function guardarTodo(silencioso = false) {
             const data = {};
             data.catMelaminas = catalogDB.melaminas; data.catCubiertas = catalogDB.cubiertas; data.catHerrajes = catalogDB.herrajes;
             
@@ -554,15 +559,15 @@
             };
             for(let [id, k] of Object.entries(m)) if(document.getElementById(id)) data[k] = document.getElementById(id).value;
 
-            // Enviar los datos a la Nube de Google!
-            set(ref(db, 'tm_website_data'), data)
+            // ENVÍA LOS DATOS A FIREBASE
+            db.ref('tm_website_data').set(data)
               .then(() => {
                   localStorage.setItem("tm_website_data", JSON.stringify(data)); 
                   if(!silencioso) mostrarAlerta("¡Cambios guardados en la nube con éxito! Se verán en todos los celulares.", "#28a745");
               })
               .catch((error) => {
                   console.error(error);
-                  mostrarAlerta("❌ Error al guardar en la nube.", "#dc3545");
+                  mostrarAlerta("❌ Error al guardar. (Revisa tus reglas en Firebase)", "#dc3545");
               });
         }
 
