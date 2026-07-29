@@ -18,9 +18,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!-- SCRIPTS DE FIREBASE COMPAT (SEGUROS) -->
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+    
+    <style>
+        /* Estilos de la Galería de Videos */
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; }
+        .video-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
+        .video-wrapper iframe, .video-wrapper video { position: absolute; top:0; left:0; width:100%; height:100%; border:none; }
+        .video-info { padding: 18px; }
+        .video-info h3 { font-size: 1.1rem; color: #2c3036; margin-bottom: 6px; font-weight: 600; }
+        .video-info p { font-size: 0.88rem; color: #788291; line-height: 1.4; }
+    </style>
 </head>
 <body>
 
@@ -52,6 +62,7 @@
             <a href="#inicio" onclick="toggleMenu()">Inicio</a>
             <a href="#servicios" onclick="toggleMenu()">Servicios</a>
             <a href="javascript:void(0)" onclick="abrirSuperCatalogo(); toggleMenu();" style="color: var(--accent-wood); font-weight: 600;">🎨 Catálogo de Acabados</a>
+            <a href="#videos-section" onclick="toggleMenu()">🎥 Videos</a>
             <a href="#carrusel" onclick="toggleMenu()">Inspiración</a>
             <a href="#galeria" onclick="toggleMenu()">Proyectos</a>
             <a id="view-nav-wa" href="https://wa.me/524423979275" target="_blank" class="btn-contacto-destacado">Cotizar ahora</a>
@@ -108,29 +119,19 @@
         </div>
     </section>
 
+    <!-- SECCIÓN DE VIDEOS REPRODUCIBLES -->
+    <section id="videos-section" class="scroll-anim" style="padding: 60px 20px; max-width: 1200px; margin: 0 auto;">
+        <div class="section-header"><h2>Proyectos en Video</h2><p>Mira de cerca la calidad de nuestros terminados en movimiento.</p></div>
+        <div class="video-grid" id="showcase-videos"></div>
+    </section>
+
     <section class="process-section scroll-anim">
         <div class="section-header"><h2>Nuestro Proceso de Trabajo</h2><p>Transparencia y calidad desde la primera cita.</p></div>
         <div class="process-grid">
-            <div class="process-step">
-                <div class="step-number">1</div>
-                <h3 id="view-proc-tit1">Asesoría</h3>
-                <p id="view-proc-desc1">Analizamos tu espacio y necesidades.</p>
-            </div>
-            <div class="process-step">
-                <div class="step-number">2</div>
-                <h3 id="view-proc-tit2">Diseño 3D</h3>
-                <p id="view-proc-desc2">Modelamos tu proyecto para aprobación.</p>
-            </div>
-            <div class="process-step">
-                <div class="step-number">3</div>
-                <h3 id="view-proc-tit3">Fabricación</h3>
-                <p id="view-proc-desc3">Cortes precisos con materiales premium.</p>
-            </div>
-            <div class="process-step">
-                <div class="step-number">4</div>
-                <h3 id="view-proc-tit4">Instalación</h3>
-                <p id="view-proc-desc4">Montaje limpio y profesional en tu domicilio.</p>
-            </div>
+            <div class="process-step"><div class="step-number">1</div><h3 id="view-proc-tit1">Asesoría</h3><p id="view-proc-desc1">Analizamos tu espacio y necesidades.</p></div>
+            <div class="process-step"><div class="step-number">2</div><h3 id="view-proc-tit2">Diseño 3D</h3><p id="view-proc-desc2">Modelamos tu proyecto para aprobación.</p></div>
+            <div class="process-step"><div class="step-number">3</div><h3 id="view-proc-tit3">Fabricación</h3><p id="view-proc-desc3">Cortes precisos con materiales premium.</p></div>
+            <div class="process-step"><div class="step-number">4</div><h3 id="view-proc-tit4">Instalación</h3><p id="view-proc-desc4">Montaje limpio y profesional en tu domicilio.</p></div>
         </div>
     </section>
 
@@ -205,7 +206,6 @@
         </div>
     </div>
 
-    <!-- CÓDIGO DE CONEXIÓN A FIREBASE -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyDkSR85yRiLqlzMTKYPbOxxZviUu9mjRfE",
@@ -257,32 +257,31 @@
             document.getElementById(`sec-${tipo}`).classList.add('active');
         }
 
-        // LEER LOS DATOS DIRECTO DE FIREBASE (La Nube)
+        // Convertidor Inteligente de Links de YouTube
+        function formatEmbedVideo(url) {
+            if(!url) return '';
+            if(url.includes('youtube.com/watch?v=')) {
+                let id = url.split('v=')[1].split('&')[0];
+                return `<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>`;
+            } else if(url.includes('youtu.be/')) {
+                let id = url.split('youtu.be/')[1].split('?')[0];
+                return `<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>`;
+            } else {
+                return `<video src="${url}" controls></video>`;
+            }
+        }
+
         db.ref('tm_website_data').once('value').then((snapshot) => {
             if (snapshot.exists()) {
                 aplicarDatosPagina(snapshot.val());
             } else {
-                console.log("No hay datos en la nube. Lee el LocalStorage.");
                 const dataLocal = JSON.parse(localStorage.getItem("tm_website_data"));
                 if(dataLocal) aplicarDatosPagina(dataLocal);
             }
-        }).catch((error) => {
-            console.error("Error al conectar con la Nube:", error);
-            const dataLocal = JSON.parse(localStorage.getItem("tm_website_data"));
-            if(dataLocal) aplicarDatosPagina(dataLocal);
         });
 
         function aplicarDatosPagina(data) {
             if (!data) return;
-
-            if(!data.catMelaminas && data.melImg1) {
-                data.catMelaminas = [];
-                for(let i=1; i<=4; i++) if(data[`melImg${i}`]) data.catMelaminas.push({img: data[`melImg${i}`], tit: data[`melTit${i}`], desc: data[`melDesc${i}`]});
-            }
-            if(!data.catCubiertas && data.cubImg1) {
-                data.catCubiertas = [];
-                for(let i=1; i<=4; i++) if(data[`cubImg${i}`]) data.catCubiertas.push({img: data[`cubImg${i}`], tit: data[`cubTit${i}`], desc: data[`cubDesc${i}`]});
-            }
 
             if(data.melaBg && data.melaBg.trim() !== '') { document.getElementById('view-mela-bg').src = data.melaBg; document.getElementById('box-mela-bg').style.display = 'block'; }
             if(data.cubiBg && data.cubiBg.trim() !== '') { document.getElementById('view-cubi-bg').src = data.cubiBg; document.getElementById('box-cubi-bg').style.display = 'block'; }
@@ -300,6 +299,21 @@
             if(document.getElementById('showcase-melaminas')) document.getElementById('showcase-melaminas').innerHTML = htmlMela || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
             if(document.getElementById('showcase-cubiertas')) document.getElementById('showcase-cubiertas').innerHTML = htmlCubi || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
             if(document.getElementById('showcase-herrajes')) document.getElementById('showcase-herrajes').innerHTML = htmlHerr || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
+
+            // RENDERIZAR VIDEOS
+            let htmlVid = '';
+            if(data.catVideos && data.catVideos.length > 0) {
+                data.catVideos.forEach(v => {
+                    if(v.url) {
+                        htmlVid += `<div class="video-card"><div class="video-wrapper">${formatEmbedVideo(v.url)}</div><div class="video-info"><h3>${v.tit || 'Proyecto'}</h3><p>${v.desc || ''}</p></div></div>`;
+                    }
+                });
+            }
+            const secVid = document.getElementById('showcase-videos');
+            if(secVid) {
+                secVid.innerHTML = htmlVid || '<p style="color:#aaa; text-align:center; width:100%;">Agrega tus videos desde el panel de administración.</p>';
+                if(!htmlVid) { document.getElementById('videos-section').style.display = 'none'; } else { document.getElementById('videos-section').style.display = 'block'; }
+            }
 
             const map = {
                 'view-top-loc':'topLoc', 'view-top-email':'topEmail', 'view-top-phone':'topPhone',
