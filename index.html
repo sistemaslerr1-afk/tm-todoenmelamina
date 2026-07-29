@@ -26,7 +26,7 @@
         <div class="spinner"></div>
     </div>
 
-    <!-- BOTÓN FLOTANTE WHATSAPP CON IMAGEN CUSTOM -->
+    <!-- BOTÓN FLOTANTE WHATSAPP -->
     <a id="view-float-wa" href="https://wa.me/524423979275" target="_blank" class="whatsapp-float">
         <img src="whatsapp.png" alt="WhatsApp" style="width: 36px; height: 36px; object-fit: contain; z-index: 10000;">
     </a>
@@ -143,15 +143,6 @@
         </div>
     </section>
 
-    <section class="faq-section scroll-anim">
-        <div class="section-header"><h2>Preguntas Frecuentes</h2></div>
-        <div class="faq-container">
-            <div class="faq-item"><h4 id="view-faq-q1">¿Cuánto tiempo tardan en entregar un proyecto?</h4><p id="view-faq-a1">Dependiendo del tamaño del proyecto, varía entre 2 y 4 semanas tras aprobar el diseño.</p></div>
-            <div class="faq-item"><h4 id="view-faq-q2">¿Ofrecen garantía?</h4><p id="view-faq-a2">Sí, todos nuestros muebles cuentan con garantía contra defectos de fabricación e instalación.</p></div>
-            <div class="faq-item"><h4 id="view-faq-q3">¿El presupuesto incluye instalación?</h4><p id="view-faq-a3">Totalmente. Nuestras cotizaciones son integrales: diseño, fabricación, flete e instalación.</p></div>
-        </div>
-    </section>
-
     <section id="contacto" class="cta-banner scroll-anim">
         <div class="cta-content">
             <h2 id="view-cta-title">¿Listo para renovar tu espacio?</h2>
@@ -204,16 +195,13 @@
 
     <script>
         window.addEventListener('load', function() {
-            const preloader = document.getElementById('preloader');
-            preloader.classList.add('hide');
-            setTimeout(() => preloader.style.display = 'none', 500);
+            document.getElementById('preloader').classList.add('hide');
+            setTimeout(() => document.getElementById('preloader').style.display = 'none', 500);
         });
 
         function toggleMenu() {
             const nav = document.getElementById('main-nav');
-            if(window.innerWidth <= 768) {
-                nav.classList.toggle('active');
-            }
+            if(window.innerWidth <= 768) { nav.classList.toggle('active'); }
         }
 
         function abrirSuperCatalogo() {
@@ -241,19 +229,16 @@
             document.getElementById(`sec-${tipo}`).classList.add('active');
         }
 
-        // EL SECRETO: AHORA LEE EL ARCHIVO DATA.JSON DESDE GITHUB (Para que todos los celulares lo vean)
+        // ELIMINADA LA TRAMPA: AHORA LEE DIRECTO DE GITHUB (DATA.JSON)
         document.addEventListener("DOMContentLoaded", function() {
             fetch('data.json?v=' + new Date().getTime())
                 .then(response => {
-                    if(!response.ok) throw new Error("No hay data.json subido en GitHub todavía.");
+                    if(!response.ok) throw new Error("Archivo data.json no encontrado");
                     return response.json();
                 })
                 .then(data => aplicarDatosPagina(data))
                 .catch(error => {
-                    console.log("Mostrando diseño por defecto. Aún no has subido data.json.");
-                    // Fallback a memoria local solo por si estás haciendo pruebas sin subir a GitHub
-                    const dataLocal = JSON.parse(localStorage.getItem("tm_website_data"));
-                    if(dataLocal) aplicarDatosPagina(dataLocal);
+                    console.log("Aún no subes tu data.json a GitHub. Mostrando página vacía hasta que lo subas.");
                 });
         });
 
@@ -270,15 +255,15 @@
             if(data.cubiInfo && data.cubiInfo.trim() !== '') { document.getElementById('info-cubi').innerHTML = `<p>${data.cubiInfo}</p>`; } else { document.getElementById('info-cubi').style.display = 'none'; }
             if(data.herrInfo && data.herrInfo.trim() !== '') { document.getElementById('info-herr').innerHTML = `<p>${data.herrInfo}</p>`; } else { document.getElementById('info-herr').style.display = 'none'; }
 
-            // Catálogo (Tarjetas)
+            // Catálogo (Tarjetas Infinitas)
             let htmlMela = '', htmlCubi = '', htmlHerr = '';
             if(data.catMelaminas && data.catMelaminas.length > 0) { data.catMelaminas.forEach(item => { if(item.img && item.img.trim() !== '') { htmlMela += `<div class="magic-card"><img src="${item.img}" alt="Material"><div class="magic-info"><h3>${item.tit || 'Acabado'}</h3><p>${item.desc || ''}</p></div></div>`; } }); }
             if(data.catCubiertas && data.catCubiertas.length > 0) { data.catCubiertas.forEach(item => { if(item.img && item.img.trim() !== '') { htmlCubi += `<div class="magic-card"><img src="${item.img}" alt="Cubierta"><div class="magic-info"><h3>${item.tit || 'Piedra'}</h3><p>${item.desc || ''}</p></div></div>`; } }); }
             if(data.catHerrajes && data.catHerrajes.length > 0) { data.catHerrajes.forEach(item => { if(item.img && item.img.trim() !== '') { htmlHerr += `<div class="magic-card"><img src="${item.img}" alt="Herraje"><div class="magic-info"><h3>${item.tit || 'Accesorio'}</h3><p>${item.desc || ''}</p></div></div>`; } }); }
 
-            if(document.getElementById('showcase-melaminas')) document.getElementById('showcase-melaminas').innerHTML = htmlMela || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
-            if(document.getElementById('showcase-cubiertas')) document.getElementById('showcase-cubiertas').innerHTML = htmlCubi || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
-            if(document.getElementById('showcase-herrajes')) document.getElementById('showcase-herrajes').innerHTML = htmlHerr || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
+            if(document.getElementById('showcase-melaminas')) document.getElementById('showcase-melaminas').innerHTML = htmlMela || '<p style="color:#aaa; text-align:center; width:100%;">Sube tu data.json a GitHub.</p>';
+            if(document.getElementById('showcase-cubiertas')) document.getElementById('showcase-cubiertas').innerHTML = htmlCubi || '<p style="color:#aaa; text-align:center; width:100%;">Sube tu data.json a GitHub.</p>';
+            if(document.getElementById('showcase-herrajes')) document.getElementById('showcase-herrajes').innerHTML = htmlHerr || '<p style="color:#aaa; text-align:center; width:100%;">Sube tu data.json a GitHub.</p>';
 
             // Textos y Configuración General
             const map = {
@@ -286,14 +271,13 @@
                 'view-hero-img':'heroImg', 'view-hero-title':'heroTitle', 'view-hero-desc':'heroDesc',
                 'view-about-title':'aboutTitle', 'view-about-desc':'aboutDesc', 'view-about-b1':'aboutB1', 'view-about-b2':'aboutB2', 'view-about-b3':'aboutB3', 'view-about-b4':'aboutB4',
                 'view-proc-tit1':'procTit1', 'view-proc-desc1':'procDesc1', 'view-proc-tit2':'procTit2', 'view-proc-desc2':'procDesc2', 'view-proc-tit3':'procTit3', 'view-proc-desc3':'procDesc3', 'view-proc-tit4':'procTit4', 'view-proc-desc4':'procDesc4',
-                'view-faq-q1':'faqQ1', 'view-faq-a1':'faqA1', 'view-faq-q2':'faqQ2', 'view-faq-a2':'faqA2', 'view-faq-q3':'faqQ3', 'view-faq-a3':'faqA3',
                 'view-cta-title':'ctaTitle', 'view-cta-desc':'ctaDesc', 'view-foot-desc':'footDesc', 'view-foot-loc':'footLoc', 'view-foot-email':'footEmail', 'view-foot-phone':'footPhone'
             };
             for (const [id, key] of Object.entries(map)) {
                 const el = document.getElementById(id);
                 if (el && data[key]) {
                     if (el.tagName === 'IMG') el.src = data[key];
-                    else el.innerHTML = data[key]; // innerHTML permite etiquetas como <span class="text-italic">
+                    else el.innerHTML = data[key]; 
                 }
             }
 
@@ -319,7 +303,6 @@
                 if(data[`srvIco${i}`] && document.getElementById(`view-srv-ico${i}`)) document.getElementById(`view-srv-ico${i}`).innerText = data[`srvIco${i}`];
                 if(data[`srvTit${i}`] && document.getElementById(`view-srv-tit${i}`)) document.getElementById(`view-srv-tit${i}`).innerText = data[`srvTit${i}`];
                 if(data[`srvDesc${i}`] && document.getElementById(`view-srv-desc${i}`)) document.getElementById(`view-srv-desc${i}`).innerText = data[`srvDesc${i}`];
-                if(data[`galImg${i}`] && document.getElementById(`view-gal-img${i}`)) document.getElementById(`view-gal-img${i}`).src = data[`galImg${i}`];
             }
         }
 
