@@ -28,7 +28,7 @@
 
     <!-- BOTÓN FLOTANTE WHATSAPP CON IMAGEN CUSTOM -->
     <a id="view-float-wa" href="https://wa.me/524423979275" target="_blank" class="whatsapp-float">
-        <img src="whatsapp.png" alt="WhatsApp" style="width: 36px; height: 36px; object-fit: contain; z-index: 10000;">
+        <img src="whatsapp.png" alt="WhatsApp" style="width: 36px; height: 36px; object-fit: contain; z-index: 10000;" onerror="this.style.display='none'">
     </a>
 
     <div class="top-bar">
@@ -44,13 +44,13 @@
             <img src="LOGO.png" alt="Logo" style="height: 40px; margin-right: 10px; border-radius: 4px;" onerror="this.style.display='none'">
             <div><div class="logo-text">TODO EN MELAMINA</div><span class="sub-text">DISEÑO & FABRICACIÓN</span></div>
         </div>
-        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+        <button class="mobile-menu-btn" onclick="window.toggleMenu()">☰</button>
         <nav class="nav" id="main-nav">
-            <a href="#inicio" onclick="toggleMenu()">Inicio</a>
-            <a href="#servicios" onclick="toggleMenu()">Servicios</a>
-            <a href="javascript:void(0)" onclick="abrirSuperCatalogo(); toggleMenu();" style="color: var(--accent-wood); font-weight: 600;">🎨 Catálogo de Acabados</a>
-            <a href="#carrusel" onclick="toggleMenu()">Inspiración</a>
-            <a href="#galeria" onclick="toggleMenu()">Proyectos</a>
+            <a href="#inicio" onclick="window.toggleMenu()">Inicio</a>
+            <a href="#servicios" onclick="window.toggleMenu()">Servicios</a>
+            <a href="javascript:void(0)" onclick="window.abrirSuperCatalogo(); window.toggleMenu();" style="color: var(--accent-wood); font-weight: 600;">🎨 Catálogo de Acabados</a>
+            <a href="#carrusel" onclick="window.toggleMenu()">Inspiración</a>
+            <a href="#galeria" onclick="window.toggleMenu()">Proyectos</a>
             <a id="view-nav-wa" href="https://wa.me/524423979275" target="_blank" class="btn-contacto-destacado">Cotizar ahora</a>
         </nav>
     </header>
@@ -171,15 +171,15 @@
 
     <!-- MODAL CATÁLOGO VISUAL -->
     <div id="super-catalogo-modal" class="super-modal" style="display: none; opacity: 0;">
-        <button class="close-super-modal" onclick="cerrarSuperCatalogo()">✖</button>
+        <button class="close-super-modal" onclick="window.cerrarSuperCatalogo()">✖</button>
         <div class="super-modal-content">
             <h2 class="super-title">Colección de Acabados</h2>
             <p class="super-subtitle">Selecciona una categoría para explorar la calidad de nuestros materiales.</p>
             
             <div class="super-tabs">
-                <button class="s-tab active" onclick="filtrarCatalogo('mela', this)">🪵 Melaminas / MDF</button>
-                <button class="s-tab" onclick="filtrarCatalogo('cubi', this)">🪨 Cubiertas / Cuarzos</button>
-                <button class="s-tab" onclick="filtrarCatalogo('herr', this)">⚙️ Herrajes / Accesorios</button>
+                <button class="s-tab active" onclick="window.filtrarCatalogo('mela', this)">🪵 Melaminas / MDF</button>
+                <button class="s-tab" onclick="window.filtrarCatalogo('cubi', this)">🪨 Cubiertas / Cuarzos</button>
+                <button class="s-tab" onclick="window.filtrarCatalogo('herr', this)">⚙️ Herrajes / Accesorios</button>
             </div>
 
             <!-- MELAMINAS -->
@@ -205,37 +205,36 @@
         </div>
     </div>
 
-    <!-- CONEXIÓN A FIREBASE Y LÓGICA DE LA PÁGINA -->
+    <!-- CONEXIÓN A FIREBASE DE GOOGLE (VERSIÓN 10.12.0) -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-        // TUS LLAVES MÁGICAS
         const firebaseConfig = {
             apiKey: "AIzaSyDkSR85yRiLqlzMTKYPbOxxZviUu9mjRfE",
             authDomain: "despieces-8106b.firebaseapp.com",
+            databaseURL: "https://despieces-8106b-default-rtdb.firebaseio.com",
             projectId: "despieces-8106b",
             storageBucket: "despieces-8106b.firebasestorage.app",
             messagingSenderId: "439428891395",
-            appId: "1:439428891395:web:7c52a7acf4abec4202df36",
-            measurementId: "G-JF6LYG7NDJ"
+            appId: "1:439428891395:web:7c52a7acf4abec4202df36"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
         // Preloader
-        const preloader = document.getElementById('preloader');
-        if (preloader) {
-            preloader.classList.add('hide');
-            setTimeout(() => preloader.style.display = 'none', 500);
-        }
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.classList.add('hide');
+                setTimeout(() => preloader.style.display = 'none', 500);
+            }
+        });
 
         window.toggleMenu = function() {
             const nav = document.getElementById('main-nav');
-            if(window.innerWidth <= 768) {
-                nav.classList.toggle('active');
-            }
+            if(window.innerWidth <= 768) { nav.classList.toggle('active'); }
         }
 
         window.abrirSuperCatalogo = function() {
@@ -263,15 +262,19 @@
             document.getElementById(`sec-${tipo}`).classList.add('active');
         }
 
-        // LEER LOS DATOS DIRECTO DE LA NUBE DE FIREBASE
+        // LECTURA DE FIREBASE
         get(child(ref(db), 'tm_website_data')).then((snapshot) => {
             if (snapshot.exists()) {
                 aplicarDatosPagina(snapshot.val());
             } else {
-                console.log("Aún no hay datos en la nube. Ve a tu admin.html y guarda los cambios.");
+                console.log("Base de datos vacía, buscando en local...");
+                const dataLocal = JSON.parse(localStorage.getItem("tm_website_data"));
+                if(dataLocal) aplicarDatosPagina(dataLocal);
             }
         }).catch((error) => {
             console.error("Error al conectar con la Nube:", error);
+            const dataLocal = JSON.parse(localStorage.getItem("tm_website_data"));
+            if(dataLocal) aplicarDatosPagina(dataLocal);
         });
 
         function aplicarDatosPagina(data) {
@@ -297,7 +300,7 @@
             if(document.getElementById('showcase-cubiertas')) document.getElementById('showcase-cubiertas').innerHTML = htmlCubi || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
             if(document.getElementById('showcase-herrajes')) document.getElementById('showcase-herrajes').innerHTML = htmlHerr || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
 
-            // Resto de la página (Textos e Imágenes base)
+            // Resto de la página
             const map = {
                 'view-top-loc':'topLoc', 'view-top-email':'topEmail', 'view-top-phone':'topPhone',
                 'view-hero-img':'heroImg', 'view-hero-title':'heroTitle', 'view-hero-desc':'heroDesc',
@@ -327,7 +330,7 @@
                 if(document.getElementById("view-gal-link")) document.getElementById("view-gal-link").href = data.galLink;
             }
 
-            // Ciclos (Carrusel, Servicios, Proyectos)
+            // Ciclos
             for(let i=1; i<=5; i++) {
                 if(data[`carImg${i}`] && document.getElementById(`view-car-img${i}`)) document.getElementById(`view-car-img${i}`).src = data[`carImg${i}`];
                 if(data[`carTxt${i}`] && document.getElementById(`view-car-txt${i}`)) document.getElementById(`view-car-txt${i}`).innerText = data[`carTxt${i}`];
