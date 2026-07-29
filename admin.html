@@ -40,8 +40,7 @@
         .btn-preview { background: var(--accent); color: white; padding: 10px 18px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(179, 155, 130, 0.3); transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; border:none; cursor:pointer;}
         .btn-preview:hover { background: var(--accent-dark); }
         .btn-analytics-external { background: #4285F4; color: white; padding: 10px 18px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3); transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; }
-        .btn-analytics-external:hover { background: #3367d6; }
-
+        
         #success-alert { display: none; background-color: #28a745; color: white; padding: 14px 20px; border-radius: 10px; margin-bottom: 20px; text-align: center; font-weight: 600; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2); position: sticky; top: 10px; z-index: 9999;}
 
         .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
@@ -67,28 +66,29 @@
         .form-group { margin-bottom: 15px; }
         .form-group.full { grid-column: span 2; }
         .form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.85rem; color: #4a5568; }
-        .form-group input[type="text"], .form-group textarea { width: 100%; padding: 12px 14px; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 0.9rem; transition: 0.2s; outline: none; background: #fdfdfd; }
-        .form-group input[type="text"]:focus, .form-group textarea:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(179, 155, 130, 0.15); }
+        .form-group input[type="text"], .form-group textarea, .search-bar { width: 100%; padding: 12px 14px; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 0.9rem; transition: 0.2s; outline: none; background: #fdfdfd; }
+        .form-group input[type="text"]:focus, .form-group textarea:focus, .search-bar:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(179, 155, 130, 0.15); }
         .form-group textarea { resize: vertical; height: 95px; }
         
         input[type="file"] { width: 100%; padding: 8px; margin-top: 8px; background: #f0f2f5; border-radius: 8px; font-size: 0.8rem; cursor: pointer; border: 1px dashed #cbd5e1; color: #475569; }
         
-        /* Botón Guardar llamativo porque descarga el archivo */
         .btn-save { background: #28a745; color: white; border: none; padding: 18px 30px; border-radius: 10px; cursor: pointer; font-weight: 700; width: 100%; max-width: 1000px; font-size: 1.1rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(40,167,69,0.3); margin-bottom: 40px; }
         .btn-save:hover { background: #218838; transform: translateY(-3px);}
 
-        .iframe-container { width: 100%; height: 650px; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; }
-        .iframe-container iframe { width: 100%; height: 100%; border: none; }
+        .search-results-list { max-height: 250px; overflow-y: auto; border: 1px solid #eee; border-radius: 10px; margin-bottom: 15px; }
+        .search-item { padding: 12px 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: #fff; }
+        .search-item:last-child { border-bottom: none; }
+        .search-item button { padding: 6px 12px; font-size: 0.8rem; background: var(--accent); color: #fff; border: none; border-radius: 6px; cursor: pointer; }
+
+        .edit-box { background: #fdfdfd; border: 2px dashed var(--accent); padding: 20px; border-radius: 12px; display: none; }
+
         .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); backdrop-filter: blur(3px); z-index: 8500; }
-        .cat-item-admin { background: #fdfdfd; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #e2e8f0; box-shadow: 0 2px 5px rgba(0,0,0,0.02);}
-        
         @media (max-width: 900px) {
             .sidebar { position: fixed; left: 0; top: 0; height: 100vh; transform: translateX(-100%); }
             .sidebar.open { transform: translateX(0); }
             .close-sidebar-btn { display: block; }
             .mobile-toggle-btn { display: flex; align-items: center; justify-content: center; }
             .main-content { padding: 18px 15px; }
-            .header h1 { font-size: 1.25rem; }
             .form-grid { grid-template-columns: 1fr; }
             .form-group.full { grid-column: span 1; }
             .sidebar-overlay.active { display: block; }
@@ -121,7 +121,6 @@
                 <li class="tab-link" onclick="switchTab('catalogo', this)">🎨 Catálogo Acabados</li>
                 <li class="tab-link" onclick="switchTab('servicios', this)">🛠️ Servicios</li>
                 <li class="tab-link" onclick="switchTab('proceso', this)">📋 Proceso de Trabajo</li>
-                <li class="tab-link" onclick="switchTab('proyectos', this)">🖼️ Proyectos</li>
             </ul>
         </aside>
 
@@ -132,97 +131,79 @@
                     <h1 id="page-title">Analytics Real</h1>
                 </div>
                 <div class="header-actions">
-                    <a href="https://analytics.google.com" target="_blank" class="btn-analytics-external">📈 Abrir App Google</a>
-                    <a href="index.html" target="_blank" class="btn-preview">👁️ Ver Web</a>
+                    <button class="btn-preview" style="background:#4285F4;" onclick="window.open('https://analytics.google.com')">📈 Ver Google Analytics</button>
                 </div>
             </div>
 
             <div id="success-alert">¡Archivo data.json guardado! Súbelo a GitHub para actualizar la página web.</div>
 
-            <!-- DASHBOARD -->
             <div id="dashboard" class="tab-content active">
                 <div class="metrics-grid">
-                    <div class="metric-card"><div class="title">Estado Tracker</div><div class="number" style="font-size:1.1rem; color:#28a745;">G-QFL8N8EDV2</div><span class="badge">Activo & Enlazado</span></div>
                     <div class="metric-card"><div class="title">Sincronización</div><div class="number" style="font-size:1.1rem; color:#4285F4;">Vía data.json</div><span class="badge" style="background:#e8f0fe; color:#1a73e8;">Global</span></div>
                 </div>
-                <div class="editor-section" style="max-width: 100%;">
-                    <h3 class="section-title">Reporte Interactivo de Tráfico</h3>
-                    <div class="iframe-container">
-                        <iframe src="https://datastudio.google.com/embed/reporting/87e9bd59-c77e-4504-b014-7ea53544636d/page/kPw4F" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
-                    </div>
-                </div>
             </div>
 
-            <!-- AJUSTES GENERALES -->
             <div id="ajustes" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Barra Superior de Contacto</h3>
+                    <h3 class="section-title">Barra Superior</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Ubicación</label><input type="text" id="in-top-loc" value="📍 Querétaro, Querétaro"></div>
-                        <div class="form-group"><label>Correo Electrónico</label><input type="text" id="in-top-email" value="✉️ todoenmelaminatm@gmail.com"></div>
-                        <div class="form-group"><label>Teléfono</label><input type="text" id="in-top-phone" value="📞 +52 442 397 9275"></div>
+                        <div class="form-group"><label>Ubicación</label><input type="text" id="in-top-loc"></div>
+                        <div class="form-group"><label>Correo</label><input type="text" id="in-top-email"></div>
+                        <div class="form-group"><label>Teléfono</label><input type="text" id="in-top-phone"></div>
                     </div>
                 </div>
                 <div class="editor-section">
-                    <h3 class="section-title">Redes Sociales y WhatsApp</h3>
-                    <div class="form-group full"><label>Enlace Directo de WhatsApp</label><input type="text" id="in-wa-link" value="https://wa.me/524423979275?text=Hola,%20me%20gustaría%20cotizar%20un%20proyecto."></div>
+                    <h3 class="section-title">Redes Sociales</h3>
+                    <div class="form-group full"><label>Link WhatsApp</label><input type="text" id="in-wa-link"></div>
                     <div class="form-grid">
-                        <div class="form-group"><label>Link Facebook</label><input type="text" id="in-soc-fb" value="#"></div>
-                        <div class="form-group"><label>Link Instagram</label><input type="text" id="in-soc-ig" value="#"></div>
+                        <div class="form-group"><label>Facebook</label><input type="text" id="in-soc-fb"></div>
+                        <div class="form-group"><label>Instagram</label><input type="text" id="in-soc-ig"></div>
                     </div>
-                </div>
-                <div class="editor-section">
-                    <h3 class="section-title">Textos de Pie de Página (Footer)</h3>
-                    <div class="form-group full"><label>Título del Banner CTA</label><input type="text" id="in-cta-title" value="¿Listo para renovar tu espacio?"></div>
-                    <div class="form-group full"><label>Descripción CTA</label><textarea id="in-cta-desc">Contáctanos hoy mismo y recibe un presupuesto sin compromiso.</textarea></div>
-                    <div class="form-group full"><label>Eslogan Footer</label><input type="text" id="in-foot-desc" value="Transformando espacios con elegancia y precisión."></div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
             </div>
 
-            <!-- PORTADA -->
             <div id="portada" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Encabezado Principal</h3>
-                    <div class="form-group full"><label>Imagen de Fondo</label><input type="text" id="in-hero-img" value="FOND.jpeg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-hero-img')"></div>
-                    <div class="form-group full"><label>Título Principal</label><input type="text" id="in-hero-title" value="Transformamos tu espacio en una obra de arte."></div>
-                    <div class="form-group full"><label>Descripción Secundaria</label><textarea id="in-hero-desc">Diseño y fabricación a medida.</textarea></div>
+                    <h3 class="section-title">Encabezado</h3>
+                    <div class="form-group full"><label>Imagen Fondo</label><input type="text" id="in-hero-img"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-hero-img')"></div>
+                    <div class="form-group full"><label>Título</label><input type="text" id="in-hero-title"></div>
+                    <div class="form-group full"><label>Descripción</label><textarea id="in-hero-desc"></textarea></div>
+                    <div class="form-group full"><label>Link Google Photos</label><input type="text" id="in-gal-link"></div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
             </div>
 
-            <!-- NOSOTROS -->
             <div id="nosotros" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Diseño Inteligente</h3>
-                    <div class="form-group full"><label>Título</label><input type="text" id="in-about-title" value='Diseño <span class="text-italic">funcional</span> e inteligente'></div>
-                    <div class="form-group full"><label>Descripción</label><textarea id="in-about-desc">Nos especializamos en optimizar cada centímetro...</textarea></div>
+                    <h3 class="section-title">Nosotros</h3>
+                    <div class="form-group full"><label>Título</label><input type="text" id="in-about-title"></div>
+                    <div class="form-group full"><label>Descripción</label><textarea id="in-about-desc"></textarea></div>
                     <div class="form-grid">
-                        <div class="form-group"><label>Beneficio 1</label><input type="text" id="in-about-b1" value="Materiales Premium"></div>
-                        <div class="form-group"><label>Beneficio 2</label><input type="text" id="in-about-b2" value="Diseño Increíble"></div>
-                        <div class="form-group"><label>Beneficio 3</label><input type="text" id="in-about-b3" value="Instalación Limpia"></div>
-                        <div class="form-group"><label>Beneficio 4</label><input type="text" id="in-about-b4" value="Trabajos a tu medida"></div>
+                        <div class="form-group"><label>Beneficio 1</label><input type="text" id="in-about-b1"></div>
+                        <div class="form-group"><label>Beneficio 2</label><input type="text" id="in-about-b2"></div>
+                        <div class="form-group"><label>Beneficio 3</label><input type="text" id="in-about-b3"></div>
+                        <div class="form-group"><label>Beneficio 4</label><input type="text" id="in-about-b4"></div>
                     </div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
             </div>
 
-            <!-- CARRUSEL -->
             <div id="carrusel" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Carrusel 3D (5 Fotos)</h3>
+                    <h3 class="section-title">Carrusel (5 Fotos)</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Img 1 (URL/Subir)</label><input type="text" id="in-car-img1" value="VISTA.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img1')"></div><div class="form-group"><label>Texto 1</label><input type="text" id="in-car-txt1" value="Texturas Cálidas"></div>
-                        <div class="form-group"><label>Img 2 (URL/Subir)</label><input type="text" id="in-car-img2" value="DET.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img2')"></div><div class="form-group"><label>Texto 2</label><input type="text" id="in-car-txt2" value="Acabados Mate"></div>
-                        <div class="form-group"><label>Img 3 (URL/Subir)</label><input type="text" id="in-car-img3" value="FOND.jpeg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img3')"></div><div class="form-group"><label>Texto 3</label><input type="text" id="in-car-txt3" value="Optimización"></div>
-                        <div class="form-group"><label>Img 4 (URL/Subir)</label><input type="text" id="in-car-img4" value="VISTA.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img4')"></div><div class="form-group"><label>Texto 4</label><input type="text" id="in-car-txt4" value="Minimalismo"></div>
-                        <div class="form-group"><label>Img 5 (URL/Subir)</label><input type="text" id="in-car-img5" value="DET.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img5')"></div><div class="form-group"><label>Texto 5</label><input type="text" id="in-car-txt5" value="Diseño Premium"></div>
+                        <div class="form-group"><label>Img 1</label><input type="text" id="in-car-img1"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img1')"></div><div class="form-group"><label>Texto 1</label><input type="text" id="in-car-txt1"></div>
+                        <div class="form-group"><label>Img 2</label><input type="text" id="in-car-img2"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img2')"></div><div class="form-group"><label>Texto 2</label><input type="text" id="in-car-txt2"></div>
+                        <div class="form-group"><label>Img 3</label><input type="text" id="in-car-img3"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img3')"></div><div class="form-group"><label>Texto 3</label><input type="text" id="in-car-txt3"></div>
+                        <div class="form-group"><label>Img 4</label><input type="text" id="in-car-img4"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img4')"></div><div class="form-group"><label>Texto 4</label><input type="text" id="in-car-txt4"></div>
+                        <div class="form-group"><label>Img 5</label><input type="text" id="in-car-img5"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-car-img5')"></div><div class="form-group"><label>Texto 5</label><input type="text" id="in-car-txt5"></div>
                     </div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
             </div>
 
-            <!-- CATÁLOGO INFINITO Y MODULAR -->
+            <!-- NUEVO SISTEMA DE CATÁLOGO BUSCADOR -->
             <div id="catalogo" class="tab-content">
                 <div class="sub-tabs">
                     <button class="sub-tab-btn active" onclick="switchSubTab('sub-mela', this)">🪵 Melaminas</button>
@@ -230,121 +211,50 @@
                     <button class="sub-tab-btn" onclick="switchSubTab('sub-herr', this)">⚙️ Herrajes</button>
                 </div>
 
-                <!-- SUB: MELAMINAS -->
+                <!-- SUB-TAB GENERADO DINÁMICAMENTE POR JS -->
                 <div id="sub-mela" class="sub-tab-content active">
-                    <div class="editor-section">
-                        <h3 class="section-title">Portada e Info Global - Melaminas</h3>
-                        <div class="form-group full">
-                            <label>Imagen Principal (16:9 Recomendado)</label>
-                            <input type="text" id="in-mela-bg" placeholder="URL o subir">
-                            <input type="file" accept="image/*" onchange="procesarImagen(event, 'in-mela-bg')">
-                        </div>
-                        <div class="form-group full">
-                            <label>Texto de Introducción</label>
-                            <textarea id="in-mela-info" placeholder="Ej: Descubre nuestra variedad de texturas..."></textarea>
-                        </div>
-                    </div>
-                    <div class="editor-section">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                            <h3 class="section-title" style="margin:0; border:none;">Lista de Melaminas</h3>
-                            <button type="button" class="btn-preview" style="background:#17a2b8;" onclick="crearTarjetaCatalogo('melaminas')">+ Agregar Melamina</button>
-                        </div>
-                        <div id="admin-melaminas"></div>
-                    </div>
+                    <div class="editor-section"><h3 class="section-title">Portada Melaminas</h3><div class="form-group full"><input type="text" id="in-mela-bg"><input type="file" onchange="procesarImagen(event, 'in-mela-bg')"></div><div class="form-group full"><textarea id="in-mela-info" placeholder="Info global"></textarea></div></div>
+                    <div class="editor-section" style="background:#eefaf1;"><h3 class="section-title">➕ Agregar Nuevo</h3><div class="form-grid"><div class="form-group"><label>Imagen</label><input type="text" id="add-mela-img"><input type="file" onchange="procesarImagen(event, 'add-mela-img')"></div><div class="form-group"><label>Nombre</label><input type="text" id="add-mela-tit"></div><div class="form-group full"><label>Descripción</label><input type="text" id="add-mela-desc"></div></div><button class="btn-preview" onclick="agregarItem('melaminas')">Añadir al Catálogo</button></div>
+                    <div class="editor-section"><h3 class="section-title">✏️ Editar Existentes</h3><input type="text" class="search-bar" id="search-mela" placeholder="🔍 Buscar melamina por nombre..." onkeyup="renderLista('melaminas')"><div class="search-results-list" id="list-melaminas"></div><div class="edit-box" id="edit-box-melaminas"><h4>Editando Item</h4><div class="form-grid"><div class="form-group"><label>Imagen</label><input type="text" id="edit-mela-img"><input type="file" onchange="procesarImagen(event, 'edit-mela-img')"></div><div class="form-group"><label>Nombre</label><input type="text" id="edit-mela-tit"></div><div class="form-group full"><label>Descripción</label><input type="text" id="edit-mela-desc"></div></div><div style="display:flex; gap:10px;"><button class="btn-preview" onclick="guardarEdicion('melaminas')">💾 Actualizar</button><button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('melaminas')">🗑️ Eliminar</button></div></div></div>
                 </div>
 
-                <!-- SUB: CUBIERTAS -->
                 <div id="sub-cubi" class="sub-tab-content">
-                    <div class="editor-section">
-                        <h3 class="section-title">Portada e Info Global - Cubiertas</h3>
-                        <div class="form-group full">
-                            <label>Imagen Principal (16:9 Recomendado)</label>
-                            <input type="text" id="in-cubi-bg" placeholder="URL o subir">
-                            <input type="file" accept="image/*" onchange="procesarImagen(event, 'in-cubi-bg')">
-                        </div>
-                        <div class="form-group full">
-                            <label>Texto de Introducción</label>
-                            <textarea id="in-cubi-info" placeholder="Ej: Las mejores piedras naturales..."></textarea>
-                        </div>
-                    </div>
-                    <div class="editor-section">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                            <h3 class="section-title" style="margin:0; border:none;">Lista de Cubiertas</h3>
-                            <button type="button" class="btn-preview" style="background:#17a2b8;" onclick="crearTarjetaCatalogo('cubiertas')">+ Agregar Cubierta</button>
-                        </div>
-                        <div id="admin-cubiertas"></div>
-                    </div>
+                    <div class="editor-section"><h3 class="section-title">Portada Cubiertas</h3><div class="form-group full"><input type="text" id="in-cubi-bg"><input type="file" onchange="procesarImagen(event, 'in-cubi-bg')"></div><div class="form-group full"><textarea id="in-cubi-info" placeholder="Info global"></textarea></div></div>
+                    <div class="editor-section" style="background:#eefaf1;"><h3 class="section-title">➕ Agregar Nuevo</h3><div class="form-grid"><div class="form-group"><label>Imagen</label><input type="text" id="add-cubi-img"><input type="file" onchange="procesarImagen(event, 'add-cubi-img')"></div><div class="form-group"><label>Nombre</label><input type="text" id="add-cubi-tit"></div><div class="form-group full"><label>Descripción</label><input type="text" id="add-cubi-desc"></div></div><button class="btn-preview" onclick="agregarItem('cubiertas')">Añadir al Catálogo</button></div>
+                    <div class="editor-section"><h3 class="section-title">✏️ Editar Existentes</h3><input type="text" class="search-bar" id="search-cubi" placeholder="🔍 Buscar cubierta..." onkeyup="renderLista('cubiertas')"><div class="search-results-list" id="list-cubiertas"></div><div class="edit-box" id="edit-box-cubiertas"><h4>Editando Item</h4><div class="form-grid"><div class="form-group"><label>Imagen</label><input type="text" id="edit-cubi-img"><input type="file" onchange="procesarImagen(event, 'edit-cubi-img')"></div><div class="form-group"><label>Nombre</label><input type="text" id="edit-cubi-tit"></div><div class="form-group full"><label>Descripción</label><input type="text" id="edit-cubi-desc"></div></div><div style="display:flex; gap:10px;"><button class="btn-preview" onclick="guardarEdicion('cubiertas')">💾 Actualizar</button><button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('cubiertas')">🗑️ Eliminar</button></div></div></div>
                 </div>
 
-                <!-- SUB: HERRAJES -->
                 <div id="sub-herr" class="sub-tab-content">
-                    <div class="editor-section">
-                        <h3 class="section-title">Portada e Info Global - Herrajes</h3>
-                        <div class="form-group full">
-                            <label>Imagen Principal (16:9 Recomendado)</label>
-                            <input type="text" id="in-herr-bg" placeholder="URL o subir">
-                            <input type="file" accept="image/*" onchange="procesarImagen(event, 'in-herr-bg')">
-                        </div>
-                        <div class="form-group full">
-                            <label>Texto de Introducción</label>
-                            <textarea id="in-herr-info" placeholder="Ej: Accesorios de cierre suave..."></textarea>
-                        </div>
-                    </div>
-                    <div class="editor-section">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                            <h3 class="section-title" style="margin:0; border:none;">Lista de Herrajes</h3>
-                            <button type="button" class="btn-preview" style="background:#17a2b8;" onclick="crearTarjetaCatalogo('herrajes')">+ Agregar Herraje</button>
-                        </div>
-                        <div id="admin-herrajes"></div>
-                    </div>
+                    <div class="editor-section"><h3 class="section-title">Portada Herrajes</h3><div class="form-group full"><input type="text" id="in-herr-bg"><input type="file" onchange="procesarImagen(event, 'in-herr-bg')"></div><div class="form-group full"><textarea id="in-herr-info" placeholder="Info global"></textarea></div></div>
+                    <div class="editor-section" style="background:#eefaf1;"><h3 class="section-title">➕ Agregar Nuevo</h3><div class="form-grid"><div class="form-group"><label>Imagen</label><input type="text" id="add-herr-img"><input type="file" onchange="procesarImagen(event, 'add-herr-img')"></div><div class="form-group"><label>Nombre</label><input type="text" id="add-herr-tit"></div><div class="form-group full"><label>Descripción</label><input type="text" id="add-herr-desc"></div></div><button class="btn-preview" onclick="agregarItem('herrajes')">Añadir al Catálogo</button></div>
+                    <div class="editor-section"><h3 class="section-title">✏️ Editar Existentes</h3><input type="text" class="search-bar" id="search-herr" placeholder="🔍 Buscar herraje..." onkeyup="renderLista('herrajes')"><div class="search-results-list" id="list-herrajes"></div><div class="edit-box" id="edit-box-herrajes"><h4>Editando Item</h4><div class="form-grid"><div class="form-group"><label>Imagen</label><input type="text" id="edit-herr-img"><input type="file" onchange="procesarImagen(event, 'edit-herr-img')"></div><div class="form-group"><label>Nombre</label><input type="text" id="edit-herr-tit"></div><div class="form-group full"><label>Descripción</label><input type="text" id="edit-herr-desc"></div></div><div style="display:flex; gap:10px;"><button class="btn-preview" onclick="guardarEdicion('herrajes')">💾 Actualizar</button><button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('herrajes')">🗑️ Eliminar</button></div></div></div>
                 </div>
+
                 <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
             </div>
 
-            <!-- SERVICIOS -->
+            <!-- SERVICIOS, PROCESO -->
             <div id="servicios" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Tarjetas de Servicios</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Icono 1</label><input type="text" id="in-srv-ico1" value="🍳"></div><div class="form-group"><label>Título 1</label><input type="text" id="in-srv-tit1" value="Cocinas Integrales"></div><div class="form-group full"><textarea id="in-srv-desc1">Diseños ergonómicos...</textarea></div>
-                        <div class="form-group"><label>Icono 2</label><input type="text" id="in-srv-ico2" value="👗"></div><div class="form-group"><label>Título 2</label><input type="text" id="in-srv-tit2" value="Closets y Vestidores"></div><div class="form-group full"><textarea id="in-srv-desc2">Optimización total...</textarea></div>
-                        <div class="form-group"><label>Icono 3</label><input type="text" id="in-srv-ico3" value="💻"></div><div class="form-group"><label>Título 3</label><input type="text" id="in-srv-tit3" value="Mobiliario de Oficina"></div><div class="form-group full"><textarea id="in-srv-desc3">Escritorios...</textarea></div>
+                        <div class="form-group"><label>Icono 1</label><input type="text" id="in-srv-ico1"></div><div class="form-group"><label>Título 1</label><input type="text" id="in-srv-tit1"></div><div class="form-group full"><textarea id="in-srv-desc1"></textarea></div>
+                        <div class="form-group"><label>Icono 2</label><input type="text" id="in-srv-ico2"></div><div class="form-group"><label>Título 2</label><input type="text" id="in-srv-tit2"></div><div class="form-group full"><textarea id="in-srv-desc2"></textarea></div>
+                        <div class="form-group"><label>Icono 3</label><input type="text" id="in-srv-ico3"></div><div class="form-group"><label>Título 3</label><input type="text" id="in-srv-tit3"></div><div class="form-group full"><textarea id="in-srv-desc3"></textarea></div>
                     </div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
             </div>
             
-            <!-- PROCESO Y FAQ -->
             <div id="proceso" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Proceso de Trabajo (4 Pasos)</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Paso 1: Título</label><input type="text" id="in-proc-tit1" value="Asesoría"></div><div class="form-group"><label>Descripción 1</label><textarea id="in-proc-desc1">Analizamos tu espacio y necesidades.</textarea></div>
-                        <div class="form-group"><label>Paso 2: Título</label><input type="text" id="in-proc-tit2" value="Diseño 3D"></div><div class="form-group"><label>Descripción 2</label><textarea id="in-proc-desc2">Modelamos tu proyecto para aprobación.</textarea></div>
-                        <div class="form-group"><label>Paso 3: Título</label><input type="text" id="in-proc-tit3" value="Fabricación"></div><div class="form-group"><label>Descripción 3</label><textarea id="in-proc-desc3">Cortes precisos con materiales premium.</textarea></div>
-                        <div class="form-group"><label>Paso 4: Título</label><input type="text" id="in-proc-tit4" value="Instalación"></div><div class="form-group"><label>Descripción 4</label><textarea id="in-proc-desc4">Montaje limpio y profesional en tu domicilio.</textarea></div>
+                        <div class="form-group"><label>Paso 1: Título</label><input type="text" id="in-proc-tit1"></div><div class="form-group"><label>Descripción 1</label><textarea id="in-proc-desc1"></textarea></div>
+                        <div class="form-group"><label>Paso 2: Título</label><input type="text" id="in-proc-tit2"></div><div class="form-group"><label>Descripción 2</label><textarea id="in-proc-desc2"></textarea></div>
+                        <div class="form-group"><label>Paso 3: Título</label><input type="text" id="in-proc-tit3"></div><div class="form-group"><label>Descripción 3</label><textarea id="in-proc-desc3"></textarea></div>
+                        <div class="form-group"><label>Paso 4: Título</label><input type="text" id="in-proc-tit4"></div><div class="form-group"><label>Descripción 4</label><textarea id="in-proc-desc4"></textarea></div>
                     </div>
-                </div>
-                <div class="editor-section">
-                    <h3 class="section-title">Preguntas Frecuentes</h3>
-                    <div class="form-group full"><label>Pregunta 1</label><input type="text" id="in-faq-q1" value="¿Cuánto tiempo tardan en entregar un proyecto?"></div><div class="form-group full"><textarea id="in-faq-a1">Dependiendo del tamaño del proyecto...</textarea></div>
-                    <div class="form-group full"><label>Pregunta 2</label><input type="text" id="in-faq-q2" value="¿Ofrecen garantía?"></div><div class="form-group full"><textarea id="in-faq-a2">Sí, todos nuestros muebles cuentan con garantía...</textarea></div>
-                    <div class="form-group full"><label>Pregunta 3</label><input type="text" id="in-faq-q3" value="¿El presupuesto incluye instalación?"></div><div class="form-group full"><textarea id="in-faq-a3">Totalmente. Nuestras cotizaciones son integrales...</textarea></div>
-                </div>
-                <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
-            </div>
-
-            <!-- PROYECTOS -->
-            <div id="proyectos" class="tab-content">
-                <div class="editor-section">
-                    <h3 class="section-title">Galería Externa de Trabajos</h3>
-                    <div class="form-group full"><label>Enlace de Google Photos</label><input type="text" id="in-gal-link" value="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA"></div>
-                </div>
-                <div class="editor-section">
-                    <h3 class="section-title">3 Imágenes Destacadas en la Web</h3>
-                    <div class="form-group full"><label>Imagen 1</label><input type="text" id="in-gal-img1" value="VISTA.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-gal-img1')"></div>
-                    <div class="form-group full"><label>Imagen 2</label><input type="text" id="in-gal-img2" value="DET.jpg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-gal-img2')"></div>
-                    <div class="form-group full"><label>Imagen 3</label><input type="text" id="in-gal-img3" value="FOND.jpeg"><input type="file" accept="image/*" onchange="procesarImagen(event, 'in-gal-img3')"></div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
             </div>
@@ -352,6 +262,10 @@
     </div>
 
     <script>
+        // BASE DE DATOS LOCAL PARA EL PANEL
+        let catalogDB = { melaminas: [], cubiertas: [], herrajes: [] };
+        let activeEditIndex = { melaminas: -1, cubiertas: -1, herrajes: -1 };
+
         function checkLogin() {
             if (document.getElementById("admin-pass").value.trim() === "admin2026") {
                 document.getElementById("login-overlay").style.display = "none";
@@ -360,18 +274,13 @@
             } else { document.getElementById("login-error").style.display = "block"; }
         }
 
-        function toggleSidebar() {
-            document.getElementById("sidebar").classList.toggle('open');
-            document.getElementById("sidebar-overlay").classList.toggle('active');
-        }
+        function toggleSidebar() { document.getElementById("sidebar").classList.toggle('open'); document.getElementById("sidebar-overlay").classList.toggle('active'); }
 
         function switchTab(tabId, element) {
             document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             element.classList.add('active'); 
             document.getElementById(tabId).classList.add('active');
-            const titles = { 'dashboard':'Analytics Real', 'ajustes':'Generales & Redes', 'portada':'Edición de Portada', 'nosotros':'Sección Nosotros', 'carrusel':'Editor de Carrusel', 'catalogo':'Catálogo Acabados', 'servicios':'Edición de Servicios', 'proceso': 'Proceso y FAQ', 'proyectos':'Galería de Proyectos' };
-            document.getElementById('page-title').innerText = titles[tabId];
             if(window.innerWidth <= 900) { toggleSidebar(); }
         }
 
@@ -385,10 +294,8 @@
         function procesarImagen(event, inputId) {
             const file = event.target.files[0];
             if (!file) return;
-
             const targetInput = document.getElementById(inputId);
-            targetInput.value = "Comprimiendo imagen...";
-
+            targetInput.value = "Comprimiendo...";
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = function(e) {
@@ -397,144 +304,128 @@
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
                     const MAX_WIDTH = 500; 
-                    let width = img.width;
-                    let height = img.height;
-
-                    if (width > MAX_WIDTH) {
-                        height *= MAX_WIDTH / width;
-                        width = MAX_WIDTH;
-                    }
-
-                    canvas.width = width;
-                    canvas.height = height;
+                    let width = img.width, height = img.height;
+                    if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
+                    canvas.width = width; canvas.height = height;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
-
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.6); 
-                    targetInput.value = dataUrl;
+                    targetInput.value = canvas.toDataURL('image/jpeg', 0.6); 
                 };
             };
         }
 
-        let itemCounter = 0;
-        function crearTarjetaCatalogo(tipo, imgVal='', titVal='', descVal='') {
-            const container = document.getElementById(`admin-${tipo}`);
-            itemCounter++;
-            const uniqueId = `cat_img_${itemCounter}`;
+        // LÓGICA DE AGREGAR Y EDITAR
+        function agregarItem(tipo) {
+            let prefix = tipo.substring(0,4); // mela, cubi, herr
+            const img = document.getElementById(`add-${prefix}-img`).value;
+            const tit = document.getElementById(`add-${prefix}-tit`).value;
+            const desc = document.getElementById(`add-${prefix}-desc`).value;
             
-            let label = '🪵 Melamina / MDF';
-            if(tipo === 'cubiertas') label = '🪨 Cubierta / Cuarzo';
-            if(tipo === 'herrajes') label = '⚙️ Herraje / Accesorio';
-
-            const div = document.createElement('div');
-            div.className = 'cat-item-admin';
-            div.innerHTML = `
-                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                    <h4>${label}</h4>
-                    <button type="button" style="background:#ff4d4d; color:white; border:none; padding:5px 10px; border-radius:6px; cursor:pointer;" onclick="this.parentElement.parentElement.remove()">🗑️ Eliminar</button>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Imagen</label>
-                        <input type="text" class="c-img" id="${uniqueId}" value="${imgVal}" placeholder="Pega URL o sube abajo">
-                        <input type="file" accept="image/*" onchange="procesarImagen(event, '${uniqueId}')">
-                    </div>
-                    <div class="form-group">
-                        <label>Nombre del Artículo</label>
-                        <input type="text" class="c-tit" value="${titVal}">
-                    </div>
-                    <div class="form-group full">
-                        <label>Descripción / Estilo</label>
-                        <input type="text" class="c-desc" value="${descVal}">
-                    </div>
-                </div>
-            `;
-            container.appendChild(div);
+            if(!tit) { alert("El nombre es obligatorio"); return; }
+            
+            catalogDB[tipo].push({ img, tit, desc });
+            
+            // Limpiar inputs
+            document.getElementById(`add-${prefix}-img`).value = '';
+            document.getElementById(`add-${prefix}-tit`).value = '';
+            document.getElementById(`add-${prefix}-desc`).value = '';
+            
+            renderLista(tipo);
+            mostrarAlerta("Agregado a la lista.", "#17a2b8");
         }
 
-        // Esta función lee los datos del archivo data.json (si existe) o de la memoria local para que puedas seguir editando
+        function renderLista(tipo) {
+            let prefix = tipo.substring(0,4);
+            const term = document.getElementById(`search-${prefix}`).value.toLowerCase();
+            const container = document.getElementById(`list-${tipo}`);
+            container.innerHTML = '';
+            
+            catalogDB[tipo].forEach((item, index) => {
+                if(item.tit.toLowerCase().includes(term)) {
+                    const div = document.createElement('div');
+                    div.className = 'search-item';
+                    div.innerHTML = `<span>${item.tit}</span> <button onclick="iniciarEdicion('${tipo}', ${index})">✏️ Editar</button>`;
+                    container.appendChild(div);
+                }
+            });
+        }
+
+        function iniciarEdicion(tipo, index) {
+            let prefix = tipo.substring(0,4);
+            activeEditIndex[tipo] = index;
+            const item = catalogDB[tipo][index];
+            
+            document.getElementById(`edit-${prefix}-img`).value = item.img;
+            document.getElementById(`edit-${prefix}-tit`).value = item.tit;
+            document.getElementById(`edit-${prefix}-desc`).value = item.desc;
+            
+            document.getElementById(`edit-box-${tipo}`).style.display = 'block';
+        }
+
+        function guardarEdicion(tipo) {
+            let prefix = tipo.substring(0,4);
+            const index = activeEditIndex[tipo];
+            if(index === -1) return;
+            
+            catalogDB[tipo][index] = {
+                img: document.getElementById(`edit-${prefix}-img`).value,
+                tit: document.getElementById(`edit-${prefix}-tit`).value,
+                desc: document.getElementById(`edit-${prefix}-desc`).value
+            };
+            
+            document.getElementById(`edit-box-${tipo}`).style.display = 'none';
+            renderLista(tipo);
+            mostrarAlerta("Editado correctamente.", "#17a2b8");
+        }
+
+        function eliminarItem(tipo) {
+            if(!confirm("¿Seguro que deseas eliminar este elemento?")) return;
+            const index = activeEditIndex[tipo];
+            catalogDB[tipo].splice(index, 1);
+            document.getElementById(`edit-box-${tipo}`).style.display = 'none';
+            renderLista(tipo);
+        }
+
         function cargarDatos() {
-            // Intenta descargar el data.json actual desde tu página web
-            fetch('data.json?v=' + new Date().getTime())
-                .then(response => {
-                    if(!response.ok) throw new Error("No hay data.json");
-                    return response.json();
-                })
-                .then(data => poblarCamposAdmin(data))
-                .catch(error => {
-                    // Si falla (porque lo abres en tu PC sin internet), usa la memoria local
-                    const dataLocal = JSON.parse(localStorage.getItem("tm_website_data"));
-                    if(dataLocal) poblarCamposAdmin(dataLocal);
-                    else poblarCamposAdmin(null);
-                });
-        }
+            const data = JSON.parse(localStorage.getItem("tm_website_data")) || {};
+            
+            // Cargar Catálogos
+            if(data.catMelaminas) catalogDB.melaminas = data.catMelaminas;
+            if(data.catCubiertas) catalogDB.cubiertas = data.catCubiertas;
+            if(data.catHerrajes) catalogDB.herrajes = data.catHerrajes;
+            
+            renderLista('melaminas'); renderLista('cubiertas'); renderLista('herrajes');
 
-        function poblarCamposAdmin(data) {
-            if (!data) {
-                crearTarjetaCatalogo('melaminas'); crearTarjetaCatalogo('cubiertas'); crearTarjetaCatalogo('herrajes');
-                return;
-            }
-
-            if(document.getElementById('in-mela-bg')) document.getElementById('in-mela-bg').value = data.melaBg || '';
-            if(document.getElementById('in-mela-info')) document.getElementById('in-mela-info').value = data.melaInfo || '';
-            if(document.getElementById('in-cubi-bg')) document.getElementById('in-cubi-bg').value = data.cubiBg || '';
-            if(document.getElementById('in-cubi-info')) document.getElementById('in-cubi-info').value = data.cubiInfo || '';
-            if(document.getElementById('in-herr-bg')) document.getElementById('in-herr-bg').value = data.herrBg || '';
-            if(document.getElementById('in-herr-info')) document.getElementById('in-herr-info').value = data.herrInfo || '';
-
-            if(data.catMelaminas && data.catMelaminas.length > 0) { data.catMelaminas.forEach(item => crearTarjetaCatalogo('melaminas', item.img, item.tit, item.desc)); } else { crearTarjetaCatalogo('melaminas'); }
-            if(data.catCubiertas && data.catCubiertas.length > 0) { data.catCubiertas.forEach(item => crearTarjetaCatalogo('cubiertas', item.img, item.tit, item.desc)); } else { crearTarjetaCatalogo('cubiertas'); }
-            if(data.catHerrajes && data.catHerrajes.length > 0) { data.catHerrajes.forEach(item => crearTarjetaCatalogo('herrajes', item.img, item.tit, item.desc)); } else { crearTarjetaCatalogo('herrajes'); }
-
+            // Cargar Resto
             const map = {
+                'in-mela-bg':'melaBg', 'in-mela-info':'melaInfo', 'in-cubi-bg':'cubiBg', 'in-cubi-info':'cubiInfo', 'in-herr-bg':'herrBg', 'in-herr-info':'herrInfo',
                 'in-top-loc':'topLoc', 'in-top-email':'topEmail', 'in-top-phone':'topPhone', 'in-wa-link':'waLink', 'in-soc-fb':'socFb', 'in-soc-ig':'socIg', 
                 'in-hero-img':'heroImg', 'in-hero-title':'heroTitle', 'in-hero-desc':'heroDesc', 'in-about-title':'aboutTitle', 'in-about-desc':'aboutDesc', 'in-about-b1':'aboutB1', 'in-about-b2':'aboutB2', 'in-about-b3':'aboutB3', 'in-about-b4':'aboutB4',
                 'in-car-img1':'carImg1', 'in-car-txt1':'carTxt1', 'in-car-img2':'carImg2', 'in-car-txt2':'carTxt2', 'in-car-img3':'carImg3', 'in-car-txt3':'carTxt3', 'in-car-img4':'carImg4', 'in-car-txt4':'carTxt4', 'in-car-img5':'carImg5', 'in-car-txt5':'carTxt5',
                 'in-srv-ico1':'srvIco1', 'in-srv-tit1':'srvTit1', 'in-srv-desc1':'srvDesc1', 'in-srv-ico2':'srvIco2', 'in-srv-tit2':'srvTit2', 'in-srv-desc2':'srvDesc2', 'in-srv-ico3':'srvIco3', 'in-srv-tit3':'srvTit3', 'in-srv-desc3':'srvDesc3',
-                'in-gal-img1':'galImg1', 'in-gal-img2':'galImg2', 'in-gal-img3':'galImg3', 'in-gal-link':'galLink',
+                'in-gal-link':'galLink',
                 'in-proc-tit1':'procTit1', 'in-proc-desc1':'procDesc1', 'in-proc-tit2':'procTit2', 'in-proc-desc2':'procDesc2', 'in-proc-tit3':'procTit3', 'in-proc-desc3':'procDesc3', 'in-proc-tit4':'procTit4', 'in-proc-desc4':'procDesc4',
-                'in-faq-q1':'faqQ1', 'in-faq-a1':'faqA1', 'in-faq-q2':'faqQ2', 'in-faq-a2':'faqA2', 'in-faq-q3':'faqQ3', 'in-faq-a3':'faqA3',
                 'in-cta-title':'ctaTitle', 'in-cta-desc':'ctaDesc', 'in-foot-desc':'footDesc'
             };
             for (const [id, key] of Object.entries(map)) {
-                if (document.getElementById(id)) document.getElementById(id).value = data[key];
+                if (document.getElementById(id) && data[key]) document.getElementById(id).value = data[key];
             }
         }
 
-        // ESTA FUNCIÓN AHORA GENERA EL ARCHIVO PARA GITHUB
         function guardarTodo() {
             const data = {};
-            
-            data.melaBg = document.getElementById('in-mela-bg').value;
-            data.melaInfo = document.getElementById('in-mela-info').value;
-            data.cubiBg = document.getElementById('in-cubi-bg').value;
-            data.cubiInfo = document.getElementById('in-cubi-info').value;
-            data.herrBg = document.getElementById('in-herr-bg').value;
-            data.herrInfo = document.getElementById('in-herr-info').value;
-
-            data.catMelaminas = [];
-            document.querySelectorAll('#admin-melaminas .cat-item-admin').forEach(el => {
-                data.catMelaminas.push({ img: el.querySelector('.c-img').value, tit: el.querySelector('.c-tit').value, desc: el.querySelector('.c-desc').value });
-            });
-
-            data.catCubiertas = [];
-            document.querySelectorAll('#admin-cubiertas .cat-item-admin').forEach(el => {
-                data.catCubiertas.push({ img: el.querySelector('.c-img').value, tit: el.querySelector('.c-tit').value, desc: el.querySelector('.c-desc').value });
-            });
-
-            data.catHerrajes = [];
-            document.querySelectorAll('#admin-herrajes .cat-item-admin').forEach(el => {
-                data.catHerrajes.push({ img: el.querySelector('.c-img').value, tit: el.querySelector('.c-tit').value, desc: el.querySelector('.c-desc').value });
-            });
+            data.catMelaminas = catalogDB.melaminas;
+            data.catCubiertas = catalogDB.cubiertas;
+            data.catHerrajes = catalogDB.herrajes;
 
             const map = {
+                'in-mela-bg':'melaBg', 'in-mela-info':'melaInfo', 'in-cubi-bg':'cubiBg', 'in-cubi-info':'cubiInfo', 'in-herr-bg':'herrBg', 'in-herr-info':'herrInfo',
                 'in-top-loc':'topLoc', 'in-top-email':'topEmail', 'in-top-phone':'topPhone', 'in-wa-link':'waLink', 'in-soc-fb':'socFb', 'in-soc-ig':'socIg', 
                 'in-hero-img':'heroImg', 'in-hero-title':'heroTitle', 'in-hero-desc':'heroDesc', 'in-about-title':'aboutTitle', 'in-about-desc':'aboutDesc', 'in-about-b1':'aboutB1', 'in-about-b2':'aboutB2', 'in-about-b3':'aboutB3', 'in-about-b4':'aboutB4',
                 'in-car-img1':'carImg1', 'in-car-txt1':'carTxt1', 'in-car-img2':'carImg2', 'in-car-txt2':'carTxt2', 'in-car-img3':'carImg3', 'in-car-txt3':'carTxt3', 'in-car-img4':'carImg4', 'in-car-txt4':'carTxt4', 'in-car-img5':'carImg5', 'in-car-txt5':'carTxt5',
                 'in-srv-ico1':'srvIco1', 'in-srv-tit1':'srvTit1', 'in-srv-desc1':'srvDesc1', 'in-srv-ico2':'srvIco2', 'in-srv-tit2':'srvTit2', 'in-srv-desc2':'srvDesc2', 'in-srv-ico3':'srvIco3', 'in-srv-tit3':'srvTit3', 'in-srv-desc3':'srvDesc3',
-                'in-gal-img1':'galImg1', 'in-gal-img2':'galImg2', 'in-gal-img3':'galImg3', 'in-gal-link':'galLink',
+                'in-gal-link':'galLink',
                 'in-proc-tit1':'procTit1', 'in-proc-desc1':'procDesc1', 'in-proc-tit2':'procTit2', 'in-proc-desc2':'procDesc2', 'in-proc-tit3':'procTit3', 'in-proc-desc3':'procDesc3', 'in-proc-tit4':'procTit4', 'in-proc-desc4':'procDesc4',
-                'in-faq-q1':'faqQ1', 'in-faq-a1':'faqA1', 'in-faq-q2':'faqQ2', 'in-faq-a2':'faqA2', 'in-faq-q3':'faqQ3', 'in-faq-a3':'faqA3',
                 'in-cta-title':'ctaTitle', 'in-cta-desc':'ctaDesc', 'in-foot-desc':'footDesc'
             };
             for (const [id, key] of Object.entries(map)) {
@@ -542,25 +433,20 @@
             }
 
             try {
-                // Guarda en PC por si acaso
-                localStorage.setItem("tm_website_data", JSON.stringify(data));
+                localStorage.setItem("tm_website_data", JSON.stringify(data)); // Guarda local como borrador
                 
-                // Genera el archivo DATA.JSON para GitHub
+                // DESCARGA DATA.JSON
                 const jsonStr = JSON.stringify(data, null, 2);
                 const blob = new Blob([jsonStr], { type: "application/json" });
                 const url = URL.createObjectURL(blob);
-                
                 const a = document.createElement("a");
-                a.href = url;
-                a.download = "data.json";
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
+                a.href = url; a.download = "data.json";
+                document.body.appendChild(a); a.click(); document.body.removeChild(a);
                 URL.revokeObjectURL(url);
 
-                mostrarAlerta("¡Archivo data.json descargado! Súbelo a tu GitHub para que todos lo vean.", "#28a745");
+                mostrarAlerta("¡Archivo data.json descargado! Súbelo a tu GitHub.", "#28a745");
             } catch(e) {
-                mostrarAlerta("❌ Error: Agregaste demasiadas fotos y la memoria se llenó.", "#dc3545");
+                mostrarAlerta("❌ Error de guardado.", "#dc3545");
             }
         }
 
@@ -569,7 +455,7 @@
             alertBox.style.backgroundColor = color;
             alertBox.innerText = mensaje;
             alertBox.style.display = "block"; 
-            setTimeout(() => { alertBox.style.display = "none"; }, 8000);
+            setTimeout(() => { alertBox.style.display = "none"; }, 5000);
         }
     </script>
 </body>
