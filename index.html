@@ -4,20 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo en Melamina | Diseño y Fabricación en Querétaro</title>
+    <meta name="description" content="Diseño y fabricación de mobiliario a medida en melamina y maderas finas.">
+    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QFL8N8EDV2"></script>
-    <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-QFL8N8EDV2');</script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QFL8N8EDV2');
+    </script>
+
+    <link rel="icon" type="image/png" href="LOGO1.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="preloader"><img src="LOGO.png" class="preloader-icon" onerror="this.style.display='none'"><div class="loader-logo">TODO EN MELAMINA</div><div class="spinner"></div></div>
 
-    <a id="view-float-wa" href="https://wa.me/524423979275" target="_blank" class="whatsapp-float"><img src="whatsapp.png" style="width: 36px; height: 36px; object-fit: contain; z-index: 10000;" onerror="this.style.display='none'"></a>
+    <div id="preloader">
+        <img src="LOGO.png" alt="Icono" class="preloader-icon" onerror="this.style.display='none'">
+        <div class="loader-logo">TODO EN MELAMINA</div>
+        <div class="spinner"></div>
+    </div>
 
-    <div class="top-bar"><div class="top-bar-content"><span id="view-top-loc">📍 Querétaro, Querétaro</span><span id="view-top-email">✉️ todoenmelaminatm@gmail.com</span><span id="view-top-phone">📞 +52 442 397 9275</span></div></div>
+    <!-- BOTÓN FLOTANTE WHATSAPP CON IMAGEN CUSTOM -->
+    <a id="view-float-wa" href="https://wa.me/524423979275" target="_blank" class="whatsapp-float">
+        <img src="whatsapp.png" alt="WhatsApp" style="width: 36px; height: 36px; object-fit: contain; z-index: 10000;">
+    </a>
+
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <span id="view-top-loc">📍 Querétaro, Querétaro</span>
+            <span id="view-top-email">✉️ todoenmelaminatm@gmail.com</span>
+            <span id="view-top-phone">📞 +52 442 397 9275</span>
+        </div>
+    </div>
 
     <header class="header">
-        <div class="logo-container"><img src="LOGO.png" style="height: 40px; margin-right: 10px;" onerror="this.style.display='none'"><div><div class="logo-text">TODO EN MELAMINA</div><span class="sub-text">DISEÑO & FABRICACIÓN</span></div></div>
+        <div class="logo-container">
+            <img src="LOGO.png" alt="Logo" style="height: 40px; margin-right: 10px; border-radius: 4px;" onerror="this.style.display='none'">
+            <div><div class="logo-text">TODO EN MELAMINA</div><span class="sub-text">DISEÑO & FABRICACIÓN</span></div>
+        </div>
         <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
         <nav class="nav" id="main-nav">
             <a href="#inicio" onclick="toggleMenu()">Inicio</a>
@@ -30,11 +56,17 @@
     </header>
 
     <section id="inicio" class="hero-portada">
-        <img id="view-hero-img" src="FOND.jpeg" class="hero-bg-img"><div class="hero-overlay-gradient"></div>
+        <img id="view-hero-img" src="FOND.jpeg" alt="Fondo Todo en Melamina" class="hero-bg-img">
+        <div class="hero-overlay-gradient"></div>
         <div class="hero-content-glass fade-in-up" id="draggable-card">
             <div class="card-controls" id="card-drag-handle"><span class="drag-hint">⣿ Arrastrar ventana</span><button class="close-card-btn" onclick="document.getElementById('draggable-card').style.display='none'">✖</button></div>
-            <span class="hero-badge">DISEÑO PREMIUM</span><h1 class="title-main" id="view-hero-title">Transformamos tu espacio en una obra de arte.</h1><p class="description" id="view-hero-desc">Diseño y fabricación de mobiliario a medida.</p>
-            <div class="hero-buttons"><a href="#contacto" class="cta-button">Agendar Asesoría</a><a id="view-hero-link" href="#" target="_blank" class="cta-button-outline">📸 Ver Álbum de Fotos</a></div>
+            <span class="hero-badge">DISEÑO PREMIUM</span>
+            <h1 class="title-main" id="view-hero-title">Transformamos tu espacio en una obra de arte.</h1>
+            <p class="description" id="view-hero-desc">Diseño y fabricación de mobiliario a medida.</p>
+            <div class="hero-buttons">
+                <a href="#contacto" class="cta-button">Agendar Asesoría</a>
+                <a id="view-hero-link" href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button-outline">📸 Ver Álbum de Fotos</a>
+            </div>
         </div>
     </section>
 
@@ -137,7 +169,7 @@
         <div class="footer-bottom"><p>&copy; 2026 Todo en Melamina. Todos los derechos reservados.</p></div>
     </footer>
 
-    <!-- MODAL CATÁLOGO VISUAL FLOTANTE -->
+    <!-- MODAL CATÁLOGO VISUAL -->
     <div id="super-catalogo-modal" class="super-modal" style="display: none; opacity: 0;">
         <button class="close-super-modal" onclick="cerrarSuperCatalogo()">✖</button>
         <div class="super-modal-content">
@@ -173,22 +205,40 @@
         </div>
     </div>
 
-    <!-- SCRIPTS MÁGICOS -->
-    <script>
-        window.addEventListener('load', function() {
-            const preloader = document.getElementById('preloader');
+    <!-- CONEXIÓN A FIREBASE Y LÓGICA DE LA PÁGINA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+
+        // TUS LLAVES MÁGICAS
+        const firebaseConfig = {
+            apiKey: "AIzaSyDkSR85yRiLqlzMTKYPbOxxZviUu9mjRfE",
+            authDomain: "despieces-8106b.firebaseapp.com",
+            projectId: "despieces-8106b",
+            storageBucket: "despieces-8106b.firebasestorage.app",
+            messagingSenderId: "439428891395",
+            appId: "1:439428891395:web:7c52a7acf4abec4202df36",
+            measurementId: "G-JF6LYG7NDJ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Preloader
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
             preloader.classList.add('hide');
             setTimeout(() => preloader.style.display = 'none', 500);
-        });
+        }
 
-        function toggleMenu() {
+        window.toggleMenu = function() {
             const nav = document.getElementById('main-nav');
             if(window.innerWidth <= 768) {
                 nav.classList.toggle('active');
             }
         }
 
-        function abrirSuperCatalogo() {
+        window.abrirSuperCatalogo = function() {
             const modal = document.getElementById('super-catalogo-modal');
             if(modal) {
                 modal.style.display = 'block';
@@ -197,7 +247,7 @@
             }
         }
 
-        function cerrarSuperCatalogo() {
+        window.cerrarSuperCatalogo = function() {
             const modal = document.getElementById('super-catalogo-modal');
             if(modal) {
                 modal.style.opacity = '0';
@@ -206,64 +256,48 @@
             }
         }
 
-        function filtrarCatalogo(tipo, btn) {
+        window.filtrarCatalogo = function(tipo, btn) {
             document.querySelectorAll('.s-tab').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             document.querySelectorAll('.super-section').forEach(sec => sec.classList.remove('active'));
             document.getElementById(`sec-${tipo}`).classList.add('active');
         }
 
-        // SISTEMA HÍBRIDO DE CARGA DE DATOS (Lee de PC o de GitHub)
-        document.addEventListener("DOMContentLoaded", function() {
-            const urlData = 'data.json?v=' + new Date().getTime();
-            
-            fetch(urlData)
-                .then(response => {
-                    if(!response.ok) throw new Error("No data.json");
-                    return response.json();
-                })
-                .then(data => aplicarDatosPagina(data))
-                .catch(error => {
-                    console.log("Cargando desde memoria local (PC)...");
-                    const dataLocal = JSON.parse(localStorage.getItem("tm_website_data"));
-                    if(dataLocal) aplicarDatosPagina(dataLocal);
-                });
+        // LEER LOS DATOS DIRECTO DE LA NUBE DE FIREBASE
+        get(child(ref(db), 'tm_website_data')).then((snapshot) => {
+            if (snapshot.exists()) {
+                aplicarDatosPagina(snapshot.val());
+            } else {
+                console.log("Aún no hay datos en la nube. Ve a tu admin.html y guarda los cambios.");
+            }
+        }).catch((error) => {
+            console.error("Error al conectar con la Nube:", error);
         });
 
         function aplicarDatosPagina(data) {
             if (!data) return;
 
-            // 1. Rescatador de imágenes viejas (Por si tienes datos del sistema anterior)
-            if(!data.catMelaminas && data.melImg1) {
-                data.catMelaminas = [];
-                for(let i=1; i<=4; i++) if(data[`melImg${i}`]) data.catMelaminas.push({img: data[`melImg${i}`], tit: data[`melTit${i}`], desc: data[`melDesc${i}`]});
-            }
-            if(!data.catCubiertas && data.cubImg1) {
-                data.catCubiertas = [];
-                for(let i=1; i<=4; i++) if(data[`cubImg${i}`]) data.catCubiertas.push({img: data[`cubImg${i}`], tit: data[`cubTit${i}`], desc: data[`cubDesc${i}`]});
-            }
-
-            // 2. Catálogo: Portadas 16:9
+            // Catálogo: Portadas 16:9
             if(data.melaBg && data.melaBg.trim() !== '') { document.getElementById('view-mela-bg').src = data.melaBg; document.getElementById('box-mela-bg').style.display = 'block'; }
             if(data.cubiBg && data.cubiBg.trim() !== '') { document.getElementById('view-cubi-bg').src = data.cubiBg; document.getElementById('box-cubi-bg').style.display = 'block'; }
             if(data.herrBg && data.herrBg.trim() !== '') { document.getElementById('view-herr-bg').src = data.herrBg; document.getElementById('box-herr-bg').style.display = 'block'; }
 
-            // 3. Catálogo: Textos Globales
+            // Catálogo: Textos Globales
             if(data.melaInfo && data.melaInfo.trim() !== '') { document.getElementById('info-mela').innerHTML = `<p>${data.melaInfo}</p>`; document.getElementById('info-mela').style.display = 'block'; } else { document.getElementById('info-mela').style.display = 'none'; }
             if(data.cubiInfo && data.cubiInfo.trim() !== '') { document.getElementById('info-cubi').innerHTML = `<p>${data.cubiInfo}</p>`; document.getElementById('info-cubi').style.display = 'block'; } else { document.getElementById('info-cubi').style.display = 'none'; }
             if(data.herrInfo && data.herrInfo.trim() !== '') { document.getElementById('info-herr').innerHTML = `<p>${data.herrInfo}</p>`; document.getElementById('info-herr').style.display = 'block'; } else { document.getElementById('info-herr').style.display = 'none'; }
 
-            // 4. Catálogo: Construir Tarjetas Mágicas
+            // Catálogo: Tarjetas
             let htmlMela = '', htmlCubi = '', htmlHerr = '';
             if(data.catMelaminas && data.catMelaminas.length > 0) { data.catMelaminas.forEach(item => { if(item.img && item.img.trim() !== '') { htmlMela += `<div class="magic-card"><img src="${item.img}" alt="Material"><div class="magic-info"><h3>${item.tit || 'Acabado'}</h3><p>${item.desc || ''}</p></div></div>`; } }); }
             if(data.catCubiertas && data.catCubiertas.length > 0) { data.catCubiertas.forEach(item => { if(item.img && item.img.trim() !== '') { htmlCubi += `<div class="magic-card"><img src="${item.img}" alt="Cubierta"><div class="magic-info"><h3>${item.tit || 'Piedra'}</h3><p>${item.desc || ''}</p></div></div>`; } }); }
             if(data.catHerrajes && data.catHerrajes.length > 0) { data.catHerrajes.forEach(item => { if(item.img && item.img.trim() !== '') { htmlHerr += `<div class="magic-card"><img src="${item.img}" alt="Herraje"><div class="magic-info"><h3>${item.tit || 'Accesorio'}</h3><p>${item.desc || ''}</p></div></div>`; } }); }
 
-            if(document.getElementById('showcase-melaminas')) document.getElementById('showcase-melaminas').innerHTML = htmlMela || '<p style="color:#aaa; text-align:center; width:100%;">Agrega imágenes en tu panel.</p>';
-            if(document.getElementById('showcase-cubiertas')) document.getElementById('showcase-cubiertas').innerHTML = htmlCubi || '<p style="color:#aaa; text-align:center; width:100%;">Agrega imágenes en tu panel.</p>';
-            if(document.getElementById('showcase-herrajes')) document.getElementById('showcase-herrajes').innerHTML = htmlHerr || '<p style="color:#aaa; text-align:center; width:100%;">Agrega imágenes en tu panel.</p>';
+            if(document.getElementById('showcase-melaminas')) document.getElementById('showcase-melaminas').innerHTML = htmlMela || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
+            if(document.getElementById('showcase-cubiertas')) document.getElementById('showcase-cubiertas').innerHTML = htmlCubi || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
+            if(document.getElementById('showcase-herrajes')) document.getElementById('showcase-herrajes').innerHTML = htmlHerr || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
 
-            // 5. Resto de la página (Textos e Imágenes base)
+            // Resto de la página (Textos e Imágenes base)
             const map = {
                 'view-top-loc':'topLoc', 'view-top-email':'topEmail', 'view-top-phone':'topPhone',
                 'view-hero-img':'heroImg', 'view-hero-title':'heroTitle', 'view-hero-desc':'heroDesc',
@@ -280,7 +314,7 @@
                 }
             }
 
-            // 6. Configurar Enlaces
+            // Enlaces
             if(data.waLink) {
                 if(document.getElementById("view-float-wa")) document.getElementById("view-float-wa").href = data.waLink;
                 if(document.getElementById("view-nav-wa")) document.getElementById("view-nav-wa").href = data.waLink;
@@ -293,7 +327,7 @@
                 if(document.getElementById("view-gal-link")) document.getElementById("view-gal-link").href = data.galLink;
             }
 
-            // 7. Ciclos (Carrusel, Servicios, Proyectos Destacados)
+            // Ciclos (Carrusel, Servicios, Proyectos)
             for(let i=1; i<=5; i++) {
                 if(data[`carImg${i}`] && document.getElementById(`view-car-img${i}`)) document.getElementById(`view-car-img${i}`).src = data[`carImg${i}`];
                 if(data[`carTxt${i}`] && document.getElementById(`view-car-txt${i}`)) document.getElementById(`view-car-txt${i}`).innerText = data[`carTxt${i}`];
