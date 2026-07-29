@@ -39,7 +39,6 @@
         .header-actions { display: flex; gap: 10px; }
         .btn-preview { background: var(--accent); color: white; padding: 10px 18px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(179, 155, 130, 0.3); transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; border:none; cursor:pointer;}
         .btn-preview:hover { background: var(--accent-dark); }
-        .btn-analytics-external { background: #4285F4; color: white; padding: 10px 18px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3); transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; }
         
         #success-alert { display: none; background-color: #28a745; color: white; padding: 14px 20px; border-radius: 10px; margin-bottom: 20px; text-align: center; font-weight: 600; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2); position: sticky; top: 10px; z-index: 9999;}
 
@@ -75,12 +74,14 @@
         .btn-save { background: #28a745; color: white; border: none; padding: 18px 30px; border-radius: 10px; cursor: pointer; font-weight: 700; width: 100%; max-width: 1000px; font-size: 1.1rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(40,167,69,0.3); margin-bottom: 40px; }
         .btn-save:hover { background: #218838; transform: translateY(-3px);}
 
-        .search-results-list { max-height: 250px; overflow-y: auto; border: 1px solid #eee; border-radius: 10px; margin-bottom: 15px; }
-        .search-item { padding: 12px 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: #fff; }
+        /* DISEÑO DE BUSCADOR Y LISTAS */
+        .search-results-list { max-height: 250px; overflow-y: auto; border: 1px solid #eee; border-radius: 10px; margin-bottom: 15px; background: #fdfdfd; }
+        .search-item { padding: 12px 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
         .search-item:last-child { border-bottom: none; }
-        .search-item button { padding: 6px 12px; font-size: 0.8rem; background: var(--accent); color: #fff; border: none; border-radius: 6px; cursor: pointer; }
-
-        .edit-box { background: #fdfdfd; border: 2px dashed var(--accent); padding: 20px; border-radius: 12px; display: none; }
+        .search-item span { font-weight: 500; font-size: 0.95rem; }
+        .search-item button { padding: 6px 12px; font-size: 0.8rem; background: var(--accent); color: #fff; border: none; border-radius: 6px; cursor: pointer; transition: 0.2s;}
+        .search-item button:hover { background: var(--accent-dark); }
+        .edit-box { background: #fdfdfd; border: 2px dashed var(--accent); padding: 20px; border-radius: 12px; display: none; margin-top: 15px;}
 
         .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); backdrop-filter: blur(3px); z-index: 8500; }
         @media (max-width: 900px) {
@@ -131,15 +132,15 @@
                     <h1 id="page-title">Analytics Real</h1>
                 </div>
                 <div class="header-actions">
-                    <button class="btn-preview" style="background:#4285F4;" onclick="window.open('https://analytics.google.com')">📈 Ver Google Analytics</button>
+                    <a href="index.html" target="_blank" class="btn-preview">👁️ Ver Web Local</a>
                 </div>
             </div>
 
-            <div id="success-alert">¡Archivo data.json guardado! Súbelo a GitHub para actualizar la página web.</div>
+            <div id="success-alert">¡Archivo data.json guardado! Súbelo a GitHub para actualizar en Celulares.</div>
 
             <div id="dashboard" class="tab-content active">
                 <div class="metrics-grid">
-                    <div class="metric-card"><div class="title">Sincronización</div><div class="number" style="font-size:1.1rem; color:#4285F4;">Vía data.json</div><span class="badge" style="background:#e8f0fe; color:#1a73e8;">Global</span></div>
+                    <div class="metric-card"><div class="title">Sincronización Web</div><div class="number" style="font-size:1.1rem; color:#4285F4;">Vía Archivo JSON</div><span class="badge" style="background:#e8f0fe; color:#1a73e8;">Doble Guardado</span></div>
                 </div>
             </div>
 
@@ -203,7 +204,7 @@
                 <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
             </div>
 
-            <!-- NUEVO SISTEMA DE CATÁLOGO BUSCADOR -->
+            <!-- CATÁLOGO BUSCADOR COMPACTO -->
             <div id="catalogo" class="tab-content">
                 <div class="sub-tabs">
                     <button class="sub-tab-btn active" onclick="switchSubTab('sub-mela', this)">🪵 Melaminas</button>
@@ -211,29 +212,115 @@
                     <button class="sub-tab-btn" onclick="switchSubTab('sub-herr', this)">⚙️ Herrajes</button>
                 </div>
 
-                <!-- SUB-TAB GENERADO DINÁMICAMENTE POR JS -->
+                <!-- SUB: MELAMINAS -->
                 <div id="sub-mela" class="sub-tab-content active">
-                    <div class="editor-section"><h3 class="section-title">Portada Melaminas</h3><div class="form-group full"><input type="text" id="in-mela-bg"><input type="file" onchange="procesarImagen(event, 'in-mela-bg')"></div><div class="form-group full"><textarea id="in-mela-info" placeholder="Info global"></textarea></div></div>
-                    <div class="editor-section" style="background:#eefaf1;"><h3 class="section-title">➕ Agregar Nuevo</h3><div class="form-grid"><div class="form-group"><label>Imagen</label><input type="text" id="add-mela-img"><input type="file" onchange="procesarImagen(event, 'add-mela-img')"></div><div class="form-group"><label>Nombre</label><input type="text" id="add-mela-tit"></div><div class="form-group full"><label>Descripción</label><input type="text" id="add-mela-desc"></div></div><button class="btn-preview" onclick="agregarItem('melaminas')">Añadir al Catálogo</button></div>
-                    <div class="editor-section"><h3 class="section-title">✏️ Editar Existentes</h3><input type="text" class="search-bar" id="search-mela" placeholder="🔍 Buscar melamina por nombre..." onkeyup="renderLista('melaminas')"><div class="search-results-list" id="list-melaminas"></div><div class="edit-box" id="edit-box-melaminas"><h4>Editando Item</h4><div class="form-grid"><div class="form-group"><label>Imagen</label><input type="text" id="edit-mela-img"><input type="file" onchange="procesarImagen(event, 'edit-mela-img')"></div><div class="form-group"><label>Nombre</label><input type="text" id="edit-mela-tit"></div><div class="form-group full"><label>Descripción</label><input type="text" id="edit-mela-desc"></div></div><div style="display:flex; gap:10px;"><button class="btn-preview" onclick="guardarEdicion('melaminas')">💾 Actualizar</button><button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('melaminas')">🗑️ Eliminar</button></div></div></div>
+                    <div class="editor-section">
+                        <h3 class="section-title">Portada e Info Global</h3>
+                        <div class="form-group full"><input type="text" id="in-mela-bg" placeholder="Imagen 16:9"><input type="file" onchange="procesarImagen(event, 'in-mela-bg')"></div>
+                        <div class="form-group full"><textarea id="in-mela-info" placeholder="Info global"></textarea></div>
+                    </div>
+                    <div class="editor-section" style="background:#eefaf1;">
+                        <h3 class="section-title">➕ Agregar Melamina</h3>
+                        <div class="form-grid">
+                            <div class="form-group"><label>Imagen</label><input type="text" id="add-mela-img"><input type="file" onchange="procesarImagen(event, 'add-mela-img')"></div>
+                            <div class="form-group"><label>Nombre</label><input type="text" id="add-mela-tit"></div>
+                            <div class="form-group full"><label>Descripción</label><input type="text" id="add-mela-desc"></div>
+                        </div>
+                        <button class="btn-preview" style="background:#17a2b8;" onclick="agregarItem('melaminas')">Añadir al Catálogo</button>
+                    </div>
+                    <div class="editor-section">
+                        <h3 class="section-title">✏️ Editar Existentes</h3>
+                        <input type="text" class="search-bar" id="search-mela" placeholder="🔍 Buscar melamina..." onkeyup="renderLista('melaminas')">
+                        <div class="search-results-list" id="list-melaminas"></div>
+                        <div class="edit-box" id="edit-box-melaminas">
+                            <h4>Editando Item</h4>
+                            <div class="form-grid">
+                                <div class="form-group"><label>Imagen</label><input type="text" id="edit-mela-img"><input type="file" onchange="procesarImagen(event, 'edit-mela-img')"></div>
+                                <div class="form-group"><label>Nombre</label><input type="text" id="edit-mela-tit"></div>
+                                <div class="form-group full"><label>Descripción</label><input type="text" id="edit-mela-desc"></div>
+                            </div>
+                            <div style="display:flex; gap:10px;">
+                                <button class="btn-preview" onclick="guardarEdicion('melaminas')">💾 Actualizar</button>
+                                <button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('melaminas')">🗑️ Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- SUB: CUBIERTAS -->
                 <div id="sub-cubi" class="sub-tab-content">
-                    <div class="editor-section"><h3 class="section-title">Portada Cubiertas</h3><div class="form-group full"><input type="text" id="in-cubi-bg"><input type="file" onchange="procesarImagen(event, 'in-cubi-bg')"></div><div class="form-group full"><textarea id="in-cubi-info" placeholder="Info global"></textarea></div></div>
-                    <div class="editor-section" style="background:#eefaf1;"><h3 class="section-title">➕ Agregar Nuevo</h3><div class="form-grid"><div class="form-group"><label>Imagen</label><input type="text" id="add-cubi-img"><input type="file" onchange="procesarImagen(event, 'add-cubi-img')"></div><div class="form-group"><label>Nombre</label><input type="text" id="add-cubi-tit"></div><div class="form-group full"><label>Descripción</label><input type="text" id="add-cubi-desc"></div></div><button class="btn-preview" onclick="agregarItem('cubiertas')">Añadir al Catálogo</button></div>
-                    <div class="editor-section"><h3 class="section-title">✏️ Editar Existentes</h3><input type="text" class="search-bar" id="search-cubi" placeholder="🔍 Buscar cubierta..." onkeyup="renderLista('cubiertas')"><div class="search-results-list" id="list-cubiertas"></div><div class="edit-box" id="edit-box-cubiertas"><h4>Editando Item</h4><div class="form-grid"><div class="form-group"><label>Imagen</label><input type="text" id="edit-cubi-img"><input type="file" onchange="procesarImagen(event, 'edit-cubi-img')"></div><div class="form-group"><label>Nombre</label><input type="text" id="edit-cubi-tit"></div><div class="form-group full"><label>Descripción</label><input type="text" id="edit-cubi-desc"></div></div><div style="display:flex; gap:10px;"><button class="btn-preview" onclick="guardarEdicion('cubiertas')">💾 Actualizar</button><button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('cubiertas')">🗑️ Eliminar</button></div></div></div>
+                    <div class="editor-section">
+                        <h3 class="section-title">Portada e Info Global</h3>
+                        <div class="form-group full"><input type="text" id="in-cubi-bg" placeholder="Imagen 16:9"><input type="file" onchange="procesarImagen(event, 'in-cubi-bg')"></div>
+                        <div class="form-group full"><textarea id="in-cubi-info" placeholder="Info global"></textarea></div>
+                    </div>
+                    <div class="editor-section" style="background:#eefaf1;">
+                        <h3 class="section-title">➕ Agregar Cubierta</h3>
+                        <div class="form-grid">
+                            <div class="form-group"><label>Imagen</label><input type="text" id="add-cubi-img"><input type="file" onchange="procesarImagen(event, 'add-cubi-img')"></div>
+                            <div class="form-group"><label>Nombre</label><input type="text" id="add-cubi-tit"></div>
+                            <div class="form-group full"><label>Descripción</label><input type="text" id="add-cubi-desc"></div>
+                        </div>
+                        <button class="btn-preview" style="background:#17a2b8;" onclick="agregarItem('cubiertas')">Añadir al Catálogo</button>
+                    </div>
+                    <div class="editor-section">
+                        <h3 class="section-title">✏️ Editar Existentes</h3>
+                        <input type="text" class="search-bar" id="search-cubi" placeholder="🔍 Buscar cubierta..." onkeyup="renderLista('cubiertas')">
+                        <div class="search-results-list" id="list-cubiertas"></div>
+                        <div class="edit-box" id="edit-box-cubiertas">
+                            <h4>Editando Item</h4>
+                            <div class="form-grid">
+                                <div class="form-group"><label>Imagen</label><input type="text" id="edit-cubi-img"><input type="file" onchange="procesarImagen(event, 'edit-cubi-img')"></div>
+                                <div class="form-group"><label>Nombre</label><input type="text" id="edit-cubi-tit"></div>
+                                <div class="form-group full"><label>Descripción</label><input type="text" id="edit-cubi-desc"></div>
+                            </div>
+                            <div style="display:flex; gap:10px;">
+                                <button class="btn-preview" onclick="guardarEdicion('cubiertas')">💾 Actualizar</button>
+                                <button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('cubiertas')">🗑️ Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- SUB: HERRAJES -->
                 <div id="sub-herr" class="sub-tab-content">
-                    <div class="editor-section"><h3 class="section-title">Portada Herrajes</h3><div class="form-group full"><input type="text" id="in-herr-bg"><input type="file" onchange="procesarImagen(event, 'in-herr-bg')"></div><div class="form-group full"><textarea id="in-herr-info" placeholder="Info global"></textarea></div></div>
-                    <div class="editor-section" style="background:#eefaf1;"><h3 class="section-title">➕ Agregar Nuevo</h3><div class="form-grid"><div class="form-group"><label>Imagen</label><input type="text" id="add-herr-img"><input type="file" onchange="procesarImagen(event, 'add-herr-img')"></div><div class="form-group"><label>Nombre</label><input type="text" id="add-herr-tit"></div><div class="form-group full"><label>Descripción</label><input type="text" id="add-herr-desc"></div></div><button class="btn-preview" onclick="agregarItem('herrajes')">Añadir al Catálogo</button></div>
-                    <div class="editor-section"><h3 class="section-title">✏️ Editar Existentes</h3><input type="text" class="search-bar" id="search-herr" placeholder="🔍 Buscar herraje..." onkeyup="renderLista('herrajes')"><div class="search-results-list" id="list-herrajes"></div><div class="edit-box" id="edit-box-herrajes"><h4>Editando Item</h4><div class="form-grid"><div class="form-group"><label>Imagen</label><input type="text" id="edit-herr-img"><input type="file" onchange="procesarImagen(event, 'edit-herr-img')"></div><div class="form-group"><label>Nombre</label><input type="text" id="edit-herr-tit"></div><div class="form-group full"><label>Descripción</label><input type="text" id="edit-herr-desc"></div></div><div style="display:flex; gap:10px;"><button class="btn-preview" onclick="guardarEdicion('herrajes')">💾 Actualizar</button><button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('herrajes')">🗑️ Eliminar</button></div></div></div>
+                    <div class="editor-section">
+                        <h3 class="section-title">Portada e Info Global</h3>
+                        <div class="form-group full"><input type="text" id="in-herr-bg" placeholder="Imagen 16:9"><input type="file" onchange="procesarImagen(event, 'in-herr-bg')"></div>
+                        <div class="form-group full"><textarea id="in-herr-info" placeholder="Info global"></textarea></div>
+                    </div>
+                    <div class="editor-section" style="background:#eefaf1;">
+                        <h3 class="section-title">➕ Agregar Herraje</h3>
+                        <div class="form-grid">
+                            <div class="form-group"><label>Imagen</label><input type="text" id="add-herr-img"><input type="file" onchange="procesarImagen(event, 'add-herr-img')"></div>
+                            <div class="form-group"><label>Nombre</label><input type="text" id="add-herr-tit"></div>
+                            <div class="form-group full"><label>Descripción</label><input type="text" id="add-herr-desc"></div>
+                        </div>
+                        <button class="btn-preview" style="background:#17a2b8;" onclick="agregarItem('herrajes')">Añadir al Catálogo</button>
+                    </div>
+                    <div class="editor-section">
+                        <h3 class="section-title">✏️ Editar Existentes</h3>
+                        <input type="text" class="search-bar" id="search-herr" placeholder="🔍 Buscar herraje..." onkeyup="renderLista('herrajes')">
+                        <div class="search-results-list" id="list-herrajes"></div>
+                        <div class="edit-box" id="edit-box-herrajes">
+                            <h4>Editando Item</h4>
+                            <div class="form-grid">
+                                <div class="form-group"><label>Imagen</label><input type="text" id="edit-herr-img"><input type="file" onchange="procesarImagen(event, 'edit-herr-img')"></div>
+                                <div class="form-group"><label>Nombre</label><input type="text" id="edit-herr-tit"></div>
+                                <div class="form-group full"><label>Descripción</label><input type="text" id="edit-herr-desc"></div>
+                            </div>
+                            <div style="display:flex; gap:10px;">
+                                <button class="btn-preview" onclick="guardarEdicion('herrajes')">💾 Actualizar</button>
+                                <button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('herrajes')">🗑️ Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
             </div>
 
-            <!-- SERVICIOS, PROCESO -->
+            <!-- SERVICIOS Y PROCESOS -->
             <div id="servicios" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Tarjetas de Servicios</h3>
@@ -248,12 +335,12 @@
             
             <div id="proceso" class="tab-content">
                 <div class="editor-section">
-                    <h3 class="section-title">Proceso de Trabajo (4 Pasos)</h3>
+                    <h3 class="section-title">Proceso de Trabajo</h3>
                     <div class="form-grid">
-                        <div class="form-group"><label>Paso 1: Título</label><input type="text" id="in-proc-tit1"></div><div class="form-group"><label>Descripción 1</label><textarea id="in-proc-desc1"></textarea></div>
-                        <div class="form-group"><label>Paso 2: Título</label><input type="text" id="in-proc-tit2"></div><div class="form-group"><label>Descripción 2</label><textarea id="in-proc-desc2"></textarea></div>
-                        <div class="form-group"><label>Paso 3: Título</label><input type="text" id="in-proc-tit3"></div><div class="form-group"><label>Descripción 3</label><textarea id="in-proc-desc3"></textarea></div>
-                        <div class="form-group"><label>Paso 4: Título</label><input type="text" id="in-proc-tit4"></div><div class="form-group"><label>Descripción 4</label><textarea id="in-proc-desc4"></textarea></div>
+                        <div class="form-group"><label>Paso 1</label><input type="text" id="in-proc-tit1"></div><div class="form-group"><label>Desc</label><textarea id="in-proc-desc1"></textarea></div>
+                        <div class="form-group"><label>Paso 2</label><input type="text" id="in-proc-tit2"></div><div class="form-group"><label>Desc</label><textarea id="in-proc-desc2"></textarea></div>
+                        <div class="form-group"><label>Paso 3</label><input type="text" id="in-proc-tit3"></div><div class="form-group"><label>Desc</label><textarea id="in-proc-desc3"></textarea></div>
+                        <div class="form-group"><label>Paso 4</label><input type="text" id="in-proc-tit4"></div><div class="form-group"><label>Desc</label><textarea id="in-proc-desc4"></textarea></div>
                     </div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">⬇️ Guardar y Descargar data.json</button>
@@ -262,7 +349,6 @@
     </div>
 
     <script>
-        // BASE DE DATOS LOCAL PARA EL PANEL
         let catalogDB = { melaminas: [], cubiertas: [], herrajes: [] };
         let activeEditIndex = { melaminas: -1, cubiertas: -1, herrajes: -1 };
 
@@ -279,16 +365,13 @@
         function switchTab(tabId, element) {
             document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            element.classList.add('active'); 
-            document.getElementById(tabId).classList.add('active');
-            if(window.innerWidth <= 900) { toggleSidebar(); }
+            element.classList.add('active'); document.getElementById(tabId).classList.add('active');
         }
 
         function switchSubTab(subTabId, element) {
             document.querySelectorAll('.sub-tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.sub-tab-content').forEach(tab => tab.classList.remove('active'));
-            element.classList.add('active');
-            document.getElementById(subTabId).classList.add('active');
+            element.classList.add('active'); document.getElementById(subTabId).classList.add('active');
         }
 
         function procesarImagen(event, inputId) {
@@ -299,44 +382,39 @@
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = function(e) {
-                const img = new Image();
-                img.src = e.target.result;
+                const img = new Image(); img.src = e.target.result;
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
-                    const MAX_WIDTH = 500; 
-                    let width = img.width, height = img.height;
-                    if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
-                    canvas.width = width; canvas.height = height;
+                    let w = img.width, h = img.height;
+                    if (w > 500) { h *= 500 / w; w = 500; }
+                    canvas.width = w; canvas.height = h;
                     const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
+                    ctx.drawImage(img, 0, 0, w, h);
                     targetInput.value = canvas.toDataURL('image/jpeg', 0.6); 
                 };
             };
         }
 
-        // LÓGICA DE AGREGAR Y EDITAR
         function agregarItem(tipo) {
-            let prefix = tipo.substring(0,4); // mela, cubi, herr
-            const img = document.getElementById(`add-${prefix}-img`).value;
-            const tit = document.getElementById(`add-${prefix}-tit`).value;
-            const desc = document.getElementById(`add-${prefix}-desc`).value;
+            let p = tipo.substring(0,4);
+            const img = document.getElementById(`add-${p}-img`).value;
+            const tit = document.getElementById(`add-${p}-tit`).value;
+            const desc = document.getElementById(`add-${p}-desc`).value;
             
-            if(!tit) { alert("El nombre es obligatorio"); return; }
-            
+            if(!tit) { alert("Ponle un nombre."); return; }
             catalogDB[tipo].push({ img, tit, desc });
             
-            // Limpiar inputs
-            document.getElementById(`add-${prefix}-img`).value = '';
-            document.getElementById(`add-${prefix}-tit`).value = '';
-            document.getElementById(`add-${prefix}-desc`).value = '';
+            document.getElementById(`add-${p}-img`).value = '';
+            document.getElementById(`add-${p}-tit`).value = '';
+            document.getElementById(`add-${p}-desc`).value = '';
             
             renderLista(tipo);
-            mostrarAlerta("Agregado a la lista.", "#17a2b8");
+            guardarTodo(true); 
         }
 
         function renderLista(tipo) {
-            let prefix = tipo.substring(0,4);
-            const term = document.getElementById(`search-${prefix}`).value.toLowerCase();
+            let p = tipo.substring(0,4);
+            const term = document.getElementById(`search-${p}`).value.toLowerCase();
             const container = document.getElementById(`list-${tipo}`);
             container.innerHTML = '';
             
@@ -351,53 +429,61 @@
         }
 
         function iniciarEdicion(tipo, index) {
-            let prefix = tipo.substring(0,4);
+            let p = tipo.substring(0,4);
             activeEditIndex[tipo] = index;
             const item = catalogDB[tipo][index];
-            
-            document.getElementById(`edit-${prefix}-img`).value = item.img;
-            document.getElementById(`edit-${prefix}-tit`).value = item.tit;
-            document.getElementById(`edit-${prefix}-desc`).value = item.desc;
-            
+            document.getElementById(`edit-${p}-img`).value = item.img;
+            document.getElementById(`edit-${p}-tit`).value = item.tit;
+            document.getElementById(`edit-${p}-desc`).value = item.desc;
             document.getElementById(`edit-box-${tipo}`).style.display = 'block';
         }
 
         function guardarEdicion(tipo) {
-            let prefix = tipo.substring(0,4);
+            let p = tipo.substring(0,4);
             const index = activeEditIndex[tipo];
-            if(index === -1) return;
-            
-            catalogDB[tipo][index] = {
-                img: document.getElementById(`edit-${prefix}-img`).value,
-                tit: document.getElementById(`edit-${prefix}-tit`).value,
-                desc: document.getElementById(`edit-${prefix}-desc`).value
-            };
-            
+            catalogDB[tipo][index] = { img: document.getElementById(`edit-${p}-img`).value, tit: document.getElementById(`edit-${p}-tit`).value, desc: document.getElementById(`edit-${p}-desc`).value };
             document.getElementById(`edit-box-${tipo}`).style.display = 'none';
             renderLista(tipo);
-            mostrarAlerta("Editado correctamente.", "#17a2b8");
+            guardarTodo(true);
         }
 
         function eliminarItem(tipo) {
-            if(!confirm("¿Seguro que deseas eliminar este elemento?")) return;
-            const index = activeEditIndex[tipo];
-            catalogDB[tipo].splice(index, 1);
+            if(!confirm("¿Borrar?")) return;
+            catalogDB[tipo].splice(activeEditIndex[tipo], 1);
             document.getElementById(`edit-box-${tipo}`).style.display = 'none';
             renderLista(tipo);
+            guardarTodo(true);
+        }
+
+        function migrarViejos(d) {
+            if(!d.catMelaminas && d.melImg1) {
+                d.catMelaminas = [];
+                for(let i=1; i<=4; i++) if(d[`melImg${i}`]) d.catMelaminas.push({img: d[`melImg${i}`], tit: d[`melTit${i}`], desc: d[`melDesc${i}`]});
+            }
+            if(!d.catCubiertas && d.cubImg1) {
+                d.catCubiertas = [];
+                for(let i=1; i<=4; i++) if(d[`cubImg${i}`]) d.catCubiertas.push({img: d[`cubImg${i}`], tit: d[`cubTit${i}`], desc: d[`cubDesc${i}`]});
+            }
         }
 
         function cargarDatos() {
-            const data = JSON.parse(localStorage.getItem("tm_website_data")) || {};
-            
-            // Cargar Catálogos
+            let localD = JSON.parse(localStorage.getItem("tm_website_data"));
+            if(localD) { migrarViejos(localD); poblar(localD); return; } 
+
+            fetch('data.json')
+                .then(r => r.json())
+                .then(d => { migrarViejos(d); poblar(d); })
+                .catch(e => console.log("No data.json"));
+        }
+
+        function poblar(data) {
+            if(!data) return;
             if(data.catMelaminas) catalogDB.melaminas = data.catMelaminas;
             if(data.catCubiertas) catalogDB.cubiertas = data.catCubiertas;
             if(data.catHerrajes) catalogDB.herrajes = data.catHerrajes;
-            
             renderLista('melaminas'); renderLista('cubiertas'); renderLista('herrajes');
 
-            // Cargar Resto
-            const map = {
+            const m = {
                 'in-mela-bg':'melaBg', 'in-mela-info':'melaInfo', 'in-cubi-bg':'cubiBg', 'in-cubi-info':'cubiInfo', 'in-herr-bg':'herrBg', 'in-herr-info':'herrInfo',
                 'in-top-loc':'topLoc', 'in-top-email':'topEmail', 'in-top-phone':'topPhone', 'in-wa-link':'waLink', 'in-soc-fb':'socFb', 'in-soc-ig':'socIg', 
                 'in-hero-img':'heroImg', 'in-hero-title':'heroTitle', 'in-hero-desc':'heroDesc', 'in-about-title':'aboutTitle', 'in-about-desc':'aboutDesc', 'in-about-b1':'aboutB1', 'in-about-b2':'aboutB2', 'in-about-b3':'aboutB3', 'in-about-b4':'aboutB4',
@@ -407,18 +493,14 @@
                 'in-proc-tit1':'procTit1', 'in-proc-desc1':'procDesc1', 'in-proc-tit2':'procTit2', 'in-proc-desc2':'procDesc2', 'in-proc-tit3':'procTit3', 'in-proc-desc3':'procDesc3', 'in-proc-tit4':'procTit4', 'in-proc-desc4':'procDesc4',
                 'in-cta-title':'ctaTitle', 'in-cta-desc':'ctaDesc', 'in-foot-desc':'footDesc'
             };
-            for (const [id, key] of Object.entries(map)) {
-                if (document.getElementById(id) && data[key]) document.getElementById(id).value = data[key];
-            }
+            for(let [id, k] of Object.entries(m)) if(document.getElementById(id) && data[k]) document.getElementById(id).value = data[k];
         }
 
-        function guardarTodo() {
+        function guardarTodo(silencioso = false) {
             const data = {};
-            data.catMelaminas = catalogDB.melaminas;
-            data.catCubiertas = catalogDB.cubiertas;
-            data.catHerrajes = catalogDB.herrajes;
-
-            const map = {
+            data.catMelaminas = catalogDB.melaminas; data.catCubiertas = catalogDB.cubiertas; data.catHerrajes = catalogDB.herrajes;
+            
+            const m = {
                 'in-mela-bg':'melaBg', 'in-mela-info':'melaInfo', 'in-cubi-bg':'cubiBg', 'in-cubi-info':'cubiInfo', 'in-herr-bg':'herrBg', 'in-herr-info':'herrInfo',
                 'in-top-loc':'topLoc', 'in-top-email':'topEmail', 'in-top-phone':'topPhone', 'in-wa-link':'waLink', 'in-soc-fb':'socFb', 'in-soc-ig':'socIg', 
                 'in-hero-img':'heroImg', 'in-hero-title':'heroTitle', 'in-hero-desc':'heroDesc', 'in-about-title':'aboutTitle', 'in-about-desc':'aboutDesc', 'in-about-b1':'aboutB1', 'in-about-b2':'aboutB2', 'in-about-b3':'aboutB3', 'in-about-b4':'aboutB4',
@@ -428,34 +510,26 @@
                 'in-proc-tit1':'procTit1', 'in-proc-desc1':'procDesc1', 'in-proc-tit2':'procTit2', 'in-proc-desc2':'procDesc2', 'in-proc-tit3':'procTit3', 'in-proc-desc3':'procDesc3', 'in-proc-tit4':'procTit4', 'in-proc-desc4':'procDesc4',
                 'in-cta-title':'ctaTitle', 'in-cta-desc':'ctaDesc', 'in-foot-desc':'footDesc'
             };
-            for (const [id, key] of Object.entries(map)) {
-                if(document.getElementById(id)) data[key] = document.getElementById(id).value;
-            }
+            for(let [id, k] of Object.entries(m)) if(document.getElementById(id)) data[k] = document.getElementById(id).value;
 
             try {
-                localStorage.setItem("tm_website_data", JSON.stringify(data)); // Guarda local como borrador
+                localStorage.setItem("tm_website_data", JSON.stringify(data)); 
                 
-                // DESCARGA DATA.JSON
-                const jsonStr = JSON.stringify(data, null, 2);
-                const blob = new Blob([jsonStr], { type: "application/json" });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url; a.download = "data.json";
-                document.body.appendChild(a); a.click(); document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-
-                mostrarAlerta("¡Archivo data.json descargado! Súbelo a tu GitHub.", "#28a745");
-            } catch(e) {
-                mostrarAlerta("❌ Error de guardado.", "#dc3545");
-            }
+                if(!silencioso) { 
+                    const jsonStr = JSON.stringify(data, null, 2);
+                    const blob = new Blob([jsonStr], { type: "application/json" });
+                    const a = document.createElement("a");
+                    a.href = URL.createObjectURL(blob); a.download = "data.json";
+                    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+                    mostrarAlerta("¡Archivo data.json descargado para GitHub!", "#28a745");
+                }
+            } catch(e) { mostrarAlerta("❌ Memoria llena.", "#dc3545"); }
         }
 
-        function mostrarAlerta(mensaje, color) {
-            const alertBox = document.getElementById("success-alert");
-            alertBox.style.backgroundColor = color;
-            alertBox.innerText = mensaje;
-            alertBox.style.display = "block"; 
-            setTimeout(() => { alertBox.style.display = "none"; }, 5000);
+        function mostrarAlerta(msg, col) {
+            const b = document.getElementById("success-alert");
+            b.style.background = col; b.innerText = msg; b.style.display = "block"; 
+            setTimeout(() => b.style.display="none", 4000);
         }
     </script>
 </body>
