@@ -82,6 +82,9 @@
         .search-item button:hover { background: var(--accent-dark); }
         .edit-box { background: #fdfdfd; border: 2px dashed var(--accent); padding: 20px; border-radius: 12px; display: none; margin-top: 15px;}
 
+        .iframe-container { width: 100%; height: 650px; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; }
+        .iframe-container iframe { width: 100%; height: 100%; border: none; }
+
         .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); backdrop-filter: blur(3px); z-index: 8500; }
         @media (max-width: 900px) {
             .sidebar { position: fixed; left: 0; top: 0; height: 100vh; transform: translateX(-100%); }
@@ -131,18 +134,28 @@
                     <h1 id="page-title">Analytics Real</h1>
                 </div>
                 <div class="header-actions">
-                    <a href="index.html" target="_blank" class="btn-preview">👁️ Ver Web</a>
+                    <button class="btn-preview" style="background:#4285F4;" onclick="window.open('https://analytics.google.com')">📈 Ver Google Analytics</button>
+                    <a href="index.html" target="_blank" class="btn-preview" style="background:#B39B82;">👁️ Ver Web</a>
                 </div>
             </div>
 
-            <div id="success-alert">¡Cambios guardados en la nube con éxito!</div>
+            <div id="success-alert">¡Cambios guardados en la Nube con éxito!</div>
 
+            <!-- DASHBOARD RESTAURADO AL 100% -->
             <div id="dashboard" class="tab-content active">
                 <div class="metrics-grid">
-                    <div class="metric-card"><div class="title">Estado</div><div class="number" style="font-size:1.1rem; color:#28a745;">Conectado a Firebase</div><span class="badge" style="background:#e8f0fe; color:#1a73e8;">Sincronización en Nube</span></div>
+                    <div class="metric-card"><div class="title">Conexión de Datos</div><div class="number" style="font-size:1.1rem; color:#4285F4;">Firebase Activo</div><span class="badge" style="background:#e8f0fe; color:#1a73e8;">Sincronización en Nube</span></div>
+                    <div class="metric-card"><div class="title">Estado Tracker</div><div class="number" style="font-size:1.1rem; color:#28a745;">G-QFL8N8EDV2</div><span class="badge">Activo & Enlazado</span></div>
+                </div>
+                <div class="editor-section" style="max-width: 100%;">
+                    <h3 class="section-title">Reporte Interactivo de Tráfico</h3>
+                    <div class="iframe-container">
+                        <iframe src="https://datastudio.google.com/embed/reporting/87e9bd59-c77e-4504-b014-7ea53544636d/page/kPw4F" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+                    </div>
                 </div>
             </div>
 
+            <!-- AJUSTES GENERALES -->
             <div id="ajustes" class="tab-content">
                 <div class="editor-section">
                     <h3 class="section-title">Barra Superior</h3>
@@ -159,6 +172,12 @@
                         <div class="form-group"><label>Facebook</label><input type="text" id="in-soc-fb"></div>
                         <div class="form-group"><label>Instagram</label><input type="text" id="in-soc-ig"></div>
                     </div>
+                </div>
+                <div class="editor-section">
+                    <h3 class="section-title">Footer (Pie de página)</h3>
+                    <div class="form-group full"><label>Título CTA</label><input type="text" id="in-cta-title"></div>
+                    <div class="form-group full"><label>Descripción CTA</label><textarea id="in-cta-desc"></textarea></div>
+                    <div class="form-group full"><label>Descripción Footer</label><textarea id="in-foot-desc"></textarea></div>
                 </div>
                 <button class="btn-save" onclick="guardarTodo()">☁️ Guardar en la Nube</button>
             </div>
@@ -341,14 +360,15 @@
         </main>
     </div>
 
-    <!-- CONEXIÓN A FIREBASE DE GOOGLE -->
+    <!-- CONEXIÓN A FIREBASE CORRECTA (Versión 10.12.0) -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDkSR85yRiLqlzMTKYPbOxxZviUu9mjRfE",
             authDomain: "despieces-8106b.firebaseapp.com",
+            databaseURL: "https://despieces-8106b-default-rtdb.firebaseio.com",
             projectId: "despieces-8106b",
             storageBucket: "despieces-8106b.firebasestorage.app",
             messagingSenderId: "439428891395",
@@ -375,6 +395,7 @@
             document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             element.classList.add('active'); document.getElementById(tabId).classList.add('active');
+            if(window.innerWidth <= 900) { window.toggleSidebar(); }
         }
 
         window.switchSubTab = function(subTabId, element) {
@@ -441,9 +462,9 @@
             let p = tipo.substring(0,4);
             activeEditIndex[tipo] = index;
             const item = catalogDB[tipo][index];
-            document.getElementById(`edit-${p}-img`).value = item.img;
-            document.getElementById(`edit-${p}-tit`).value = item.tit;
-            document.getElementById(`edit-${p}-desc`).value = item.desc;
+            document.getElementById(`edit-${p}-img`).value = item.img || '';
+            document.getElementById(`edit-${p}-tit`).value = item.tit || '';
+            document.getElementById(`edit-${p}-desc`).value = item.desc || '';
             document.getElementById(`edit-box-${tipo}`).style.display = 'block';
         }
 
@@ -457,7 +478,7 @@
         }
 
         window.eliminarItem = function(tipo) {
-            if(!confirm("¿Borrar?")) return;
+            if(!confirm("¿Seguro que deseas borrar este elemento?")) return;
             catalogDB[tipo].splice(activeEditIndex[tipo], 1);
             document.getElementById(`edit-box-${tipo}`).style.display = 'none';
             window.renderLista(tipo);
@@ -488,7 +509,7 @@
                     if(localD) { 
                         migrarViejos(localD); 
                         poblar(localD); 
-                        mostrarAlerta("Datos rescatados de tu PC. Presiona Guardar para enviarlos a la nube.", "#ffc107");
+                        mostrarAlerta("Datos rescatados de tu PC. Presiona 'Guardar en la Nube' para enviarlos.", "#ffc107");
                     }
                 }
             }).catch((error) => {
@@ -536,9 +557,11 @@
             // Enviar los datos a la Nube de Google!
             set(ref(db, 'tm_website_data'), data)
               .then(() => {
+                  localStorage.setItem("tm_website_data", JSON.stringify(data)); 
                   if(!silencioso) mostrarAlerta("¡Cambios guardados en la nube con éxito! Se verán en todos los celulares.", "#28a745");
               })
               .catch((error) => {
+                  console.error(error);
                   mostrarAlerta("❌ Error al guardar en la nube.", "#dc3545");
               });
         }
