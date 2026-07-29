@@ -17,6 +17,10 @@
     <link rel="icon" type="image/png" href="LOGO1.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <!-- SCRIPTS DE FIREBASE COMPAT (SEGUROS) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
@@ -26,7 +30,6 @@
         <div class="spinner"></div>
     </div>
 
-    <!-- BOTÓN FLOTANTE WHATSAPP CON IMAGEN CUSTOM -->
     <a id="view-float-wa" href="https://wa.me/524423979275" target="_blank" class="whatsapp-float">
         <img src="whatsapp.png" alt="WhatsApp" style="width: 36px; height: 36px; object-fit: contain; z-index: 10000;" onerror="this.style.display='none'">
     </a>
@@ -44,13 +47,13 @@
             <img src="LOGO.png" alt="Logo" style="height: 40px; margin-right: 10px; border-radius: 4px;" onerror="this.style.display='none'">
             <div><div class="logo-text">TODO EN MELAMINA</div><span class="sub-text">DISEÑO & FABRICACIÓN</span></div>
         </div>
-        <button class="mobile-menu-btn" onclick="window.toggleMenu()">☰</button>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
         <nav class="nav" id="main-nav">
-            <a href="#inicio" onclick="window.toggleMenu()">Inicio</a>
-            <a href="#servicios" onclick="window.toggleMenu()">Servicios</a>
-            <a href="javascript:void(0)" onclick="window.abrirSuperCatalogo(); window.toggleMenu();" style="color: var(--accent-wood); font-weight: 600;">🎨 Catálogo de Acabados</a>
-            <a href="#carrusel" onclick="window.toggleMenu()">Inspiración</a>
-            <a href="#galeria" onclick="window.toggleMenu()">Proyectos</a>
+            <a href="#inicio" onclick="toggleMenu()">Inicio</a>
+            <a href="#servicios" onclick="toggleMenu()">Servicios</a>
+            <a href="javascript:void(0)" onclick="abrirSuperCatalogo(); toggleMenu();" style="color: var(--accent-wood); font-weight: 600;">🎨 Catálogo de Acabados</a>
+            <a href="#carrusel" onclick="toggleMenu()">Inspiración</a>
+            <a href="#galeria" onclick="toggleMenu()">Proyectos</a>
             <a id="view-nav-wa" href="https://wa.me/524423979275" target="_blank" class="btn-contacto-destacado">Cotizar ahora</a>
         </nav>
     </header>
@@ -171,32 +174,29 @@
 
     <!-- MODAL CATÁLOGO VISUAL -->
     <div id="super-catalogo-modal" class="super-modal" style="display: none; opacity: 0;">
-        <button class="close-super-modal" onclick="window.cerrarSuperCatalogo()">✖</button>
+        <button class="close-super-modal" onclick="cerrarSuperCatalogo()">✖</button>
         <div class="super-modal-content">
             <h2 class="super-title">Colección de Acabados</h2>
             <p class="super-subtitle">Selecciona una categoría para explorar la calidad de nuestros materiales.</p>
             
             <div class="super-tabs">
-                <button class="s-tab active" onclick="window.filtrarCatalogo('mela', this)">🪵 Melaminas / MDF</button>
-                <button class="s-tab" onclick="window.filtrarCatalogo('cubi', this)">🪨 Cubiertas / Cuarzos</button>
-                <button class="s-tab" onclick="window.filtrarCatalogo('herr', this)">⚙️ Herrajes / Accesorios</button>
+                <button class="s-tab active" onclick="filtrarCatalogo('mela', this)">🪵 Melaminas / MDF</button>
+                <button class="s-tab" onclick="filtrarCatalogo('cubi', this)">🪨 Cubiertas / Cuarzos</button>
+                <button class="s-tab" onclick="filtrarCatalogo('herr', this)">⚙️ Herrajes / Accesorios</button>
             </div>
 
-            <!-- MELAMINAS -->
             <div id="sec-mela" class="super-section active">
                 <div class="super-header-img" id="box-mela-bg" style="display:none;"><img id="view-mela-bg" src="" alt="Melaminas"></div>
                 <div id="info-mela" class="showcase-global-info"></div>
                 <div id="showcase-melaminas" class="super-showcase"></div>
             </div>
 
-            <!-- CUBIERTAS -->
             <div id="sec-cubi" class="super-section">
                 <div class="super-header-img" id="box-cubi-bg" style="display:none;"><img id="view-cubi-bg" src="" alt="Cubiertas"></div>
                 <div id="info-cubi" class="showcase-global-info"></div>
                 <div id="showcase-cubiertas" class="super-showcase"></div>
             </div>
 
-            <!-- HERRAJES -->
             <div id="sec-herr" class="super-section">
                 <div class="super-header-img" id="box-herr-bg" style="display:none;"><img id="view-herr-bg" src="" alt="Herrajes"></div>
                 <div id="info-herr" class="showcase-global-info"></div>
@@ -205,11 +205,8 @@
         </div>
     </div>
 
-    <!-- CONEXIÓN A FIREBASE DE GOOGLE (VERSIÓN 10.12.0) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
+    <!-- CÓDIGO DE CONEXIÓN A FIREBASE -->
+    <script>
         const firebaseConfig = {
             apiKey: "AIzaSyDkSR85yRiLqlzMTKYPbOxxZviUu9mjRfE",
             authDomain: "despieces-8106b.firebaseapp.com",
@@ -219,11 +216,9 @@
             messagingSenderId: "439428891395",
             appId: "1:439428891395:web:7c52a7acf4abec4202df36"
         };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
-        // Preloader
         window.addEventListener('load', function() {
             const preloader = document.getElementById('preloader');
             if (preloader) {
@@ -232,12 +227,12 @@
             }
         });
 
-        window.toggleMenu = function() {
+        function toggleMenu() {
             const nav = document.getElementById('main-nav');
             if(window.innerWidth <= 768) { nav.classList.toggle('active'); }
         }
 
-        window.abrirSuperCatalogo = function() {
+        function abrirSuperCatalogo() {
             const modal = document.getElementById('super-catalogo-modal');
             if(modal) {
                 modal.style.display = 'block';
@@ -246,7 +241,7 @@
             }
         }
 
-        window.cerrarSuperCatalogo = function() {
+        function cerrarSuperCatalogo() {
             const modal = document.getElementById('super-catalogo-modal');
             if(modal) {
                 modal.style.opacity = '0';
@@ -255,19 +250,19 @@
             }
         }
 
-        window.filtrarCatalogo = function(tipo, btn) {
+        function filtrarCatalogo(tipo, btn) {
             document.querySelectorAll('.s-tab').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             document.querySelectorAll('.super-section').forEach(sec => sec.classList.remove('active'));
             document.getElementById(`sec-${tipo}`).classList.add('active');
         }
 
-        // LECTURA DE FIREBASE
-        get(child(ref(db), 'tm_website_data')).then((snapshot) => {
+        // LEER LOS DATOS DIRECTO DE FIREBASE (La Nube)
+        db.ref('tm_website_data').once('value').then((snapshot) => {
             if (snapshot.exists()) {
                 aplicarDatosPagina(snapshot.val());
             } else {
-                console.log("Base de datos vacía, buscando en local...");
+                console.log("No hay datos en la nube. Lee el LocalStorage.");
                 const dataLocal = JSON.parse(localStorage.getItem("tm_website_data"));
                 if(dataLocal) aplicarDatosPagina(dataLocal);
             }
@@ -280,17 +275,23 @@
         function aplicarDatosPagina(data) {
             if (!data) return;
 
-            // Catálogo: Portadas 16:9
+            if(!data.catMelaminas && data.melImg1) {
+                data.catMelaminas = [];
+                for(let i=1; i<=4; i++) if(data[`melImg${i}`]) data.catMelaminas.push({img: data[`melImg${i}`], tit: data[`melTit${i}`], desc: data[`melDesc${i}`]});
+            }
+            if(!data.catCubiertas && data.cubImg1) {
+                data.catCubiertas = [];
+                for(let i=1; i<=4; i++) if(data[`cubImg${i}`]) data.catCubiertas.push({img: data[`cubImg${i}`], tit: data[`cubTit${i}`], desc: data[`cubDesc${i}`]});
+            }
+
             if(data.melaBg && data.melaBg.trim() !== '') { document.getElementById('view-mela-bg').src = data.melaBg; document.getElementById('box-mela-bg').style.display = 'block'; }
             if(data.cubiBg && data.cubiBg.trim() !== '') { document.getElementById('view-cubi-bg').src = data.cubiBg; document.getElementById('box-cubi-bg').style.display = 'block'; }
             if(data.herrBg && data.herrBg.trim() !== '') { document.getElementById('view-herr-bg').src = data.herrBg; document.getElementById('box-herr-bg').style.display = 'block'; }
 
-            // Catálogo: Textos Globales
             if(data.melaInfo && data.melaInfo.trim() !== '') { document.getElementById('info-mela').innerHTML = `<p>${data.melaInfo}</p>`; document.getElementById('info-mela').style.display = 'block'; } else { document.getElementById('info-mela').style.display = 'none'; }
             if(data.cubiInfo && data.cubiInfo.trim() !== '') { document.getElementById('info-cubi').innerHTML = `<p>${data.cubiInfo}</p>`; document.getElementById('info-cubi').style.display = 'block'; } else { document.getElementById('info-cubi').style.display = 'none'; }
             if(data.herrInfo && data.herrInfo.trim() !== '') { document.getElementById('info-herr').innerHTML = `<p>${data.herrInfo}</p>`; document.getElementById('info-herr').style.display = 'block'; } else { document.getElementById('info-herr').style.display = 'none'; }
 
-            // Catálogo: Tarjetas
             let htmlMela = '', htmlCubi = '', htmlHerr = '';
             if(data.catMelaminas && data.catMelaminas.length > 0) { data.catMelaminas.forEach(item => { if(item.img && item.img.trim() !== '') { htmlMela += `<div class="magic-card"><img src="${item.img}" alt="Material"><div class="magic-info"><h3>${item.tit || 'Acabado'}</h3><p>${item.desc || ''}</p></div></div>`; } }); }
             if(data.catCubiertas && data.catCubiertas.length > 0) { data.catCubiertas.forEach(item => { if(item.img && item.img.trim() !== '') { htmlCubi += `<div class="magic-card"><img src="${item.img}" alt="Cubierta"><div class="magic-info"><h3>${item.tit || 'Piedra'}</h3><p>${item.desc || ''}</p></div></div>`; } }); }
@@ -300,7 +301,6 @@
             if(document.getElementById('showcase-cubiertas')) document.getElementById('showcase-cubiertas').innerHTML = htmlCubi || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
             if(document.getElementById('showcase-herrajes')) document.getElementById('showcase-herrajes').innerHTML = htmlHerr || '<p style="color:#aaa; text-align:center; width:100%;">Próximamente...</p>';
 
-            // Resto de la página
             const map = {
                 'view-top-loc':'topLoc', 'view-top-email':'topEmail', 'view-top-phone':'topPhone',
                 'view-hero-img':'heroImg', 'view-hero-title':'heroTitle', 'view-hero-desc':'heroDesc',
@@ -317,7 +317,6 @@
                 }
             }
 
-            // Enlaces
             if(data.waLink) {
                 if(document.getElementById("view-float-wa")) document.getElementById("view-float-wa").href = data.waLink;
                 if(document.getElementById("view-nav-wa")) document.getElementById("view-nav-wa").href = data.waLink;
@@ -330,7 +329,6 @@
                 if(document.getElementById("view-gal-link")) document.getElementById("view-gal-link").href = data.galLink;
             }
 
-            // Ciclos
             for(let i=1; i<=5; i++) {
                 if(data[`carImg${i}`] && document.getElementById(`view-car-img${i}`)) document.getElementById(`view-car-img${i}`).src = data[`carImg${i}`];
                 if(data[`carTxt${i}`] && document.getElementById(`view-car-txt${i}`)) document.getElementById(`view-car-txt${i}`).innerText = data[`carTxt${i}`];
@@ -343,13 +341,11 @@
             }
         }
 
-        // ANIMACIONES SCROLL
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.scroll-anim').forEach((el) => observer.observe(el));
 
-        // CARRUSEL 3D
         const carousel3d = document.getElementById('carousel-3d');
         const slider = document.getElementById('carousel-slider');
         if(carousel3d && slider) {
@@ -359,7 +355,6 @@
             });
         }
 
-        // TARJETA PORTADA (DRAG)
         const card = document.getElementById("draggable-card");
         const dragHandle = document.getElementById("card-drag-handle");
         const portadaContainer = document.querySelector(".hero-portada");
