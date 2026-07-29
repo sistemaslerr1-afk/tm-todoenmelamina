@@ -4,52 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo en Melamina | Diseño y Fabricación en Querétaro</title>
-    <meta name="description" content="Diseño y fabricación de mobiliario a medida en melamina y maderas finas.">
-    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QFL8N8EDV2"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-QFL8N8EDV2');
-    </script>
-
-    <link rel="icon" type="image/png" href="LOGO1.png">
+    <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-QFL8N8EDV2');</script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="preloader"><img src="LOGO.png" class="preloader-icon" onerror="this.style.display='none'"><div class="loader-logo">TODO EN MELAMINA</div><div class="spinner"></div></div>
 
-    <!-- PANTALLA DE CARGA (PRELOADER) -->
-    <div id="preloader">
-        <img src="LOGO.png" alt="Icono" class="preloader-icon" onerror="this.style.display='none'">
-        <div class="loader-logo">TODO EN MELAMINA</div>
-        <div class="spinner"></div>
-    </div>
+    <a id="view-float-wa" href="https://wa.me/524423979275" target="_blank" class="whatsapp-float"><img src="whatsapp.png" style="width: 36px; height: 36px; object-fit: contain; z-index: 10000;" onerror="this.style.display='none'"></a>
 
-    <!-- BOTÓN FLOTANTE WHATSAPP CON IMAGEN CUSTOM -->
-    <a id="view-float-wa" href="https://wa.me/524423979275" target="_blank" class="whatsapp-float">
-        <img src="whatsapp.png" alt="WhatsApp" style="width: 36px; height: 36px; object-fit: contain; z-index: 10000;">
-    </a>
+    <div class="top-bar"><div class="top-bar-content"><span id="view-top-loc">📍 Querétaro, Querétaro</span><span id="view-top-email">✉️ todoenmelaminatm@gmail.com</span><span id="view-top-phone">📞 +52 442 397 9275</span></div></div>
 
-    <!-- BARRA SUPERIOR -->
-    <div class="top-bar">
-        <div class="top-bar-content">
-            <span id="view-top-loc">📍 Querétaro, Querétaro</span>
-            <span id="view-top-email">✉️ todoenmelaminatm@gmail.com</span>
-            <span id="view-top-phone">📞 +52 442 397 9275</span>
-        </div>
-    </div>
-
-    <!-- ENCABEZADO Y MENÚ -->
     <header class="header">
-        <div class="logo-container">
-            <img src="LOGO.png" alt="Logo" style="height: 40px; margin-right: 10px; border-radius: 4px;" onerror="this.style.display='none'">
-            <div><div class="logo-text">TODO EN MELAMINA</div><span class="sub-text">DISEÑO & FABRICACIÓN</span></div>
-        </div>
-        
+        <div class="logo-container"><img src="LOGO.png" style="height: 40px; margin-right: 10px;" onerror="this.style.display='none'"><div><div class="logo-text">TODO EN MELAMINA</div><span class="sub-text">DISEÑO & FABRICACIÓN</span></div></div>
         <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
-        
         <nav class="nav" id="main-nav">
             <a href="#inicio" onclick="toggleMenu()">Inicio</a>
             <a href="#servicios" onclick="toggleMenu()">Servicios</a>
@@ -60,23 +29,15 @@
         </nav>
     </header>
 
-    <!-- PORTADA -->
     <section id="inicio" class="hero-portada">
-        <img id="view-hero-img" src="FOND.jpeg" alt="Fondo Todo en Melamina" class="hero-bg-img">
-        <div class="hero-overlay-gradient"></div>
+        <img id="view-hero-img" src="FOND.jpeg" class="hero-bg-img"><div class="hero-overlay-gradient"></div>
         <div class="hero-content-glass fade-in-up" id="draggable-card">
             <div class="card-controls" id="card-drag-handle"><span class="drag-hint">⣿ Arrastrar ventana</span><button class="close-card-btn" onclick="document.getElementById('draggable-card').style.display='none'">✖</button></div>
-            <span class="hero-badge">DISEÑO PREMIUM</span>
-            <h1 class="title-main" id="view-hero-title">Transformamos tu espacio en una obra de arte.</h1>
-            <p class="description" id="view-hero-desc">Diseño y fabricación de mobiliario a medida.</p>
-            <div class="hero-buttons">
-                <a href="#contacto" class="cta-button">Agendar Asesoría</a>
-                <a id="view-hero-link" href="https://photos.app.goo.gl/9QjZPD4RUaMiUU2YA" target="_blank" class="cta-button-outline">📸 Ver Álbum de Fotos</a>
-            </div>
+            <span class="hero-badge">DISEÑO PREMIUM</span><h1 class="title-main" id="view-hero-title">Transformamos tu espacio en una obra de arte.</h1><p class="description" id="view-hero-desc">Diseño y fabricación de mobiliario a medida.</p>
+            <div class="hero-buttons"><a href="#contacto" class="cta-button">Agendar Asesoría</a><a id="view-hero-link" href="#" target="_blank" class="cta-button-outline">📸 Ver Álbum de Fotos</a></div>
         </div>
     </section>
 
-    <!-- NOSOTROS -->
     <section class="about-section scroll-anim">
         <div class="about-container">
             <div class="about-text"><h2 id="view-about-title">Diseño <span class="text-italic">funcional</span> e inteligente</h2><p id="view-about-desc">Nos especializamos en optimizar cada centímetro de tu hogar u oficina con materiales de la más alta calidad y un diseño minimalista que resalta la belleza de tu entorno.</p></div>
@@ -89,7 +50,6 @@
         </div>
     </section>
 
-    <!-- CARRUSEL 3D -->
     <section id="carrusel" class="carousel-section scroll-anim">
         <div class="section-header"><h2>Inspiración en Melamina</h2><p>Usa la barra inferior para girar y explorar nuestros diseños.</p></div>
         <div class="scene">
@@ -104,7 +64,6 @@
         <div class="slider-container"><input type="range" min="0" max="360" value="0" class="carousel-slider" id="carousel-slider"></div>
     </section>
 
-    <!-- SERVICIOS -->
     <section id="servicios" class="services scroll-anim">
         <div class="section-header"><h2>Nuestros Servicios</h2><p>Soluciones a medida para cada área de tu vida.</p></div>
         <div class="cards-grid">
@@ -114,7 +73,6 @@
         </div>
     </section>
 
-    <!-- PROCESO DE TRABAJO -->
     <section class="process-section scroll-anim">
         <div class="section-header"><h2>Nuestro Proceso de Trabajo</h2><p>Transparencia y calidad desde la primera cita.</p></div>
         <div class="process-grid">
@@ -141,7 +99,6 @@
         </div>
     </section>
 
-    <!-- GALERÍA -->
     <section id="galeria" class="gallery-section scroll-anim">
         <div class="section-header"><h2>Proyectos Destacados</h2><p>Explora la calidad y detalle de nuestras instalaciones.</p></div>
         <div class="gallery-grid">
@@ -154,7 +111,6 @@
         </div>
     </section>
 
-    <!-- PREGUNTAS FRECUENTES -->
     <section class="faq-section scroll-anim">
         <div class="section-header"><h2>Preguntas Frecuentes</h2></div>
         <div class="faq-container">
@@ -164,7 +120,6 @@
         </div>
     </section>
 
-    <!-- CTA CONTACTO -->
     <section id="contacto" class="cta-banner scroll-anim">
         <div class="cta-content">
             <h2 id="view-cta-title">¿Listo para renovar tu espacio?</h2>
@@ -173,7 +128,6 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-column"><div class="footer-logo">TODO EN <span>MELAMINA</span></div><p id="view-foot-desc">Transformando espacios con elegancia y precisión, diseñando muebles que cuentan historias.</p><div class="social-links"><a id="view-soc-fb" href="#" target="_blank" title="Facebook">FB</a><a id="view-soc-ig" href="#" target="_blank" title="Instagram">IG</a></div></div>
@@ -183,7 +137,7 @@
         <div class="footer-bottom"><p>&copy; 2026 Todo en Melamina. Todos los derechos reservados.</p></div>
     </footer>
 
-    <!-- MODAL CATÁLOGO VISUAL -->
+    <!-- MODAL CATÁLOGO VISUAL FLOTANTE -->
     <div id="super-catalogo-modal" class="super-modal" style="display: none; opacity: 0;">
         <button class="close-super-modal" onclick="cerrarSuperCatalogo()">✖</button>
         <div class="super-modal-content">
