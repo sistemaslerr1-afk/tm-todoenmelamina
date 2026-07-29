@@ -98,7 +98,6 @@
         }
     </style>
     
-    <!-- SCRIPTS DE FIREBASE (Versión Compat, 100% segura para botones) -->
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 </head>
@@ -126,6 +125,7 @@
                 <li class="tab-link" onclick="switchTab('nosotros', this)">📖 Nosotros</li>
                 <li class="tab-link" onclick="switchTab('carrusel', this)">🎡 Carrusel</li>
                 <li class="tab-link" onclick="switchTab('catalogo', this)">🎨 Catálogo Acabados</li>
+                <li class="tab-link" onclick="switchTab('videos', this)">🎥 Sección de Videos</li>
                 <li class="tab-link" onclick="switchTab('servicios', this)">🛠️ Servicios</li>
                 <li class="tab-link" onclick="switchTab('proceso', this)">📋 Proceso de Trabajo</li>
             </ul>
@@ -145,7 +145,7 @@
 
             <div id="success-alert">¡Cambios guardados en la Nube con éxito!</div>
 
-            <!-- DASHBOARD RESTAURADO -->
+            <!-- DASHBOARD -->
             <div id="dashboard" class="tab-content active">
                 <div class="metrics-grid">
                     <div class="metric-card"><div class="title">Conexión de Datos</div><div class="number" style="font-size:1.1rem; color:#4285F4;">Firebase Activo</div><span class="badge" style="background:#e8f0fe; color:#1a73e8;">Sincronización en Nube</span></div>
@@ -249,7 +249,7 @@
                         <button class="btn-preview" style="background:#17a2b8;" onclick="agregarItem('melaminas')">Añadir al Catálogo</button>
                     </div>
                     <div class="editor-section">
-                        <h3 class="section-title">✏️ Editar Existentes</h3>
+                        <h3 class="section-title">✏️ Editar / Borrar Existentes</h3>
                         <input type="text" class="search-bar" id="search-mela" placeholder="🔍 Buscar melamina..." onkeyup="renderLista('melaminas')">
                         <div class="search-results-list" id="list-melaminas"></div>
                         <div class="edit-box" id="edit-box-melaminas">
@@ -259,9 +259,9 @@
                                 <div class="form-group"><label>Nombre</label><input type="text" id="edit-mela-tit"></div>
                                 <div class="form-group full"><label>Descripción</label><input type="text" id="edit-mela-desc"></div>
                             </div>
-                            <div style="display:flex; gap:10px;">
+                            <div style="display:flex; gap:10px; margin-top:10px;">
                                 <button class="btn-preview" onclick="guardarEdicion('melaminas')">💾 Actualizar</button>
-                                <button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('melaminas')">🗑️ Eliminar</button>
+                                <button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('melaminas')">🗑️ Borrar Definitivamente</button>
                             </div>
                         </div>
                     </div>
@@ -283,7 +283,7 @@
                         <button class="btn-preview" style="background:#17a2b8;" onclick="agregarItem('cubiertas')">Añadir al Catálogo</button>
                     </div>
                     <div class="editor-section">
-                        <h3 class="section-title">✏️ Editar Existentes</h3>
+                        <h3 class="section-title">✏️ Editar / Borrar Existentes</h3>
                         <input type="text" class="search-bar" id="search-cubi" placeholder="🔍 Buscar cubierta..." onkeyup="renderLista('cubiertas')">
                         <div class="search-results-list" id="list-cubiertas"></div>
                         <div class="edit-box" id="edit-box-cubiertas">
@@ -293,9 +293,9 @@
                                 <div class="form-group"><label>Nombre</label><input type="text" id="edit-cubi-tit"></div>
                                 <div class="form-group full"><label>Descripción</label><input type="text" id="edit-cubi-desc"></div>
                             </div>
-                            <div style="display:flex; gap:10px;">
+                            <div style="display:flex; gap:10px; margin-top:10px;">
                                 <button class="btn-preview" onclick="guardarEdicion('cubiertas')">💾 Actualizar</button>
-                                <button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('cubiertas')">🗑️ Eliminar</button>
+                                <button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('cubiertas')">🗑️ Borrar Definitivamente</button>
                             </div>
                         </div>
                     </div>
@@ -317,7 +317,7 @@
                         <button class="btn-preview" style="background:#17a2b8;" onclick="agregarItem('herrajes')">Añadir al Catálogo</button>
                     </div>
                     <div class="editor-section">
-                        <h3 class="section-title">✏️ Editar Existentes</h3>
+                        <h3 class="section-title">✏️ Editar / Borrar Existentes</h3>
                         <input type="text" class="search-bar" id="search-herr" placeholder="🔍 Buscar herraje..." onkeyup="renderLista('herrajes')">
                         <div class="search-results-list" id="list-herrajes"></div>
                         <div class="edit-box" id="edit-box-herrajes">
@@ -327,10 +327,50 @@
                                 <div class="form-group"><label>Nombre</label><input type="text" id="edit-herr-tit"></div>
                                 <div class="form-group full"><label>Descripción</label><input type="text" id="edit-herr-desc"></div>
                             </div>
-                            <div style="display:flex; gap:10px;">
+                            <div style="display:flex; gap:10px; margin-top:10px;">
                                 <button class="btn-preview" onclick="guardarEdicion('herrajes')">💾 Actualizar</button>
-                                <button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('herrajes')">🗑️ Eliminar</button>
+                                <button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('herrajes')">🗑️ Borrar Definitivamente</button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-save" onclick="guardarTodo()">☁️ Guardar en la Nube</button>
+            </div>
+
+            <!-- SECCIÓN NUEVA: VIDEOS -->
+            <div id="videos" class="tab-content">
+                <div class="editor-section" style="background:#eefaf1;">
+                    <h3 class="section-title">➕ Agregar Nuevo Video</h3>
+                    <div class="form-grid">
+                        <div class="form-group full">
+                            <label>Enlace del Video (YouTube o URL .mp4)</label>
+                            <input type="text" id="add-vide-url" placeholder="Ej: https://www.youtube.com/watch?v=XXXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label>Título del Video</label>
+                            <input type="text" id="add-vide-tit" placeholder="Ej: Recorrido Cocina Integral">
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción Corta</label>
+                            <input type="text" id="add-vide-desc" placeholder="Ej: Acabados en Nogal y Cubierta Cuarzo">
+                        </div>
+                    </div>
+                    <button class="btn-preview" style="background:#17a2b8;" onclick="agregarItem('videos')">Añadir Video</button>
+                </div>
+                <div class="editor-section">
+                    <h3 class="section-title">✏️ Editar / Borrar Videos Existentes</h3>
+                    <input type="text" class="search-bar" id="search-vide" placeholder="🔍 Buscar video..." onkeyup="renderLista('videos')">
+                    <div class="search-results-list" id="list-videos"></div>
+                    <div class="edit-box" id="edit-box-videos">
+                        <h4>Editando Video</h4>
+                        <div class="form-grid">
+                            <div class="form-group full"><label>URL Video</label><input type="text" id="edit-vide-url"></div>
+                            <div class="form-group"><label>Título</label><input type="text" id="edit-vide-tit"></div>
+                            <div class="form-group"><label>Descripción</label><input type="text" id="edit-vide-desc"></div>
+                        </div>
+                        <div style="display:flex; gap:10px; margin-top:10px;">
+                            <button class="btn-preview" onclick="guardarEdicion('videos')">💾 Actualizar Video</button>
+                            <button class="btn-preview" style="background:#dc3545;" onclick="eliminarItem('videos')">🗑️ Borrar Definitivamente</button>
                         </div>
                     </div>
                 </div>
@@ -364,9 +404,7 @@
         </main>
     </div>
 
-    <!-- CONEXIÓN A FIREBASE CORRECTA Y SEGURA PARA BOTONES -->
     <script>
-        // CONFIGURACIÓN DE FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyDkSR85yRiLqlzMTKYPbOxxZviUu9mjRfE",
             authDomain: "despieces-8106b.firebaseapp.com",
@@ -379,8 +417,8 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        let catalogDB = { melaminas: [], cubiertas: [], herrajes: [] };
-        let activeEditIndex = { melaminas: -1, cubiertas: -1, herrajes: -1 };
+        let catalogDB = { melaminas: [], cubiertas: [], herrajes: [], videos: [] };
+        let activeEditIndex = { melaminas: -1, cubiertas: -1, herrajes: -1, videos: -1 };
 
         function checkLogin() {
             if (document.getElementById("admin-pass").value.trim() === "admin2026") {
@@ -397,8 +435,7 @@
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             element.classList.add('active'); document.getElementById(tabId).classList.add('active');
             
-            // REPARACIÓN DEL TÍTULO DE LA PÁGINA
-            const titles = { 'dashboard':'Analytics Real', 'ajustes':'Generales & Redes', 'portada':'Edición de Portada', 'nosotros':'Sección Nosotros', 'carrusel':'Editor de Carrusel', 'catalogo':'Catálogo Acabados', 'servicios':'Edición de Servicios', 'proceso': 'Proceso y FAQ', 'proyectos':'Galería de Proyectos' };
+            const titles = { 'dashboard':'Analytics Real', 'ajustes':'Generales & Redes', 'portada':'Edición de Portada', 'nosotros':'Sección Nosotros', 'carrusel':'Editor de Carrusel', 'catalogo':'Catálogo Acabados', 'videos':'Sección de Videos', 'servicios':'Edición de Servicios', 'proceso': 'Proceso y FAQ' };
             document.getElementById('page-title').innerText = titles[tabId] || 'Admin';
             
             if(window.innerWidth <= 900) { toggleSidebar(); }
@@ -433,14 +470,23 @@
 
         function agregarItem(tipo) {
             let p = tipo.substring(0,4);
-            const img = document.getElementById(`add-${p}-img`).value;
-            const tit = document.getElementById(`add-${p}-tit`).value;
-            const desc = document.getElementById(`add-${p}-desc`).value;
+            let item = {};
+            if(tipo === 'videos') {
+                item.url = document.getElementById(`add-${p}-url`).value;
+                item.tit = document.getElementById(`add-${p}-tit`).value;
+                item.desc = document.getElementById(`add-${p}-desc`).value;
+                document.getElementById(`add-${p}-url`).value = '';
+            } else {
+                item.img = document.getElementById(`add-${p}-img`).value;
+                item.tit = document.getElementById(`add-${p}-tit`).value;
+                item.desc = document.getElementById(`add-${p}-desc`).value;
+                document.getElementById(`add-${p}-img`).value = '';
+            }
             
-            if(!tit) { alert("Ponle un nombre."); return; }
-            catalogDB[tipo].push({ img, tit, desc });
+            if(!item.tit) { alert("Ponle un título o nombre."); return; }
+            if(!catalogDB[tipo]) catalogDB[tipo] = [];
+            catalogDB[tipo].push(item);
             
-            document.getElementById(`add-${p}-img`).value = '';
             document.getElementById(`add-${p}-tit`).value = '';
             document.getElementById(`add-${p}-desc`).value = '';
             
@@ -450,12 +496,15 @@
 
         function renderLista(tipo) {
             let p = tipo.substring(0,4);
-            const term = document.getElementById(`search-${p}`).value.toLowerCase();
+            const inputElem = document.getElementById(`search-${p}`);
+            const term = inputElem ? inputElem.value.toLowerCase() : '';
             const container = document.getElementById(`list-${tipo}`);
+            if(!container) return;
             container.innerHTML = '';
             
+            if(!catalogDB[tipo]) catalogDB[tipo] = [];
             catalogDB[tipo].forEach((item, index) => {
-                if(item.tit.toLowerCase().includes(term)) {
+                if((item.tit || '').toLowerCase().includes(term)) {
                     const div = document.createElement('div');
                     div.className = 'search-item';
                     div.innerHTML = `<span>${item.tit}</span> <button onclick="iniciarEdicion('${tipo}', ${index})">✏️ Editar</button>`;
@@ -468,7 +517,11 @@
             let p = tipo.substring(0,4);
             activeEditIndex[tipo] = index;
             const item = catalogDB[tipo][index];
-            document.getElementById(`edit-${p}-img`).value = item.img || '';
+            if(tipo === 'videos') {
+                document.getElementById(`edit-${p}-url`).value = item.url || '';
+            } else {
+                document.getElementById(`edit-${p}-img`).value = item.img || '';
+            }
             document.getElementById(`edit-${p}-tit`).value = item.tit || '';
             document.getElementById(`edit-${p}-desc`).value = item.desc || '';
             document.getElementById(`edit-box-${tipo}`).style.display = 'block';
@@ -477,49 +530,33 @@
         function guardarEdicion(tipo) {
             let p = tipo.substring(0,4);
             const index = activeEditIndex[tipo];
-            catalogDB[tipo][index] = { img: document.getElementById(`edit-${p}-img`).value, tit: document.getElementById(`edit-${p}-tit`).value, desc: document.getElementById(`edit-${p}-desc`).value };
+            if(tipo === 'videos') {
+                catalogDB[tipo][index] = { url: document.getElementById(`edit-${p}-url`).value, tit: document.getElementById(`edit-${p}-tit`).value, desc: document.getElementById(`edit-${p}-desc`).value };
+            } else {
+                catalogDB[tipo][index] = { img: document.getElementById(`edit-${p}-img`).value, tit: document.getElementById(`edit-${p}-tit`).value, desc: document.getElementById(`edit-${p}-desc`).value };
+            }
             document.getElementById(`edit-box-${tipo}`).style.display = 'none';
             renderLista(tipo);
             guardarTodo(true);
         }
 
         function eliminarItem(tipo) {
-            if(!confirm("¿Seguro que deseas borrar este elemento?")) return;
+            if(!confirm("¿Seguro que deseas borrar este elemento definitivamente?")) return;
             catalogDB[tipo].splice(activeEditIndex[tipo], 1);
             document.getElementById(`edit-box-${tipo}`).style.display = 'none';
             renderLista(tipo);
             guardarTodo(true);
         }
 
-        function migrarViejos(d) {
-            if(!d.catMelaminas && d.melImg1) {
-                d.catMelaminas = [];
-                for(let i=1; i<=4; i++) if(d[`melImg${i}`]) d.catMelaminas.push({img: d[`melImg${i}`], tit: d[`melTit${i}`], desc: d[`melDesc${i}`]});
-            }
-            if(!d.catCubiertas && d.cubImg1) {
-                d.catCubiertas = [];
-                for(let i=1; i<=4; i++) if(d[`cubImg${i}`]) d.catCubiertas.push({img: d[`cubImg${i}`], tit: d[`cubTit${i}`], desc: d[`cubDesc${i}`]});
-            }
-        }
-
         function cargarDatos() {
-            // LEE DESDE FIREBASE
             db.ref('tm_website_data').once('value').then((snapshot) => {
                 if (snapshot.exists()) {
                     let d = snapshot.val();
-                    migrarViejos(d);
                     poblar(d);
                 } else {
                     let localD = JSON.parse(localStorage.getItem("tm_website_data"));
-                    if(localD) { 
-                        migrarViejos(localD); 
-                        poblar(localD); 
-                        mostrarAlerta("Datos rescatados de tu PC. Presiona 'Guardar en la Nube' para enviarlos.", "#ffc107");
-                    }
+                    if(localD) { poblar(localD); }
                 }
-            }).catch((error) => {
-                console.error(error);
-                mostrarAlerta("Error al conectar con la Nube. (Revisa tus permisos en Firebase)", "#dc3545");
             });
         }
 
@@ -528,7 +565,9 @@
             if(data.catMelaminas) catalogDB.melaminas = data.catMelaminas;
             if(data.catCubiertas) catalogDB.cubiertas = data.catCubiertas;
             if(data.catHerrajes) catalogDB.herrajes = data.catHerrajes;
-            renderLista('melaminas'); renderLista('cubiertas'); renderLista('herrajes');
+            if(data.catVideos) catalogDB.videos = data.catVideos;
+            
+            renderLista('melaminas'); renderLista('cubiertas'); renderLista('herrajes'); renderLista('videos');
 
             const m = {
                 'in-mela-bg':'melaBg', 'in-mela-info':'melaInfo', 'in-cubi-bg':'cubiBg', 'in-cubi-info':'cubiInfo', 'in-herr-bg':'herrBg', 'in-herr-info':'herrInfo',
@@ -545,7 +584,10 @@
 
         function guardarTodo(silencioso = false) {
             const data = {};
-            data.catMelaminas = catalogDB.melaminas; data.catCubiertas = catalogDB.cubiertas; data.catHerrajes = catalogDB.herrajes;
+            data.catMelaminas = catalogDB.melaminas; 
+            data.catCubiertas = catalogDB.cubiertas; 
+            data.catHerrajes = catalogDB.herrajes;
+            data.catVideos = catalogDB.videos;
             
             const m = {
                 'in-mela-bg':'melaBg', 'in-mela-info':'melaInfo', 'in-cubi-bg':'cubiBg', 'in-cubi-info':'cubiInfo', 'in-herr-bg':'herrBg', 'in-herr-info':'herrInfo',
@@ -559,15 +601,14 @@
             };
             for(let [id, k] of Object.entries(m)) if(document.getElementById(id)) data[k] = document.getElementById(id).value;
 
-            // ENVÍA LOS DATOS A FIREBASE
             db.ref('tm_website_data').set(data)
               .then(() => {
                   localStorage.setItem("tm_website_data", JSON.stringify(data)); 
-                  if(!silencioso) mostrarAlerta("¡Cambios guardados en la nube con éxito! Se verán en todos los celulares.", "#28a745");
+                  if(!silencioso) mostrarAlerta("¡Cambios guardados en la nube con éxito!", "#28a745");
               })
               .catch((error) => {
                   console.error(error);
-                  mostrarAlerta("❌ Error al guardar. (Revisa tus reglas en Firebase)", "#dc3545");
+                  mostrarAlerta("❌ Error al guardar.", "#dc3545");
               });
         }
 
